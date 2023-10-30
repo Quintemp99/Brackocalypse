@@ -5,10 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(Brackocalypse main.cpp)
 
-configure_file(../Brack-Engine/cmake-build-debug/libBrack_Engine.dll ./ COPYONLY)
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} ../Brack-Engine/cmake-build-debug)
+find_library(Brack_Engine_LIBRARY Brack_Engine)
 
-target_link_libraries(Brackocalypse Brack_Engine)
+if (NOT Brack_Engine_LIBRARY)
+    message(FATAL_ERROR "Brack_Engine library not found")
+endif ()
 
-include_directories(../Brack-Engine)
-
-target_link_directories(Brackocalypse PRIVATE ../Brack-Engine/cmake-build-debug)
+target_link_libraries(Brackocalypse PRIVATE ${Brack_Engine_LIBRARY})
+target_include_directories(Brackocalypse PRIVATE ../Brack-Engine/outfacingInterfaces)
