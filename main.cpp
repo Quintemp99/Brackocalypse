@@ -1,12 +1,9 @@
 #include <iostream>
-#include "GameEngine.hpp"
+#include "test.hpp"
 
 int main() {
-    GameEngine gameEngine = GameEngine();
-    if (gameEngine.Initialize()) {
-        gameEngine.Run();
-        gameEngine.Cleanup();
-    }
+    test a = test();
+    a.Run();
 
     return 0;
 }
