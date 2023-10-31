@@ -13,8 +13,8 @@ if (NOT Brack_Engine_LIBRARY)
 endif ()
 
 if (WIN32 OR WIN64)
-    file(COPY ../Brack-Engine/cmake-build-debug/libBrack_Engine.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-    file(COPY ../Brack-Engine/cmake-build-debug/SDL2.dll DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(GLOB DLL_FILES ../Brack-Engine/cmake-build-debug/*.dll)
+    file(COPY ${DLL_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endif ()
 
 target_link_libraries(Brackocalypse PRIVATE ${Brack_Engine_LIBRARY})
