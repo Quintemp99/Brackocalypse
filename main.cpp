@@ -1,8 +1,12 @@
 #include <iostream>
-
+#include "GameEngine.hpp"
 
 int main() {
-    
-    std::cout << "Hello, World!" << std::endl;
+    GameEngine gameEngine = GameEngine();
+    if (gameEngine.Initialize()) {
+        gameEngine.Run();
+        gameEngine.Cleanup();
+    }
+
     return 0;
 }
