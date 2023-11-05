@@ -1,11 +1,11 @@
 #include <iostream>
-#include "test.hpp"
+#include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 
 int main() {
-    test a = test();
     BrackEngine brackEngine = BrackEngine();
-    a.Run();
-
+    auto scene = Scene();
+    SceneManager::GetInstance().SetActiveScene(scene);
+    brackEngine.Update();
     return 0;
 }
