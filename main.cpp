@@ -3,9 +3,9 @@
 #include "BrackEngine.hpp"
 
 int main() {
-    BrackEngine brackEngine = BrackEngine();
+    BrackEngine brackEngine = BrackEngine(Config());
     auto camera = Camera();
-    camera.SetBackgroundColor(Color(255, 0, 0, 255));
+    camera.SetBackgroundColor(Color(0, 255, 0, 255));
     auto scene = Scene(std::move(camera));
     SceneManager::GetInstance().SetActiveScene(scene);
     brackEngine.Update();
