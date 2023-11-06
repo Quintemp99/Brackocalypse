@@ -8,6 +8,6 @@ int main() {
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     auto scene = Scene(std::move(camera));
     SceneManager::GetInstance().SetActiveScene(scene);
-    brackEngine.Update();
+    brackEngine.Run();
     return 0;
 }
