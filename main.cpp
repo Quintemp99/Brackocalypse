@@ -4,10 +4,10 @@
 
 int main() {
     BrackEngine brackEngine = BrackEngine();
-    auto scene = Scene();
+    auto camera = Camera();
+    camera.SetBackgroundColor(Color(255, 0, 0, 255));
+    auto scene = Scene(std::move(camera));
     SceneManager::GetInstance().SetActiveScene(scene);
-    while(true){
-        brackEngine.Update();
-    }
+    brackEngine.Update();
     return 0;
 }
