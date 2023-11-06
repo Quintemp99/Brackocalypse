@@ -6,6 +6,8 @@ int main() {
     BrackEngine brackEngine = BrackEngine();
     auto scene = Scene();
     SceneManager::GetInstance().SetActiveScene(scene);
-    brackEngine.Update();
+    while(true){
+        brackEngine.Update();
+    }
     return 0;
 }
