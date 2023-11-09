@@ -5,7 +5,11 @@
 #include "BrackEngine.hpp"
 
 int main() {
-    BrackEngine brackEngine = BrackEngine(Config());
+    Config config = new Config();
+    config.windowTitle = "Brackocalypse";
+    config.windowSize = Vector2(800, 600);
+
+    BrackEngine brackEngine = BrackEngine(std::move(config));
     auto camera = Camera();
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     auto scene = Scene(std::move(camera));
