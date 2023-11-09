@@ -1,8 +1,10 @@
 #include <iostream>
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
+#include <Objects/Text.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
+//#include "../Brack-Engine/src/FPSSingleton.hpp"
 
 int main() {
     Config config = new Config();
@@ -20,7 +22,11 @@ int main() {
 
     object.AddComponent(sprite);
 
+
+    Text text = Text("Poepjes", 40);
+
     scene.AddGameObject(object);
+    scene.AddGameObject(text);
 
     SceneManager::GetInstance().SetActiveScene(scene);
 
