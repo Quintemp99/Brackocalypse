@@ -21,16 +21,10 @@ int main() {
 
     GameObject object = GameObject();
 
-    SpriteComponent *sprite = new SpriteComponent();
-
-    object.AddComponent(sprite);
-
-
     Text text = Text("Poepjes", 40);
 
     scene.AddGameObject(object);
     scene.AddGameObject(text);
-
 
     for(int i = 0; i < 10; ++i) {
         GameObject object = GameObject();
