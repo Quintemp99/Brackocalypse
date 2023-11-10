@@ -1,15 +1,36 @@
 #include <iostream>
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
+#include <Objects/Text.hpp>
+#include <Components/AIComponent.hpp>
+#include <Components/AnimationComponent.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
+//#include "../Brack-Engine/src/FPSSingleton.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
 
 int main() {
-    BrackEngine brackEngine = BrackEngine(Config());
+    Config config = new Config();
+    config.windowTitle = "Brackocalypse";
+    config.windowSize = Vector2(800, 600);
+
+    BrackEngine brackEngine = BrackEngine(std::move(config));
     auto camera = Camera();
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     auto scene = Scene(std::move(camera));
+
+    GameObject object = GameObject();
+
+    SpriteComponent *sprite = new SpriteComponent();
+
+    object.AddComponent(sprite);
+
+
+    Text text = Text("Poepjes", 40);
+
+    scene.AddGameObject(object);
+    scene.AddGameObject(text);
+
 
     for(int i = 0; i < 10; ++i) {
         GameObject object = GameObject();
