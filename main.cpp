@@ -21,8 +21,8 @@ int main() {
     auto scene = Scene(std::move(camera));
 
     auto object = std::make_unique<GameObject>();
-    auto audio = std::make_unique<AudioArchetype>();
-    object->AddComponent(std::move(audio));
+    auto audio = AudioComponent();
+    object->AddComponent(audio);
 
     auto text = std::make_unique<Text>("Poepjes");
 
