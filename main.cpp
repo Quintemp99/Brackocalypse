@@ -24,20 +24,20 @@ int main() {
     std::string spritePath = ConfigSingleton::GetInstance().GetBaseAssetPath() + "Sprites/roguelikeSheet_transparent_1.bmp";
     RogueLikeSheetMap rogueLikeSheetMap = RogueLikeSheetMap();
 
-    std::vector<std::string> map{};
-    map.push_back("LQQQQQQQQN");
-    map.push_back("UGGGGGGGGP");
-    map.push_back("UGGGGGGGGP");
-    map.push_back("UGGGGGGGGP");
-    map.push_back("UGGGGGGGGP");
-    map.push_back("UGGGGGGGGP");
-    map.push_back("UGGGGGGGGP");
-    map.push_back("UGGGGGGGGP");
-    map.push_back("UGGGGGGGGP");
-    map.push_back("VYYYYYYYYC");
+    std::vector<std::string> bottomLayer{};
+    bottomLayer.push_back("LQQQQQQQQN");
+    bottomLayer.push_back("UGGGGGGGGP");
+    bottomLayer.push_back("UGGGGGGGGP");
+    bottomLayer.push_back("UGGGGGGGGP");
+    bottomLayer.push_back("UGGGGGGGGP");
+    bottomLayer.push_back("UGGGGGGGGP");
+    bottomLayer.push_back("UGGGGZXGGP");
+    bottomLayer.push_back("UGGGGBMGGP");
+    bottomLayer.push_back("UGGGGGGGGP");
+    bottomLayer.push_back("VYYYYYYYYC");
 
     std::size_t y = 0;
-    for (std::string row : map) {
+    for (std::string row : bottomLayer) {
         std::size_t x = 0;
         for (char c : row) {
             auto object = std::make_unique<GameObject>();
@@ -47,10 +47,8 @@ int main() {
             sprite->spriteSize = std::make_unique<Vector2>(spriteSize);
             sprite->scale = std::make_unique<Vector2>(spriteScale);
             sprite->margin = spriteMargin;
-
             sprite->position = std::make_unique<Vector2>((x*64), (y*64));
             sprite->tileOffset = std::make_unique<Vector2>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)]);
-
             object->AddComponent(std::move(sprite));
             scene.AddGameObject(std::move(object));
             x++;
@@ -59,9 +57,10 @@ int main() {
     }
 
     auto topWall = std::make_unique<GameObject>();
-    auto topWallBoxCollisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(640, 60)) ;
+    auto topWallCollider = std::make_unique<BoxCollisionComponent>(Vector2(640,60));
 
-    topWall->AddComponent(std::move(topWallBoxCollisionComponent));
+    topWall->AddComponent(std::move(topWallCollider));
+
     scene.AddGameObject(std::move(topWall));
 
     SceneManager::GetInstance().SetActiveScene(scene);
