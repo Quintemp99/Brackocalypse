@@ -2,43 +2,67 @@
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
 #include <Objects/Text.hpp>
-#include <Components/AIComponent.hpp>
-#include <Components/AnimationComponent.hpp>
+#include <Components/BoxCollisionComponent.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
-//#include "../Brack-Engine/src/FPSSingleton.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
+#include "Src/RogueLikeSheetMap.hpp"
 
 int main() {
     Config config = new Config();
     config.windowTitle = "Brackocalypse";
-    config.windowSize = Vector2(800, 600);
+    config.windowSize = Vector2(640, 640);
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
     auto camera = Camera();
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     auto scene = Scene(std::move(camera));
 
-    GameObject object = GameObject();
+    int spriteMargin = 1;
+    Vector2 spriteScale = Vector2(4,4);
+    Vector2 spriteSize = Vector2(16,16);
+    std::string spritePath = ConfigSingleton::GetInstance().GetBaseAssetPath() + "Sprites/roguelikeSheet_transparent_1.bmp";
+    RogueLikeSheetMap rogueLikeSheetMap = RogueLikeSheetMap();
 
-    Text text = Text("Poepjes", 40);
+    std::vector<std::string> map{};
+    map.push_back("LQQQQQQQQN");
+    map.push_back("UGGGGGGGGP");
+    map.push_back("UGGGGGGGGP");
+    map.push_back("UGGGGGGGGP");
+    map.push_back("UGGGGGGGGP");
+    map.push_back("UGGGGGGGGP");
+    map.push_back("UGGGGGGGGP");
+    map.push_back("UGGGGGGGGP");
+    map.push_back("UGGGGGGGGP");
+    map.push_back("VYYYYYYYYC");
 
-    scene.AddGameObject(object);
-    scene.AddGameObject(text);
+    std::size_t y = 0;
+    for (std::string row : map) {
+        std::size_t x = 0;
+        for (char c : row) {
+            auto object = std::make_unique<GameObject>();
+            auto sprite = std::make_unique<SpriteComponent>();
+            // dit kunnen header info dingen zijn voor de string map die je kan maken.
+            sprite->spritePath = spritePath;
+            sprite->spriteSize = std::make_unique<Vector2>(spriteSize);
+            sprite->scale = std::make_unique<Vector2>(spriteScale);
+            sprite->margin = spriteMargin;
 
-    for(int i = 0; i < 10; ++i) {
-        GameObject object = GameObject();
-        SpriteComponent *sprite = new SpriteComponent();
-        sprite->spritePath = ConfigSingleton::GetInstance().GetBaseAssetPath() + "Sprites/roguelikeSheet_transparent_1.bmp";
-        sprite->spriteSize = std::make_unique<Vector2>(16, 16);
-        sprite->position = std::make_unique<Vector2>(i*16, 10);
-        sprite->tileOffset = std::make_unique<Vector2>(6,0);
-        sprite->scale = std::make_unique<Vector2>(1, 1);
-        sprite->margin = 1;
+            sprite->position = std::make_unique<Vector2>((x*64), (y*64));
+            sprite->tileOffset = std::make_unique<Vector2>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)]);
 
-        object.AddComponent(sprite);
-        scene.AddGameObject(object);
+            object->AddComponent(std::move(sprite));
+            scene.AddGameObject(std::move(object));
+            x++;
+        }
+        y++;
     }
+
+    auto topWall = std::make_unique<GameObject>();
+    auto topWallBoxCollisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(640, 60)) ;
+
+    topWall->AddComponent(std::move(topWallBoxCollisionComponent));
+    scene.AddGameObject(std::move(topWall));
 
     SceneManager::GetInstance().SetActiveScene(scene);
 
