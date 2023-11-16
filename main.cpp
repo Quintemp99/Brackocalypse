@@ -8,6 +8,7 @@
 #include "BrackEngine.hpp"
 //#include "../Brack-Engine/src/FPSSingleton.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
+#include "Components/AudioComponent.hpp"
 
 int main() {
     Config config = new Config();
@@ -19,16 +20,18 @@ int main() {
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     auto scene = Scene(std::move(camera));
 
-    GameObject object = GameObject();
+    auto object = std::make_unique<GameObject>();
+    auto audio = std::make_unique<AudioArchetype>();
+    object->AddComponent(std::move(audio));
 
-    Text text = Text("Poepjes", 40);
+    auto text = std::make_unique<Text>("Poepjes");
 
-    scene.AddGameObject(object);
-    scene.AddGameObject(text);
+    scene.AddGameObject(std::move(object));
+    scene.AddGameObject(std::move(text));
 
     for(int i = 0; i < 10; ++i) {
-        GameObject object = GameObject();
-        SpriteComponent *sprite = new SpriteComponent();
+        auto object = std::make_unique<GameObject>();
+        auto sprite = std::make_unique<SpriteComponent>();
         sprite->spritePath = ConfigSingleton::GetInstance().GetBaseAssetPath() + "Sprites/roguelikeSheet_transparent_1.bmp";
         sprite->spriteSize = std::make_unique<Vector2>(16, 16);
         sprite->position = std::make_unique<Vector2>(i*16, 10);
@@ -36,8 +39,8 @@ int main() {
         sprite->scale = std::make_unique<Vector2>(1, 1);
         sprite->margin = 1;
 
-        object.AddComponent(sprite);
-        scene.AddGameObject(object);
+        object->AddComponent(std::move(sprite));
+        scene.AddGameObject(std::move(object));
     }
 
     SceneManager::GetInstance().SetActiveScene(scene);
