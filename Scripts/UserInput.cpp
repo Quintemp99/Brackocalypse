@@ -5,6 +5,7 @@
 #include <Components/BehaviourScript.hpp>
 #include <Components/VelocityComponent.hpp>
 #include <Components/TextComponent.hpp>
+#include <Helpers/KeyMap.hpp>
 #include "EngineManagers/InputManager.hpp"
 
 class UserInput : public BehaviourScript {
@@ -19,16 +20,16 @@ public:
     void OnUpdate(float deltaTime) override {
         auto& velocityComponent = ComponentStore::GetInstance().tryGetComponent<VelocityComponent>(entityID);
 
-        if (InputManager::GetInstance().IsKeyPressed('w')) {
+        if (InputManager::GetInstance().IsKeyPressed(KeyMap::w) || InputManager::GetInstance().IsKeyPressed(KeyMap::UP)) {
             velocityComponent.velocity.setY(-100);
-        } else if (InputManager::GetInstance().IsKeyPressed('s')) {
+        } else if (InputManager::GetInstance().IsKeyPressed(KeyMap::s) || InputManager::GetInstance().IsKeyPressed(KeyMap::DOWN)) {
             velocityComponent.velocity.setY(100);
         } else {
             velocityComponent.velocity.setY(0);
         }
-        if (InputManager::GetInstance().IsKeyPressed('a')) {
+        if (InputManager::GetInstance().IsKeyPressed(KeyMap::a) || InputManager::GetInstance().IsKeyPressed(KeyMap::LEFT)) {
             velocityComponent.velocity.setX(-100);
-        } else if (InputManager::GetInstance().IsKeyPressed('d')) {
+        } else if (InputManager::GetInstance().IsKeyPressed(KeyMap::d) || InputManager::GetInstance().IsKeyPressed(KeyMap::RIGHT)) {
             velocityComponent.velocity.setX(100);
         } else {
             velocityComponent.velocity.setX(0);

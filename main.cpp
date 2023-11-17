@@ -1,15 +1,12 @@
 #include <iostream>
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
-#include <Objects/Text.hpp>
 #include <Components/BoxCollisionComponent.hpp>
-#include <Objects/Button.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Src/RogueLikeSheetMap.hpp"
 #include "Scripts/UserInput.cpp"
-#include "Src/PlayerComponent.hpp"
 #include "Src/Player.hpp"
 
 int main() {
@@ -58,36 +55,29 @@ int main() {
     level[1].push_back("..........");
 
 
-//    int y = 0;
-//    for (std::string row : bottomLayer) {
-//        int x = 0;
-//        for (char c : row) {
-//            auto object = std::make_unique<GameObject>();
-//            auto sprite = std::make_unique<SpriteComponent>();
-//            auto& transform = object->TryGetComponent<TransformComponent>();
-//            // dit kunnen header info dingen zijn voor de string map die je kan maken.
-//            sprite->spritePath = spritePath;
-//            sprite->spriteSize = std::make_unique<Vector2>(spriteSize);
-//            sprite->margin = spriteMargin;
-//            sprite->sortingLayer = 2;
-//            float posX = ((x * (spriteSize.getX() * spriteScale.getX())) + ((spriteSize.getX() * spriteScale.getX()) / 2)) - (config.windowSize.getX() / 2);
-//            float posY = ((y * (spriteSize.getY() * spriteScale.getY())) + ((spriteSize.getY() * spriteScale.getY()) / 2)) - (config.windowSize.getY() / 2);
-//            transform.position = std::make_unique<Vector2>(posX,posY);
-//            transform.scale =std::make_unique<Vector2>(spriteScale);
-//            sprite->tileOffset = std::make_unique<Vector2>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)]);
-//            object->AddComponent(std::move(sprite));
-//            scene.AddGameObject(std::move(object));
-//            x++;
-//        }
-//        y++;
-//    }
-
-//    auto topWall = std::make_unique<GameObject>();
-//    auto topWallCollider = std::make_unique<BoxCollisionComponent>(Vector2(640,60));
-
-//    topWall->AddComponent(std::move(topWallCollider));
-//
-//    scene.AddGameObject(std::move(topWall));
+    int y = 0;
+    for (std::string row : level[0]) {
+        int x = 0;
+        for (char c : row) {
+            auto object = std::make_unique<GameObject>();
+            auto sprite = std::make_unique<SpriteComponent>();
+            auto& transform = object->TryGetComponent<TransformComponent>();
+            // dit kunnen header info dingen zijn voor de string map die je kan maken.
+            sprite->spritePath = spritePath;
+            sprite->spriteSize = std::make_unique<Vector2>(spriteSize);
+            sprite->margin = spriteMargin;
+            sprite->sortingLayer = 2;
+            float posX = ((x * (spriteSize.getX() * spriteScale.getX())) + ((spriteSize.getX() * spriteScale.getX()) / 2)) - (config.windowSize.getX() / 2);
+            float posY = ((y * (spriteSize.getY() * spriteScale.getY())) + ((spriteSize.getY() * spriteScale.getY()) / 2)) - (config.windowSize.getY() / 2);
+            transform.position = std::make_unique<Vector2>(posX,posY);
+            transform.scale =std::make_unique<Vector2>(spriteScale);
+            sprite->tileOffset = std::make_unique<Vector2>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)]);
+            object->AddComponent(std::move(sprite));
+            scene.AddGameObject(std::move(object));
+            x++;
+        }
+        y++;
+    }
 
     SceneManager::GetInstance().SetActiveScene(scene);
 

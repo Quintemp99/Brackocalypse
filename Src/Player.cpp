@@ -7,7 +7,6 @@
 #include <Components/TransformComponent.hpp>
 #include <Helpers/Vector2.hpp>
 #include "Player.hpp"
-#include "PlayerComponent.hpp"
 #include "../Scripts/UserInput.cpp"
 
 Player::Player() : GameObject() {
