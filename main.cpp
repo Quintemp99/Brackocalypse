@@ -3,10 +3,14 @@
 #include <Components/AnimationComponent.hpp>
 #include <Objects/Text.hpp>
 #include <Components/BoxCollisionComponent.hpp>
+#include <Objects/Button.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Src/RogueLikeSheetMap.hpp"
+#include "Scripts/UserInput.cpp"
+#include "Src/PlayerComponent.hpp"
+#include "Src/Player.hpp"
 
 int main() {
     Config config = new Config();
@@ -15,53 +19,75 @@ int main() {
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
     auto camera = Camera();
+    camera.AddComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     auto scene = Scene(std::move(camera));
+
+    auto player = std::make_unique<Player>();
+    scene.AddGameObject(std::move(player));
 
     int spriteMargin = 1;
     Vector2 spriteScale = Vector2(4,4);
     Vector2 spriteSize = Vector2(16,16);
-    std::string spritePath = ConfigSingleton::GetInstance().GetBaseAssetPath() + "Sprites/roguelikeSheet_transparent_1.bmp";
+    std::string spritePath = "Sprites/roguelikeSheet_transparent_1.bmp";
     RogueLikeSheetMap rogueLikeSheetMap = RogueLikeSheetMap();
 
-    std::vector<std::string> bottomLayer{};
-    bottomLayer.push_back("LQQQQQQQQN");
-    bottomLayer.push_back("UGGGGGGGGP");
-    bottomLayer.push_back("UGGGGGGGGP");
-    bottomLayer.push_back("UGGGGGGGGP");
-    bottomLayer.push_back("UGGGGGGGGP");
-    bottomLayer.push_back("UGGGGGGGGP");
-    bottomLayer.push_back("UGGGGZXGGP");
-    bottomLayer.push_back("UGGGGBMGGP");
-    bottomLayer.push_back("UGGGGGGGGP");
-    bottomLayer.push_back("VYYYYYYYYC");
+    std::vector<std::vector<std::string>> level{};
+    level.push_back({});
+    level[0].push_back("LQQQQQQQQN");
+    level[0].push_back("UGGGGGGGGP");
+    level[0].push_back("UGGGGGGGGP");
+    level[0].push_back("UGGGGGGGGP");
+    level[0].push_back("UGGGGGGGGP");
+    level[0].push_back("UGGGGGGGGP");
+    level[0].push_back("UGGGGGGGGP");
+    level[0].push_back("UGGGGGGGGP");
+    level[0].push_back("UGGGGGGGGP");
+    level[0].push_back("VYYYYYYYYC");
 
-    std::size_t y = 0;
-    for (std::string row : bottomLayer) {
-        std::size_t x = 0;
-        for (char c : row) {
-            auto object = std::make_unique<GameObject>();
-            auto sprite = std::make_unique<SpriteComponent>();
-            // dit kunnen header info dingen zijn voor de string map die je kan maken.
-            sprite->spritePath = spritePath;
-            sprite->spriteSize = std::make_unique<Vector2>(spriteSize);
-            sprite->scale = std::make_unique<Vector2>(spriteScale);
-            sprite->margin = spriteMargin;
-            sprite->position = std::make_unique<Vector2>((x*64), (y*64));
-            sprite->tileOffset = std::make_unique<Vector2>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)]);
-            object->AddComponent(std::move(sprite));
-            scene.AddGameObject(std::move(object));
-            x++;
-        }
-        y++;
-    }
+    level.push_back({});
+    level[1].push_back("..........");
+    level[1].push_back("..........");
+    level[1].push_back("..........");
+    level[1].push_back("..........");
+    level[1].push_back("..........");
+    level[1].push_back("..........");
+    level[1].push_back("..........");
+    level[1].push_back("..........");
+    level[1].push_back("..........");
+    level[1].push_back("..........");
 
-    auto topWall = std::make_unique<GameObject>();
-    auto topWallCollider = std::make_unique<BoxCollisionComponent>(Vector2(640,60));
 
-    topWall->AddComponent(std::move(topWallCollider));
+//    int y = 0;
+//    for (std::string row : bottomLayer) {
+//        int x = 0;
+//        for (char c : row) {
+//            auto object = std::make_unique<GameObject>();
+//            auto sprite = std::make_unique<SpriteComponent>();
+//            auto& transform = object->TryGetComponent<TransformComponent>();
+//            // dit kunnen header info dingen zijn voor de string map die je kan maken.
+//            sprite->spritePath = spritePath;
+//            sprite->spriteSize = std::make_unique<Vector2>(spriteSize);
+//            sprite->margin = spriteMargin;
+//            sprite->sortingLayer = 2;
+//            float posX = ((x * (spriteSize.getX() * spriteScale.getX())) + ((spriteSize.getX() * spriteScale.getX()) / 2)) - (config.windowSize.getX() / 2);
+//            float posY = ((y * (spriteSize.getY() * spriteScale.getY())) + ((spriteSize.getY() * spriteScale.getY()) / 2)) - (config.windowSize.getY() / 2);
+//            transform.position = std::make_unique<Vector2>(posX,posY);
+//            transform.scale =std::make_unique<Vector2>(spriteScale);
+//            sprite->tileOffset = std::make_unique<Vector2>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)]);
+//            object->AddComponent(std::move(sprite));
+//            scene.AddGameObject(std::move(object));
+//            x++;
+//        }
+//        y++;
+//    }
 
-    scene.AddGameObject(std::move(topWall));
+//    auto topWall = std::make_unique<GameObject>();
+//    auto topWallCollider = std::make_unique<BoxCollisionComponent>(Vector2(640,60));
+
+//    topWall->AddComponent(std::move(topWallCollider));
+//
+//    scene.AddGameObject(std::move(topWall));
 
     SceneManager::GetInstance().SetActiveScene(scene);
 
