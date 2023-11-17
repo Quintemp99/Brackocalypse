@@ -11,7 +11,6 @@
 #include "../Scripts/UserInput.cpp"
 
 Player::Player() : GameObject() {
-    AddComponent(std::make_unique<PlayerComponent>());
     AddComponent(std::make_unique<VelocityComponent>());
     AddComponent(std::make_unique<UserInput>());
     auto sprite = std::make_unique<SpriteComponent>();
