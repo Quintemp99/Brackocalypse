@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(../Brack-Engine ${CMAKE_CURRENT_BINARY_DIR}/Brack-Engine_build)
 
-add_executable(Brackocalypse main.cpp)
+add_executable(Brackocalypse main.cpp Src/SaveLoad.cpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

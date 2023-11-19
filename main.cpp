@@ -9,6 +9,7 @@
 //#include "../Brack-Engine/src/FPSSingleton.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Components/AudioComponent.hpp"
+#include "Src/SaveLoad.hpp"
 
 int main() {
     Config config = new Config();
@@ -19,6 +20,10 @@ int main() {
     auto camera = Camera();
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     auto scene = Scene(std::move(camera));
+
+    SaveLoad saveLoad = SaveLoad(brackEngine);
+    saveLoad.save();
+    saveLoad.load();
 
     auto object = std::make_unique<GameObject>();
     auto audio = AudioComponent();
@@ -34,9 +39,7 @@ int main() {
         auto sprite = std::make_unique<SpriteComponent>();
         sprite->spritePath = ConfigSingleton::GetInstance().GetBaseAssetPath() + "Sprites/roguelikeSheet_transparent_1.bmp";
         sprite->spriteSize = std::make_unique<Vector2>(16, 16);
-        sprite->position = std::make_unique<Vector2>(i*16, 10);
         sprite->tileOffset = std::make_unique<Vector2>(6,0);
-        sprite->scale = std::make_unique<Vector2>(1, 1);
         sprite->margin = 1;
 
         object->AddComponent(std::move(sprite));
