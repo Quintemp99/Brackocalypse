@@ -7,11 +7,10 @@
 #include <Components/TransformComponent.hpp>
 #include <Helpers/Vector2.hpp>
 #include "Player.hpp"
-#include "../Scripts/UserInput.cpp"
+#include "../Scripts/CameraFocussedUserInput.hpp"
 
 Player::Player() : GameObject() {
     AddComponent(std::make_unique<VelocityComponent>());
-    AddComponent(std::make_unique<UserInput>());
     auto sprite = std::make_unique<SpriteComponent>();
     auto& transform = TryGetComponent<TransformComponent>();
     sprite->spritePath = "Sprites/character_maleAdventurer_sheet.png";

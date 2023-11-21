@@ -1,4 +1,3 @@
-#include <iostream>
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
@@ -6,7 +5,7 @@
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Src/RogueLikeSheetMap.hpp"
-#include "Scripts/UserInput.cpp"
+#include "Scripts/CameraFocussedUserInput.hpp"
 #include "Src/Player.hpp"
 
 int main() {
@@ -18,9 +17,11 @@ int main() {
     auto camera = Camera();
     camera.AddComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
-    auto scene = Scene(std::move(camera));
+
 
     auto player = std::make_unique<Player>();
+    player->AddComponent(std::make_unique<CameraFocussedUserInput>());
+    auto scene = Scene(std::move(camera));
     scene.AddGameObject(std::move(player));
 
     int spriteMargin = 1;

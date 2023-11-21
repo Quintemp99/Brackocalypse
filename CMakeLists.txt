@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(../Brack-Engine ${CMAKE_CURRENT_BINARY_DIR}/Brack-Engine_build)
 
 add_executable(Brackocalypse main.cpp
-        Scripts/UserInput.cpp
+        Scripts/CameraFocussedUserInput.cpp
+        Scripts/CameraFocussedUserInput.hpp
         Src/LevelBuilder.cpp
         Src/LevelBuilder.hpp
         Src/Player.cpp
