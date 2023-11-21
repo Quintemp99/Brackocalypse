@@ -14,6 +14,7 @@ int main() {
     Config config = new Config();
     config.windowTitle = "Brackocalypse";
     config.windowSize = Vector2(800, 600);
+    config.fpsLimit = 60;
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
     auto camera = Camera();
@@ -23,23 +24,27 @@ int main() {
     auto object = std::make_unique<GameObject>();
     auto audio = AudioComponent();
     object->AddComponent(audio);
-
+    
     auto text = std::make_unique<Text>("Poepjes");
 
     scene.AddGameObject(std::move(object));
     scene.AddGameObject(std::move(text));
 
-    for(int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 10; ++i) {
         auto object = std::make_unique<GameObject>();
         auto sprite = std::make_unique<SpriteComponent>();
-        sprite->spritePath = ConfigSingleton::GetInstance().GetBaseAssetPath() + "Sprites/roguelikeSheet_transparent_1.bmp";
+        auto transform = std::make_unique<TransformComponent>();
+        sprite->spritePath =
+                ConfigSingleton::GetInstance().GetBaseAssetPath() + "Sprites/roguelikeSheet_transparent_1.bmp";
         sprite->spriteSize = std::make_unique<Vector2>(16, 16);
-        sprite->position = std::make_unique<Vector2>(i*16, 10);
-        sprite->tileOffset = std::make_unique<Vector2>(6,0);
-        sprite->scale = std::make_unique<Vector2>(1, 1);
+        sprite->tileOffset = std::make_unique<Vector2>(6, 0);
         sprite->margin = 1;
 
+        transform->position = std::make_unique<Vector2>(i * 16, 10);
+        transform->scale = std::make_unique<Vector2>(1, 1);
+
         object->AddComponent(std::move(sprite));
+        object->AddComponent(std::move(transform));
         scene.AddGameObject(std::move(object));
     }
 
