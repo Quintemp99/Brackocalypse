@@ -6,6 +6,7 @@
 #include <Helpers/KeyMap.hpp>
 #include <Objects/Camera.hpp>
 #include "EngineManagers/InputManager.hpp"
+#include "../Src/Level.hpp"
 
 
 #ifndef BRACKOCALYPSE_USERINPUT_HPP

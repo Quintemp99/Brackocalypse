@@ -7,6 +7,7 @@
 #include "Src/RogueLikeSheetMap.hpp"
 #include "Scripts/CameraFocussedUserInput.hpp"
 #include "Src/Player.hpp"
+#include "Src/Level.hpp"
 
 int main() {
     Config config = new Config();
@@ -17,12 +18,7 @@ int main() {
     auto camera = Camera();
     camera.AddComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
-
-
-    auto player = std::make_unique<Player>();
-    player->AddComponent(std::make_unique<CameraFocussedUserInput>());
     auto scene = Scene(std::move(camera));
-    scene.AddGameObject(std::move(player));
 
     int spriteMargin = 1;
     Vector2 spriteScale = Vector2(4,4);
@@ -30,46 +26,39 @@ int main() {
     std::string spritePath = "Sprites/roguelikeSheet_transparent_1.bmp";
     RogueLikeSheetMap rogueLikeSheetMap = RogueLikeSheetMap();
 
-    std::vector<std::vector<std::string>> level{};
-    level.push_back({});
-    level[0].push_back("LQQQQQQQQN");
-    level[0].push_back("UGGGGGGGGP");
-    level[0].push_back("UGGGGGGGGP");
-    level[0].push_back("UGGGGGGGGP");
-    level[0].push_back("UGGGGGGGGP");
-    level[0].push_back("UGGGGGGGGP");
-    level[0].push_back("UGGGGGGGGP");
-    level[0].push_back("UGGGGGGGGP");
-    level[0].push_back("UGGGGGGGGP");
-    level[0].push_back("VYYYYYYYYC");
-
-    level.push_back({});
-    level[1].push_back("..........");
-    level[1].push_back("..........");
-    level[1].push_back("..........");
-    level[1].push_back("..........");
-    level[1].push_back("..........");
-    level[1].push_back("..........");
-    level[1].push_back("..........");
-    level[1].push_back("..........");
-    level[1].push_back("..........");
-    level[1].push_back("..........");
-
+    std::vector<std::vector<std::string>> map{};
+    map.push_back({});
+    map[0].push_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].push_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].push_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].push_back("WWWWLQQQQQQQQQQNWWWW");
+    map[0].push_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].push_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].push_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].push_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].push_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].push_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].push_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].push_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].push_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].push_back("WWWWVYYYYYYYYYYCWWWW");
+    map[0].push_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].push_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].push_back("WWWWWWWWWWWWWWWWWWWW");
 
     int y = 0;
-    for (std::string row : level[0]) {
+    for (std::string row : map[0]) {
         int x = 0;
         for (char c : row) {
             auto object = std::make_unique<GameObject>();
             auto sprite = std::make_unique<SpriteComponent>();
             auto& transform = object->TryGetComponent<TransformComponent>();
-            // dit kunnen header info dingen zijn voor de string map die je kan maken.
             sprite->spritePath = spritePath;
             sprite->spriteSize = std::make_unique<Vector2>(spriteSize);
             sprite->margin = spriteMargin;
             sprite->sortingLayer = 2;
-            float posX = ((x * (spriteSize.getX() * spriteScale.getX())) + ((spriteSize.getX() * spriteScale.getX()) / 2)) - (config.windowSize.getX() / 2);
-            float posY = ((y * (spriteSize.getY() * spriteScale.getY())) + ((spriteSize.getY() * spriteScale.getY()) / 2)) - (config.windowSize.getY() / 2);
+            float posX = ((x * (spriteSize.getX() * spriteScale.getX())) + ((spriteSize.getX() * spriteScale.getX()) / 2)) - (20*64 / 2);
+            float posY = ((y * (spriteSize.getY() * spriteScale.getY())) + ((spriteSize.getY() * spriteScale.getY()) / 2)) - (17*64 / 2);
             transform.position = std::make_unique<Vector2>(posX,posY);
             transform.scale =std::make_unique<Vector2>(spriteScale);
             sprite->tileOffset = std::make_unique<Vector2>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)]);
@@ -79,6 +68,10 @@ int main() {
         }
         y++;
     }
+
+    auto player = std::make_unique<Player>();
+    player->AddComponent(std::make_unique<CameraFocussedUserInput>());
+    scene.AddGameObject(std::move(player));
 
     SceneManager::GetInstance().SetActiveScene(scene);
 
