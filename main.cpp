@@ -18,6 +18,7 @@ int main() {
     auto camera = Camera();
     camera.AddComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
+    camera.SetTag("mainCamera");
     auto scene = Scene(std::move(camera));
 
     int spriteMargin = 1;
@@ -52,7 +53,7 @@ int main() {
         for (char c : row) {
             auto object = std::make_unique<GameObject>();
             auto sprite = std::make_unique<SpriteComponent>();
-            auto& transform = object->TryGetComponent<TransformComponent>();
+            auto& transform = object->tryGetComponent<TransformComponent>();
             sprite->spritePath = spritePath;
             sprite->spriteSize = std::make_unique<Vector2>(spriteSize);
             sprite->margin = spriteMargin;
@@ -73,7 +74,7 @@ int main() {
     player->AddComponent(std::make_unique<CameraFocussedUserInput>());
     scene.AddGameObject(std::move(player));
 
-    SceneManager::GetInstance().SetActiveScene(scene);
+    SceneManager::getInstance().setActiveScene(scene);
 
     brackEngine.Run();
     return 0;

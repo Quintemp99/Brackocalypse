@@ -26,7 +26,7 @@ public:
         return std::make_unique<CameraFocussedUserInput>(*this);
     }
 
-    void Accept(ComponentVisitor &visitor) override {
+    void accept(ComponentVisitor &visitor) override {
         visitor.visit(*this);
         onStart();
     }

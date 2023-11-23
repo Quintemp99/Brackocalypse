@@ -7,9 +7,12 @@
 void CameraFocussedUserInput::onStart() {}
 
 void CameraFocussedUserInput::onUpdate(float deltaTime) {
-    auto& playerVelocityComponent = ComponentStore::GetInstance().tryGetComponent<VelocityComponent>(entityID);
-    auto cameraId = ComponentStore::GetInstance().getEntitiesWithComponent<CameraComponent>()[0];
-    auto& cameraVelocityComponent = ComponentStore::GetInstance().tryGetComponent<VelocityComponent>(cameraId);
+    auto& playerVelocityComponent = tryGetComponent<VelocityComponent>();
+    auto camera = getGameObjectByTag("mainCamera");
+
+    if(!camera.has_value()) return;
+
+    auto& cameraVelocityComponent = camera.value().tryGetComponent<VelocityComponent>();
 
     if (InputManager::GetInstance().IsKeyPressed(KeyMap::w) || InputManager::GetInstance().IsKeyPressed(KeyMap::UP)) {
         playerVelocityComponent.velocity.setY(-velocity);

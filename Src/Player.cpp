@@ -12,7 +12,7 @@
 Player::Player() : GameObject() {
     AddComponent(std::make_unique<VelocityComponent>());
     auto sprite = std::make_unique<SpriteComponent>();
-    auto& transform = TryGetComponent<TransformComponent>();
+    auto& transform = tryGetComponent<TransformComponent>();
     sprite->spritePath = "Sprites/character_maleAdventurer_sheet.png";
     sprite->spriteSize = std::make_unique<Vector2>(96,128);
     sprite->margin = 5;
