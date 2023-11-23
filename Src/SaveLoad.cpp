@@ -23,7 +23,7 @@ bool SaveLoad::save(const std::string &filePath) const {
         brackEngine.save(filePath, content);
         return true;
     } catch(std::exception exception) {
-        std::cerr << "Unable to save file" << std::endl;
+        Logger::Error("Unable to save file");
         return false;
     }
 }
@@ -33,7 +33,7 @@ bool SaveLoad::load(const std::string &filePath) const {
         const auto& content = brackEngine.load(filePath);
         return true;
     } catch(std::exception exception) {
-        std::cerr << "Unable to load file" << std::endl;
+        Logger::Error("Unable to load file");
         return false;
     }
 }
