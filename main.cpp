@@ -7,7 +7,6 @@
 #include "Src/RogueLikeSheetMap.hpp"
 #include "Scripts/CameraFocussedUserInput.hpp"
 #include "Src/Player.hpp"
-#include "Src/Level.hpp"
 
 int main() {
     Config config = new Config();

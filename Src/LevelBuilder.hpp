@@ -11,10 +11,11 @@
 
 class LevelBuilder {
 public:
-    LevelBuilder() = default;
+    LevelBuilder(std::vector<std::vector<std::string>> map) : map(map) {}
     ~LevelBuilder() = default;
-    void buildLevel(std::vector<std::vector<std::string>>);
+    void buildLevel();
 private:
+    std::vector<std::vector<std::string>> map;
     std::vector<GameObject> gameObjects;
 };
 
