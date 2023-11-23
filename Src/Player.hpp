@@ -10,7 +10,7 @@
 
 class Player : public GameObject {
 public:
-    Player();
+    Player(size_t layer);
     ~Player() = default;
 };
 

@@ -6,12 +6,18 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(../Brack-Engine ${CMAKE_CURRENT_BINARY_DIR}/Brack-Engine_build)
 
 add_executable(Brackocalypse main.cpp
-        Scripts/CameraFocussedUserInput.cpp
-        Scripts/CameraFocussedUserInput.hpp
+        Scripts/UserInputMovement.cpp
+        Scripts/UserInputMovement.hpp
         Src/LevelBuilder.cpp
         Src/LevelBuilder.hpp
         Src/Player.cpp
-        Src/Player.hpp)
+        Src/Player.hpp
+        Scripts/FollowGameObject.cpp
+        Scripts/FollowGameObject.hpp
+        Src/Factory/LevelFactory.cpp
+        Src/Factory/LevelFactory.hpp
+        Src/RogueLikeMapTiles/RogueLikeMapTile.hpp
+        Src/RogueLikeMapTiles/WaterMapTile.hpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 
