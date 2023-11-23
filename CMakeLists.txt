@@ -11,8 +11,7 @@ add_executable(Brackocalypse main.cpp
         Src/LevelBuilder.cpp
         Src/LevelBuilder.hpp
         Src/Player.cpp
-        Src/Player.hpp
-        Src/Level.hpp)
+        Src/Player.hpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 
