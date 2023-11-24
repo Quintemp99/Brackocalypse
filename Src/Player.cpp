@@ -6,8 +6,10 @@
 #include <Components/SpriteComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Helpers/Vector2.hpp>
+#include <Components/SoundEffectComponent.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
+#include "../Scripts/WalkingSound.hpp"
 
 Player::Player(size_t layer) : GameObject() {
     AddComponent(std::make_unique<VelocityComponent>());
@@ -22,4 +24,9 @@ Player::Player(size_t layer) : GameObject() {
     sprite->tileOffset = std::make_unique<Vector2>(0,0);
     AddComponent(std::move(sprite));
     SetTag("Player");
+
+    auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps.mp3");
+    audioComponent->volume = 0.05;
+    AddComponent(std::move(audioComponent));
+    AddComponent(std::make_unique<WalkingSound>());
 }

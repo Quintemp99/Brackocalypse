@@ -1,5 +1,6 @@
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
+#include <Components/SoundTrackComponent.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
@@ -20,6 +21,10 @@ int main() {
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     camera.SetTag("mainCamera");
     camera.AddComponent(FollowGameObject("Player"));
+    auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
+    backgroundSound->volume = 0.01;
+    backgroundSound->startPlaying = true;
+    camera.AddComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
 
     std::vector<std::vector<std::string>> map{};
