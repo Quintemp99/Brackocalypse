@@ -1,6 +1,7 @@
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
 #include <Components/SoundTrackComponent.hpp>
+#include <Objects/Button.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
@@ -9,6 +10,7 @@
 #include "Src/Player.hpp"
 #include "Scripts/FollowGameObject.hpp"
 #include "Src/LevelBuilder.hpp"
+#include "Src/MuteButton.hpp"
 
 int main() {
     Config config = new Config();
@@ -22,10 +24,13 @@ int main() {
     camera.SetTag("mainCamera");
     camera.AddComponent(FollowGameObject("Player"));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
-    backgroundSound->volume = 0.01;
+    backgroundSound->volume = 0.03;
     backgroundSound->startPlaying = true;
     camera.AddComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
+
+    auto muteButton = std::make_unique<MuteButton>();
+    scene.AddGameObject(std::move(muteButton));
 
     std::vector<std::vector<std::string>> map{};
     map.emplace_back();
