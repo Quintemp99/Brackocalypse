@@ -9,12 +9,34 @@
 #include "Scripts/FollowGameObject.hpp"
 #include "Src/LevelBuilder.hpp"
 
-int main() {
-    Config config = new Config();
-    config.windowTitle = "Brackocalypse";
-    config.windowSize = Vector2(640, 640);
+void homescreen (BrackEngine brackEngine) {
+    auto camera = Camera();
+    camera.AddComponent(VelocityComponent());
+    camera.SetBackgroundColor(Color(0, 255, 0, 255));
+    camera.SetTag("mainCamera");
+    camera.AddComponent(FollowGameObject("Player"));
+    auto scene = Scene(std::move(camera));
 
-    BrackEngine brackEngine = BrackEngine(std::move(config));
+    auto imageBg = std::make_unique<GameObject>();
+    auto spriteBg = std::make_unique<SpriteComponent>();
+    spriteBg->spritePath = "Sprites/logo.png";
+    spriteBg->spriteSize = std::make_unique<Vector2>(500, 500);
+    spriteBg->imageSize = std::make_unique<Vector2>(100,100);
+    spriteBg->tileOffset = std::make_unique<Vector2>(0, 0);
+
+    auto transformBg = std::make_unique<TransformComponent>();
+    auto windowSize = ConfigSingleton::GetInstance().GetWindowSize();
+    auto centerX = windowSize.getX() / 2 - ((500/1*0.4)/2);
+    transformBg->position = std::make_unique<Vector2>(centerX, 30);
+    transformBg->scale = std::make_unique<Vector2>(0.4, 0.4);
+    imageBg->AddComponent(std::move(spriteBg));
+    imageBg->AddComponent(std::move(transformBg));
+    scene.AddGameObject(std::move(imageBg));
+
+    SceneManager::getInstance().setActiveScene(scene);
+}
+
+void game(BrackEngine brackEngine) {
     auto camera = Camera();
     camera.AddComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
@@ -70,6 +92,16 @@ int main() {
     }
 
     SceneManager::getInstance().setActiveScene(scene);
+}
+
+int main() {
+    Config config = new Config();
+    config.windowTitle = "Brackocalypse";
+    config.windowSize = Vector2(640, 640);
+
+    BrackEngine brackEngine = BrackEngine(std::move(config));
+
+    homescreen(brackEngine);
 
     brackEngine.Run();
     return 0;
