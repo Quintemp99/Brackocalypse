@@ -19,6 +19,7 @@ std::unique_ptr<GameObject> LevelFactory::createGameObject(char c, Vector2 posit
         case 'J':
             return std::make_unique<Player>(layer);
         default:
-            return std::make_unique<RogueLikeMapTile>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)], position, size_, layer);
+            return std::make_unique<RogueLikeMapTile>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)],
+                                                      position, size_, layer, static_cast<RogueLikeSheetType>(c));
     }
 }
