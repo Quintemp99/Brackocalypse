@@ -9,7 +9,7 @@ class MuteButton : public Button{
 public:
     MuteButton() : Button(Vector2(50,50), "Mute") {
         setFontSize(24);
-        setClickEvent([this](){
+        setClickEvent([](){
             auto soundTrackIds = ComponentStore::GetInstance().getEntitiesWithComponent<SoundTrackComponent>();
             for (uint32_t soundTrackId: soundTrackIds) {
                 auto& soundTrackComponent = ComponentStore::GetInstance().tryGetComponent<SoundTrackComponent>(soundTrackId);
@@ -19,11 +19,7 @@ public:
                     soundTrackComponent.pauseSound = true;
                 }
             }
-            muted_ = !muted_;
         });
     }
-
-private:
-    bool muted_ = false;
 };
 #endif //BRACKOCALYPSE_MUTEBUTTON_HPP

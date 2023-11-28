@@ -24,7 +24,7 @@ int main() {
     camera.SetTag("mainCamera");
     camera.AddComponent(FollowGameObject("Player"));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
-    backgroundSound->volume = 0.03;
+    backgroundSound->volume = 0.05;
     backgroundSound->startPlaying = true;
     camera.AddComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
