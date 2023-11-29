@@ -32,7 +32,7 @@ struct RogueLikeMapTile : public GameObject {
 
         if (type != RogueLikeSheetType::Grass &&
             type != RogueLikeSheetType::Sand && type != RogueLikeSheetType::Ground
-            && type != RogueLikeSheetType::Stone) {
+            && type != RogueLikeSheetType::Stone && type != RogueLikeSheetType::Water) {
 
             auto colliderComponent = BoxCollisionComponent(size);
             colliderComponent.collisionType = CollisionType::STATIC;
