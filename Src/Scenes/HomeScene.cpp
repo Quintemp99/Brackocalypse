@@ -2,18 +2,16 @@
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
 #include <Objects/Button.hpp>
-#include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "../RogueLikeSheetMap.hpp"
 #include "../Player.hpp"
-#include "../../Scripts/FollowGameObject.hpp"
+#include "DemoLevel.hpp"
 
-HomeScene::HomeScene(BrackEngine& brackEngine) : Scene() {
+HomeScene::HomeScene() : Scene() {
     auto camera = Camera();
     camera.AddComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
-    camera.SetTag("mainCamera");
     this->AddCamera(std::move(camera));
 
     auto imageBg = std::make_unique<GameObject>();
@@ -32,14 +30,28 @@ HomeScene::HomeScene(BrackEngine& brackEngine) : Scene() {
     imageBg->AddComponent(std::move(transformBg));
     this->AddGameObject(std::move(imageBg));
 
+    //Start button
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
     startButton->SetFontSize(40);
     startButton->SetClickEvent([](){
-        std::cout << "CLICKED" << std::endl;
+        auto scene = DemoLevel();
+        SceneManager::getInstance().setActiveScene(scene);
     });
 
     auto transformStartButton = std::make_unique<TransformComponent>();
-    transformStartButton->position = std::make_unique<Vector2>(centerX, 300);
+    transformStartButton->position = std::make_unique<Vector2>(centerX - 150, 300);
     startButton->AddComponent(std::move(transformStartButton));
     this->AddGameObject(std::move(startButton));
+
+    //Quit button
+    auto quitButton = std::make_unique<Button>(Vector2(210, 70), "Quit");
+    quitButton->SetFontSize(40);
+    quitButton->SetClickEvent([](){
+        std::exit(0);
+    });
+
+    auto transformQuitButton = std::make_unique<TransformComponent>();
+    transformQuitButton->position = std::make_unique<Vector2>(centerX + 150, 300);
+    quitButton->AddComponent(std::move(transformQuitButton));
+    this->AddGameObject(std::move(quitButton));
 }

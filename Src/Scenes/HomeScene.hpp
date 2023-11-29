@@ -6,7 +6,7 @@
 
 class HomeScene : public Scene {
 public:
-    HomeScene(BrackEngine& brackEngine);
+    HomeScene();
 };
 
 
