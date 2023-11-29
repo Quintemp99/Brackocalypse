@@ -1,5 +1,6 @@
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
+#include <Objects/Button.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
@@ -8,33 +9,7 @@
 #include "Src/Player.hpp"
 #include "Scripts/FollowGameObject.hpp"
 #include "Src/LevelBuilder.hpp"
-
-void homescreen (BrackEngine brackEngine) {
-    auto camera = Camera();
-    camera.AddComponent(VelocityComponent());
-    camera.SetBackgroundColor(Color(0, 255, 0, 255));
-    camera.SetTag("mainCamera");
-    camera.AddComponent(FollowGameObject("Player"));
-    auto scene = Scene(std::move(camera));
-
-    auto imageBg = std::make_unique<GameObject>();
-    auto spriteBg = std::make_unique<SpriteComponent>();
-    spriteBg->spritePath = "Sprites/logo.png";
-    spriteBg->spriteSize = std::make_unique<Vector2>(500, 500);
-    spriteBg->imageSize = std::make_unique<Vector2>(100,100);
-    spriteBg->tileOffset = std::make_unique<Vector2>(0, 0);
-
-    auto transformBg = std::make_unique<TransformComponent>();
-    auto windowSize = ConfigSingleton::GetInstance().GetWindowSize();
-    auto centerX = windowSize.getX() / 2 - ((500/1*0.4)/2);
-    transformBg->position = std::make_unique<Vector2>(centerX, 30);
-    transformBg->scale = std::make_unique<Vector2>(0.4, 0.4);
-    imageBg->AddComponent(std::move(spriteBg));
-    imageBg->AddComponent(std::move(transformBg));
-    scene.AddGameObject(std::move(imageBg));
-
-    SceneManager::getInstance().setActiveScene(scene);
-}
+#include "Src/Scenes/HomeScene.hpp"
 
 void game(BrackEngine brackEngine) {
     auto camera = Camera();
@@ -101,7 +76,8 @@ int main() {
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
 
-    homescreen(brackEngine);
+    Scene scene = HomeScene(brackEngine);
+    SceneManager::getInstance().setActiveScene(scene);
 
     brackEngine.Run();
     return 0;
