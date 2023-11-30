@@ -10,7 +10,7 @@
 
 HomeScene::HomeScene() : Scene() {
     auto camera = Camera();
-    camera.AddComponent(VelocityComponent());
+    camera.addComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     this->AddCamera(std::move(camera));
 
@@ -26,32 +26,32 @@ HomeScene::HomeScene() : Scene() {
     auto centerX = windowSize.getX() / 2 - ((500/1*0.4)/2);
     transformBg->position = std::make_unique<Vector2>(centerX, 30);
     transformBg->scale = std::make_unique<Vector2>(0.4, 0.4);
-    imageBg->AddComponent(std::move(spriteBg));
-    imageBg->AddComponent(std::move(transformBg));
+    imageBg->addComponent(std::move(spriteBg));
+    imageBg->addComponent(std::move(transformBg));
     this->AddGameObject(std::move(imageBg));
 
     //Start button
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
-    startButton->SetFontSize(40);
-    startButton->SetClickEvent([](){
+    startButton->setFontSize(40);
+    startButton->setClickEvent([](){
         auto scene = DemoLevel();
         SceneManager::getInstance().setActiveScene(scene);
     });
 
     auto transformStartButton = std::make_unique<TransformComponent>();
     transformStartButton->position = std::make_unique<Vector2>(centerX - 150, 300);
-    startButton->AddComponent(std::move(transformStartButton));
+    startButton->addComponent(std::move(transformStartButton));
     this->AddGameObject(std::move(startButton));
 
     //Quit button
     auto quitButton = std::make_unique<Button>(Vector2(210, 70), "Quit");
-    quitButton->SetFontSize(40);
-    quitButton->SetClickEvent([](){
+    quitButton->setFontSize(40);
+    quitButton->setClickEvent([](){
         std::exit(0);
     });
 
     auto transformQuitButton = std::make_unique<TransformComponent>();
     transformQuitButton->position = std::make_unique<Vector2>(centerX + 150, 300);
-    quitButton->AddComponent(std::move(transformQuitButton));
+    quitButton->addComponent(std::move(transformQuitButton));
     this->AddGameObject(std::move(quitButton));
 }

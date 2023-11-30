@@ -9,9 +9,9 @@
 
 DemoLevel::DemoLevel() : Scene() {
     auto camera = Camera();
-    camera.AddComponent(VelocityComponent());
+    camera.addComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
-    camera.AddComponent(FollowGameObject("Player"));
+    camera.addComponent(FollowGameObject("Player"));
     this->AddCamera(std::move(camera));
 
     std::vector<std::vector<std::string>> map{};
