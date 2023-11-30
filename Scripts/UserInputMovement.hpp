@@ -2,6 +2,7 @@
 // Created by SKIKK on 21/11/2023.
 //
 #include <Components/BehaviourScript.hpp>
+#include <Components/AnimationComponent.hpp>
 
 
 #ifndef BRACKOCALYPSE_USERINPUT_HPP
@@ -26,9 +27,11 @@ public:
         onStart();
     }
 
-    UserInputMovement(const UserInputMovement& other) : BehaviourScript(other) {}
+    UserInputMovement(const UserInputMovement &other) : BehaviourScript(other) {}
+
 private:
     float velocity = 250.0;
+
 };
 
 #endif //BRACKOCALYPSE_USERINPUT_HPP

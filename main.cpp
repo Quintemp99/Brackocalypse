@@ -8,6 +8,7 @@
 #include "Src/Player.hpp"
 #include "Scripts/FollowGameObject.hpp"
 #include "Src/LevelBuilder.hpp"
+#include "Src/Gun.hpp"
 
 int main() {
     Config config = new Config();
@@ -69,8 +70,13 @@ int main() {
         scene.AddGameObject(std::move(go));
     }
 
-    SceneManager::getInstance().setActiveScene(scene);
+    auto gun = std::make_unique<Gun>(1);
+    scene.AddGameObject(std::move(gun));
 
+    SceneManager::getInstance().setActiveScene(scene);
+    auto player = SceneManager::getInstance().getGameObjectByTag("Player");
+    auto gunObject = SceneManager::getInstance().getGameObjectByTag("Gun");
+    player.value().addChild(gunObject.value());
     brackEngine.Run();
     return 0;
 }
