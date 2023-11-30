@@ -29,8 +29,8 @@ public:
 
     WalkingSound(const WalkingSound& other) : BehaviourScript(other) {}
 private:
-    float intervalCounter = 0.1;
-    float soundInterval = 0.5;
+    milliseconds intervalCounter = 100;
+    milliseconds soundInterval = 500;
 };
 
 
