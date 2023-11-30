@@ -75,7 +75,7 @@ int main() {
 
     levelBuilder.buildLevel();
 
-    for (auto& go: levelBuilder.gameObjects) {
+    for (auto &go: levelBuilder.gameObjects) {
         scene.AddGameObject(std::move(go));
     }
 
