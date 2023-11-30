@@ -10,17 +10,18 @@
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "../Scripts/BlockPlayer.hpp"
+#include "Components/BoxCollisionComponent.hpp"
 
 Player::Player(size_t layer) : GameObject() {
     AddComponent(std::make_unique<VelocityComponent>());
     AddComponent(std::make_unique<UserInputMovement>());
     AddComponent(std::make_unique<BlockPlayer>());
     auto sprite = std::make_unique<SpriteComponent>();
-    auto collision = std::make_unique<CircleCollisionComponent>(16);
+    auto collision = std::make_unique<BoxCollisionComponent>(Vector2(16, 16));
     auto &transform = tryGetComponent<TransformComponent>();
     sprite->spritePath = "Sprites/FullSpritesheet.png";
-    sprite->spriteSize = std::make_unique<Vector2>(24, 24);
-    sprite->margin = 0;
+    sprite->spriteSize = std::make_unique<Vector2>(16, 16);
+    sprite->margin = 4;
     sprite->sortingLayer = layer;
     transform.scale = std::make_unique<Vector2>(5, 5);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);

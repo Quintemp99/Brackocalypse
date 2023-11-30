@@ -34,7 +34,9 @@ struct RogueLikeMapTile : public GameObject {
             type != RogueLikeSheetType::Sand && type != RogueLikeSheetType::Ground
             && type != RogueLikeSheetType::Stone && type != RogueLikeSheetType::Water) {
 
-            auto colliderComponent = BoxCollisionComponent(size);
+
+
+            auto colliderComponent = BoxCollisionComponent(spriteSize);
             colliderComponent.collisionType = CollisionType::STATIC;
             AddComponent(colliderComponent);
         }
@@ -46,7 +48,7 @@ struct RogueLikeMapTile : public GameObject {
     int spriteMargin = 1;
     Vector2 spriteScale = Vector2(4, 4);
     Vector2 spriteSize = Vector2(16, 16);
-    std::string spritePath = "Sprites/roguelikeSheet_transparent_1.bmp";
+    std::string spritePath = "Sprites/roguelikeSheet_transparent.png";
 };
 
 #endif //BRACKOCALYPSE_ROGUELIKEMAPTILE_HPP

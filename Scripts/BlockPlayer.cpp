@@ -12,7 +12,7 @@ void BlockPlayer::onStart() {
 void BlockPlayer::onUpdate(float deltaTime) {
     auto player = getGameObjectByTag("Player");
     if (!player.has_value()) return;
-    auto &playerCollision = player.value().tryGetComponent<CircleCollisionComponent>();
+    auto &playerCollision = player.value().tryGetComponent<BoxCollisionComponent>();
     for (auto i: playerCollision.collidedWith) {
         auto collidedWith = ComponentStore::GetInstance().tryGetComponent<BoxCollisionComponent>(i);
         
