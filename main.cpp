@@ -19,14 +19,14 @@ int main() {
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
     auto camera = Camera();
-    camera.AddComponent(VelocityComponent());
+    camera.addComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
-    camera.SetTag("mainCamera");
-    camera.AddComponent(FollowGameObject("Player"));
+    camera.setTag("mainCamera");
+    camera.addComponent(FollowGameObject("Player"));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
     backgroundSound->volume = 0.05;
     backgroundSound->startPlaying = true;
-    camera.AddComponent(std::move(backgroundSound));
+    camera.addComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
 
     auto muteButton = std::make_unique<MuteButton>();

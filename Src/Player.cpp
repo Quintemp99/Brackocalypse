@@ -7,13 +7,14 @@
 #include <Components/TransformComponent.hpp>
 #include <Helpers/Vector2.hpp>
 #include <Components/SoundEffectComponent.hpp>
+#include <Components/ObjectInfoComponent.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "../Scripts/WalkingSound.hpp"
 
 Player::Player(size_t layer) : GameObject() {
-    AddComponent(std::make_unique<VelocityComponent>());
-    AddComponent(std::make_unique<UserInputMovement>());
+    addComponent(std::make_unique<VelocityComponent>());
+    addComponent(std::make_unique<UserInputMovement>());
     auto sprite = std::make_unique<SpriteComponent>();
     auto& transform = tryGetComponent<TransformComponent>();
     sprite->spritePath = "Sprites/character_maleAdventurer_sheet.png";
@@ -22,11 +23,11 @@ Player::Player(size_t layer) : GameObject() {
     sprite->sortingLayer = layer;
     transform.scale =std::make_unique<Vector2>(1,1);
     sprite->tileOffset = std::make_unique<Vector2>(0,0);
-    AddComponent(std::move(sprite));
-    SetTag("Player");
+
 
     auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps.mp3");
     audioComponent->volume = 0.05;
-    AddComponent(std::move(audioComponent));
-    AddComponent(std::make_unique<WalkingSound>());
+    addComponent(std::move(audioComponent));
+    addComponent(std::make_unique<WalkingSound>());
+
 }
