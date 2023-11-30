@@ -10,7 +10,6 @@
 #include "Src/Player.hpp"
 #include "Scripts/FollowGameObject.hpp"
 #include "Src/LevelBuilder.hpp"
-#include "Src/MuteButton.hpp"
 
 int main() {
     Config config = new Config();
@@ -24,13 +23,10 @@ int main() {
     camera.setTag("mainCamera");
     camera.addComponent(FollowGameObject("Player"));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
-    backgroundSound->volume = 0.05;
+    backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera.addComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
-
-    auto muteButton = std::make_unique<MuteButton>();
-    scene.AddGameObject(std::move(muteButton));
 
     std::vector<std::vector<std::string>> map{};
     map.emplace_back();
