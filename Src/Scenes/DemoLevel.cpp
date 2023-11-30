@@ -6,12 +6,17 @@
 #include "../Player.hpp"
 #include "../../Scripts/FollowGameObject.hpp"
 #include "../LevelBuilder.hpp"
+#include "Components/SoundTrackComponent.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     auto camera = Camera();
     camera.addComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     camera.addComponent(FollowGameObject("Player"));
+    auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
+    backgroundSound->volume = 0.02;
+    backgroundSound->startPlaying = true;
+    camera.addComponent(std::move(backgroundSound));
     this->AddCamera(std::move(camera));
 
     std::vector<std::vector<std::string>> map{};
