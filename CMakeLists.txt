@@ -17,7 +17,8 @@ add_executable(Brackocalypse main.cpp
         Src/Factory/LevelFactory.cpp
         Src/Factory/LevelFactory.hpp
         Src/RogueLikeMapTiles/RogueLikeMapTile.hpp
-        Src/RogueLikeMapTiles/WaterMapTile.hpp)
+        Src/RogueLikeMapTiles/WaterMapTile.hpp
+        Src/Gun.cpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

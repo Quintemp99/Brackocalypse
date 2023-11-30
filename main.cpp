@@ -16,10 +16,10 @@ int main() {
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
     auto camera = Camera();
-    camera.AddComponent(VelocityComponent());
+    camera.addComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
-    camera.SetTag("mainCamera");
-    camera.AddComponent(FollowGameObject("Player"));
+    camera.setTag("mainCamera");
+    camera.addComponent(FollowGameObject("Player"));
     auto scene = Scene(std::move(camera));
 
     std::vector<std::vector<std::string>> map{};
@@ -65,7 +65,7 @@ int main() {
 
     levelBuilder.buildLevel();
 
-    for (auto& go: levelBuilder.gameObjects) {
+    for (auto &go: levelBuilder.gameObjects) {
         scene.AddGameObject(std::move(go));
     }
 
