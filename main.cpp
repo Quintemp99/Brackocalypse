@@ -18,6 +18,7 @@ int main() {
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
 
+
     auto scene = HomeScene();
     SceneManager::getInstance().setActiveScene(scene);
 

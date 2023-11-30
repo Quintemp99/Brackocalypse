@@ -19,7 +19,9 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/RogueLikeMapTile.hpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/Scenes/HomeScene.cpp
-        Src/Scenes/DemoLevel.cpp)
+        Src/Scenes/DemoLevel.cpp
+        Scripts/WalkingSound.cpp
+        Scripts/WalkingSound.hpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 
