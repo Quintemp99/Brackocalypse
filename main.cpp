@@ -5,6 +5,8 @@
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
+#include "Components/AudioComponent.hpp"
+#include "Src/SaveLoad.hpp"
 #include "Src/RogueLikeSheetMap.hpp"
 #include "Scripts/UserInputMovement.hpp"
 #include "Src/Player.hpp"
@@ -28,6 +30,14 @@ int main() {
     camera.addComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
 
+    SaveLoad saveLoad = SaveLoad(brackEngine);
+    saveLoad.save();
+    saveLoad.load();
+
+    auto object = std::make_unique<GameObject>();
+    auto audio = AudioComponent();
+    object->AddComponent(audio);
+  
     std::vector<std::vector<std::string>> map{};
     map.emplace_back();
     map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
