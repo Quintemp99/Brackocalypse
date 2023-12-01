@@ -34,10 +34,7 @@ int main() {
     saveLoad.save();
     saveLoad.load();
 
-    auto object = std::make_unique<GameObject>();
-    auto audio = AudioComponent();
-    object->AddComponent(audio);
-  
+
     std::vector<std::vector<std::string>> map{};
     map.emplace_back();
     map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
