@@ -1,24 +1,33 @@
-#include <iostream>
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
-#include <Objects/Text.hpp>
-#include <Components/AIComponent.hpp>
-#include <Components/AnimationComponent.hpp>
+#include <Components/SoundTrackComponent.hpp>
+#include <Objects/Button.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
-//#include "../Brack-Engine/src/FPSSingleton.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Components/AudioComponent.hpp"
 #include "Src/SaveLoad.hpp"
+#include "Src/RogueLikeSheetMap.hpp"
+#include "Scripts/UserInputMovement.hpp"
+#include "Src/Player.hpp"
+#include "Scripts/FollowGameObject.hpp"
+#include "Src/LevelBuilder.hpp"
 
 int main() {
     Config config = new Config();
     config.windowTitle = "Brackocalypse";
-    config.windowSize = Vector2(800, 600);
+    config.windowSize = Vector2(640, 640);
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
     auto camera = Camera();
+    camera.addComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
+    camera.setTag("mainCamera");
+    camera.addComponent(FollowGameObject("Player"));
+    auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
+    backgroundSound->volume = 0.02;
+    backgroundSound->startPlaying = true;
+    camera.addComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
 
     SaveLoad saveLoad = SaveLoad(brackEngine);
@@ -28,25 +37,55 @@ int main() {
     auto object = std::make_unique<GameObject>();
     auto audio = AudioComponent();
     object->AddComponent(audio);
+  
+    std::vector<std::vector<std::string>> map{};
+    map.emplace_back();
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWLQQQQQQQQQQNWWWW");
+    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWVYYYYYYYYYYCWWWW");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
 
-    auto text = std::make_unique<Text>("Poepjes");
+    map.emplace_back();
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("..........J.........");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
+    map[1].emplace_back("....................");
 
-    scene.AddGameObject(std::move(object));
-    scene.AddGameObject(std::move(text));
+    auto levelBuilder = LevelBuilder(map);
 
-    for(int i = 0; i < 10; ++i) {
-        auto object = std::make_unique<GameObject>();
-        auto sprite = std::make_unique<SpriteComponent>();
-        sprite->spritePath = ConfigSingleton::GetInstance().GetBaseAssetPath() + "Sprites/roguelikeSheet_transparent_1.bmp";
-        sprite->spriteSize = std::make_unique<Vector2>(16, 16);
-        sprite->tileOffset = std::make_unique<Vector2>(6,0);
-        sprite->margin = 1;
+    levelBuilder.buildLevel();
 
-        object->AddComponent(std::move(sprite));
-        scene.AddGameObject(std::move(object));
+    for (auto &go: levelBuilder.gameObjects) {
+        scene.AddGameObject(std::move(go));
     }
 
-    SceneManager::GetInstance().SetActiveScene(scene);
+    SceneManager::getInstance().setActiveScene(scene);
 
     brackEngine.Run();
     return 0;
