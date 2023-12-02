@@ -4,6 +4,7 @@
 
 #include <EngineManagers/InputManager.hpp>
 #include <Helpers/KeyMap.hpp>
+#include <Components/SoundEffectComponent.hpp>
 #include "UserInputMovement.hpp"
 
 void UserInputMovement::onStart() {
@@ -14,6 +15,7 @@ void UserInputMovement::onUpdate(float deltaTime) {
     auto &playerVelocityComponent = tryGetComponent<VelocityComponent>();
     auto &spriteComponent = tryGetComponent<SpriteComponent>();
     auto &walkAnimation = tryGetComponent<AnimationComponent>();
+    auto &soundEffect = tryGetComponent<SoundEffectComponent>();
 
     int left = static_cast<int>(InputManager::GetInstance().IsKeyPressed(KeyMap::a) ||
                                 InputManager::GetInstance().IsKeyPressed(KeyMap::LEFT));
@@ -38,11 +40,19 @@ void UserInputMovement::onUpdate(float deltaTime) {
     playerVelocityComponent.velocity.setX(normalizedHorizontalMovement * velocity);
     playerVelocityComponent.velocity.setY(normalizedVerticalMovement * velocity);
 
+    if (normalizedHorizontalMovement > 0) {
+        spriteComponent.flipX = false;
+    } else if (normalizedHorizontalMovement < 0) {
+        spriteComponent.flipX = true;
+    }
 
     if (playerVelocityComponent.velocity == Vector2(0, 0)) {
         walkAnimation.isPlaying = false;
         spriteComponent.tileOffset = std::make_unique<Vector2>(0, 0);
     } else {
         walkAnimation.isPlaying = true;
+        if (walkAnimation.currentFrame == 0 || walkAnimation.currentFrame == 4) {
+            soundEffect.startPlaying = true;
+        }
     }
 }

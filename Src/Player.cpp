@@ -34,10 +34,10 @@ Player::Player(size_t layer) : GameObject() {
     transform.scale = std::make_unique<Vector2>(1, 1);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
 
-    auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps.mp3");
+    auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps2.mp3");
     audioComponent->volume = 0.05;
     addComponent(std::move(audioComponent));
-    addComponent(std::make_unique<WalkingSound>());
+//    addComponent(std::make_unique<WalkingSound>());
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
     setTag("Player");
