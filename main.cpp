@@ -1,8 +1,12 @@
 #include <Components/AIComponent.hpp>
 #include <Components/AnimationComponent.hpp>
+#include <Components/SoundTrackComponent.hpp>
+#include <Objects/Button.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
+#include "Components/AudioComponent.hpp"
+#include "Src/SaveLoad.hpp"
 #include "Src/RogueLikeSheetMap.hpp"
 #include "Scripts/UserInputMovement.hpp"
 #include "Src/Player.hpp"
@@ -21,8 +25,20 @@ int main() {
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
     camera.setTag("mainCamera");
     camera.addComponent(FollowGameObject("Player"));
+    auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
+    backgroundSound->volume = 0.02;
+    backgroundSound->startPlaying = true;
+    camera.addComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
 
+    SaveLoad saveLoad = SaveLoad(brackEngine);
+    saveLoad.save();
+    saveLoad.load();
+
+    auto object = std::make_unique<GameObject>();
+    auto audio = AudioComponent();
+    object->AddComponent(audio);
+  
     std::vector<std::vector<std::string>> map{};
     map.emplace_back();
     map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");

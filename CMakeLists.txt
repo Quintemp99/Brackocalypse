@@ -20,7 +20,10 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/Gun.cpp
         Scripts/GunFollowMouse.cpp
-        Scripts/GunShooting.cpp)
+        Scripts/GunShooting.cpp
+        Scripts/WalkingSound.cpp
+        Scripts/WalkingSound.hpp
+        Src/SaveLoad.cpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 
