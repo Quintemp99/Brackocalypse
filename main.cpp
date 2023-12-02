@@ -12,6 +12,7 @@
 #include "Scripts/FollowGameObject.hpp"
 #include "Src/LevelBuilder.hpp"
 #include "Src/Gun.hpp"
+#include "Src/Bullet.hpp"
 
 int main() {
     Config config = new Config();
@@ -83,6 +84,9 @@ int main() {
 
     auto gun = std::make_unique<Gun>(1);
     scene.AddGameObject(std::move(gun));
+
+    auto bullet = std::make_unique<Bullet>(1);
+    scene.AddGameObject(std::move(bullet));
 
     SceneManager::getInstance().setActiveScene(scene);
     auto player = SceneManager::getInstance().getGameObjectByTag("Player");

@@ -23,7 +23,9 @@ add_executable(Brackocalypse main.cpp
         Scripts/GunShooting.cpp
         Scripts/WalkingSound.cpp
         Scripts/WalkingSound.hpp
-        Src/SaveLoad.cpp)
+        Src/SaveLoad.cpp
+        Src/Bullet.cpp
+        Src/BulletPool.cpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 
