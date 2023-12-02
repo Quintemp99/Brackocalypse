@@ -31,8 +31,8 @@ public:
             BehaviourScript(other) {};
 private:
     float cameraShakeIntensity = 2.5f;
-    float cameraShakeDuration = 0.1f;
-    float cameraShakeTimer = 0.0f;
+    milliseconds cameraShakeDuration = 100.0f;
+    milliseconds cameraShakeTimer = 0.0f;
     bool shaking = false;
     Vector2 originalCameraPosition;
     std::mt19937 randomGenerator{std::random_device{}()};
