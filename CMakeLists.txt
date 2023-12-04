@@ -21,8 +21,6 @@ add_executable(Brackocalypse main.cpp
         Src/Gun.cpp
         Scripts/GunFollowMouse.cpp
         Scripts/GunShooting.cpp
-        Scripts/WalkingSound.cpp
-        Scripts/WalkingSound.hpp
         Src/SaveLoad.cpp
         Src/Bullet.cpp
         Src/BulletPool.cpp)
