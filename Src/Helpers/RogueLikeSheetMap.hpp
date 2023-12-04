@@ -7,7 +7,7 @@
 
 #include <Helpers/Vector2.hpp>
 #include <map>
-#include "Helpers/RogueLikeSheetType.hpp"
+#include "RogueLikeSheetType.hpp"
 
 struct RogueLikeSheetMap {
     std::map<RogueLikeSheetType, Vector2> map {};
@@ -29,6 +29,9 @@ struct RogueLikeSheetMap {
         map[WaterRightTopGrassSmall] = Vector2(0,2);
         map[WaterLeftBottomGrassSmall] = Vector2(1,1);
         map[WaterRightBottomGrassSmall] = Vector2(0,1);
+        map[TreeTop] = Vector2(13,10);
+        map[TreeBottom] = Vector2(13,11);
+        map[Campfire] = Vector2(14,8);
     }
 };
 

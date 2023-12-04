@@ -6,7 +6,7 @@
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Src/SaveLoad.hpp"
-#include "Src/RogueLikeSheetMap.hpp"
+#include "Src/Helpers/RogueLikeSheetMap.hpp"
 #include "Scripts/UserInputMovement.hpp"
 #include "Src/Player.hpp"
 #include "Scripts/FollowGameObject.hpp"
@@ -62,6 +62,7 @@ int main() {
     map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWW");
 
     map.emplace_back();
+    map[1].emplace_back("J.........................");
     map[1].emplace_back("..........................");
     map[1].emplace_back("..........................");
     map[1].emplace_back("..........................");
@@ -71,11 +72,10 @@ int main() {
     map[1].emplace_back("..........................");
     map[1].emplace_back("..........................");
     map[1].emplace_back("..........................");
-    map[1].emplace_back(".............J............");
     map[1].emplace_back("..........................");
-    map[1].emplace_back("..........................");
-    map[1].emplace_back("..........................");
-    map[1].emplace_back("..........................");
+    map[1].emplace_back("..................O.......");
+    map[1].emplace_back("..................K.......");
+    map[1].emplace_back(".......I..................");
     map[1].emplace_back("..........................");
     map[1].emplace_back("..........................");
     map[1].emplace_back("..........................");

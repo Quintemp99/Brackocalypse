@@ -22,7 +22,10 @@ enum RogueLikeSheetType {
     Grass = 'G',
     Ground = 'T',
     Stone = 'S',
-    Sand = 'A'
+    Sand = 'A',
+    TreeTop = 'O',
+    TreeBottom = 'K',
+    Campfire = 'I'
 };
 
 
