@@ -27,39 +27,50 @@ void BlockPlayer::onUpdate(float deltaTime) {
 
 // Check collisions only on the Y-axis for top and bottom
         if (playerVelocity.velocity.getY() < 0) {  // Moving up
-
+            testMethod(playerTransform, playerCollision, collidedWithTransform, collidedWithCollision);
             if (std::abs((playerTransform.position->getY() -
                           (playerCollision.size->getY() * playerTransform.scale->getY()) / 2) -
                          (collidedWithTransform.position->getY() +
                           (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)) < 1) {
+                std::cout << "Collision detected Top" << std::endl;
                 playerVelocity.velocity.setY(0);
             }
 
 
         } else if (playerVelocity.velocity.getY() > 0) {  // Moving down
+            testMethod(playerTransform, playerCollision, collidedWithTransform, collidedWithCollision);
+
             if (std::abs((playerTransform.position->getY() +
                           (playerCollision.size->getY() * playerTransform.scale->getY()) / 2) -
                          (collidedWithTransform.position->getY() -
                           (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)) < 1) {
+                std::cout << "Collision detected Bottom" << std::endl;
+
                 playerVelocity.velocity.setY(0);
             }
         }
 
 // Check collisions only on the X-axis for left and right
         if (playerVelocity.velocity.getX() < 0) {  // Moving left
+            testMethod(playerTransform, playerCollision, collidedWithTransform, collidedWithCollision);
+
             if (std::abs((playerTransform.position->getX() -
                           (playerCollision.size->getX() * playerTransform.scale->getX()) / 2) -
                          (collidedWithTransform.position->getX() +
                           (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)) < 1) {
 
+                std::cout << "Collision detected Left" << std::endl;
 
                 playerVelocity.velocity.setX(0);
             }
         } else if (playerVelocity.velocity.getX() > 0) {  // Moving right
+            testMethod(playerTransform, playerCollision, collidedWithTransform, collidedWithCollision);
+
             if (std::abs((playerTransform.position->getX() +
                           (playerCollision.size->getX() * playerTransform.scale->getX()) / 2) -
                          (collidedWithTransform.position->getX() -
                           (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)) < 1) {
+                std::cout << "Collision detected Right" << std::endl;
 
                 playerVelocity.velocity.setX(0);
             }
@@ -91,20 +102,22 @@ void testMethod(TransformComponent &playerTransform, BoxCollisionComponent &play
                       collidedWithTransform.position->getX() -
                       (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)
               << std::endl;
-    std::cout << "PlayerOnder"
-              << std::to_string(playerTransform.position->getY() - playerCollision.size->getY() / 2)
+    std::cout << "PlayerBoven"
+              << std::to_string(playerTransform.position->getY() - (playerCollision.size->getY() * collidedWithTransform.scale->getX()) / 2)
               << std::endl;
-    std::cout << "WallBoven "
-              << std::to_string(
-                      collidedWithTransform.position->getY() + collidedWithCollision.size->getY() / 2)
+    std::cout << "WallOnder "
+            << std::to_string(
+                    collidedWithTransform.position->getY() +
+                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)
               << std::endl;
     std::cout << "PlayerOnder"
-              << std::to_string(playerTransform.position->getY() + playerCollision.size->getY() / 2)
+            << std::to_string(playerTransform.position->getY() + (playerCollision.size->getY() * collidedWithTransform.scale->getX()) / 2)
               << std::endl;
     std::cout << "WallBoven"
-              << std::to_string(
-                      collidedWithTransform.position->getY() - collidedWithCollision.size->getY() / 2)
-              << std::endl;
+            << std::to_string(
+                    collidedWithTransform.position->getY() -
+                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)
+                    <<std::endl;
     std::cout << "PositionPlayer:"
               << std::to_string(playerTransform.position->getX())
               << " "
