@@ -12,7 +12,6 @@
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
-#include "../Scripts/WalkingSound.hpp"
 
 Player::Player(std::unique_ptr<GameObject> &spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();

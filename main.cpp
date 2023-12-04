@@ -90,20 +90,18 @@ int main() {
     auto levelBuilder = LevelBuilder(map);
 
     levelBuilder.buildLevel();
+    auto bulletPool = std::make_unique<BulletPool>(1, 30);
+    scene.AddGameObject(std::move(bulletPool));
 
     for (auto &go: levelBuilder.gameObjects) {
         scene.AddGameObject(std::move(go));
     }
-
-    auto bulletPool = std::make_unique<BulletPool>(1, 30);
-    scene.AddGameObject(std::move(bulletPool));
 
     auto player = std::make_unique<Player>(scene.GetGameObjectByName("PlayerSpawn"));
     scene.AddGameObject(std::move(player));
 
     SceneManager::getInstance().setActiveScene(scene);
 
-    SceneManager::getInstance().setActiveScene(scene);
     brackEngine.Run();
     return 0;
 }
