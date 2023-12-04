@@ -9,7 +9,7 @@
 
 void WalkingSound::onStart() {}
 
-void WalkingSound::onUpdate(float deltaTime) {
+void WalkingSound::onUpdate(milliseconds deltaTime) {
     auto& audioComponent = tryGetComponent<SoundEffectComponent>();
 
     if (InputManager::GetInstance().IsKeyPressed(KeyMap::w) || InputManager::GetInstance().IsKeyPressed(KeyMap::UP)) {

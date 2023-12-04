@@ -7,7 +7,6 @@
 #include <Components/TransformComponent.hpp>
 #include <Helpers/Vector2.hpp>
 #include <Components/SoundEffectComponent.hpp>
-#include <Components/ObjectInfoComponent.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "../Scripts/WalkingSound.hpp"
