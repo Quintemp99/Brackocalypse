@@ -1,7 +1,8 @@
 #include "HomeScene.hpp"
 #include <Components/AIComponent.hpp>
-#include <Components/AnimationComponent.hpp>
 #include <Objects/Button.hpp>
+#include <Components/SpriteComponent.hpp>
+#include <Components/SoundTrackComponent.hpp>
 #include "BrackEngine.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "../RogueLikeSheetMap.hpp"
@@ -12,19 +13,22 @@ HomeScene::HomeScene() : Scene() {
     auto camera = Camera();
     camera.addComponent(VelocityComponent());
     camera.SetBackgroundColor(Color(0, 255, 0, 255));
+    auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
+    backgroundSound->volume = 0.1;
+    backgroundSound->startPlaying = true;
+    camera.addComponent(std::move(backgroundSound));
     this->AddCamera(std::move(camera));
 
     auto imageBg = std::make_unique<GameObject>();
     auto spriteBg = std::make_unique<SpriteComponent>();
     spriteBg->spritePath = "Sprites/logo.png";
-    spriteBg->spriteSize = std::make_unique<Vector2>(500, 500);
+    spriteBg->spriteSize = std::make_unique<Vector2>(736, 105);
     spriteBg->imageSize = std::make_unique<Vector2>(100,100);
     spriteBg->tileOffset = std::make_unique<Vector2>(0, 0);
 
     auto transformBg = std::make_unique<TransformComponent>();
     auto windowSize = ConfigSingleton::GetInstance().GetWindowSize();
-    auto centerX = windowSize.getX() / 2 - ((500/1*0.4)/2);
-    transformBg->position = std::make_unique<Vector2>(centerX, 30);
+    transformBg->position = std::make_unique<Vector2>(0, -100);
     transformBg->scale = std::make_unique<Vector2>(0.4, 0.4);
     imageBg->addComponent(std::move(spriteBg));
     imageBg->addComponent(std::move(transformBg));
@@ -39,7 +43,7 @@ HomeScene::HomeScene() : Scene() {
     });
 
     auto transformStartButton = std::make_unique<TransformComponent>();
-    transformStartButton->position = std::make_unique<Vector2>(centerX - 150, 300);
+    transformStartButton->position = std::make_unique<Vector2>(-150, 50);
     startButton->addComponent(std::move(transformStartButton));
     this->AddGameObject(std::move(startButton));
 
@@ -51,7 +55,7 @@ HomeScene::HomeScene() : Scene() {
     });
 
     auto transformQuitButton = std::make_unique<TransformComponent>();
-    transformQuitButton->position = std::make_unique<Vector2>(centerX + 150, 300);
+    transformQuitButton->position = std::make_unique<Vector2>(150, 50);
     quitButton->addComponent(std::move(transformQuitButton));
     this->AddGameObject(std::move(quitButton));
 }

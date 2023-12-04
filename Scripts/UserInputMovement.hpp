@@ -21,11 +21,6 @@ public:
         return std::make_unique<UserInputMovement>(*this);
     }
 
-    void accept(ComponentVisitor &visitor) override {
-        visitor.visit(*this);
-        onStart();
-    }
-
     UserInputMovement(const UserInputMovement& other) : BehaviourScript(other) {}
 private:
     float velocity = 0.25;
