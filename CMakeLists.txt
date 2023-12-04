@@ -23,7 +23,8 @@ add_executable(Brackocalypse main.cpp
         Scripts/GunShooting.cpp
         Src/SaveLoad.cpp
         Src/Bullet.cpp
-        Src/BulletPool.cpp)
+        Src/BulletPool.cpp
+        Scripts/BulletActions.cpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

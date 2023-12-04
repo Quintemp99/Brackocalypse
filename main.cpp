@@ -83,16 +83,10 @@ int main() {
         scene.AddGameObject(std::move(go));
     }
 
-
-//    scene.AddGameObject(std::move(gun));
-
-    auto bulletPool = std::make_unique<BulletPool>(1, 10);
+    auto bulletPool = std::make_unique<BulletPool>(1, 30);
     scene.AddGameObject(std::move(bulletPool));
 
     SceneManager::getInstance().setActiveScene(scene);
-//    auto player = SceneManager::getInstance().getGameObjectByTag("Player");
-//    auto gunObject = SceneManager::getInstance().getGameObjectByTag("Gun");
-//    player.value().addChild(gunObject.value());
     brackEngine.Run();
     return 0;
 }

@@ -4,7 +4,9 @@
 
 #include <Components/VelocityComponent.hpp>
 #include <Components/SpriteComponent.hpp>
+#include <Components/SoundEffectComponent.hpp>
 #include "Bullet.hpp"
+#include "../Scripts/BulletActions.hpp"
 
 Bullet::Bullet(size_t layer) {
     addComponent(std::make_unique<VelocityComponent>());
@@ -17,14 +19,7 @@ Bullet::Bullet(size_t layer) {
     sprite->orderInLayer = 2;
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
     transform.scale = std::make_unique<Vector2>(1, 1);
-
     addComponent(std::move(sprite));
+    addComponent(std::make_unique<BulletActions>(5000));
     setTag("Bullet");
 }
-
-void Bullet::setActive(bool active) const {
-    GameObject::setActive(active);
-    //play shoot sound
-}
-
-

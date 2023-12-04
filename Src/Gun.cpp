@@ -5,6 +5,7 @@
 #include <Components/SpriteComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
 #include <Components/AnimationComponent.hpp>
+#include <Components/SoundEffectComponent.hpp>
 #include "Gun.hpp"
 #include "../Scripts/GunFollowMouse.hpp"
 #include "../Scripts/GunShooting.hpp"
@@ -27,7 +28,9 @@ Gun::Gun(size_t layer) : GameObject() {
     animation->startPosition = std::make_unique<Vector2>(0, 0);
     addComponent(std::move(sprite));
     addComponent(std::move(animation));
-//    addComponent(std::move(boxCollider));
+    auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/single-shot-gun-sound.mp3");
+    audioComponent->volume = 0.05;
+    addComponent(std::move(audioComponent));
     addComponent(std::make_unique<GunFollowMouse>());
     addComponent(std::make_unique<GunShooting>());
     setTag("Gun");

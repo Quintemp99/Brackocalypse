@@ -8,13 +8,14 @@
 #include <Components/TransformComponent.hpp>
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/SpriteComponent.hpp>
+#include <Components/SoundEffectComponent.hpp>
 #include "GunShooting.hpp"
 
 void GunShooting::onStart() {
 
 }
 
-void GunShooting::onUpdate(float deltaTime) {
+void GunShooting::onUpdate(milliseconds deltaTime) {
     auto &animationComponent = tryGetComponent<AnimationComponent>();
     if (InputManager::GetInstance().IsMousePressed(LEFT_MOUSE)) {
         if (!animationComponent.isPlaying) {
@@ -61,13 +62,19 @@ void GunShooting::shoot() {
             auto &transform = bullet.tryGetComponent<TransformComponent>();
             auto &gunTransform = tryGetComponent<TransformComponent>();
             auto &spriteComponent = tryGetComponent<SpriteComponent>();
-            transform.position = std::make_unique<Vector2>(gunTransform.position->getX(),
-                                                           gunTransform.position->getY());
+            auto gunPosition = SceneManager::getInstance().getWorldPosition(gunTransform);
+            transform.position = std::make_unique<Vector2>(gunPosition.getX(), gunPosition.getY());
             auto rotation = gunTransform.rotation;
             if (spriteComponent.flipX)
                 rotation += 180;
             transform.rotation = rotation;
 
+            auto &soundEffectComponent = tryGetComponent<SoundEffectComponent>();
+            soundEffectComponent.startPlaying = true;
+
+            auto radians = rotation * M_PI / 180;
+            auto velocity = Vector2(cos(radians), sin(radians));
+            bullet.tryGetComponent<VelocityComponent>().velocity = velocity;
             return;
         }
     }

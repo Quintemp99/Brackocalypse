@@ -13,9 +13,6 @@ public:
     Bullet(size_t layer);
 
     ~Bullet() = default;
-
-    void setActive(bool active) const override;
-
 };
 
 
