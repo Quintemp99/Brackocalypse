@@ -4,6 +4,7 @@
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
+#include "Src/SaveLoad.hpp"
 #include "Src/RogueLikeSheetMap.hpp"
 #include "Scripts/UserInputMovement.hpp"
 #include "Src/Player.hpp"

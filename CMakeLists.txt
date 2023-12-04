@@ -21,7 +21,8 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/HomeScene.cpp
         Src/Scenes/DemoLevel.cpp
         Scripts/WalkingSound.cpp
-        Scripts/WalkingSound.hpp)
+        Scripts/WalkingSound.hpp
+        Src/SaveLoad.cpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 
