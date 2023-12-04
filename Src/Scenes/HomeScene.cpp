@@ -29,7 +29,7 @@ HomeScene::HomeScene() : Scene() {
     auto transformBg = std::make_unique<TransformComponent>();
     auto windowSize = ConfigSingleton::GetInstance().GetWindowSize();
     transformBg->position = std::make_unique<Vector2>(0, -100);
-    transformBg->scale = std::make_unique<Vector2>(0.4, 0.4);
+    transformBg->scale = std::make_unique<Vector2>(0.6, 0.6);
     imageBg->addComponent(std::move(spriteBg));
     imageBg->addComponent(std::move(transformBg));
     this->AddGameObject(std::move(imageBg));
@@ -42,8 +42,11 @@ HomeScene::HomeScene() : Scene() {
         SceneManager::getInstance().setActiveScene(scene);
     });
 
+    auto centerY = ConfigSingleton::GetInstance().GetWindowSize().getY() / 2;
+    auto centerX = ConfigSingleton::GetInstance().GetWindowSize().getX() / 2;
+
     auto transformStartButton = std::make_unique<TransformComponent>();
-    transformStartButton->position = std::make_unique<Vector2>(-150, 50);
+    transformStartButton->position = std::make_unique<Vector2>(-150+ centerX - 105, centerY + 50);
     startButton->addComponent(std::move(transformStartButton));
     this->AddGameObject(std::move(startButton));
 
@@ -55,7 +58,7 @@ HomeScene::HomeScene() : Scene() {
     });
 
     auto transformQuitButton = std::make_unique<TransformComponent>();
-    transformQuitButton->position = std::make_unique<Vector2>(150, 50);
+    transformQuitButton->position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     quitButton->addComponent(std::move(transformQuitButton));
     this->AddGameObject(std::move(quitButton));
 }
