@@ -21,7 +21,8 @@ add_executable(Brackocalypse main.cpp
         Scripts/WalkingSound.cpp
         Scripts/WalkingSound.hpp
         Src/SaveLoad.cpp
-        Src/RogueLikeMapTiles/CampfireMapTile.hpp)
+        Src/RogueLikeMapTiles/CampfireMapTile.hpp
+        Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

@@ -8,6 +8,7 @@
 #include "../Player.hpp"
 #include "../../Scripts/UserInputMovement.hpp"
 #include "../RogueLikeMapTiles/CampfireMapTile.hpp"
+#include "../RogueLikeMapTiles/PlayerSpawnMapTile.hpp"
 
 void LevelFactory::setSize(Vector2 size) {
     size_ = size;
@@ -17,8 +18,8 @@ std::unique_ptr<GameObject> LevelFactory::createGameObject(char c, Vector2 posit
     switch (c) {
         case 'W':
             return std::make_unique<WaterMapTile>(rogueLikeSheetMap.map[Water], position, size_, layer);
-        case 'J':
-            return std::make_unique<Player>(layer);
+        case 'd':
+            return std::make_unique<PlayerSpawnMapTile>(rogueLikeSheetMap.map[Empty], position, size_, layer);
         case 'I':
             return std::make_unique<CampfireMapTile>(rogueLikeSheetMap.map[Campfire], position, size_, layer);
         default:
