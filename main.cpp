@@ -29,10 +29,6 @@ int main() {
     camera.addComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
 
-    SaveLoad saveLoad = SaveLoad(brackEngine);
-    saveLoad.save();
-    saveLoad.load();
-
     std::vector<std::vector<std::string>> map{};
     map.emplace_back();
     map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWWW...................");
