@@ -6,7 +6,7 @@
 
 void FollowGameObject::onStart() {}
 
-void FollowGameObject::onUpdate(float deltaTime) {
+void FollowGameObject::onUpdate(milliseconds deltaTime) {
     auto playerGameObject = getGameObjectByTag(followGameObjectTag);
     if(!playerGameObject.has_value()) return;
     auto& playerTransform = playerGameObject.value().tryGetComponent<TransformComponent>();

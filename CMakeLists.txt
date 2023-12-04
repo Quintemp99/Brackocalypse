@@ -18,8 +18,11 @@ add_executable(Brackocalypse main.cpp
         Src/Factory/LevelFactory.hpp
         Src/RogueLikeMapTiles/RogueLikeMapTile.hpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
+        Scripts/WalkingSound.cpp
+        Scripts/WalkingSound.hpp
+        Src/SaveLoad.cpp
+        Src/RogueLikeMapTiles/WaterMapTile.hpp
         Scripts/BlockPlayer.cpp
-        Scripts/BlockPlayer.hpp
         Scripts/BlockPlayer.hpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
