@@ -26,7 +26,6 @@ public:
 
 private:
     float velocity = 0.25;
-
 };
 
 #endif //BRACKOCALYPSE_USERINPUT_HPP

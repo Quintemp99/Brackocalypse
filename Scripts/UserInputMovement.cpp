@@ -12,7 +12,7 @@ void UserInputMovement::onStart() {
 
 }
 
-void UserInputMovement::onUpdate(float deltaTime) {
+void UserInputMovement::onUpdate(milliseconds deltaTime) {
     auto &playerVelocityComponent = tryGetComponent<VelocityComponent>();
     auto &spriteComponent = tryGetComponent<SpriteComponent>();
     auto &walkAnimation = tryGetComponent<AnimationComponent>();

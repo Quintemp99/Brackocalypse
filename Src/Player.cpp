@@ -8,12 +8,26 @@
 #include <Helpers/Vector2.hpp>
 #include <Components/AnimationComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
-#include <Components/ObjectInfoComponent.hpp>
+#include <EngineManagers/SceneManager.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
+#include "../Scripts/WalkingSound.hpp"
 
-Player::Player(size_t layer) : GameObject() {
+Player::Player(std::unique_ptr<GameObject> &spawnLocationMapTile) {
+    auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
+    Vector2 location = Vector2(transformComponent.position->getX(), transformComponent.position->getY());
+    auto spriteComponent = spawnLocationMapTile->tryGetComponent<SpriteComponent>();
+    int layer = spriteComponent.sortingLayer;
+
+    init(layer, location);
+}
+
+Player::Player(size_t layer, Vector2 position) : GameObject() {
+    init(layer, position);
+}
+
+void Player::init(size_t layer, Vector2 position) {
     addComponent(std::make_unique<VelocityComponent>());
     addComponent(std::make_unique<UserInputMovement>());
     auto sprite = std::make_unique<SpriteComponent>();
@@ -33,6 +47,7 @@ Player::Player(size_t layer) : GameObject() {
     walkAnimation->frameCount = 8;
     transform.scale = std::make_unique<Vector2>(1, 1);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
+
 
     auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps2.mp3");
     audioComponent->volume = 0.05;

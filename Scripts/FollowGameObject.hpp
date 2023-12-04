@@ -21,7 +21,7 @@ public:
     std::unique_ptr<IComponent> clone() const override {
         return std::make_unique<FollowGameObject>(*this);
     }
-
+    
     FollowGameObject(const FollowGameObject &other) :
             BehaviourScript(other),
             moveCameraMargin(other.moveCameraMargin),
