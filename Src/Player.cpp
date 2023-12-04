@@ -38,7 +38,7 @@ Player::Player(size_t layer) : GameObject() {
     auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps2.mp3");
     audioComponent->volume = 0.05;
     addComponent(std::move(audioComponent));
-//    addComponent(std::make_unique<WalkingSound>());
+    
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
     auto gun = std::make_unique<Gun>(layer);
