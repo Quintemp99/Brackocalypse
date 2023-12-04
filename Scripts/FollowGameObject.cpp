@@ -2,6 +2,7 @@
 // Created by SKIKK on 23/11/2023.
 //
 
+#include <Components/TransformComponent.hpp>
 #include "FollowGameObject.hpp"
 
 void FollowGameObject::onStart() {}

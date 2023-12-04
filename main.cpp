@@ -6,7 +6,7 @@
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Src/SaveLoad.hpp"
-#include "Src/RogueLikeSheetMap.hpp"
+#include "Src/Helpers/RogueLikeSheetMap.hpp"
 #include "Scripts/UserInputMovement.hpp"
 #include "Src/Player.hpp"
 #include "Scripts/FollowGameObject.hpp"
@@ -29,49 +29,60 @@ int main() {
     camera.addComponent(std::move(backgroundSound));
     auto scene = Scene(std::move(camera));
 
-    SaveLoad saveLoad = SaveLoad(brackEngine);
-    saveLoad.save();
-    saveLoad.load();
-
-
     std::vector<std::vector<std::string>> map{};
     map.emplace_back();
-    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
-    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
-    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
-    map[0].emplace_back("WWWWLQQQQQQQQQQNWWWW");
-    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
-    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
-    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
-    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
-    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
-    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
-    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
-    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
-    map[0].emplace_back("WWWWUGGGGGGGGGGPWWWW");
-    map[0].emplace_back("WWWWVYYYYYYYYYYCWWWW");
-    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
-    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
-    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWWWW...................");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWWWW...................");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWWWW...................");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWWWW...................");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWWWW...................");
+    map[0].emplace_back("WWWWWLQQQQQQQQQQQQQQQQNWWWWW...................");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWW...................");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWW...................");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWLQQQQQQQQQQNWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWWUGGGGGGGGGGGGGGGGPWWWWWWWWUGGGGGGGGGGPWWWW");
+    map[0].emplace_back("WWWWWVYYYYYYYYYYYYYYYYCWWWWWWWWVYYYYYYYYYYCWWWW");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
+    map[0].emplace_back("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW");
 
     map.emplace_back();
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("..........J.........");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
-    map[1].emplace_back("....................");
+    map[1].emplace_back("...............................................");
+    map[1].emplace_back("...............................................");
+    map[1].emplace_back("...............................................");
+    map[1].emplace_back("...............................................");
+    map[1].emplace_back("...............................................");
+    map[1].emplace_back("....e..........................................");
+    map[1].emplace_back("...F.....O........O............................");
+    map[1].emplace_back("..F.F....K..O.....K............................");
+    map[1].emplace_back("...e........K..................................");
+    map[1].emplace_back(".......O..O.....O..............................");
+    map[1].emplace_back("...F...K..K.....K..............................");
+    map[1].emplace_back("..e.HJ.............O...........................");
+    map[1].emplace_back(".....a....ghD.R.O..K...........................");
+    map[1].emplace_back("...F......ij....K........F..F..................");
+    map[1].emplace_back("..e........I......O.....e....e.................");
+    map[1].emplace_back("....e...O...d..O..K.......F...F................");
+    map[1].emplace_back("...F....K......K......bbbbbbbbbb...............");
+    map[1].emplace_back("..F........O...........e..e..F.................");
+    map[1].emplace_back("...........K.............F..e..................");
+    map[1].emplace_back("........................e......................");
+    map[1].emplace_back("...............................................");
+    map[1].emplace_back("...............................................");
+    map[1].emplace_back("...............................................");
+    map[1].emplace_back("...............................................");
 
     auto levelBuilder = LevelBuilder(map);
 
@@ -80,6 +91,9 @@ int main() {
     for (auto &go: levelBuilder.gameObjects) {
         scene.AddGameObject(std::move(go));
     }
+
+    auto player = std::make_unique<Player>(scene.GetGameObjectByName("PlayerSpawn"));
+    scene.AddGameObject(std::move(player));
 
     SceneManager::getInstance().setActiveScene(scene);
 
