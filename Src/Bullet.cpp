@@ -21,3 +21,10 @@ Bullet::Bullet(size_t layer) {
     addComponent(std::move(sprite));
     setTag("Bullet");
 }
+
+void Bullet::setActive(bool active) const {
+    GameObject::setActive(active);
+    //play shoot sound
+}
+
+

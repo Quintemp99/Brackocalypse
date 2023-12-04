@@ -5,6 +5,8 @@
 #include <EngineManagers/InputManager.hpp>
 #include <Helpers/MouseMap.hpp>
 #include <Components/AnimationComponent.hpp>
+#include <Components/TransformComponent.hpp>
+#include <EngineManagers/SceneManager.hpp>
 #include "GunShooting.hpp"
 
 void GunShooting::onStart() {
@@ -14,6 +16,7 @@ void GunShooting::onStart() {
 void GunShooting::onUpdate(float deltaTime) {
     auto &animationComponent = tryGetComponent<AnimationComponent>();
     if (InputManager::GetInstance().IsMousePressed(LEFT_MOUSE)) {
+        getGameObjectByTag("Player").value().setActive(false);
         if (!animationComponent.isPlaying) {
             animationComponent.currentFrame = 0;
             animationComponent.isPlaying = true;

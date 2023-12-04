@@ -14,6 +14,8 @@ public:
 
     ~Bullet() = default;
 
+    void setActive(bool active) const override;
+
 };
 
 

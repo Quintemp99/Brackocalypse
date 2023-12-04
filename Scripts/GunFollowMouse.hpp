@@ -22,11 +22,6 @@ public:
         return std::make_unique<GunFollowMouse>(*this);
     }
 
-    void accept(ComponentVisitor &visitor) override {
-        visitor.visit(*this);
-        onStart();
-    }
-
     GunFollowMouse(const GunFollowMouse &other) :
             BehaviourScript(other),
             distanceFromPlayer(other.distanceFromPlayer) {}

@@ -5,6 +5,7 @@
 #include <EngineManagers/InputManager.hpp>
 #include <Helpers/KeyMap.hpp>
 #include <Components/SoundEffectComponent.hpp>
+#include <Components/SpriteComponent.hpp>
 #include "UserInputMovement.hpp"
 
 void UserInputMovement::onStart() {

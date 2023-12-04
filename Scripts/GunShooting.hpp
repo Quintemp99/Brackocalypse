@@ -22,11 +22,6 @@ public:
         return std::make_unique<GunShooting>(*this);
     }
 
-    void accept(ComponentVisitor &visitor) override {
-        visitor.visit(*this);
-        onStart();
-    }
-
     GunShooting(const GunShooting &other) :
             BehaviourScript(other) {};
 private:
