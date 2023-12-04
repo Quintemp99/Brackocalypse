@@ -35,6 +35,8 @@ private:
 
     void shakeCamera();
 
+    void shoot();
+
 };
 
 

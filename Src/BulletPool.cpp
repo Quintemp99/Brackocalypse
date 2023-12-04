@@ -10,6 +10,6 @@ BulletPool::BulletPool(size_t layer, size_t poolSize) {
     for (size_t i = 0; i < poolSize; i++) {
         auto bullet = std::make_unique<Bullet>(layer);
         bullet->setActive(false);
-        addChild(*bullet);
+        addChild(std::move(bullet));
     }
 }

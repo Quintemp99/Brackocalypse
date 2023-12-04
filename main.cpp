@@ -13,6 +13,7 @@
 #include "Src/LevelBuilder.hpp"
 #include "Src/Gun.hpp"
 #include "Src/Bullet.hpp"
+#include "Src/BulletPool.hpp"
 
 int main() {
     Config config = new Config();
@@ -82,16 +83,16 @@ int main() {
         scene.AddGameObject(std::move(go));
     }
 
-    auto gun = std::make_unique<Gun>(1);
-    scene.AddGameObject(std::move(gun));
 
-    auto bullet = std::make_unique<Bullet>(1);
-    scene.AddGameObject(std::move(bullet));
+//    scene.AddGameObject(std::move(gun));
+
+    auto bulletPool = std::make_unique<BulletPool>(1, 10);
+    scene.AddGameObject(std::move(bulletPool));
 
     SceneManager::getInstance().setActiveScene(scene);
-    auto player = SceneManager::getInstance().getGameObjectByTag("Player");
-    auto gunObject = SceneManager::getInstance().getGameObjectByTag("Gun");
-    player.value().addChild(gunObject.value());
+//    auto player = SceneManager::getInstance().getGameObjectByTag("Player");
+//    auto gunObject = SceneManager::getInstance().getGameObjectByTag("Gun");
+//    player.value().addChild(gunObject.value());
     brackEngine.Run();
     return 0;
 }

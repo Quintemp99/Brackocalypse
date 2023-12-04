@@ -12,6 +12,7 @@
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "../Scripts/WalkingSound.hpp"
+#include "Gun.hpp"
 
 Player::Player(size_t layer) : GameObject() {
     addComponent(std::make_unique<VelocityComponent>());
@@ -40,5 +41,8 @@ Player::Player(size_t layer) : GameObject() {
 //    addComponent(std::make_unique<WalkingSound>());
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
+    auto gun = std::make_unique<Gun>(layer);
+    addChild(std::move(gun));
     setTag("Player");
+    setName("Player");
 }

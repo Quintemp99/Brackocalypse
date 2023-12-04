@@ -7,6 +7,7 @@
 #include <Components/AnimationComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <EngineManagers/SceneManager.hpp>
+#include <Components/SpriteComponent.hpp>
 #include "GunShooting.hpp"
 
 void GunShooting::onStart() {
@@ -16,8 +17,8 @@ void GunShooting::onStart() {
 void GunShooting::onUpdate(float deltaTime) {
     auto &animationComponent = tryGetComponent<AnimationComponent>();
     if (InputManager::GetInstance().IsMousePressed(LEFT_MOUSE)) {
-        getGameObjectByTag("Player").value().setActive(false);
         if (!animationComponent.isPlaying) {
+            shoot();
             animationComponent.currentFrame = 0;
             animationComponent.isPlaying = true;
         } else if (animationComponent.currentFrame == 1) {
@@ -51,4 +52,23 @@ void GunShooting::shakeCamera() {
     cameraPosition.position = std::make_unique<Vector2>(cameraPosition.position->getX() + offsetX,
                                                         cameraPosition.position->getY() + offsetY);
 
+}
+
+void GunShooting::shoot() {
+    for (auto &bullet: getGameObjectsByTag("Bullet")) {
+        if (!bullet.isActive()) {
+            bullet.setActive(true);
+            auto &transform = bullet.tryGetComponent<TransformComponent>();
+            auto &gunTransform = tryGetComponent<TransformComponent>();
+            auto &spriteComponent = tryGetComponent<SpriteComponent>();
+            transform.position = std::make_unique<Vector2>(gunTransform.position->getX(),
+                                                           gunTransform.position->getY());
+            auto rotation = gunTransform.rotation;
+            if (spriteComponent.flipX)
+                rotation += 180;
+            transform.rotation = rotation;
+
+            return;
+        }
+    }
 }
