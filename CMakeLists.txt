@@ -23,7 +23,9 @@ add_executable(Brackocalypse main.cpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Scripts/BlockPlayer.cpp
-        Scripts/BlockPlayer.hpp)
+        Scripts/BlockPlayer.hpp
+        Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
+        Src/RogueLikeMapTiles/SolidBoxMapTile.hpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

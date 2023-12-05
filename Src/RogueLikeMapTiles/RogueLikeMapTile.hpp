@@ -11,7 +11,7 @@
 #include <Components/BoxCollisionComponent.hpp>
 
 struct RogueLikeMapTile : public GameObject {
-    RogueLikeMapTile(Vector2 tileOffset, Vector2 position, Vector2 size, size_t layer, RogueLikeSheetType type)
+    RogueLikeMapTile(Vector2 tileOffset, Vector2 position, Vector2 size, size_t layer)
             : GameObject() {
         auto spriteComponent = SpriteComponent();
         spriteComponent.spritePath = spritePath;
@@ -30,16 +30,6 @@ struct RogueLikeMapTile : public GameObject {
                      (size.getY() * (spriteSize.getY() * spriteScale.getY()) / 2);
         transform.position = std::make_unique<Vector2>(posX, posY);
 
-        if (type != RogueLikeSheetType::Grass &&
-            type != RogueLikeSheetType::Sand && type != RogueLikeSheetType::Ground
-            && type != RogueLikeSheetType::Stone && type != RogueLikeSheetType::Water) {
-
-
-
-            auto colliderComponent = BoxCollisionComponent(spriteSize);
-            colliderComponent.collisionType = CollisionType::STATIC;
-            addComponent(colliderComponent);
-        }
 
     }
 

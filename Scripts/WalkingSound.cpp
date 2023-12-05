@@ -7,24 +7,29 @@
 #include <Components/SoundEffectComponent.hpp>
 #include "WalkingSound.hpp"
 
-void WalkingSound::onStart() {}
+void WalkingSound::onStart() {
+    BehaviourScript::onStart();
+
+}
 
 void WalkingSound::onUpdate(milliseconds deltaTime) {
-    auto& audioComponent = tryGetComponent<SoundEffectComponent>();
+    auto &audioComponent = tryGetComponent<SoundEffectComponent>();
 
     if (InputManager::GetInstance().IsKeyPressed(KeyMap::w) || InputManager::GetInstance().IsKeyPressed(KeyMap::UP)) {
         intervalCounter -= deltaTime;
-    } else if (InputManager::GetInstance().IsKeyPressed(KeyMap::s) || InputManager::GetInstance().IsKeyPressed(KeyMap::DOWN)) {
+    } else if (InputManager::GetInstance().IsKeyPressed(KeyMap::s) ||
+               InputManager::GetInstance().IsKeyPressed(KeyMap::DOWN)) {
         intervalCounter -= deltaTime;
     }
 
     if (InputManager::GetInstance().IsKeyPressed(KeyMap::a) || InputManager::GetInstance().IsKeyPressed(KeyMap::LEFT)) {
         intervalCounter -= deltaTime;
-    } else if (InputManager::GetInstance().IsKeyPressed(KeyMap::d) || InputManager::GetInstance().IsKeyPressed(KeyMap::RIGHT)) {
+    } else if (InputManager::GetInstance().IsKeyPressed(KeyMap::d) ||
+               InputManager::GetInstance().IsKeyPressed(KeyMap::RIGHT)) {
         intervalCounter -= deltaTime;
     }
 
-    if(intervalCounter <= 0.0){
+    if (intervalCounter <= 0.0) {
         audioComponent.startPlaying = true;
         intervalCounter = soundInterval;
     }

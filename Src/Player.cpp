@@ -34,7 +34,7 @@ Player::Player(size_t layer) : GameObject() {
     addComponent(std::make_unique<WalkingSound>());
 
 
-    transform.scale = std::make_unique<Vector2>(5, 5);
+    transform.scale = std::make_unique<Vector2>(4, 4);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
     collision->collisionType = CollisionType::DYNAMIC;
     addComponent(std::move(sprite));
