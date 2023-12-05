@@ -11,6 +11,9 @@
 #include "Src/Player.hpp"
 #include "Scripts/FollowGameObject.hpp"
 #include "Src/LevelBuilder.hpp"
+#include "Src/Gun.hpp"
+#include "Src/Bullet.hpp"
+#include "Src/BulletPool.hpp"
 
 int main() {
     Config config = new Config();
@@ -87,6 +90,8 @@ int main() {
     auto levelBuilder = LevelBuilder(map);
 
     levelBuilder.buildLevel();
+    auto bulletPool = std::make_unique<BulletPool>(1, 30);
+    scene.AddGameObject(std::move(bulletPool));
 
     for (auto &go: levelBuilder.gameObjects) {
         scene.AddGameObject(std::move(go));

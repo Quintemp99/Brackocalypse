@@ -18,8 +18,13 @@ add_executable(Brackocalypse main.cpp
         Src/Factory/LevelFactory.hpp
         Src/RogueLikeMapTiles/RogueLikeMapTile.hpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
-        Scripts/WalkingSound.cpp
-        Scripts/WalkingSound.hpp
+        Src/Gun.cpp
+        Scripts/GunFollowMouse.cpp
+        Scripts/GunShooting.cpp
+        Src/SaveLoad.cpp
+        Src/Bullet.cpp
+        Src/BulletPool.cpp
+        Scripts/BulletActions.cpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/CampfireMapTile.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp)
