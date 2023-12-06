@@ -34,11 +34,18 @@ void BlockPlayer::onUpdate(float deltaTime) {
                           (playerCollision.size->getY() * playerTransform.scale->getY()) / 2) -
                          (collidedWithTransform.position->getY() +
                           (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)) < 5) {
-                std::cout << std::abs((playerTransform.position->getY() -
-                                       (playerCollision.size->getY() * playerTransform.scale->getY()) / 2) -
-                                      (collidedWithTransform.position->getY() +
-                                       (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2))
-                          << std::endl;
+                if (playerTransform.position->getX() +
+                    (playerCollision.size->getX() * playerTransform.scale->getX()) / 2 >
+                    collidedWithTransform.position->getX() -
+                    (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2) {
+                    continue;
+                }
+                if (playerTransform.position->getX() -
+                    (playerCollision.size->getX() * playerTransform.scale->getX()) / 2 <
+                    collidedWithTransform.position->getX() +
+                    (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2) {
+                    continue;
+                }
                 playerVelocity.velocity.setY(0);
             }
 
@@ -50,11 +57,19 @@ void BlockPlayer::onUpdate(float deltaTime) {
                           (playerCollision.size->getY() * playerTransform.scale->getY()) / 2) -
                          (collidedWithTransform.position->getY() -
                           (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)) < 5) {
-                std::cout << std::abs((playerTransform.position->getY() +
-                                       (playerCollision.size->getY() * playerTransform.scale->getY()) / 2) -
-                                      (collidedWithTransform.position->getY() -
-                                       (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2))
-                          << std::endl;
+
+                if (playerTransform.position->getX() +
+                    (playerCollision.size->getX() * playerTransform.scale->getX()) / 2 >
+                    collidedWithTransform.position->getX() -
+                    (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2) {
+                    continue;
+                }
+                if (playerTransform.position->getX() -
+                    (playerCollision.size->getX() * playerTransform.scale->getX()) / 2 <
+                    collidedWithTransform.position->getX() +
+                    (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2) {
+                    continue;
+                }
 
                 playerVelocity.velocity.setY(0);
             }
@@ -69,11 +84,18 @@ void BlockPlayer::onUpdate(float deltaTime) {
                          (collidedWithTransform.position->getX() +
                           (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)) < 5) {
 
-                std::cout << std::abs((playerTransform.position->getX() -
-                                       (playerCollision.size->getX() * playerTransform.scale->getX()) / 2) -
-                                      (collidedWithTransform.position->getX() +
-                                       (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2))
-                          << std::endl;
+                if (playerTransform.position->getY() +
+                    (playerCollision.size->getY() * playerTransform.scale->getY()) / 2 >
+                    collidedWithTransform.position->getY() -
+                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2) {
+                    continue;
+                }
+                if (playerTransform.position->getY() -
+                    (playerCollision.size->getY() * playerTransform.scale->getY()) / 2 <
+                    collidedWithTransform.position->getY() +
+                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2) {
+                    continue;
+                }
 
                 playerVelocity.velocity.setX(0);
             }
@@ -84,11 +106,19 @@ void BlockPlayer::onUpdate(float deltaTime) {
                           (playerCollision.size->getX() * playerTransform.scale->getX()) / 2) -
                          (collidedWithTransform.position->getX() -
                           (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)) < 5) {
-                std::cout << std::abs((playerTransform.position->getX() +
-                                       (playerCollision.size->getX() * playerTransform.scale->getX()) / 2) -
-                                      (collidedWithTransform.position->getX() -
-                                       (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2))
-                          << std::endl;
+
+                if (playerTransform.position->getY() +
+                    (playerCollision.size->getY() * playerTransform.scale->getY()) / 2 >
+                    collidedWithTransform.position->getY() -
+                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2) {
+                    continue;
+                }
+                if (playerTransform.position->getY() -
+                    (playerCollision.size->getY() * playerTransform.scale->getY()) / 2 <
+                    collidedWithTransform.position->getY() +
+                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2) {
+                    continue;
+                }
 
                 playerVelocity.velocity.setX(0);
             }
