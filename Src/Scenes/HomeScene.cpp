@@ -5,7 +5,7 @@
 #include <Components/SoundTrackComponent.hpp>
 #include "BrackEngine.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
-#include "../RogueLikeSheetMap.hpp"
+#include "../Helpers/RogueLikeSheetMap.hpp"
 #include "../Player.hpp"
 #include "DemoLevel.hpp"
 
