@@ -22,6 +22,11 @@ public:
         return std::make_unique<WalkingSound>(*this);
     }
 
+    void accept(ComponentVisitor &visitor) override {
+        visitor.visit(*this);
+        onStart();
+    }
+
     WalkingSound(const WalkingSound& other) : BehaviourScript(other) {}
 private:
     milliseconds intervalCounter = 100;
