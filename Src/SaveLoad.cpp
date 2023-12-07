@@ -3,11 +3,11 @@
 const std::string SaveLoad::defaultPath{"./save_data.dat"};
 
 bool SaveLoad::save() const {
-    save(defaultPath);
+    return save(defaultPath);
 }
 
 bool SaveLoad::load() const {
-    load(defaultPath);
+    return load(defaultPath);
 }
 
 bool SaveLoad::save(const std::string &filePath) const {
