@@ -5,7 +5,7 @@
 #include "FollowGameObject.hpp"
 
 void FollowGameObject::onStart() {
-    BehaviourScript::onStart();
+    priority = ComponentStore::GetInstance().behaviourScriptCount++;
 }
 
 void FollowGameObject::onUpdate(milliseconds deltaTime) {

@@ -8,8 +8,7 @@
 #include "WalkingSound.hpp"
 
 void WalkingSound::onStart() {
-    BehaviourScript::onStart();
-
+    priority = ComponentStore::GetInstance().behaviourScriptCount++;
 }
 
 void WalkingSound::onUpdate(milliseconds deltaTime) {

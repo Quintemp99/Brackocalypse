@@ -7,8 +7,7 @@
 #include "UserInputMovement.hpp"
 
 void UserInputMovement::onStart() {
-    BehaviourScript::onStart();
-    
+    priority = ComponentStore::GetInstance().behaviourScriptCount++;
 
 }
 

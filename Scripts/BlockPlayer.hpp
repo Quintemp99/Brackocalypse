@@ -24,10 +24,13 @@ public:
 
     void accept(ComponentVisitor &visitor) override {
         visitor.visit(*this);
-        onStart();
     }
 
     BlockPlayer(const BlockPlayer &other) : BehaviourScript(other) {}
+
+    int getPriority() const { return priority; }
+
+    int priority;
 
 };
 

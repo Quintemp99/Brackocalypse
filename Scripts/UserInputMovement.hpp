@@ -23,10 +23,15 @@ public:
 
     void accept(ComponentVisitor &visitor) override {
         visitor.visit(*this);
-        onStart();
     }
 
-    UserInputMovement(const UserInputMovement& other) : BehaviourScript(other) {}
+    UserInputMovement(const UserInputMovement &other) : BehaviourScript(other) {}
+
+    int getPriority() const { return priority; }
+
+
+    int priority;
+
 private:
     float velocity = 0.25;
 };

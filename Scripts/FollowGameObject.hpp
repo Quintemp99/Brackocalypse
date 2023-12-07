@@ -7,7 +7,7 @@
 
 #include <Components/BehaviourScript.hpp>
 
-class FollowGameObject : public BehaviourScript{
+class FollowGameObject : public BehaviourScript {
 public:
 public:
     FollowGameObject(std::string tag) : BehaviourScript(), followGameObjectTag(tag) {}
@@ -24,14 +24,17 @@ public:
 
     void accept(ComponentVisitor &visitor) override {
         visitor.visit(*this);
-        onStart();
     }
 
-    FollowGameObject(const FollowGameObject& other) :
-        BehaviourScript(other),
-        moveCameraMargin(other.moveCameraMargin),
-        followGameObjectTag(other.followGameObjectTag)
-        {}
+    FollowGameObject(const FollowGameObject &other) :
+            BehaviourScript(other),
+            moveCameraMargin(other.moveCameraMargin),
+            followGameObjectTag(other.followGameObjectTag) {}
+
+    int getPriority() const { return priority; }
+
+    int priority;
+
 private:
     float moveCameraMargin = 30;
     std::string followGameObjectTag;

@@ -24,10 +24,14 @@ public:
 
     void accept(ComponentVisitor &visitor) override {
         visitor.visit(*this);
-        onStart();
     }
 
-    WalkingSound(const WalkingSound& other) : BehaviourScript(other) {}
+    WalkingSound(const WalkingSound &other) : BehaviourScript(other) {}
+
+    int getPriority() const { return priority; }
+
+    int priority;
+
 private:
     milliseconds intervalCounter = 100;
     milliseconds soundInterval = 500;

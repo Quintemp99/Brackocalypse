@@ -10,64 +10,82 @@ void testMethod(TransformComponent &playerTransform, BoxCollisionComponent &play
                 TransformComponent &collidedWithTransform, BoxCollisionComponent &collidedWithCollision);
 
 void BlockPlayer::onStart() {
-    BehaviourScript::onStart();
+    priority = ComponentStore::GetInstance().behaviourScriptCount++;
 }
 
 void BlockPlayer::onUpdate(float deltaTime) {
-
     auto player = getGameObjectByTag("Player");
     if (!player.has_value()) return;
     auto &playerCollision = player.value().tryGetComponent<BoxCollisionComponent>();
     auto &playerTransform = player.value().tryGetComponent<TransformComponent>();
     auto &playerVelocity = player.value().tryGetComponent<VelocityComponent>();
 
+    auto playerY = playerTransform.position->getY();
+    auto playerX = playerTransform.position->getX();
+    auto playerSizeX = playerCollision.size->getX();
+    auto playerSizeY = playerCollision.size->getY();
+    auto playerScaleX = playerTransform.scale->getX();
+    auto playerScaleY = playerTransform.scale->getY();
+
+    auto playerTopRight = Vector2(playerX + (playerSizeX * playerScaleX) / 2,
+                                  playerY - (playerSizeY * playerScaleY) / 2);
+    auto playerTopLeft = Vector2(playerX - (playerSizeX * playerScaleX) / 2,
+                                 playerY - (playerSizeY * playerScaleY) / 2);
+    auto playerBottomRight = Vector2(playerX + (playerSizeX * playerScaleX) / 2,
+                                     playerY + (playerSizeY * playerScaleY) / 2);
+    auto playerBottomLeft = Vector2(playerX - (playerSizeX * playerScaleX) / 2,
+                                    playerY + (playerSizeY * playerScaleY) / 2);
+
     for (auto i: playerCollision.collidedWith) {
         auto collidedWithTransform = ComponentStore::GetInstance().tryGetComponent<TransformComponent>(i);
         auto collidedWithCollision = ComponentStore::GetInstance().tryGetComponent<BoxCollisionComponent>(i);
+
+        auto collidedWithY = collidedWithTransform.position->getY();
+        auto collidedWithX = collidedWithTransform.position->getX();
+        auto collidedWithSizeX = collidedWithCollision.size->getX();
+        auto collidedWithSizeY = collidedWithCollision.size->getY();
+        auto collidedWithScaleX = collidedWithTransform.scale->getX();
+        auto collidedWithScaleY = collidedWithTransform.scale->getY();
+
+
+        auto collidedWithTopRight = Vector2(collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2,
+                                            collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2);
+        auto collidedWithTopLeft = Vector2(collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2,
+                                           collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2);
+        auto collidedWithBottomRight = Vector2(collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2,
+                                               collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2);
+        auto collidedWithBottomLeft = Vector2(collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2,
+                                              collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2);
 
 
 
 // Check collisions only on the Y-axis for top and bottom
         if (playerVelocity.velocity.getY() < 0) {  // Moving up
-            testMethod(playerTransform, playerCollision, collidedWithTransform, collidedWithCollision);
-            if (std::abs((playerTransform.position->getY() -
-                          (playerCollision.size->getY() * playerTransform.scale->getY()) / 2) -
-                         (collidedWithTransform.position->getY() +
-                          (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)) < 5) {
-                if (playerTransform.position->getX() +
-                    (playerCollision.size->getX() * playerTransform.scale->getX()) / 2 >
-                    collidedWithTransform.position->getX() -
-                    (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2) {
+            if (std::abs((playerY - (playerSizeY * playerScaleY) / 2) -
+                         (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 1) {
+
+                if (playerX + (playerSizeX * playerScaleX) / 2 >
+                    collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) {
+                    continue;
+                } else if (playerX - (playerSizeX * playerScaleX) / 2 <
+                           collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) {
                     continue;
                 }
-                if (playerTransform.position->getX() -
-                    (playerCollision.size->getX() * playerTransform.scale->getX()) / 2 <
-                    collidedWithTransform.position->getX() +
-                    (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2) {
-                    continue;
-                }
+
                 playerVelocity.velocity.setY(0);
             }
 
 
         } else if (playerVelocity.velocity.getY() > 0) {  // Moving down
-            testMethod(playerTransform, playerCollision, collidedWithTransform, collidedWithCollision);
 
-            if (std::abs((playerTransform.position->getY() +
-                          (playerCollision.size->getY() * playerTransform.scale->getY()) / 2) -
-                         (collidedWithTransform.position->getY() -
-                          (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)) < 5) {
+            if (std::abs((playerY + (playerSizeY * playerScaleY) / 2) -
+                         (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 1) {
 
-                if (playerTransform.position->getX() +
-                    (playerCollision.size->getX() * playerTransform.scale->getX()) / 2 >
-                    collidedWithTransform.position->getX() -
-                    (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2) {
+                if (playerX + (playerSizeX * playerScaleX) / 2 >
+                    collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) {
                     continue;
-                }
-                if (playerTransform.position->getX() -
-                    (playerCollision.size->getX() * playerTransform.scale->getX()) / 2 <
-                    collidedWithTransform.position->getX() +
-                    (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2) {
+                } else if (playerX - (playerSizeX * playerScaleX) / 2 <
+                           collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) {
                     continue;
                 }
 
@@ -77,46 +95,28 @@ void BlockPlayer::onUpdate(float deltaTime) {
 
 // Check collisions only on the X-axis for left and right
         if (playerVelocity.velocity.getX() < 0) {  // Moving left
-            testMethod(playerTransform, playerCollision, collidedWithTransform, collidedWithCollision);
 
-            if (std::abs((playerTransform.position->getX() -
-                          (playerCollision.size->getX() * playerTransform.scale->getX()) / 2) -
-                         (collidedWithTransform.position->getX() +
-                          (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)) < 5) {
+            if (std::abs((playerX - (playerSizeX * playerScaleX) / 2) -
+                         (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2)) < 1) {
 
-                if (playerTransform.position->getY() +
-                    (playerCollision.size->getY() * playerTransform.scale->getY()) / 2 >
-                    collidedWithTransform.position->getY() -
-                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2) {
+                if (playerY + (playerSizeY * playerScaleY) / 2 >
+                    collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) {
+                    continue;
+                } else if (playerY - (playerSizeY * playerScaleY) / 2 <
+                           collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) {
                     continue;
                 }
-                if (playerTransform.position->getY() -
-                    (playerCollision.size->getY() * playerTransform.scale->getY()) / 2 <
-                    collidedWithTransform.position->getY() +
-                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2) {
-                    continue;
-                }
-
                 playerVelocity.velocity.setX(0);
             }
         } else if (playerVelocity.velocity.getX() > 0) {  // Moving right
-            testMethod(playerTransform, playerCollision, collidedWithTransform, collidedWithCollision);
 
-            if (std::abs((playerTransform.position->getX() +
-                          (playerCollision.size->getX() * playerTransform.scale->getX()) / 2) -
-                         (collidedWithTransform.position->getX() -
-                          (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)) < 5) {
-
-                if (playerTransform.position->getY() +
-                    (playerCollision.size->getY() * playerTransform.scale->getY()) / 2 >
-                    collidedWithTransform.position->getY() -
-                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2) {
+            if (std::abs((playerX + (playerSizeX * playerScaleX) / 2) -
+                         (collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2)) < 1) {
+                if (playerY + (playerSizeY * playerScaleY) / 2 >
+                    collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) {
                     continue;
-                }
-                if (playerTransform.position->getY() -
-                    (playerCollision.size->getY() * playerTransform.scale->getY()) / 2 <
-                    collidedWithTransform.position->getY() +
-                    (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2) {
+                } else if (playerY - (playerSizeY * playerScaleY) / 2 <
+                           collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) {
                     continue;
                 }
 
