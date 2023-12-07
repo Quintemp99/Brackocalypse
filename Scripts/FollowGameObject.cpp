@@ -3,9 +3,9 @@
 //
 
 #include "FollowGameObject.hpp"
+#include "Components/TransformComponent.hpp"
 
 void FollowGameObject::onStart() {
-    priority = ComponentStore::GetInstance().behaviourScriptCount++;
 }
 
 void FollowGameObject::onUpdate(milliseconds deltaTime) {

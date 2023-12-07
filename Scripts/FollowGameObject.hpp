@@ -22,9 +22,6 @@ public:
         return std::make_unique<FollowGameObject>(*this);
     }
 
-    void accept(ComponentVisitor &visitor) override {
-        visitor.visit(*this);
-    }
 
     FollowGameObject(const FollowGameObject &other) :
             BehaviourScript(other),

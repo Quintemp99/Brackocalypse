@@ -22,9 +22,6 @@ public:
         return std::make_unique<WalkingSound>(*this);
     }
 
-    void accept(ComponentVisitor &visitor) override {
-        visitor.visit(*this);
-    }
 
     WalkingSound(const WalkingSound &other) : BehaviourScript(other) {}
 

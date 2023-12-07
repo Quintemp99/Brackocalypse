@@ -22,9 +22,6 @@ public:
         return std::make_unique<BlockPlayer>(*this);
     }
 
-    void accept(ComponentVisitor &visitor) override {
-        visitor.visit(*this);
-    }
 
     BlockPlayer(const BlockPlayer &other) : BehaviourScript(other) {}
 

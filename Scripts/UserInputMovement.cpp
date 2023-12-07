@@ -5,9 +5,9 @@
 #include <EngineManagers/InputManager.hpp>
 #include <Helpers/KeyMap.hpp>
 #include "UserInputMovement.hpp"
+#include "Components/VelocityComponent.hpp"
 
 void UserInputMovement::onStart() {
-    priority = ComponentStore::GetInstance().behaviourScriptCount++;
 
 }
 

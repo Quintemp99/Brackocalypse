@@ -21,9 +21,6 @@ public:
         return std::make_unique<UserInputMovement>(*this);
     }
 
-    void accept(ComponentVisitor &visitor) override {
-        visitor.visit(*this);
-    }
 
     UserInputMovement(const UserInputMovement &other) : BehaviourScript(other) {}
 

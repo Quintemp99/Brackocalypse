@@ -5,12 +5,13 @@
 #include <Components/CircleCollisionComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
 #include "BlockPlayer.hpp"
+#include "Components/TransformComponent.hpp"
+#include "Components/VelocityComponent.hpp"
 
 void testMethod(TransformComponent &playerTransform, BoxCollisionComponent &playerCollision,
                 TransformComponent &collidedWithTransform, BoxCollisionComponent &collidedWithCollision);
 
 void BlockPlayer::onStart() {
-    priority = ComponentStore::GetInstance().behaviourScriptCount++;
 }
 
 void BlockPlayer::onUpdate(float deltaTime) {
