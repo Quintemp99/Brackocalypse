@@ -12,15 +12,14 @@
 #include "../BulletPool.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
-    auto camera = Camera();
-    camera.addComponent(VelocityComponent());
-    camera.SetBackgroundColor(Color(0, 255, 0, 255));
-    camera.addComponent(FollowGameObject("Player"));
+    auto camera = GetAllCameras()[0];
+    camera->addComponent(VelocityComponent());
+    camera->SetBackgroundColor(Color(0, 255, 0, 255));
+    camera->addComponent(FollowGameObject("Player"));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
-    camera.addComponent(std::move(backgroundSound));
-    this->AddCamera(std::move(camera));
+    camera->addComponent(std::move(backgroundSound));
 
     std::vector<std::vector<std::string>> map{};
     map.emplace_back();

@@ -10,14 +10,13 @@
 #include "DemoLevel.hpp"
 
 HomeScene::HomeScene() : Scene() {
-    auto camera = Camera();
-    camera.addComponent(VelocityComponent());
-    camera.SetBackgroundColor(Color(0, 255, 0, 255));
+    auto camera = GetAllCameras()[0];
+    camera->addComponent(VelocityComponent());
+    camera->SetBackgroundColor(Color(0, 255, 0, 255));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
     backgroundSound->volume = 0.1;
     backgroundSound->startPlaying = true;
-    camera.addComponent(std::move(backgroundSound));
-    this->AddCamera(std::move(camera));
+    camera->addComponent(std::move(backgroundSound));
 
     auto imageBg = std::make_unique<GameObject>();
     auto spriteBg = std::make_unique<SpriteComponent>();
