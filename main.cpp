@@ -117,14 +117,14 @@ int main() {
 
     levelBuilder.buildLevel();
     auto bulletPool = std::make_unique<BulletPool>(1, 30);
-    scene.AddGameObject(std::move(bulletPool));
+    scene.addGameObject(std::move(bulletPool));
 
     for (auto &go: levelBuilder.gameObjects) {
-        scene.AddGameObject(std::move(go));
+        scene.addGameObject(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(scene.GetGameObjectByName("PlayerSpawn"));
-    scene.AddGameObject(std::move(player));
+    auto player = std::make_unique<Player>(scene.getGameObjectByName("PlayerSpawn"));
+    scene.addGameObject(std::move(player));
 
     SceneManager::getInstance().setActiveScene(scene);
 
