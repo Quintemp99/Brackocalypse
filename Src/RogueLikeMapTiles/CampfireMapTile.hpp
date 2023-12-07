@@ -6,6 +6,7 @@
 #define BRACKOCALYPSE_CAMPFIREMAPTILE_HPP
 
 #include <Components/AnimationComponent.hpp>
+#include <Components/ParticleEmitterComponent.hpp>
 #include "RogueLikeMapTile.hpp"
 
 struct CampfireMapTile : public RogueLikeMapTile {
@@ -15,6 +16,15 @@ struct CampfireMapTile : public RogueLikeMapTile {
         spriteAnimationComponent.frameCount = 2;
         spriteAnimationComponent.fps = 4;
         addComponent(spriteAnimationComponent);
+
+        auto particleEmitterComponent = ParticleEmitterComponent(20);
+        particleEmitterComponent.sortingLayer = layer;
+        particleEmitterComponent.speed = 0.07;
+        particleEmitterComponent.lifeTime = 700;
+        particleEmitterComponent.color = std::make_unique<Color>(220,150,150,255);
+        particleEmitterComponent.emitInterval = 200;
+        particleEmitterComponent.particleSize = Vector2(3,3);
+        addComponent(particleEmitterComponent);
     }
     ~CampfireMapTile() = default;
 };

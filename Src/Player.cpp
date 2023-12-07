@@ -9,6 +9,7 @@
 #include <Components/AnimationComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
 #include <EngineManagers/SceneManager.hpp>
+#include <Components/RectangleComponent.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
@@ -38,6 +39,7 @@ void Player::init(size_t layer, Vector2 position) {
     sprite->sortingLayer = layer;
     sprite->orderInLayer = 1;
     transform.scale = std::make_unique<Vector2>(1, 1);
+    transform.position = std::make_unique<Vector2>(position);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
     walkAnimation->fps = 15;
     walkAnimation->isLooping = true;
@@ -47,10 +49,9 @@ void Player::init(size_t layer, Vector2 position) {
     transform.scale = std::make_unique<Vector2>(1, 1);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
 
-
-    auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps2.mp3");
-    audioComponent->volume = 0.05;
-    addComponent(std::move(audioComponent));
+//    auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps2.mp3");
+//    audioComponent->volume = 0.05;
+//    addComponent(std::move(audioComponent));
 
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
