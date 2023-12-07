@@ -13,12 +13,19 @@
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
+#include "../Scripts/GoToNextLevel.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
     Vector2 location = Vector2(transformComponent.position->getX(), transformComponent.position->getY());
     auto spriteComponent = spawnLocationMapTile->tryGetComponent<SpriteComponent>();
     int layer = spriteComponent.sortingLayer;
+
+    addComponent(std::make_unique<GoToNextLevel>());
+
+    for(int i = 0; i < 10; ++i) {
+        addChild(std::make_unique<Beer>());
+    }
 
     init(layer, location);
 }
