@@ -16,8 +16,8 @@
 
 Player::Player(size_t layer) : GameObject() {
     addComponent(std::make_unique<VelocityComponent>());
-    addComponent(std::make_unique<UserInputMovement>());
-    addComponent(std::make_unique<BlockPlayer>());
+    addBehaviourScript(std::make_unique<UserInputMovement>());
+    addBehaviourScript(std::make_unique<BlockPlayer>());
 
     auto sprite = std::make_unique<SpriteComponent>();
     auto &transform = tryGetComponent<TransformComponent>();
@@ -31,7 +31,7 @@ Player::Player(size_t layer) : GameObject() {
     auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps.mp3");
     audioComponent->volume = 0.05;
     addComponent(std::move(audioComponent));
-    addComponent(std::make_unique<WalkingSound>());
+    addBehaviourScript(std::make_unique<WalkingSound>());
 
 
     transform.scale = std::make_unique<Vector2>(4, 4);
