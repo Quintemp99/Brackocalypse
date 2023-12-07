@@ -44,9 +44,8 @@ HomeScene::HomeScene() : Scene() {
     auto centerY = ConfigSingleton::GetInstance().GetWindowSize().getY() / 2;
     auto centerX = ConfigSingleton::GetInstance().GetWindowSize().getX() / 2;
 
-    auto transformStartButton = std::make_unique<TransformComponent>();
-    transformStartButton->position = std::make_unique<Vector2>(-150+ centerX - 105, centerY + 50);
-    startButton->addComponent(std::move(transformStartButton));
+    auto& transformStartButton = startButton->tryGetComponent<TransformComponent>();
+    transformStartButton.position = std::make_unique<Vector2>(-150+ centerX - 105, centerY + 50);
     addGameObject(std::move(startButton));
 
     //Quit button
@@ -56,8 +55,7 @@ HomeScene::HomeScene() : Scene() {
         ConfigSingleton::GetInstance().ToggleIsRunning();
     });
 
-    auto transformQuitButton = std::make_unique<TransformComponent>();
-    transformQuitButton->position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
-    quitButton->addComponent(std::move(transformQuitButton));
+    auto& transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
+    transformQuitButton.position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     addGameObject(std::move(quitButton));
 }
