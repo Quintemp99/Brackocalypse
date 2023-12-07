@@ -57,9 +57,9 @@ void GunShooting::shakeCamera() {
 
 void GunShooting::shoot() {
     for (auto &bullet: getGameObjectsByTag("Bullet")) {
-        if (!bullet.isActive()) {
-            bullet.setActive(true);
-            auto &transform = bullet.tryGetComponent<TransformComponent>();
+        if (!bullet->isActive()) {
+            bullet->setActive(true);
+            auto &transform = bullet->tryGetComponent<TransformComponent>();
             auto &gunTransform = tryGetComponent<TransformComponent>();
             auto &spriteComponent = tryGetComponent<SpriteComponent>();
             auto gunPosition = SceneManager::getInstance().getWorldPosition(gunTransform);
@@ -74,7 +74,7 @@ void GunShooting::shoot() {
 
             auto radians = rotation * M_PI / 180;
             auto velocity = Vector2(cos(radians), sin(radians));
-            bullet.tryGetComponent<VelocityComponent>().velocity = velocity;
+            bullet->tryGetComponent<VelocityComponent>().velocity = velocity;
             return;
         }
     }

@@ -16,7 +16,7 @@ void UserInputMovement::onUpdate(milliseconds deltaTime) {
     auto &playerVelocityComponent = tryGetComponent<VelocityComponent>();
     auto &spriteComponent = tryGetComponent<SpriteComponent>();
     auto &walkAnimation = tryGetComponent<AnimationComponent>();
-    auto &soundEffect = tryGetComponent<SoundEffectComponent>();
+//    auto &soundEffect = tryGetComponent<SoundEffectComponent>();
 
     int left = static_cast<int>(InputManager::GetInstance().IsKeyPressed(KeyMap::a) ||
                                 InputManager::GetInstance().IsKeyPressed(KeyMap::LEFT));
@@ -53,7 +53,7 @@ void UserInputMovement::onUpdate(milliseconds deltaTime) {
     } else {
         walkAnimation.isPlaying = true;
         if (walkAnimation.currentFrame == 0 || walkAnimation.currentFrame == 4) {
-            soundEffect.startPlaying = true;
+//            soundEffect.startPlaying = true;
         }
     }
 }

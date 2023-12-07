@@ -10,7 +10,7 @@
 #include "DemoLevel.hpp"
 
 HomeScene::HomeScene() : Scene() {
-    auto camera = GetAllCameras()[0];
+    auto& camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
@@ -31,7 +31,7 @@ HomeScene::HomeScene() : Scene() {
     transformBg->scale = std::make_unique<Vector2>(0.6, 0.6);
     imageBg->addComponent(std::move(spriteBg));
     imageBg->addComponent(std::move(transformBg));
-    this->AddGameObject(std::move(imageBg));
+    addGameObject(std::move(imageBg));
 
     //Start button
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
@@ -47,7 +47,7 @@ HomeScene::HomeScene() : Scene() {
     auto transformStartButton = std::make_unique<TransformComponent>();
     transformStartButton->position = std::make_unique<Vector2>(-150+ centerX - 105, centerY + 50);
     startButton->addComponent(std::move(transformStartButton));
-    this->AddGameObject(std::move(startButton));
+    addGameObject(std::move(startButton));
 
     //Quit button
     auto quitButton = std::make_unique<Button>(Vector2(210, 70), "Quit");
@@ -59,5 +59,5 @@ HomeScene::HomeScene() : Scene() {
     auto transformQuitButton = std::make_unique<TransformComponent>();
     transformQuitButton->position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     quitButton->addComponent(std::move(transformQuitButton));
-    this->AddGameObject(std::move(quitButton));
+    addGameObject(std::move(quitButton));
 }

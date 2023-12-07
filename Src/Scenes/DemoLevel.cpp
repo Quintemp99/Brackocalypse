@@ -12,7 +12,7 @@
 #include "../BulletPool.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
-    auto camera = GetAllCameras()[0];
+    auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
     camera->addComponent(FollowGameObject("Player"));
@@ -20,6 +20,7 @@ DemoLevel::DemoLevel() : Scene() {
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
+
 
     std::vector<std::vector<std::string>> map{};
     map.emplace_back();
@@ -65,8 +66,8 @@ DemoLevel::DemoLevel() : Scene() {
     map[1].emplace_back("..e.HJ.............O...........................");
     map[1].emplace_back(".....a....ghD.R.O..K...........................");
     map[1].emplace_back("...F......ij....K........F..F..................");
-    map[1].emplace_back("..e........I......O.....e....e.................");
-    map[1].emplace_back("....e...O...d..O..K.......F...F................");
+    map[1].emplace_back("..e...............O.....e....e.................");
+    map[1].emplace_back("....e...O......O..K.......F...F................");
     map[1].emplace_back("...F....K......K......bbbbbbbbbb...............");
     map[1].emplace_back("..F........O...........e..e..F.................");
     map[1].emplace_back("...........K.............F..e..................");
@@ -76,16 +77,42 @@ DemoLevel::DemoLevel() : Scene() {
     map[1].emplace_back("...............................................");
     map[1].emplace_back("...............................................");
 
+    map.emplace_back();
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...........I...................................");
+    map[2].emplace_back("............d..................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+    map[2].emplace_back("...............................................");
+
     auto levelBuilder = LevelBuilder(map);
 
     levelBuilder.buildLevel();
     auto bulletPool = std::make_unique<BulletPool>(1, 30);
-    this->AddGameObject(std::move(bulletPool));
+    this->addGameObject(std::move(bulletPool));
 
     for (auto &go: levelBuilder.gameObjects) {
-        this->AddGameObject(std::move(go));
+        this->addGameObject(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(this->GetGameObjectByName("PlayerSpawn"));
-    this->AddGameObject(std::move(player));
+    auto player = std::make_unique<Player>(this->getGameObjectByName("PlayerSpawn"));
+    this->addGameObject(std::move(player));
 }

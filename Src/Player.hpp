@@ -10,9 +10,12 @@
 
 class Player : public GameObject {
 public:
-    Player(std::unique_ptr<GameObject>& spawnLocationMapTile);
+    Player(GameObject *spawnLocationMapTile);
+
     Player(size_t layer, Vector2 position);
+
     ~Player() = default;
+
 private:
     void init(size_t layer, Vector2 position);
 };
