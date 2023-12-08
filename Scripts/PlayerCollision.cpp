@@ -38,8 +38,10 @@ void PlayerCollision::onUpdate(float deltaTime) {
 
 // Check collisions only on the Y-axis for top and bottom
         if (playerVelocity.velocity.getY() < 0) {  // Moving up
-            if (std::abs((playerY - (playerSizeY * playerScaleY) / 2) -
-                         (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
+
+            if ((playerY - (playerSizeY * playerScaleY) / 2) -
+                (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) > -50) {
+
 
                 if (std::abs((playerX - (playerSizeX * playerScaleX) / 2) -
                              (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
@@ -49,14 +51,16 @@ void PlayerCollision::onUpdate(float deltaTime) {
                     continue;
                 }
 
+                playerTransform.position->setY((collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) +
+                                               (playerSizeY * playerScaleY) / 2);
                 playerVelocity.velocity.setY(0);
             }
 
 
         } else if (playerVelocity.velocity.getY() > 0) {  // Moving down
-
-            if (std::abs((playerY + (playerSizeY * playerScaleY) / 2) -
-                         (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
+            ;
+            if ((playerY + (playerSizeY * playerScaleY) / 2) -
+                (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) < 50) {
 
                 if (std::abs((playerX - (playerSizeX * playerScaleX) / 2) -
                              (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
@@ -66,6 +70,8 @@ void PlayerCollision::onUpdate(float deltaTime) {
                     continue;
                 }
 
+                playerTransform.position->setY((collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) -
+                                               (playerSizeY * playerScaleY) / 2);
                 playerVelocity.velocity.setY(0);
             }
         }
@@ -73,8 +79,8 @@ void PlayerCollision::onUpdate(float deltaTime) {
 // Check collisions only on the X-axis for left and right
         if (playerVelocity.velocity.getX() < 0) {  // Moving left
 
-            if (std::abs((playerX - (playerSizeX * playerScaleX) / 2) -
-                         (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
+            if ((playerX - (playerSizeX * playerScaleX) / 2) -
+                (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) > -50) {
 
                 if (std::abs((playerY - (playerSizeY * playerScaleY) / 2) -
                              (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
@@ -83,19 +89,24 @@ void PlayerCollision::onUpdate(float deltaTime) {
                                     (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
                     continue;
                 }
+                playerTransform.position->setX(((collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) +
+                                                (playerSizeX * playerScaleX) / 2));
                 playerVelocity.velocity.setX(0);
             }
         } else if (playerVelocity.velocity.getX() > 0) {  // Moving right
 
-            if (std::abs((playerX + (playerSizeX * playerScaleX) / 2) -
-                         (collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
+            if ((playerX + (playerSizeX * playerScaleX) / 2) -
+                (collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) < 50) {
+                
                 if (std::abs((playerY - (playerSizeY * playerScaleY) / 2) -
-                             (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
+                             (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 10) {
                     continue;
                 } else if (std::abs((playerY + (playerSizeY * playerScaleY) / 2) -
-                                    (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
+                                    (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 10) {
                     continue;
                 }
+                playerTransform.position->setX(((collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) -
+                                                (playerSizeX * playerScaleX) / 2));
                 playerVelocity.velocity.setX(0);
             }
         }
