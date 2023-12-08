@@ -22,6 +22,10 @@ void LevelBuilder::buildLevel() {
         for (const std::string row: layer) {
             auto mapRow = std::vector<std::unique_ptr<Vector2>>();
             for (char tile: row) {
+                if (tile == '.') {
+                    mapRow.emplace_back(nullptr);
+                    continue;
+                }
                 mapRow.emplace_back(std::make_unique<Vector2>(levelFactory_.getSpriteTileOffset(tile)));
             }
             map.emplace_back(std::move(mapRow));
