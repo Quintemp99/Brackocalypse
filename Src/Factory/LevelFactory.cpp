@@ -23,6 +23,10 @@ std::unique_ptr<GameObject> LevelFactory::createGameObject(char c, Vector2 posit
         case 'I':
             return std::make_unique<CampfireMapTile>(rogueLikeSheetMap.map[Campfire], position, size_, layer);
         default:
-            return std::make_unique<RogueLikeMapTile>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)], position, size_, layer);
+            return std::make_unique<RogueLikeMapTile>(getSpriteTileOffset(c), position, size_, layer);
     }
+}
+
+Vector2 LevelFactory::getSpriteTileOffset(char c) {
+    return rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)];
 }
