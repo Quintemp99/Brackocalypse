@@ -16,13 +16,15 @@
 #include "../Src/Gun.hpp"
 #include "../Src/Bullet.hpp"
 #include "../Src/BulletPool.hpp"
+#include "../Src/Scenes/HomeScene.hpp"
 
 void GoToNextLevel::onStart() {
 
 }
 
 void GoToNextLevel::onUpdate(float deltaTime) {
-    auto beers = getGameObjectsByName("Beer");
+    auto player = getGameObjectByTag("Player");
+    auto beers = player->getChildrenWithTag("Beer");
 
     int totalProgress = beers.size();
 
@@ -31,8 +33,17 @@ void GoToNextLevel::onUpdate(float deltaTime) {
 
         auto camera = Camera();
         camera.addComponent(VelocityComponent());
-        camera.SetBackgroundColor(Color(0, 255, 0, 255));
+        camera.SetBackgroundColor(Color(255, 0, 0, 255));
         auto scene = Scene(std::move(camera));
+
+        //Start button
+        auto backToHome = std::make_unique<Button>(Vector2(270, 70), "Back to Home");
+        backToHome->setFontSize(40);
+        backToHome->setClickEvent([](){
+            auto scene = HomeScene();
+            SceneManager::getInstance().setActiveScene(scene);
+        });
+        scene.addGameObject(std::move(backToHome));
 
         maxForLevel += 10;
         SceneManager::getInstance().setActiveScene(scene);

@@ -9,8 +9,8 @@
 
 class Beer : public GameObject {
 public:
-    Beer() {
-        setName("Beer");
+    Beer() : GameObject() {
+        setTag("Beer");
     }
 };
 

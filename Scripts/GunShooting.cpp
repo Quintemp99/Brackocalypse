@@ -10,6 +10,7 @@
 #include <Components/SpriteComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
 #include "GunShooting.hpp"
+#include "../Src/Beer.hpp"
 
 void GunShooting::onStart() {
 
@@ -36,25 +37,6 @@ void GunShooting::onUpdate(milliseconds deltaTime) {
     }
 }
 
-void GunShooting::shakeCamera() {
-    auto cameraId = ComponentStore::GetInstance().getEntitiesWithComponent<CameraComponent>()[0];
-    auto &cameraPosition = ComponentStore::GetInstance().tryGetComponent<TransformComponent>(cameraId);
-    if (cameraShakeTimer >= cameraShakeDuration) {
-        cameraShakeTimer = 0.0f;
-        shaking = false;
-        cameraPosition.position = std::make_unique<Vector2>(originalCameraPosition);
-        return;
-    }
-
-    float offsetX = cameraShakeIntensity * distribution(randomGenerator);
-    float offsetY = cameraShakeIntensity * distribution(randomGenerator);
-
-
-    cameraPosition.position = std::make_unique<Vector2>(cameraPosition.position->getX() + offsetX,
-                                                        cameraPosition.position->getY() + offsetY);
-
-}
-
 void GunShooting::shoot() {
     for (auto &bullet: getGameObjectsByTag("Bullet")) {
         if (!bullet->isActive()) {
@@ -72,10 +54,33 @@ void GunShooting::shoot() {
             auto &soundEffectComponent = tryGetComponent<SoundEffectComponent>();
             soundEffectComponent.startPlaying = true;
 
+            auto player = getGameObjectByTag("Player");
+            auto gameObject = std::make_unique<Beer>();
+            player->addChild(std::move(gameObject));
+
             auto radians = rotation * M_PI / 180;
             auto velocity = Vector2(cos(radians), sin(radians));
             bullet->tryGetComponent<VelocityComponent>().velocity = velocity;
             return;
         }
     }
+}
+
+void GunShooting::shakeCamera() {
+    auto cameraId = ComponentStore::GetInstance().getEntitiesWithComponent<CameraComponent>()[0];
+    auto &cameraPosition = ComponentStore::GetInstance().tryGetComponent<TransformComponent>(cameraId);
+    if (cameraShakeTimer >= cameraShakeDuration) {
+        cameraShakeTimer = 0.0f;
+        shaking = false;
+        cameraPosition.position = std::make_unique<Vector2>(originalCameraPosition);
+        return;
+    }
+
+    float offsetX = cameraShakeIntensity * distribution(randomGenerator);
+    float offsetY = cameraShakeIntensity * distribution(randomGenerator);
+
+
+    cameraPosition.position = std::make_unique<Vector2>(cameraPosition.position->getX() + offsetX,
+                                                        cameraPosition.position->getY() + offsetY);
+
 }

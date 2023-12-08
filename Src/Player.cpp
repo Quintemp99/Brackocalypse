@@ -23,10 +23,6 @@ Player::Player(GameObject *spawnLocationMapTile) {
 
     addComponent(std::make_unique<GoToNextLevel>());
 
-    for(int i = 0; i < 10; ++i) {
-        addChild(std::make_unique<Beer>());
-    }
-
     init(layer, location);
 }
 
