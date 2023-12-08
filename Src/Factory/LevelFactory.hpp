@@ -8,7 +8,7 @@
 
 #include <Objects/GameObject.hpp>
 #include <Helpers/Vector2.hpp>
-#include "../RogueLikeSheetMap.hpp"
+#include "../Helpers/RogueLikeSheetMap.hpp"
 
 class LevelFactory {
 public:

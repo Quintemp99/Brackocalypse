@@ -9,7 +9,7 @@
 #include <vector>
 #include <Objects/GameObject.hpp>
 #include <Helpers/Vector2.hpp>
-#include "RogueLikeSheetMap.hpp"
+#include "Helpers/RogueLikeSheetMap.hpp"
 #include "Factory/LevelFactory.hpp"
 
 class LevelBuilder {

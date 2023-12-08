@@ -10,8 +10,14 @@
 
 class Player : public GameObject {
 public:
-    Player(size_t layer);
+    Player(GameObject *spawnLocationMapTile);
+
+    Player(size_t layer, Vector2 position);
+
     ~Player() = default;
+
+private:
+    void init(size_t layer, Vector2 position);
 };
 
 
