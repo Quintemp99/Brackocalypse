@@ -20,6 +20,6 @@ Bullet::Bullet(size_t layer) {
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
     transform.scale = std::make_unique<Vector2>(1, 1);
     addComponent(std::move(sprite));
-    addComponent(std::make_unique<BulletActions>(5000));
+    addBehaviourScript(std::make_unique<BulletActions>(5000));
     setTag("Bullet");
 }

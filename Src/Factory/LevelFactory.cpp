@@ -23,8 +23,6 @@ std::unique_ptr<GameObject> LevelFactory::createGameObject(char c, Vector2 posit
             return std::make_unique<PlayerSpawnMapTile>(rogueLikeSheetMap.map[Empty], position, size_, layer);
         case 'I':
             return std::make_unique<CampfireMapTile>(rogueLikeSheetMap.map[Campfire], position, size_, layer);
-        case 'J':
-            return std::make_unique<Player>(layer);
         case 'Y':
             return std::make_unique<BoxCollisionMapTile>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)],
                                                          position, size_, layer);
@@ -41,6 +39,7 @@ std::unique_ptr<GameObject> LevelFactory::createGameObject(char c, Vector2 posit
             return std::make_unique<BoxCollisionMapTile>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)],
                                                          position, size_, layer);
         default:
-            return std::make_unique<RogueLikeMapTile>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)], position, size_, layer);
+            return std::make_unique<RogueLikeMapTile>(rogueLikeSheetMap.map[static_cast<RogueLikeSheetType>(c)],
+                                                      position, size_, layer);
     }
 }

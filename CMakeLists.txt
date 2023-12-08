@@ -30,14 +30,13 @@ add_executable(Brackocalypse main.cpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/CampfireMapTile.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
-        Scripts/WalkingSound.cpp
-        Scripts/WalkingSound.hpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Scripts/BlockPlayer.cpp
         Scripts/BlockPlayer.hpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
-        Src/RogueLikeMapTiles/SolidBoxMapTile.hpp)
+        Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
+        Scripts/GunFollowMouse.hpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

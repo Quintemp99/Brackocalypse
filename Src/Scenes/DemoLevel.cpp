@@ -15,7 +15,7 @@ DemoLevel::DemoLevel() : Scene() {
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
-    camera->addComponent(FollowGameObject("Player"));
+    camera->addBehaviourScript(FollowGameObject("Player"));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;

@@ -62,16 +62,17 @@ void BlockPlayer::onUpdate(float deltaTime) {
 
 // Check collisions only on the Y-axis for top and bottom
         if (playerVelocity.velocity.getY() < 0) {  // Moving up
+            testMethod(playerTransform, playerCollision, collidedWithTransform, collidedWithCollision);
             if (std::abs((playerY - (playerSizeY * playerScaleY) / 2) -
-                         (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 1) {
+                         (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
 
-                if (playerX + (playerSizeX * playerScaleX) / 2 >
-                    collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) {
-                    continue;
-                } else if (playerX - (playerSizeX * playerScaleX) / 2 <
-                           collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) {
-                    continue;
-                }
+//                if (playerX + (playerSizeX * playerScaleX) / 2 >
+//                    collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) {
+//                    continue;
+//                } else if (playerX - (playerSizeX * playerScaleX) / 2 <
+//                           collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) {
+//                    continue;
+//                }
 
                 playerVelocity.velocity.setY(0);
             }
@@ -80,15 +81,15 @@ void BlockPlayer::onUpdate(float deltaTime) {
         } else if (playerVelocity.velocity.getY() > 0) {  // Moving down
 
             if (std::abs((playerY + (playerSizeY * playerScaleY) / 2) -
-                         (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 1) {
-
-                if (playerX + (playerSizeX * playerScaleX) / 2 >
-                    collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) {
-                    continue;
-                } else if (playerX - (playerSizeX * playerScaleX) / 2 <
-                           collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) {
-                    continue;
-                }
+                         (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
+//
+//                if (playerX + (playerSizeX * playerScaleX) / 2 >
+//                    collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) {
+//                    continue;
+//                } else if (playerX - (playerSizeX * playerScaleX) / 2 <
+//                           collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) {
+//                    continue;
+//                }
 
                 playerVelocity.velocity.setY(0);
             }
@@ -98,28 +99,28 @@ void BlockPlayer::onUpdate(float deltaTime) {
         if (playerVelocity.velocity.getX() < 0) {  // Moving left
 
             if (std::abs((playerX - (playerSizeX * playerScaleX) / 2) -
-                         (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2)) < 1) {
+                         (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
 
-                if (playerY + (playerSizeY * playerScaleY) / 2 >
-                    collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) {
-                    continue;
-                } else if (playerY - (playerSizeY * playerScaleY) / 2 <
-                           collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) {
-                    continue;
-                }
+//                if (playerY + (playerSizeY * playerScaleY) / 2 >
+//                    collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) {
+//                    continue;
+//                } else if (playerY - (playerSizeY * playerScaleY) / 2 <
+//                           collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) {
+//                    continue;
+//                }
                 playerVelocity.velocity.setX(0);
             }
         } else if (playerVelocity.velocity.getX() > 0) {  // Moving right
 
             if (std::abs((playerX + (playerSizeX * playerScaleX) / 2) -
-                         (collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2)) < 1) {
-                if (playerY + (playerSizeY * playerScaleY) / 2 >
-                    collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) {
-                    continue;
-                } else if (playerY - (playerSizeY * playerScaleY) / 2 <
-                           collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) {
-                    continue;
-                }
+                         (collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
+//                if (playerY + (playerSizeY * playerScaleY) / 2 >
+//                    collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) {
+//                    continue;
+//                } else if (playerY - (playerSizeY * playerScaleY) / 2 <
+//                           collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) {
+//                    continue;
+//                }
 
                 playerVelocity.velocity.setX(0);
             }
@@ -133,66 +134,66 @@ void BlockPlayer::onUpdate(float deltaTime) {
 
 void testMethod(TransformComponent &playerTransform, BoxCollisionComponent &playerCollision,
                 TransformComponent &collidedWithTransform, BoxCollisionComponent &collidedWithCollision) {
-//    std::cout << "PlayerLinks"
-//              << std::to_string(playerTransform.position->getX() - (playerCollision.size->getX() *
-//                                                                    playerTransform.scale->getX()) / 2)
-//              << std::endl;
-//    std::cout << "WallRechts"
-//              << std::to_string(
-//                      collidedWithTransform.position->getX() +
-//                      (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)
-//              << std::endl;
-//    std::cout << "PlayerRechts"
-//              << std::to_string(playerTransform.position->getX() + (playerCollision.size->getX() *
-//                                                                    playerTransform.scale->getX()) / 2)
-//              << std::endl;
-//    std::cout << "WallLinks"
-//              << std::to_string(
-//                      collidedWithTransform.position->getX() -
-//                      (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)
-//              << std::endl;
-//    std::cout << "PlayerBoven"
-//              << std::to_string(playerTransform.position->getY() -
-//                                (playerCollision.size->getY() * collidedWithTransform.scale->getX()) / 2)
-//              << std::endl;
-//    std::cout << "WallOnder "
-//              << std::to_string(
-//                      collidedWithTransform.position->getY() +
-//                      (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)
-//              << std::endl;
-//    std::cout << "PlayerOnder"
-//              << std::to_string(playerTransform.position->getY() +
-//                                (playerCollision.size->getY() * collidedWithTransform.scale->getX()) / 2)
-//              << std::endl;
-//    std::cout << "WallBoven"
-//              << std::to_string(
-//                      collidedWithTransform.position->getY() -
-//                      (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)
-//              << std::endl;
-//    std::cout << "PositionPlayer:"
-//              << std::to_string(playerTransform.position->getX())
-//              << " "
-//              << std::to_string(playerTransform.position->getY())
-//              << std::endl;
-//    std::cout << "PositionWall:"
-//              << std::to_string(collidedWithTransform.position->getX())
-//              << " "
-//              << std::to_string(collidedWithTransform.position->getY())
-//              << std::endl;
-//    std::cout << "SizePlayer:"
-//              << std::to_string(playerCollision.size->getX())
-//              << " "
-//              << std::to_string(playerCollision.size->getY())
-//              << std::endl;
-//    std::cout << "SizeWall:"
-//              << std::to_string(collidedWithCollision.size->getX())
-//              << " "
-//              << std::to_string(collidedWithCollision.size->getY())
-//              << std::endl;
-//    std::cout << std::endl;
-//    std::cout << std::endl;
-//    std::cout << std::endl;
-//    std::cout << std::endl;
+    std::cout << "PlayerLinks"
+              << std::to_string(playerTransform.position->getX() - (playerCollision.size->getX() *
+                                                                    playerTransform.scale->getX()) / 2)
+              << std::endl;
+    std::cout << "WallRechts"
+              << std::to_string(
+                      collidedWithTransform.position->getX() +
+                      (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)
+              << std::endl;
+    std::cout << "PlayerRechts"
+              << std::to_string(playerTransform.position->getX() + (playerCollision.size->getX() *
+                                                                    playerTransform.scale->getX()) / 2)
+              << std::endl;
+    std::cout << "WallLinks"
+              << std::to_string(
+                      collidedWithTransform.position->getX() -
+                      (collidedWithCollision.size->getX() * collidedWithTransform.scale->getX()) / 2)
+              << std::endl;
+    std::cout << "PlayerBoven"
+              << std::to_string(playerTransform.position->getY() -
+                                (playerCollision.size->getY() * playerTransform.scale->getY()) / 2)
+              << std::endl;
+    std::cout << "WallOnder "
+              << std::to_string(
+                      collidedWithTransform.position->getY() +
+                      (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)
+              << std::endl;
+    std::cout << "PlayerOnder"
+              << std::to_string(playerTransform.position->getY() +
+                                (playerCollision.size->getY() * playerTransform.scale->getY()) / 2)
+              << std::endl;
+    std::cout << "WallBoven"
+              << std::to_string(
+                      collidedWithTransform.position->getY() -
+                      (collidedWithCollision.size->getY() * collidedWithTransform.scale->getY()) / 2)
+              << std::endl;
+    std::cout << "PositionPlayer:"
+              << std::to_string(playerTransform.position->getX())
+              << " "
+              << std::to_string(playerTransform.position->getY())
+              << std::endl;
+    std::cout << "PositionWall:"
+              << std::to_string(collidedWithTransform.position->getX())
+              << " "
+              << std::to_string(collidedWithTransform.position->getY())
+              << std::endl;
+    std::cout << "SizePlayer:"
+              << std::to_string(playerCollision.size->getX())
+              << " "
+              << std::to_string(playerCollision.size->getY())
+              << std::endl;
+    std::cout << "SizeWall:"
+              << std::to_string(collidedWithCollision.size->getX())
+              << " "
+              << std::to_string(collidedWithCollision.size->getY())
+              << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
+    std::cout << std::endl;
 }
 
 
