@@ -66,13 +66,13 @@ void BlockPlayer::onUpdate(float deltaTime) {
             if (std::abs((playerY - (playerSizeY * playerScaleY) / 2) -
                          (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
 
-//                if (playerX + (playerSizeX * playerScaleX) / 2 >
-//                    collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) {
-//                    continue;
-//                } else if (playerX - (playerSizeX * playerScaleX) / 2 <
-//                           collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) {
-//                    continue;
-//                }
+                if (std::abs((playerX - (playerSizeX * playerScaleX) / 2) -
+                             (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
+                    continue;
+                } else if (std::abs((playerX + (playerSizeX * playerScaleX) / 2) -
+                                    (collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
+                    continue;
+                }
 
                 playerVelocity.velocity.setY(0);
             }
@@ -82,14 +82,14 @@ void BlockPlayer::onUpdate(float deltaTime) {
 
             if (std::abs((playerY + (playerSizeY * playerScaleY) / 2) -
                          (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
-//
-//                if (playerX + (playerSizeX * playerScaleX) / 2 >
-//                    collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2) {
-//                    continue;
-//                } else if (playerX - (playerSizeX * playerScaleX) / 2 <
-//                           collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2) {
-//                    continue;
-//                }
+
+                if (std::abs((playerX - (playerSizeX * playerScaleX) / 2) -
+                             (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
+                    continue;
+                } else if (std::abs((playerX + (playerSizeX * playerScaleX) / 2) -
+                                    (collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
+                    continue;
+                }
 
                 playerVelocity.velocity.setY(0);
             }
@@ -101,27 +101,26 @@ void BlockPlayer::onUpdate(float deltaTime) {
             if (std::abs((playerX - (playerSizeX * playerScaleX) / 2) -
                          (collidedWithX + (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
 
-//                if (playerY + (playerSizeY * playerScaleY) / 2 >
-//                    collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) {
-//                    continue;
-//                } else if (playerY - (playerSizeY * playerScaleY) / 2 <
-//                           collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) {
-//                    continue;
-//                }
+                if (std::abs((playerY - (playerSizeY * playerScaleY) / 2) -
+                             (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
+                    continue;
+                } else if (std::abs((playerY + (playerSizeY * playerScaleY) / 2) -
+                                    (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
+                    continue;
+                }
                 playerVelocity.velocity.setX(0);
             }
         } else if (playerVelocity.velocity.getX() > 0) {  // Moving right
 
             if (std::abs((playerX + (playerSizeX * playerScaleX) / 2) -
                          (collidedWithX - (collidedWithSizeX * collidedWithScaleX) / 2)) < 5) {
-//                if (playerY + (playerSizeY * playerScaleY) / 2 >
-//                    collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2) {
-//                    continue;
-//                } else if (playerY - (playerSizeY * playerScaleY) / 2 <
-//                           collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2) {
-//                    continue;
-//                }
-
+                if (std::abs((playerY - (playerSizeY * playerScaleY) / 2) -
+                             (collidedWithY + (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
+                    continue;
+                } else if (std::abs((playerY + (playerSizeY * playerScaleY) / 2) -
+                                    (collidedWithY - (collidedWithSizeY * collidedWithScaleY) / 2)) < 5) {
+                    continue;
+                }
                 playerVelocity.velocity.setX(0);
             }
         }

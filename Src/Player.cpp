@@ -42,7 +42,7 @@ void Player::init(size_t layer, Vector2 position) {
     sprite->spritePath = "Sprites/character_maleAdventurer_sheet.png";
     sprite->spriteSize = std::make_unique<Vector2>(96, 128);
     sprite->imageSize = std::make_unique<Vector2>(864, 640);
-    auto collision = std::make_unique<BoxCollisionComponent>(Vector2(96, 128));
+    auto collision = std::make_unique<BoxCollisionComponent>(Vector2(72, 128));
 
     sprite->sortingLayer = layer;
     sprite->orderInLayer = 1;
