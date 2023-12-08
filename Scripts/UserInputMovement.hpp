@@ -17,7 +17,7 @@ public:
 
     virtual void onUpdate(float deltaTime) override;
 
-    std::unique_ptr<BehaviourScript> clone() const override {
+    std::unique_ptr<IBehaviourScript> clone() const override {
         return std::make_unique<UserInputMovement>(*this);
     }
 
