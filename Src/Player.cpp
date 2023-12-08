@@ -14,7 +14,7 @@
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
-#include "../Scripts/BlockPlayer.hpp"
+#include "../Scripts/PlayerCollision.hpp"
 #include "Components/BoxCollisionComponent.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
@@ -34,7 +34,7 @@ Player::Player(size_t layer, Vector2 position) : GameObject() {
 void Player::init(size_t layer, Vector2 position) {
     addComponent(std::make_unique<VelocityComponent>());
     addBehaviourScript(std::make_unique<UserInputMovement>());
-    addBehaviourScript(std::make_unique<BlockPlayer>());
+    addBehaviourScript(std::make_unique<PlayerCollision>());
 
     auto sprite = std::make_unique<SpriteComponent>();
     auto &transform = tryGetComponent<TransformComponent>();

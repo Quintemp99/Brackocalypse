@@ -32,8 +32,8 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
-        Scripts/BlockPlayer.cpp
-        Scripts/BlockPlayer.hpp
+        Scripts/PlayerCollision.cpp
+        Scripts/PlayerCollision.hpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
         Scripts/GunFollowMouse.hpp)
