@@ -35,7 +35,6 @@ void Player::init(size_t layer, Vector2 position) {
     auto walkAnimation = std::make_unique<AnimationComponent>();
     sprite->spritePath = "Sprites/character_maleAdventurer_sheet.png";
     sprite->spriteSize = std::make_unique<Vector2>(96, 128);
-    sprite->imageSize = std::make_unique<Vector2>(864, 640);
     sprite->sortingLayer = layer;
     sprite->orderInLayer = 1;
     transform.scale = std::make_unique<Vector2>(1, 1);
@@ -46,6 +45,7 @@ void Player::init(size_t layer, Vector2 position) {
     walkAnimation->isPlaying = false;
     walkAnimation->startPosition = std::make_unique<Vector2>(0, 4);
     walkAnimation->frameCount = 8;
+    walkAnimation->imageSize = std::make_unique<Vector2>(864, 640);
     transform.scale = std::make_unique<Vector2>(1, 1);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
 

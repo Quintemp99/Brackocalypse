@@ -5,6 +5,7 @@
 #include <Components/VelocityComponent.hpp>
 #include <Components/SpriteComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
+#include <Components/TransformComponent.hpp>
 #include "Bullet.hpp"
 #include "../Scripts/BulletActions.hpp"
 
@@ -14,7 +15,6 @@ Bullet::Bullet(size_t layer) {
     auto sprite = std::make_unique<SpriteComponent>();
     sprite->spritePath = "Sprites/Bullet.png";
     sprite->spriteSize = std::make_unique<Vector2>(18, 8);
-    sprite->imageSize = std::make_unique<Vector2>(18, 8);
     sprite->sortingLayer = layer;
     sprite->orderInLayer = 2;
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
