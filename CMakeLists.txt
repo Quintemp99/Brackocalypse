@@ -30,6 +30,14 @@ add_executable(Brackocalypse main.cpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/CampfireMapTile.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
+        Src/SaveLoad.cpp
+        Src/RogueLikeMapTiles/WaterMapTile.hpp
+        Scripts/PlayerCollision.cpp
+        Scripts/PlayerCollision.hpp
+        Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
+        Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
+        Scripts/GunFollowMouse.hpp
+        Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
         Scripts/GoToNextLevel.cpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
@@ -42,3 +50,12 @@ if (WIN32 OR WIN64)
     file(GLOB DLL_FILES ${CMAKE_CURRENT_BINARY_DIR}/Brack-Engine_build/*.dll)
     file(COPY ${DLL_FILES} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 endif ()
+
+add_custom_command(
+        TARGET ${PROJECT_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/Assets
+        ${CMAKE_BINARY_DIR}/Assets
+)
+

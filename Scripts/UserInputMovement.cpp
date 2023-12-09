@@ -7,10 +7,9 @@
 #include <Components/SoundEffectComponent.hpp>
 #include <Components/SpriteComponent.hpp>
 #include "UserInputMovement.hpp"
+#include "Components/VelocityComponent.hpp"
 
-void UserInputMovement::onStart() {
-
-}
+void UserInputMovement::onStart() {}
 
 void UserInputMovement::onUpdate(milliseconds deltaTime) {
     auto &playerVelocityComponent = tryGetComponent<VelocityComponent>();

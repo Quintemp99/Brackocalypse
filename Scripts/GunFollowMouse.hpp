@@ -6,7 +6,7 @@
 #define BRACKOCALYPSE_GUNFOLLOWMOUSE_HPP
 
 
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 
 class GunFollowMouse : public BehaviourScript {
 public:
@@ -18,7 +18,7 @@ public:
 
     virtual void onUpdate(float deltaTime) override;
 
-    std::unique_ptr<IComponent> clone() const override {
+    std::unique_ptr<IBehaviourScript> clone() const override {
         return std::make_unique<GunFollowMouse>(*this);
     }
 

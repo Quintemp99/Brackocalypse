@@ -8,9 +8,11 @@
 #include <Objects/GameObject.hpp>
 #include <Helpers/Vector2.hpp>
 #include <Components/SpriteComponent.hpp>
+#include <Components/BoxCollisionComponent.hpp>
 
 struct RogueLikeMapTile : public GameObject {
-    RogueLikeMapTile(Vector2 tileOffset, Vector2 position, Vector2 size, size_t layer) : GameObject() {
+    RogueLikeMapTile(Vector2 tileOffset, Vector2 position, Vector2 size, size_t layer)
+            : GameObject() {
         auto spriteComponent = SpriteComponent();
         spriteComponent.spritePath = spritePath;
         spriteComponent.spriteSize = std::make_unique<Vector2>(spriteSize);
@@ -29,6 +31,8 @@ struct RogueLikeMapTile : public GameObject {
                       ((spriteSize.getY() * spriteScale.getY()) / 2)) -
                      (size.getY() * (spriteSize.getY() * spriteScale.getY()) / 2);
         transform.position = std::make_unique<Vector2>(posX, posY);
+
+
     }
 
     ~RogueLikeMapTile() = default;

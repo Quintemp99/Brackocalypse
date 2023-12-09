@@ -1,7 +1,7 @@
 //
 // Created by SKIKK on 21/11/2023.
 //
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 #include <Components/AnimationComponent.hpp>
 
 
@@ -18,7 +18,7 @@ public:
 
     virtual void onUpdate(float deltaTime) override;
 
-    std::unique_ptr<IComponent> clone() const override {
+    std::unique_ptr<IBehaviourScript> clone() const override {
         return std::make_unique<UserInputMovement>(*this);
     }
 
