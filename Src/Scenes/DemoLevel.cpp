@@ -24,6 +24,35 @@ DemoLevel::DemoLevel() : Scene() {
 
     std::vector<std::vector<std::string>> objectMap{};
     std::vector<std::vector<std::string>> tileMap{};
+    std::vector<std::string> collisionMap{};
+
+    collisionMap.emplace_back("...............................................");
+    collisionMap.emplace_back("...............................................");
+    collisionMap.emplace_back("...............................................");
+    collisionMap.emplace_back("...............................................");
+    collisionMap.emplace_back("...............................................");
+    collisionMap.emplace_back(".....xxxxxxxxxxxxxxxxxx........................");
+    collisionMap.emplace_back(".....x................x........................");
+    collisionMap.emplace_back(".....x................x........................");
+    collisionMap.emplace_back(".....x................x........................");
+    collisionMap.emplace_back(".....x................x........................");
+    collisionMap.emplace_back(".....x................x.......xxxxxxxxxxxxx....");
+    collisionMap.emplace_back(".....x................x.......x...........x....");
+    collisionMap.emplace_back(".....x................x.......x...........x....");
+    collisionMap.emplace_back(".....x................x.......x...........x....");
+    collisionMap.emplace_back(".....x................x.......x...........x....");
+    collisionMap.emplace_back(".....x................x.......x...........x....");
+    collisionMap.emplace_back(".....x................x.......x...........x....");
+    collisionMap.emplace_back(".....x................x.......x...........x....");
+    collisionMap.emplace_back(".....x................x.......x...........x....");
+    collisionMap.emplace_back(".....x................x.......x...........x....");
+    collisionMap.emplace_back(".....xxxxxxxxxxxxxxxxxx.......x...........x....");
+    collisionMap.emplace_back("..............................xxxxxxxxxxxxx....");
+    collisionMap.emplace_back("...............................................");
+    collisionMap.emplace_back("...............................................");
+    collisionMap.emplace_back("...............................................");
+    collisionMap.emplace_back("...............................................");
+
     tileMap.emplace_back();
     tileMap[0].emplace_back("WWWWWWWFWWWWWWWWWWWWWWWeWWWW...................");
     tileMap[0].emplace_back("WFWWWWWWWWWWWWWWWWFWWWWWWWWW...................");
@@ -63,7 +92,7 @@ DemoLevel::DemoLevel() : Scene() {
     tileMap[1].emplace_back("...............................................");
     tileMap[1].emplace_back("...............................................");
     tileMap[1].emplace_back("...............................................");
-    tileMap[1].emplace_back("..............................................");
+    tileMap[1].emplace_back("...............................................");
     tileMap[1].emplace_back("....HJ.........................................");
     tileMap[1].emplace_back(".....a.........................................");
     tileMap[1].emplace_back("...............................................");
@@ -130,7 +159,7 @@ DemoLevel::DemoLevel() : Scene() {
     objectMap[1].emplace_back("...............................................");
     objectMap[1].emplace_back("...............................................");
 
-    auto levelBuilder = LevelBuilder(objectMap, tileMap);
+    auto levelBuilder = LevelBuilder(objectMap, tileMap, collisionMap);
 
     levelBuilder.buildLevel();
     auto bulletPool = std::make_unique<BulletPool>(1, 30);

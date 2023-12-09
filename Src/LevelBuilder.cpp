@@ -7,15 +7,18 @@
 #include <Components/TileMapComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include "LevelBuilder.hpp"
+#include "Components/BoxCollisionComponent.hpp"
 
 void LevelBuilder::buildLevel() {
+    auto tileSize = Vector2(16, 16);
+    auto tileScale = Vector2(4, 4);
     size_t sortingLayer = objectMap.size() + tileMap.size();
     for (const auto &layer: tileMap) {
         auto tileMapObject = std::make_unique<GameObject>();
-        tileMapObject->tryGetComponent<TransformComponent>().scale = std::make_unique<Vector2>(4, 4);
+        tileMapObject->tryGetComponent<TransformComponent>().scale = std::make_unique<Vector2>(tileScale);
         auto tileMapComponent = std::make_unique<TileMapComponent>();
         tileMapComponent->tileMapPath = "Sprites/roguelikeSheet_transparent_1.bmp";
-        tileMapComponent->tileSize = std::make_unique<Vector2>(16, 16);
+        tileMapComponent->tileSize = std::make_unique<Vector2>(tileSize);
         tileMapComponent->sortingLayer = sortingLayer;
         tileMapComponent->margin = 1;
         auto map = std::vector<std::vector<std::unique_ptr<Vector2>>>();
@@ -52,5 +55,63 @@ void LevelBuilder::buildLevel() {
             y++;
         }
         sortingLayer--;
+    }
+
+    for (int y = 0; y < collisionMap.size(); ++y) {
+        for (int x = 0; x < collisionMap[y].size(); ++x) {
+            if (collisionMap[y][x] == '.') {
+                continue;
+            }
+
+            int width = 1;
+            int height = 1;
+            while (x + width < collisionMap[y].size() && collisionMap[y][x + width] == collisionMap[y][x]) {
+                width++;
+            }
+
+            if (width > 1) {
+                for (int i = 0; i < width; ++i)
+                    collisionMap[y][x + i] = '.';
+
+                auto object = std::make_unique<GameObject>();
+                object->addComponent(std::make_unique<BoxCollisionComponent>(tileSize * tileScale * Vector2(width, 1)));
+                auto &transform = object->tryGetComponent<TransformComponent>();
+                float posX = ((x * (tileSize.getX() * tileScale.getX())) +
+                              ((tileSize.getX() * tileScale.getX()) / 2)) -
+                             (size_.getX() * (tileScale.getX() * tileSize.getX()) / 2) +
+                             (tileSize.getX() * tileScale.getX() * width / 2);
+                float posY = ((y * (tileSize.getY() * tileScale.getY())) +
+                              ((tileSize.getY() * tileScale.getY()) / 2)) -
+                             (size_.getY() * (tileScale.getY() * tileSize.getY()) / 2);
+                transform.position = std::make_unique<Vector2>(posX, posY);
+                gameObjects.push_back(std::move(object));
+                continue;
+            }
+
+
+            while (y + height < collisionMap.size() && collisionMap[y + height][x] == collisionMap[y][x]) {
+                height++;
+            }
+
+            if (height > 1) {
+                for (int i = 0; i < height; ++i)
+                    collisionMap[y + i][x] = '.';
+
+                auto object = std::make_unique<GameObject>();
+                object->addComponent(
+                        std::make_unique<BoxCollisionComponent>(tileSize * tileScale * Vector2(1, height)));
+                auto &transform = object->tryGetComponent<TransformComponent>();
+                float posX = ((x * (tileSize.getX() * tileScale.getX())) +
+                              ((tileSize.getX() * tileScale.getX()) / 2)) -
+                             (size_.getX() * (tileScale.getX() * tileSize.getX()) / 2);
+                float posY = ((y * (tileSize.getY() * tileScale.getY())) +
+                              ((tileSize.getY() * tileScale.getY()) / 2)) -
+                             (size_.getY() * (tileScale.getY() * tileSize.getY()) / 2) +
+                             (tileSize.getY() * tileScale.getY() * height / 2);
+                transform.position = std::make_unique<Vector2>(posX, posY);
+                gameObjects.push_back(std::move(object));
+                continue;
+            }
+        }
     }
 }
