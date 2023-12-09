@@ -16,7 +16,7 @@
 #include "Gun.hpp"
 #include "../Scripts/PlayerCollision.hpp"
 #include "Components/BoxCollisionComponent.hpp"
-#include "../Scripts/GoToNextLevel.hpp"
+#include "../Scripts/PlayerProgress.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
@@ -24,8 +24,7 @@ Player::Player(GameObject *spawnLocationMapTile) {
     auto spriteComponent = spawnLocationMapTile->tryGetComponent<SpriteComponent>();
     int layer = spriteComponent.sortingLayer;
 
-
-    addComponent(std::make_unique<GoToNextLevel>());
+    addBehaviourScript(std::make_unique<PlayerProgress>());
     init(layer, location);
 }
 

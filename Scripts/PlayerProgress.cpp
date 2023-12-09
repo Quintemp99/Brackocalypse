@@ -1,32 +1,20 @@
-#include "GoToNextLevel.hpp"
+#include "PlayerProgress.hpp"
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/ChildComponent.hpp>
 
 #include <Components/AIComponent.hpp>
-#include <Components/AnimationComponent.hpp>
-#include <Components/SoundTrackComponent.hpp>
 #include <Objects/Button.hpp>
 #include "Objects/Scene.hpp"
-#include "BrackEngine.hpp"
 #include "../Src/Helpers/RogueLikeSheetMap.hpp"
 #include "UserInputMovement.hpp"
-#include "../Src/Player.hpp"
-#include "FollowGameObject.hpp"
-#include "../Src/LevelBuilder.hpp"
-#include "../Src/Gun.hpp"
-#include "../Src/Bullet.hpp"
-#include "../Src/BulletPool.hpp"
 #include "../Src/Scenes/HomeScene.hpp"
 
-void GoToNextLevel::onStart() {
+void PlayerProgress::onStart() {
 
 }
 
-void GoToNextLevel::onUpdate(float deltaTime) {
-    auto player = getGameObjectByTag("Player");
-    auto beers = player->getChildrenWithTag("Beer");
-
-    int totalProgress = beers.size();
+void PlayerProgress::onUpdate(float deltaTime) {
+    int totalProgress = beersCollected - foodCollected;
 
     if(totalProgress >= maxForLevel) {
         //TODO: Go to next level
