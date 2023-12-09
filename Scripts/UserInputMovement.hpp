@@ -1,7 +1,7 @@
 //
 // Created by SKIKK on 21/11/2023.
 //
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 #include <Components/AnimationComponent.hpp>
 
 

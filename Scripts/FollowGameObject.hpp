@@ -5,9 +5,9 @@
 #ifndef BRACKOCALYPSE_FOLLOWGAMEOBJECT_HPP
 #define BRACKOCALYPSE_FOLLOWGAMEOBJECT_HPP
 
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 
-class FollowGameObject : public BehaviourScript{
+class FollowGameObject : public BehaviourScript {
 public:
 public:
     FollowGameObject(std::string tag) : BehaviourScript(), followGameObjectTag(tag) {}

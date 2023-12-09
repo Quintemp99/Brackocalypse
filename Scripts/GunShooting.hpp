@@ -6,7 +6,7 @@
 #define BRACKOCALYPSE_GUNSHOOTING_HPP
 
 
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 
 class GunShooting : public BehaviourScript {
 public:

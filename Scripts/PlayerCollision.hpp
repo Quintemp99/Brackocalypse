@@ -6,7 +6,7 @@
 #define BRACKOCALYPSE_PLAYERCOLLISION_HPP
 
 
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 
 class PlayerCollision : public BehaviourScript {
 public:

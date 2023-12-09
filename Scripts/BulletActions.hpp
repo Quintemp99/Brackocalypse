@@ -6,7 +6,7 @@
 #define BRACKOCALYPSE_BULLETACTIONS_HPP
 
 
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 
 class BulletActions : public BehaviourScript {
 public:

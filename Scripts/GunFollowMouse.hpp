@@ -6,7 +6,7 @@
 #define BRACKOCALYPSE_GUNFOLLOWMOUSE_HPP
 
 
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 
 class GunFollowMouse : public BehaviourScript {
 public:
