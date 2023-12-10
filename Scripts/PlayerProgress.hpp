@@ -9,7 +9,11 @@
 
 class PlayerProgress : public BehaviourScript {
 public:
-    PlayerProgress() : BehaviourScript() {}
+    PlayerProgress() : BehaviourScript() {
+        maxForLevel = 10;
+        beersCollected = 0;
+        foodCollected = 0;
+    }
     ~PlayerProgress() override = default;
 
     std::unique_ptr<IBehaviourScript> clone() const override {
@@ -22,9 +26,9 @@ public:
     void addBeer() { ++beersCollected; }
     void addFood() { ++foodCollected; }
 private:
-    int maxForLevel = 10;
-    int beersCollected = 0;
-    int foodCollected = 0;
+    int maxForLevel;
+    int beersCollected;
+    int foodCollected;
 };
 
 

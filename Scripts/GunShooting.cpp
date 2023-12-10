@@ -11,6 +11,7 @@
 #include <Components/SoundEffectComponent.hpp>
 #include "GunShooting.hpp"
 #include "../Src/Beer.hpp"
+#include "PlayerProgress.hpp"
 
 void GunShooting::onStart() {
 
@@ -55,8 +56,8 @@ void GunShooting::shoot() {
             soundEffectComponent.startPlaying = true;
 
             auto player = getGameObjectByTag("Player");
-            auto gameObject = std::make_unique<Beer>();
-            player->addChild(std::move(gameObject));
+            auto script = player->tryGetBehaviourScript<PlayerProgress>();
+            script.addBeer();
 
             auto radians = rotation * M_PI / 180;
             auto velocity = Vector2(cos(radians), sin(radians));
