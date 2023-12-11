@@ -8,6 +8,7 @@
 #include <Components/TransformComponent.hpp>
 #include "LevelBuilder.hpp"
 #include "Components/BoxCollisionComponent.hpp"
+#include "Components/RigidBodyComponent.hpp"
 
 void LevelBuilder::buildLevel() {
     auto tileSize = Vector2(16, 16);
@@ -79,8 +80,8 @@ void LevelBuilder::buildLevel() {
                 auto collisionObject = std::make_unique<GameObject>();
                 auto boxCollision = std::make_unique<BoxCollisionComponent>(
                         tileSize * tileScale * Vector2(width, height));
-                boxCollision->collisionType = CollisionType::STATIC;
                 collisionObject->addComponent(std::move(boxCollision));
+                collisionObject->addComponent(std::make_unique<RigidBodyComponent>(CollisionType::STATIC));
                 auto &transform = collisionObject->tryGetComponent<TransformComponent>();
                 float posX = x * tileSize.getX() * tileScale.getX() -
                              size_.getX() * tileScale.getX() * tileSize.getX() / 2 +
@@ -105,8 +106,8 @@ void LevelBuilder::buildLevel() {
             auto collisionObject = std::make_unique<GameObject>();
             auto boxCollision = std::make_unique<BoxCollisionComponent>(
                     tileSize * tileScale * Vector2(width, height));
-            boxCollision->collisionType = CollisionType::STATIC;
             collisionObject->addComponent(std::move(boxCollision));
+            collisionObject->addComponent(std::make_unique<RigidBodyComponent>(CollisionType::STATIC));
             auto &transform = collisionObject->tryGetComponent<TransformComponent>();
             float posX = x * tileSize.getX() * tileScale.getX() -
                          size_.getX() * tileScale.getX() * tileSize.getX() / 2 +
