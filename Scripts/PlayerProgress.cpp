@@ -22,18 +22,18 @@ void PlayerProgress::onUpdate(float deltaTime) {
         auto camera = Camera();
         camera.addComponent(VelocityComponent());
         camera.SetBackgroundColor(Color(255, 0, 0, 255));
-        auto scene = Scene(std::move(camera));
+        auto scene = new Scene(std::move(camera));
 
         //Start button
         auto backToHome = std::make_unique<Button>(Vector2(270, 70), "Back to Home");
         backToHome->setFontSize(40);
         backToHome->setClickEvent([](){
-            auto scene = HomeScene();
-            SceneManager::getInstance().setActiveScene(scene);
+            auto homeScene = new HomeScene();
+            SceneManager::getInstance().goToNewScene(homeScene);
         });
-        scene.addGameObject(std::move(backToHome));
+        scene->addGameObject(std::move(backToHome));
 
         maxForLevel += 10;
-        SceneManager::getInstance().setActiveScene(scene);
+        SceneManager::getInstance().goToNewScene(scene);
     }
 }
