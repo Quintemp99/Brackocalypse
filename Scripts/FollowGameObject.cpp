@@ -4,8 +4,10 @@
 
 #include <Components/TransformComponent.hpp>
 #include "FollowGameObject.hpp"
+#include "Components/TransformComponent.hpp"
 
-void FollowGameObject::onStart() {}
+void FollowGameObject::onStart() {
+}
 
 void FollowGameObject::onUpdate(milliseconds deltaTime) {
     auto playerGameObject = getGameObjectByTag(followGameObjectTag);

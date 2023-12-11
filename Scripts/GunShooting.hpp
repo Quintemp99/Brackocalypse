@@ -6,7 +6,7 @@
 #define BRACKOCALYPSE_GUNSHOOTING_HPP
 
 
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 
 class GunShooting : public BehaviourScript {
 public:
@@ -18,7 +18,7 @@ public:
 
     virtual void onUpdate(milliseconds deltaTime) override;
 
-    std::unique_ptr<IComponent> clone() const override {
+    std::unique_ptr<IBehaviourScript> clone() const override {
         return std::make_unique<GunShooting>(*this);
     }
 

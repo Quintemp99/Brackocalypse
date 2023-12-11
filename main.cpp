@@ -5,6 +5,8 @@
 #include "Src/Helpers/RogueLikeSheetMap.hpp"
 #include "Scripts/UserInputMovement.hpp"
 #include "Src/Scenes/HomeScene.hpp"
+#include "Scripts/FollowGameObject.hpp"
+#include "Src/LevelBuilder.hpp"
 
 int main() {
     Config config = new Config();

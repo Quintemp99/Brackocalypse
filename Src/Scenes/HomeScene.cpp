@@ -17,20 +17,35 @@ HomeScene::HomeScene() : Scene() {
     backgroundSound->volume = 0.1;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
+    auto windowSize = ConfigSingleton::GetInstance().GetWindowSize();
 
-    auto imageBg = std::make_unique<GameObject>();
+    auto bgImage = std::make_unique<GameObject>();
+    auto bgImageSprite = std::make_unique<SpriteComponent>();
+    bgImageSprite->spritePath = "Sprites/background_homescreen.png";
+    bgImageSprite->spriteSize = std::make_unique<Vector2>(1264, 717);
+    bgImageSprite->imageSize = std::make_unique<Vector2>(1264,717);
+    bgImageSprite->tileOffset = std::make_unique<Vector2>(0, 0);
+    bgImageSprite->orderInLayer = 1;
+    auto& transformBgImage = bgImage->tryGetComponent<TransformComponent>();
+    transformBgImage.position = std::make_unique<Vector2>(0, 0);
+    transformBgImage.scale = std::make_unique<Vector2>(1, 1);
+    bgImage->addComponent(std::move(bgImageSprite));
+    addGameObject(std::move(bgImage));
+
+
+    auto logo = std::make_unique<GameObject>();
     auto spriteBg = std::make_unique<SpriteComponent>();
     spriteBg->spritePath = "Sprites/logo.png";
     spriteBg->spriteSize = std::make_unique<Vector2>(736, 105);
     spriteBg->tileOffset = std::make_unique<Vector2>(0, 0);
+    spriteBg->orderInLayer = 0;
 
     auto transformBg = std::make_unique<TransformComponent>();
-    auto windowSize = ConfigSingleton::GetInstance().GetWindowSize();
     transformBg->position = std::make_unique<Vector2>(0, -100);
     transformBg->scale = std::make_unique<Vector2>(0.6, 0.6);
-    imageBg->addComponent(std::move(spriteBg));
-    imageBg->addComponent(std::move(transformBg));
-    addGameObject(std::move(imageBg));
+    logo->addComponent(std::move(spriteBg));
+    logo->addComponent(std::move(transformBg));
+    addGameObject(std::move(logo));
 
     //Start button
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");

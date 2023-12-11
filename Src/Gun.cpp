@@ -32,8 +32,8 @@ Gun::Gun(size_t layer) : GameObject() {
     auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/single-shot-gun-sound.mp3");
     audioComponent->volume = 0.05;
     addComponent(std::move(audioComponent));
-    addComponent(std::make_unique<GunFollowMouse>());
-    addComponent(std::make_unique<GunShooting>());
+    addBehaviourScript(std::make_unique<GunFollowMouse>());
+    addBehaviourScript(std::make_unique<GunShooting>());
     setTag("Gun");
     setName("Gun");
 }

@@ -5,7 +5,7 @@
 #ifndef BRACKOCALYPSE_FOLLOWGAMEOBJECT_HPP
 #define BRACKOCALYPSE_FOLLOWGAMEOBJECT_HPP
 
-#include <Components/BehaviourScript.hpp>
+#include <BehaviourScripts/BehaviourScript.hpp>
 
 class FollowGameObject : public BehaviourScript {
 public:
@@ -18,10 +18,10 @@ public:
 
     virtual void onUpdate(float deltaTime) override;
 
-    std::unique_ptr<IComponent> clone() const override {
+    std::unique_ptr<IBehaviourScript> clone() const override {
         return std::make_unique<FollowGameObject>(*this);
     }
-    
+
     FollowGameObject(const FollowGameObject &other) :
             BehaviourScript(other),
             moveCameraMargin(other.moveCameraMargin),

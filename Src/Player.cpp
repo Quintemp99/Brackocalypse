@@ -14,12 +14,15 @@
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
+#include "../Scripts/PlayerCollision.hpp"
+#include "Components/BoxCollisionComponent.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
     Vector2 location = Vector2(transformComponent.position->getX(), transformComponent.position->getY());
     auto spriteComponent = spawnLocationMapTile->tryGetComponent<SpriteComponent>();
     int layer = spriteComponent.sortingLayer;
+
 
     init(layer, location);
 }
@@ -30,7 +33,9 @@ Player::Player(size_t layer, Vector2 position) : GameObject() {
 
 void Player::init(size_t layer, Vector2 position) {
     addComponent(std::make_unique<VelocityComponent>());
-    addComponent(std::make_unique<UserInputMovement>());
+    addBehaviourScript(std::make_unique<UserInputMovement>());
+    addBehaviourScript(std::make_unique<PlayerCollision>());
+
     auto sprite = std::make_unique<SpriteComponent>();
     auto &transform = tryGetComponent<TransformComponent>();
     auto walkAnimation = std::make_unique<AnimationComponent>();
@@ -59,6 +64,7 @@ void Player::init(size_t layer, Vector2 position) {
     addComponent(std::move(walkAnimation));
     auto gun = std::make_unique<Gun>(layer);
     addChild(std::move(gun));
+    addComponent(std::move(collision));
     setTag("Player");
     setName("Player");
 }
