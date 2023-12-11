@@ -21,6 +21,7 @@ public:
         auto firstRow = bottomLayer[0];
         auto size = Vector2(firstRow.size(), bottomLayer.size());
         size_ = size;
+        tileMapSize = Vector2(tileMap[0][0].size(), tileMap[0].size());
         levelFactory_.setSize(size_);
     }
 
@@ -30,7 +31,8 @@ public:
 
     std::vector<std::unique_ptr<GameObject>> gameObjects;
 private:
-    Vector2 size_;
+    Vector2 size_ = Vector2(0, 0);
+    Vector2 tileMapSize = Vector2(0, 0);
     std::vector<std::vector<std::string>> objectMap;
     std::vector<std::vector<std::string>> tileMap;
     std::vector<std::string> collisionMap;

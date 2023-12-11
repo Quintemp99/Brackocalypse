@@ -84,11 +84,10 @@ void LevelBuilder::buildLevel() {
                 collisionObject->addComponent(std::make_unique<RigidBodyComponent>(CollisionType::STATIC));
                 auto &transform = collisionObject->tryGetComponent<TransformComponent>();
                 float posX = x * tileSize.getX() * tileScale.getX() -
-                             size_.getX() * tileScale.getX() * tileSize.getX() / 2 +
+                             tileMapSize.getX() * tileScale.getX() * tileSize.getX() / 2 +
                              tileSize.getX() * tileScale.getX() * width / 2;
                 float posY = y * tileSize.getY() * tileScale.getY() -
-                             tileSize.getY() * tileScale.getY() -
-                             size_.getY() * tileScale.getY() * tileSize.getY() / 2 +
+                             tileMapSize.getY() * tileScale.getY() * tileSize.getY() / 2 +
                              tileSize.getY() * tileScale.getY() * height / 2;
                 transform.position = std::make_unique<Vector2>(posX, posY);
                 gameObjects.push_back(std::move(collisionObject));
@@ -110,11 +109,10 @@ void LevelBuilder::buildLevel() {
             collisionObject->addComponent(std::make_unique<RigidBodyComponent>(CollisionType::STATIC));
             auto &transform = collisionObject->tryGetComponent<TransformComponent>();
             float posX = x * tileSize.getX() * tileScale.getX() -
-                         size_.getX() * tileScale.getX() * tileSize.getX() / 2 +
+                         tileMapSize.getX() * tileScale.getX() * tileSize.getX() / 2 +
                          tileSize.getX() * tileScale.getX() * width / 2;
             float posY = y * tileSize.getY() * tileScale.getY() -
-                         tileSize.getY() * tileScale.getY() -
-                         size_.getY() * tileScale.getY() * tileSize.getY() / 2 +
+                         tileMapSize.getY() * tileScale.getY() * tileSize.getY() / 2 +
                          tileSize.getY() * tileScale.getY() * height / 2;
             transform.position = std::make_unique<Vector2>(posX, posY);
             gameObjects.push_back(std::move(collisionObject));
