@@ -16,6 +16,7 @@
 #include "Gun.hpp"
 #include "../Scripts/PlayerCollision.hpp"
 #include "Components/BoxCollisionComponent.hpp"
+#include "Components/RigidBodyComponent.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
@@ -59,7 +60,7 @@ void Player::init(size_t layer, Vector2 position) {
     audioComponent->volume = 0.05;
     addComponent(std::move(audioComponent));
 
-    collision->collisionType = CollisionType::DYNAMIC;
+    addComponent(std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC));
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
     auto gun = std::make_unique<Gun>(layer);
