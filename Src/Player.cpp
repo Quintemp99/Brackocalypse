@@ -10,6 +10,7 @@
 #include <Components/SoundEffectComponent.hpp>
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/RectangleComponent.hpp>
+#include <Components/BoxCollisionComponent.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
@@ -48,11 +49,12 @@ void Player::init(size_t layer, Vector2 position) {
     walkAnimation->imageSize = std::make_unique<Vector2>(864, 640);
     transform.scale = std::make_unique<Vector2>(1, 1);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
-
-//    auto audioComponent = std::make_unique<SoundEffectComponent>("Sounds/footsteps2.mp3");
-//    audioComponent->volume = 0.05;
-//    addComponent(std::move(audioComponent));
-
+    auto collisionObject = std::make_unique<GameObject>();
+    collisionObject->addComponent(std::make_unique<BoxCollisionComponent>(Vector2(64, 40)));
+    collisionObject->setTag("PlayerWalkCollision");
+    collisionObject->setName("PlayerWalkCollision");
+    collisionObject->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(0, 44);
+    addChild(std::move(collisionObject));
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
     auto gun = std::make_unique<Gun>(layer);
