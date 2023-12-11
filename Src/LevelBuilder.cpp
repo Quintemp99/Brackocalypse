@@ -77,13 +77,13 @@ void LevelBuilder::buildLevel() {
                 object->addComponent(
                         std::make_unique<BoxCollisionComponent>(tileSize * tileScale * Vector2(width, height)));
                 auto &transform = object->tryGetComponent<TransformComponent>();
-                float posX = ((x * (tileSize.getX() * tileScale.getX()))) -
-                             (size_.getX() * (tileScale.getX() * tileSize.getX()) / 2) +
-                             (tileSize.getX() * tileScale.getX() * width / 2);
-                float posY = ((y * (tileSize.getY() * tileScale.getY())) -
-                              ((tileSize.getY() * tileScale.getY()))) -
-                             (size_.getY() * (tileScale.getY() * tileSize.getY()) / 2) +
-                             (tileSize.getY() * tileScale.getY() * height / 2);
+                float posX = x * tileSize.getX() * tileScale.getX() -
+                             size_.getX() * tileScale.getX() * tileSize.getX() / 2 +
+                             tileSize.getX() * tileScale.getX() * width / 2;
+                float posY = y * tileSize.getY() * tileScale.getY() -
+                             tileSize.getY() * tileScale.getY() -
+                             size_.getY() * tileScale.getY() * tileSize.getY() / 2 +
+                             tileSize.getY() * tileScale.getY() * height / 2;
                 transform.position = std::make_unique<Vector2>(posX, posY);
                 gameObjects.push_back(std::move(object));
                 continue;
@@ -101,9 +101,9 @@ void LevelBuilder::buildLevel() {
             object->addComponent(
                     std::make_unique<BoxCollisionComponent>(tileSize * tileScale * Vector2(width, height)));
             auto &transform = object->tryGetComponent<TransformComponent>();
-            float posX = ((x * (tileSize.getX() * tileScale.getX()))) -
-                         (size_.getX() * (tileScale.getX() * tileSize.getX()) / 2) +
-                         (tileSize.getX() * tileScale.getX() * width / 2);
+            float posX = x * tileSize.getX() * tileScale.getX() -
+                         size_.getX() * tileScale.getX() * tileSize.getX() / 2 +
+                         tileSize.getX() * tileScale.getX() * width / 2;
             float posY = y * tileSize.getY() * tileScale.getY() -
                          tileSize.getY() * tileScale.getY() -
                          size_.getY() * tileScale.getY() * tileSize.getY() / 2 +
