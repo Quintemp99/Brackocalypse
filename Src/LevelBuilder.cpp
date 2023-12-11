@@ -12,7 +12,7 @@
 void LevelBuilder::buildLevel() {
     auto tileSize = Vector2(16, 16);
     auto tileScale = Vector2(4, 4);
-    size_t sortingLayer = objectMap.size() + tileMap.size();
+    size_t sortingLayer = tileMap.size();
     for (const auto &layer: tileMap) {
         auto tileMapObject = std::make_unique<GameObject>();
         tileMapObject->tryGetComponent<TransformComponent>().scale = std::make_unique<Vector2>(tileScale);
@@ -20,6 +20,7 @@ void LevelBuilder::buildLevel() {
         tileMapComponent->tileMapPath = "Sprites/roguelikeSheet_transparent_1.bmp";
         tileMapComponent->tileSize = std::make_unique<Vector2>(tileSize);
         tileMapComponent->sortingLayer = sortingLayer;
+        tileMapComponent->orderInLayer = 0;
         tileMapComponent->margin = 1;
         auto map = std::vector<std::vector<std::unique_ptr<Vector2>>>();
         for (const std::string row: layer) {
@@ -38,6 +39,8 @@ void LevelBuilder::buildLevel() {
         gameObjects.push_back(std::move(tileMapObject));
         sortingLayer--;
     }
+
+    sortingLayer = objectMap.size();
 
     for (const auto &layer: objectMap) {
         int y = 0;
