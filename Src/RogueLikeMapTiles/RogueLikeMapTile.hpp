@@ -8,6 +8,7 @@
 #include <Objects/GameObject.hpp>
 #include <Helpers/Vector2.hpp>
 #include <Components/SpriteComponent.hpp>
+#include <Components/BoxCollisionComponent.hpp>
 #include <Components/TransformComponent.hpp>
 
 struct RogueLikeMapTile : public GameObject {

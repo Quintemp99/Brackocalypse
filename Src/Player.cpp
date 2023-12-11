@@ -16,6 +16,7 @@
 #include "Gun.hpp"
 #include "../Scripts/PlayerCollision.hpp"
 #include "Components/BoxCollisionComponent.hpp"
+#include "Helpers/CollisionType.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
@@ -55,16 +56,13 @@ void Player::init(size_t layer, Vector2 position) {
     transform.scale = std::make_unique<Vector2>(1, 1);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
     auto collisionObject = std::make_unique<GameObject>();
-    collisionObject->addComponent(std::make_unique<BoxCollisionComponent>(Vector2(64, 40)));
-    collisionObject->setTag("PlayerWalkCollision");
-    collisionObject->setName("PlayerWalkCollision");
-    collisionObject->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(0, 44);
-    addChild(std::move(collisionObject));
+    auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
+    collisionComponent->collisionType = CollisionType::DYNAMIC;
+    addComponent(std::move(collisionComponent));
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
     auto gun = std::make_unique<Gun>(layer);
     addChild(std::move(gun));
-    addComponent(std::move(collision));
     setTag("Player");
     setName("Player");
 }

@@ -73,10 +73,12 @@ void LevelBuilder::buildLevel() {
                 for (int i = 0; i < width; ++i)
                     collisionMap[y][x + i] = '.';
 
-                auto object = std::make_unique<GameObject>();
-                object->addComponent(
-                        std::make_unique<BoxCollisionComponent>(tileSize * tileScale * Vector2(width, height)));
-                auto &transform = object->tryGetComponent<TransformComponent>();
+                auto collisionObject = std::make_unique<GameObject>();
+                auto boxCollision = std::make_unique<BoxCollisionComponent>(
+                        tileSize * tileScale * Vector2(width, height));
+                boxCollision->collisionType = CollisionType::STATIC;
+                collisionObject->addComponent(std::move(boxCollision));
+                auto &transform = collisionObject->tryGetComponent<TransformComponent>();
                 float posX = x * tileSize.getX() * tileScale.getX() -
                              size_.getX() * tileScale.getX() * tileSize.getX() / 2 +
                              tileSize.getX() * tileScale.getX() * width / 2;
@@ -85,7 +87,7 @@ void LevelBuilder::buildLevel() {
                              size_.getY() * tileScale.getY() * tileSize.getY() / 2 +
                              tileSize.getY() * tileScale.getY() * height / 2;
                 transform.position = std::make_unique<Vector2>(posX, posY);
-                gameObjects.push_back(std::move(object));
+                gameObjects.push_back(std::move(collisionObject));
                 continue;
             }
 
@@ -97,10 +99,12 @@ void LevelBuilder::buildLevel() {
             for (int i = 0; i < height; ++i)
                 collisionMap[y + i][x] = '.';
 
-            auto object = std::make_unique<GameObject>();
-            object->addComponent(
-                    std::make_unique<BoxCollisionComponent>(tileSize * tileScale * Vector2(width, height)));
-            auto &transform = object->tryGetComponent<TransformComponent>();
+            auto collisionObject = std::make_unique<GameObject>();
+            auto boxCollision = std::make_unique<BoxCollisionComponent>(
+                    tileSize * tileScale * Vector2(width, height));
+            boxCollision->collisionType = CollisionType::STATIC;
+            collisionObject->addComponent(std::move(boxCollision));
+            auto &transform = collisionObject->tryGetComponent<TransformComponent>();
             float posX = x * tileSize.getX() * tileScale.getX() -
                          size_.getX() * tileScale.getX() * tileSize.getX() / 2 +
                          tileSize.getX() * tileScale.getX() * width / 2;
@@ -109,7 +113,7 @@ void LevelBuilder::buildLevel() {
                          size_.getY() * tileScale.getY() * tileSize.getY() / 2 +
                          tileSize.getY() * tileScale.getY() * height / 2;
             transform.position = std::make_unique<Vector2>(posX, posY);
-            gameObjects.push_back(std::move(object));
+            gameObjects.push_back(std::move(collisionObject));
         }
     }
 }

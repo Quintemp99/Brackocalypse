@@ -23,10 +23,9 @@ HomeScene::HomeScene() : Scene() {
     auto bgImageSprite = std::make_unique<SpriteComponent>();
     bgImageSprite->spritePath = "Sprites/background_homescreen.png";
     bgImageSprite->spriteSize = std::make_unique<Vector2>(1264, 717);
-    bgImageSprite->imageSize = std::make_unique<Vector2>(1264,717);
     bgImageSprite->tileOffset = std::make_unique<Vector2>(0, 0);
     bgImageSprite->orderInLayer = 1;
-    auto& transformBgImage = bgImage->tryGetComponent<TransformComponent>();
+    auto &transformBgImage = bgImage->tryGetComponent<TransformComponent>();
     transformBgImage.position = std::make_unique<Vector2>(0, 0);
     transformBgImage.scale = std::make_unique<Vector2>(1, 1);
     bgImage->addComponent(std::move(bgImageSprite));
