@@ -12,6 +12,7 @@
 #include "GunShooting.hpp"
 #include "../Src/Beer.hpp"
 #include "PlayerProgress.hpp"
+#include "../Src/Player.hpp"
 
 void GunShooting::onStart() {
 
@@ -56,7 +57,7 @@ void GunShooting::shoot() {
             soundEffectComponent.startPlaying = true;
 
             auto player = getGameObjectByTag("Player");
-            auto script = player->tryGetBehaviourScript<PlayerProgress>();
+            PlayerProgress& script = player->tryGetBehaviourScript<PlayerProgress>();
             script.addBeer();
 
             auto radians = rotation * M_PI / 180;
