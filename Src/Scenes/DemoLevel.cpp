@@ -31,7 +31,7 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
-    collisionMap.emplace_back(".....xxxxxxxxxxxxxxxxxx........................");
+    collisionMap.emplace_back("......xxxxxxxxxxxxxxxx.........................");
     collisionMap.emplace_back(".....x................x........................");
     collisionMap.emplace_back(".....x................x........................");
     collisionMap.emplace_back(".....x................x........................");
@@ -39,7 +39,7 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back(".....x................x........................");
     collisionMap.emplace_back(".....x................x........................");
     collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back(".....x................x........xxxxxxxxxxxx....");
+    collisionMap.emplace_back("....x.................x.........xxxxxxxxxx.....");
     collisionMap.emplace_back(".....x................x........x..........x....");
     collisionMap.emplace_back(".....x................xxxxxxxxxx..........x....");
     collisionMap.emplace_back(".....x....................................x....");
@@ -48,7 +48,7 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back(".....x................x........x..........x....");
     collisionMap.emplace_back(".....x................x........x..........x....");
     collisionMap.emplace_back(".....x................x........x..........x....");
-    collisionMap.emplace_back(".....xxxxxxxxxxxxxxxxxx........xxxxxxxxxxxx...");
+    collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
