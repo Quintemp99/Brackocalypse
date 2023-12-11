@@ -9,6 +9,7 @@
 #include <Helpers/Vector2.hpp>
 #include <Components/SpriteComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
+#include <Components/TransformComponent.hpp>
 
 struct RogueLikeMapTile : public GameObject {
     RogueLikeMapTile(Vector2 tileOffset, Vector2 position, Vector2 size, size_t layer)
@@ -20,7 +21,6 @@ struct RogueLikeMapTile : public GameObject {
         spriteComponent.tileOffset = std::make_unique<Vector2>(tileOffset);
         spriteComponent.sortingLayer = layer;
         spriteComponent.orderInLayer = 2;
-        spriteComponent.imageSize = std::make_unique<Vector2>(968,526);
         addComponent(spriteComponent);
         auto &transform = tryGetComponent<TransformComponent>();
         transform.scale = std::make_unique<Vector2>(spriteScale);
