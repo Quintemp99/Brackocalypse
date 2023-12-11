@@ -38,7 +38,8 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
         Scripts/GunFollowMouse.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
-        Scripts/PlayerProgress.cpp)
+        Scripts/PlayerProgress.cpp
+        Src/ProgressBar.cpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

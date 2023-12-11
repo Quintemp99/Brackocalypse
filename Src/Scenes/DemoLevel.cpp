@@ -10,6 +10,7 @@
 #include "../Gun.hpp"
 #include "../Bullet.hpp"
 #include "../BulletPool.hpp"
+#include "../ProgressBar.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     auto camera = getAllCameras()[0];
@@ -108,6 +109,9 @@ DemoLevel::DemoLevel() : Scene() {
     levelBuilder.buildLevel();
     auto bulletPool = std::make_unique<BulletPool>(1, 30);
     this->addGameObject(std::move(bulletPool));
+
+    auto progressBar = std::make_unique<ProgressBar>();
+    this->addGameObject(std::move(progressBar));
 
     for (auto &go: levelBuilder.gameObjects) {
         this->addGameObject(std::move(go));

@@ -4,10 +4,12 @@
 
 #include <Components/AIComponent.hpp>
 #include <Objects/Button.hpp>
+#include <Components/RectangleComponent.hpp>
 #include "Objects/Scene.hpp"
 #include "../Src/Helpers/RogueLikeSheetMap.hpp"
 #include "UserInputMovement.hpp"
 #include "../Src/Scenes/HomeScene.hpp"
+#include "../Src/ProgressBar.hpp"
 
 void PlayerProgress::onStart() {
 
@@ -15,6 +17,10 @@ void PlayerProgress::onStart() {
 
 void PlayerProgress::onUpdate(float deltaTime) {
     int totalProgress = beersCollected - foodCollected;
+
+    auto& progressBar = getGameObjectByTag("ProgressBar")->tryGetComponent<RectangleComponent>();
+    int progressWidth = 300 / 100 * (totalProgress * 10);
+    progressBar.size->setX(progressWidth);
 
     if(totalProgress >= maxForLevel) {
         //TODO: Go to next level
