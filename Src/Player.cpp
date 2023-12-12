@@ -60,7 +60,7 @@ void Player::init(size_t layer, Vector2 position) {
     auto collisionObject = std::make_unique<GameObject>();
     auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
     addComponent(std::move(collisionComponent));
-    addComponent(std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC));
+    addComponent(std::make_unique<RigidBodyComponent>(CollisionType::KINEMATIC));
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
     auto gun = std::make_unique<Gun>(layer);
