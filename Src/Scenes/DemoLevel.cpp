@@ -10,8 +10,10 @@
 #include "../Gun.hpp"
 #include "../Bullet.hpp"
 #include "../BulletPool.hpp"
+#include "../PauseMenu.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
+
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
@@ -20,7 +22,6 @@ DemoLevel::DemoLevel() : Scene() {
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
-
 
     std::vector<std::vector<std::string>> objectMap{};
     std::vector<std::vector<std::string>> tileMap{};
@@ -162,13 +163,23 @@ DemoLevel::DemoLevel() : Scene() {
     auto levelBuilder = LevelBuilder(objectMap, tileMap, collisionMap);
 
     levelBuilder.buildLevel();
-    auto bulletPool = std::make_unique<BulletPool>(1, 30);
-    this->addGameObject(std::move(bulletPool));
+
+    auto parent = std::make_unique<GameObject>();
+    parent->setName("GameParent");
 
     for (auto &go: levelBuilder.gameObjects) {
-        this->addGameObject(std::move(go));
+        parent->addChild(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(this->getGameObjectByName("PlayerSpawn"));
-    this->addGameObject(std::move(player));
+    auto bulletPool = std::make_unique<BulletPool>(1, 30);
+    parent->addChild(std::move(bulletPool));
+
+
+    auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
+    parent->addChild(std::move(player));
+
+    this->addGameObject(std::move(parent));
+
+    auto pause = std::make_unique<PauseMenu>();
+    this->addGameObject(std::move(pause));
 }
