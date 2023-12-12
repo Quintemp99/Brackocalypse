@@ -21,7 +21,11 @@ Bullet::Bullet(size_t layer) {
     sprite->orderInLayer = 2;
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
     transform.scale = std::make_unique<Vector2>(1, 1);
-    addComponent(std::make_unique<RigidBodyComponent>(CollisionType::KINEMATIC));
+    auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
+    rigidBody->restitution = 1.0f;
+    rigidBody->friction = 1.0f;
+    rigidBody->gravityScale = 0.0f;
+    addComponent(std::move(rigidBody));
     auto boxCollision = std::make_unique<BoxCollisionComponent>(Vector2(18, 8));
     addComponent(std::move(boxCollision));
     addComponent(std::move(sprite));

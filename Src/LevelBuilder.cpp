@@ -81,7 +81,9 @@ void LevelBuilder::buildLevel() {
                 auto boxCollision = std::make_unique<BoxCollisionComponent>(
                         tileSize * tileScale * Vector2(width, height));
                 collisionObject->addComponent(std::move(boxCollision));
-                collisionObject->addComponent(std::make_unique<RigidBodyComponent>(CollisionType::STATIC));
+                auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::STATIC);
+                rigidBody->restitution = 1.0f;
+                collisionObject->addComponent(std::move(rigidBody));
                 auto &transform = collisionObject->tryGetComponent<TransformComponent>();
                 float posX = x * tileSize.getX() * tileScale.getX() -
                              tileMapSize.getX() * tileScale.getX() * tileSize.getX() / 2 +
@@ -90,7 +92,7 @@ void LevelBuilder::buildLevel() {
                              tileMapSize.getY() * tileScale.getY() * tileSize.getY() / 2 +
                              tileSize.getY() * tileScale.getY() * height / 2;
                 transform.position = std::make_unique<Vector2>(posX, posY);
-//                gameObjects.push_back(std::move(collisionObject));
+                gameObjects.push_back(std::move(collisionObject));
                 continue;
             }
 
@@ -106,7 +108,9 @@ void LevelBuilder::buildLevel() {
             auto boxCollision = std::make_unique<BoxCollisionComponent>(
                     tileSize * tileScale * Vector2(width, height));
             collisionObject->addComponent(std::move(boxCollision));
-            collisionObject->addComponent(std::make_unique<RigidBodyComponent>(CollisionType::STATIC));
+            auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::STATIC);
+            rigidBody->restitution = 1.0f;
+            collisionObject->addComponent(std::move(rigidBody));
             auto &transform = collisionObject->tryGetComponent<TransformComponent>();
             float posX = x * tileSize.getX() * tileScale.getX() -
                          tileMapSize.getX() * tileScale.getX() * tileSize.getX() / 2 +
@@ -115,7 +119,7 @@ void LevelBuilder::buildLevel() {
                          tileMapSize.getY() * tileScale.getY() * tileSize.getY() / 2 +
                          tileSize.getY() * tileScale.getY() * height / 2;
             transform.position = std::make_unique<Vector2>(posX, posY);
-//            gameObjects.push_back(std::move(collisionObject));
+            gameObjects.push_back(std::move(collisionObject));
         }
     }
 }

@@ -14,7 +14,6 @@
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
-#include "../Scripts/PlayerCollision.hpp"
 #include "Components/BoxCollisionComponent.hpp"
 
 #include "Components/RigidBodyComponent.hpp"
@@ -36,7 +35,6 @@ Player::Player(size_t layer, Vector2 position) : GameObject() {
 void Player::init(size_t layer, Vector2 position) {
     addComponent(std::make_unique<VelocityComponent>());
     addBehaviourScript(std::make_unique<UserInputMovement>());
-    addBehaviourScript(std::make_unique<PlayerCollision>());
 
     auto sprite = std::make_unique<SpriteComponent>();
     auto &transform = tryGetComponent<TransformComponent>();
@@ -57,12 +55,15 @@ void Player::init(size_t layer, Vector2 position) {
     walkAnimation->imageSize = std::make_unique<Vector2>(864, 640);
     transform.scale = std::make_unique<Vector2>(1, 1);
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
-    auto collisionObject = std::make_unique<GameObject>();
     auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
+    collisionComponent->offset = std::make_unique<Vector2>(0, 44);
     addComponent(std::move(collisionComponent));
-    addComponent(std::make_unique<RigidBodyComponent>(CollisionType::KINEMATIC));
+    auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
+    rigidBody->gravityScale = 0.0f;
+    addComponent(std::move(rigidBody));
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
+
     auto gun = std::make_unique<Gun>(layer);
     addChild(std::move(gun));
     setTag("Player");
