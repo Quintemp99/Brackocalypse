@@ -16,7 +16,7 @@ HomeScene::HomeScene() : Scene() {
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
     backgroundSound->volume = 0.1;
     backgroundSound->startPlaying = true;
-    camera->addComponent(std::move(backgroundSound));
+//    camera->addComponent(std::move(backgroundSound));
     auto windowSize = ConfigSingleton::GetInstance().GetWindowSize();
 
     auto bgImage = std::make_unique<GameObject>();

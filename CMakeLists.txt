@@ -34,7 +34,17 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
-        Scripts/GunFollowMouse.hpp)
+        Scripts/GunFollowMouse.hpp
+        Src/Enemy.cpp
+        Src/Enemy.hpp
+        Src/PoolCreator.hpp
+        Src/PoolCreator.hpp
+        Scripts/EnemySpawn.cpp
+        Scripts/EnemySpawn.hpp
+        Scripts/EnemySpawn.hpp
+        Src/EnemyPool.cpp
+        Src/EnemyPool.hpp
+        Src/EnemyPool.cpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

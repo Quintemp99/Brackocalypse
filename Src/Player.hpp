@@ -16,6 +16,7 @@ public:
 
     ~Player() = default;
 
+    int health = 20;
 private:
     void init(size_t layer, Vector2 position);
 };

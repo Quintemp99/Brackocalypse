@@ -7,6 +7,7 @@
 #include "Src/Scenes/HomeScene.hpp"
 #include "Scripts/FollowGameObject.hpp"
 #include "Src/LevelBuilder.hpp"
+#include "Src/Enemy.hpp"
 
 int main() {
     Config config = new Config();
@@ -16,6 +17,7 @@ int main() {
     BrackEngine brackEngine = BrackEngine(std::move(config));
 
     auto scene = HomeScene();
+
     SceneManager::getInstance().setActiveScene(scene);
 
     brackEngine.Run();

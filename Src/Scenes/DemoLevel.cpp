@@ -10,6 +10,10 @@
 #include "../Gun.hpp"
 #include "../Bullet.hpp"
 #include "../BulletPool.hpp"
+#include "../../Scripts/EnemySpawn.hpp"
+#include "../PoolCreator.hpp"
+#include "../Enemy.hpp"
+#include "../EnemyPool.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     auto camera = getAllCameras()[0];
@@ -20,6 +24,7 @@ DemoLevel::DemoLevel() : Scene() {
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
+    camera->addBehaviourScript(EnemySpawn());
 
 
     std::vector<std::vector<std::string>> objectMap{};
@@ -162,8 +167,14 @@ DemoLevel::DemoLevel() : Scene() {
     auto levelBuilder = LevelBuilder(objectMap, tileMap, collisionMap);
 
     levelBuilder.buildLevel();
+
+    PoolCreator poolCreator = PoolCreator();
+
+
     auto bulletPool = std::make_unique<BulletPool>(1, 30);
+    auto enemyPool = std::make_unique<EnemyPool>(1, 30);
     this->addGameObject(std::move(bulletPool));
+    this->addGameObject(std::move(enemyPool));
 
     for (auto &go: levelBuilder.gameObjects) {
         this->addGameObject(std::move(go));

@@ -33,6 +33,9 @@ Player::Player(size_t layer, Vector2 position) : GameObject() {
 }
 
 void Player::init(size_t layer, Vector2 position) {
+    std::cout << position.getX() << " " << position.getY() << std::endl;
+
+
     addComponent(std::make_unique<VelocityComponent>());
     addBehaviourScript(std::make_unique<UserInputMovement>());
 
@@ -51,10 +54,8 @@ void Player::init(size_t layer, Vector2 position) {
     walkAnimation->isPlaying = false;
     walkAnimation->startPosition = std::make_unique<Vector2>(0, 4);
     walkAnimation->frameCount = 8;
-
     walkAnimation->imageSize = std::make_unique<Vector2>(864, 640);
-    transform.scale = std::make_unique<Vector2>(1, 1);
-    sprite->tileOffset = std::make_unique<Vector2>(0, 0);
+
     auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
     collisionComponent->offset = std::make_unique<Vector2>(0, 44);
     addComponent(std::move(collisionComponent));
