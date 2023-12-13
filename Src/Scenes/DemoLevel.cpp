@@ -8,15 +8,17 @@
 #include "../LevelBuilder.hpp"
 #include "Components/SoundTrackComponent.hpp"
 #include "../Gun.hpp"
-#include "../Bullet.hpp"
 #include "../BulletPool.hpp"
 #include "../ProgressBar.hpp"
+#include "../../Scripts/SpawnInBeers.hpp"
+#include "../BeerPool.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
     camera->addBehaviourScript(FollowGameObject("Player"));
+    camera->addBehaviourScript(SpawnInBeers());
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
@@ -165,6 +167,9 @@ DemoLevel::DemoLevel() : Scene() {
     levelBuilder.buildLevel();
     auto bulletPool = std::make_unique<BulletPool>(1, 30);
     this->addGameObject(std::move(bulletPool));
+
+    auto beerPool = std::make_unique<BeerPool>(10);
+    this->addGameObject(std::move(beerPool));
 
     auto progressBar = std::make_unique<ProgressBar>();
     this->addGameObject(std::move(progressBar));

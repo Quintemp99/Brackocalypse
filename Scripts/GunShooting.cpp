@@ -56,10 +56,6 @@ void GunShooting::shoot() {
             auto &soundEffectComponent = tryGetComponent<SoundEffectComponent>();
             soundEffectComponent.startPlaying = true;
 
-            auto player = getGameObjectByTag("Player");
-            PlayerProgress& script = player->tryGetBehaviourScript<PlayerProgress>();
-            script.addBeer();
-
             auto radians = rotation * M_PI / 180;
             auto velocity = Vector2(cos(radians), sin(radians));
             bullet->tryGetComponent<VelocityComponent>().velocity = velocity;
