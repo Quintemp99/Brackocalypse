@@ -27,7 +27,7 @@ DemoLevel::DemoLevel() : Scene() {
     std::vector<std::vector<std::string>> tileMap{};
     std::vector<std::string> collisionMap{};
 
-    collisionMap.emplace_back("x..............................................");
+    collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
@@ -49,10 +49,10 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back(".....x.....x..........x........x..........x....");
     collisionMap.emplace_back(".....x................x........x..........x....");
     collisionMap.emplace_back(".....x................x........x..........x....");
-    collisionMap.emplace_back("......xxxxxxx.xxxxxxxx..........xxxxxxxxxx.....");
+    collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
-    collisionMap.emplace_back("x.............................................x");
+    collisionMap.emplace_back("...............................................");
 
     tileMap.emplace_back();
     tileMap[0].emplace_back("WWWWWWWFWWWWWWWWWWWWWWWeWWWW...................");
