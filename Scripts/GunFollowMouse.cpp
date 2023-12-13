@@ -5,6 +5,7 @@
 #include "GunFollowMouse.hpp"
 #include <EngineManagers/InputManager.hpp>
 #include <Components/SpriteComponent.hpp>
+#include <Components/TransformComponent.hpp>
 
 void GunFollowMouse::onStart() {
 }

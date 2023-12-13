@@ -7,6 +7,7 @@
 
 #include "RogueLikeMapTile.hpp"
 #include "../Helpers/RogueLikeSheetType.hpp"
+#include "Components/RigidBodyComponent.hpp"
 
 struct BoxCollisionMapTile : public RogueLikeMapTile {
     BoxCollisionMapTile(Vector2 tileOffset, Vector2 position, Vector2 size, size_t layer)
@@ -14,7 +15,7 @@ struct BoxCollisionMapTile : public RogueLikeMapTile {
                                position, size,
                                layer) {
         auto colliderComponent = BoxCollisionComponent(spriteSize);
-        colliderComponent.collisionType = CollisionType::STATIC;
+        addComponent(std::make_unique<RigidBodyComponent>(CollisionType::STATIC));
         addComponent(colliderComponent);
 
     }

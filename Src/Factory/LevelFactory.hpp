@@ -13,7 +13,11 @@
 class LevelFactory {
 public:
     void setSize(Vector2 size);
+
     std::unique_ptr<GameObject> createGameObject(char c, Vector2 position, size_t layer);
+
+    Vector2 getSpriteTileOffset(char c);
+
 private:
     Vector2 size_;
     RogueLikeSheetMap rogueLikeSheetMap = RogueLikeSheetMap();

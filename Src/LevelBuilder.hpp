@@ -14,19 +14,28 @@
 
 class LevelBuilder {
 public:
-    LevelBuilder(std::vector<std::vector<std::string>> map) : map(map) {
-        auto bottomLayer = map[0];
+    LevelBuilder(std::vector<std::vector<std::string>> objectMap, std::vector<std::vector<std::string>> tileMap,
+                 std::vector<std::string> collisionMap)
+            : objectMap(objectMap), tileMap(tileMap), collisionMap(collisionMap) {
+        auto bottomLayer = objectMap[0];
         auto firstRow = bottomLayer[0];
-        auto size = Vector2(firstRow.size(),bottomLayer.size());
+        auto size = Vector2(firstRow.size(), bottomLayer.size());
         size_ = size;
+        tileMapSize = Vector2(tileMap[0][0].size(), tileMap[0].size());
         levelFactory_.setSize(size_);
     }
+
     ~LevelBuilder() = default;
+
     void buildLevel();
+
     std::vector<std::unique_ptr<GameObject>> gameObjects;
 private:
-    Vector2 size_;
-    std::vector<std::vector<std::string>> map;
+    Vector2 size_ = Vector2(0, 0);
+    Vector2 tileMapSize = Vector2(0, 0);
+    std::vector<std::vector<std::string>> objectMap;
+    std::vector<std::vector<std::string>> tileMap;
+    std::vector<std::string> collisionMap;
     LevelFactory levelFactory_ = LevelFactory();
 };
 
