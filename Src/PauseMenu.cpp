@@ -23,7 +23,7 @@ PauseMenu::PauseMenu() : GameObject() {
     auto centerX = ConfigSingleton::GetInstance().GetWindowSize().getX() / 2;
     auto buttonSize = Vector2(210, 70);
 
-    auto startButton = std::make_unique<Button>(buttonSize, "Resume game");
+    auto startButton = std::make_unique<Button>(buttonSize, "Resume");
     startButton->setFontSize(40);
     startButton->setTag("ResumeButton");
     startButton->setName("ResumeButton");
