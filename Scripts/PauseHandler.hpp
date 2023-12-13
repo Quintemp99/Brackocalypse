@@ -22,10 +22,12 @@ public:
         return std::make_unique<PauseHandler>(*this);
     }
 
-    PauseHandler(const PauseHandler &other) : BehaviourScript(other) {};
-private:
-    bool isPaused = false;
-    float previousMultiplier;
+    void togglePause();
+
+    PauseHandler(const PauseHandler &other) : BehaviourScript(other) {
+        previousMultiplier = other.previousMultiplier;
+    };
+    float previousMultiplier = 0.0;
 };
 
 

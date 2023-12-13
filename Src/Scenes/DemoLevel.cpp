@@ -11,8 +11,10 @@
 #include "../Bullet.hpp"
 #include "../BulletPool.hpp"
 #include "../PauseMenu.hpp"
+#include "EngineManagers/ReplayManager.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
+    ReplayManager::getInstance().startRecording(10000, 100);
 
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
