@@ -24,7 +24,7 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
         for (auto &enemy: enemies) {
 
             if (enemy->isActive()) {
-                break;
+                continue;
             }
             auto spawnObject = getGameObjectsByTag("EnemySpawner")[0];
             auto &transform = enemy->tryGetComponent<TransformComponent>();
