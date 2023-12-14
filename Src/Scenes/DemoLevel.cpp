@@ -38,7 +38,7 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx.........................");
     collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back(".....x................x........................");
+    collisionMap.emplace_back(".....x......E.........x........................");
     collisionMap.emplace_back(".....x...x........x...x........................");
     collisionMap.emplace_back(".....x......x.........x........................");
     collisionMap.emplace_back(".....x................x........................");
@@ -47,12 +47,12 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("....x.......x.x....x..x.........xxxxxxxxxx.....");
     collisionMap.emplace_back(".....x....xx....x.....x........x..........x....");
     collisionMap.emplace_back(".....x.....x..........xxxxxxxxxx..........x....");
-    collisionMap.emplace_back(".....x............x.......................x....");
+    collisionMap.emplace_back(".....x............x.......E............E..x....");
     collisionMap.emplace_back(".....x..x......x......xxxxxxxxxx..........x....");
     collisionMap.emplace_back(".....x................x........x..........x....");
     collisionMap.emplace_back(".....x.....x..........x........x..........x....");
-    collisionMap.emplace_back(".....x................x........x..........x....");
-    collisionMap.emplace_back(".....x................x........x..........x....");
+    collisionMap.emplace_back(".....x............E...x........x..........x....");
+    collisionMap.emplace_back(".....x..E.............x........x..........x....");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
@@ -168,11 +168,11 @@ DemoLevel::DemoLevel() : Scene() {
 
     levelBuilder.buildLevel();
 
-    PoolCreator poolCreator = PoolCreator();
+    auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
 
-
-    auto bulletPool = std::make_unique<BulletPool>(1, 30);
-    auto enemyPool = std::make_unique<EnemyPool>(1, 30);
+//    auto bulletPool = std::make_unique<BulletPool>(1, 30);
+//    auto enemyPool = std::make_unique<EnemyPool>(1, 30);
     this->addGameObject(std::move(bulletPool));
     this->addGameObject(std::move(enemyPool));
 

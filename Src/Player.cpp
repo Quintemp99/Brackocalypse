@@ -14,9 +14,8 @@
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
-#include "Components/BoxCollisionComponent.hpp"
-
 #include "Components/RigidBodyComponent.hpp"
+#include "Components/HealthComponent.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
@@ -42,6 +41,7 @@ void Player::init(size_t layer, Vector2 position) {
     auto sprite = std::make_unique<SpriteComponent>();
     auto &transform = tryGetComponent<TransformComponent>();
     auto walkAnimation = std::make_unique<AnimationComponent>();
+    auto health = std::make_unique<HealthComponent>(3);
     sprite->spritePath = "Sprites/character_maleAdventurer_sheet.png";
     sprite->spriteSize = std::make_unique<Vector2>(96, 128);
     sprite->sortingLayer = layer;
@@ -64,6 +64,7 @@ void Player::init(size_t layer, Vector2 position) {
     addComponent(std::move(rigidBody));
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
+    addComponent(std::move(health));
 
     auto gun = std::make_unique<Gun>(layer);
     addChild(std::move(gun));

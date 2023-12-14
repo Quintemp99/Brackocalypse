@@ -28,6 +28,8 @@ public:
     }
 
 private:
+    int waves[5] = {10, 12, 14, 16, 19};
+    int currentWave = 0;
     int currentEnemyCount = 0;
 };
 

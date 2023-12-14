@@ -9,6 +9,7 @@
 #include "LevelBuilder.hpp"
 #include "Components/BoxCollisionComponent.hpp"
 #include "Components/RigidBodyComponent.hpp"
+#include "Components/SpawnComponent.hpp"
 
 void LevelBuilder::buildLevel() {
     auto tileSize = Vector2(16, 16);
@@ -52,6 +53,7 @@ void LevelBuilder::buildLevel() {
                     x++;
                     continue;
                 }
+
                 std::unique_ptr<GameObject> object = levelFactory_.createGameObject(c, Vector2(x, y), sortingLayer);
                 gameObjects.push_back(std::move(object));
                 x++;
@@ -60,9 +62,26 @@ void LevelBuilder::buildLevel() {
         }
         sortingLayer--;
     }
+    auto spawnerObject = std::make_unique<GameObject>();
+    auto spawnComponent = std::make_unique<SpawnComponent>();
+    spawnerObject->setTag("EnemySpawner");
 
     for (int y = 0; y < collisionMap.size(); ++y) {
         for (int x = 0; x < collisionMap[y].size(); ++x) {
+
+            if (collisionMap[y][x] == 'E') {
+                auto location = std::make_unique<Vector2>(x * tileSize.getX() * tileScale.getX() -
+                                                          tileMapSize.getX() * tileScale.getX() *
+                                                          tileSize.getX() / 2 +
+                                                          tileSize.getX() * tileScale.getX() / 2,
+                                                          y * tileSize.getY() * tileScale.getY() -
+                                                          tileMapSize.getY() * tileScale.getY() *
+                                                          tileSize.getY() / 2 +
+                                                          tileSize.getY() * tileScale.getY() / 2);
+                spawnComponent->spawnLocations.emplace_back(std::move(location));
+
+            }
+
             if (collisionMap[y][x] != 'x') {
                 continue;
             }
@@ -122,4 +141,7 @@ void LevelBuilder::buildLevel() {
             gameObjects.push_back(std::move(collisionObject));
         }
     }
+    spawnerObject->addComponent(std::move(spawnComponent));
+    gameObjects.push_back(std::move(spawnerObject));
+
 }

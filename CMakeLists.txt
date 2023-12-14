@@ -44,7 +44,9 @@ add_executable(Brackocalypse main.cpp
         Scripts/EnemySpawn.hpp
         Src/EnemyPool.cpp
         Src/EnemyPool.hpp
-        Src/EnemyPool.cpp)
+        Src/EnemyPool.cpp
+        Src/Components/HealthComponent.hpp
+        Src/Components/SpawnComponent.hpp)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

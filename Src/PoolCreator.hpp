@@ -7,25 +7,19 @@
 
 #include <Objects/GameObject.hpp>
 
-class PoolCreator {
+template<typename T>
+class PoolCreator : public GameObject {
 public:
-    PoolCreator() = default;
+    PoolCreator(size_t layer, size_t poolSize) {
+        for (size_t i = 0; i < poolSize; i++) {
+            auto enemy = std::make_unique<T>(layer);
+            enemy->setActive(false);
+            addChild(std::move(enemy));
+        }
+    };
 
     ~PoolCreator() = default;
 
-    template<typename T>
-    std::unique_ptr<GameObject> createPool(size_t layer, size_t poolSize) {
-        auto gameObject = std::make_unique<GameObject>(layer);
-
-
-        for (size_t i = 0; i < poolSize; i++) {
-            auto obj = std::make_unique<T>(layer);
-            obj->setActive(false);
-            gameObject->addChild(std::move(obj));
-
-        }
-        return gameObject;
-    }
 
 };
 
