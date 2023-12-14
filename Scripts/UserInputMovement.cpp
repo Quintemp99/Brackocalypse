@@ -7,6 +7,7 @@
 #include <Components/SoundEffectComponent.hpp>
 #include <Components/SpriteComponent.hpp>
 #include <Components/TransformComponent.hpp>
+#include <Components/BoxCollisionComponent.hpp>
 #include "UserInputMovement.hpp"
 #include "Components/VelocityComponent.hpp"
 
@@ -63,4 +64,12 @@ void UserInputMovement::onUpdate(milliseconds deltaTime) {
 //            soundEffect.startPlaying = true;
         }
     }
+
+    auto playerCol = getGameObjectByTag("PlayerCollision");
+    auto &playerCollider = playerCol->tryGetComponent<BoxCollisionComponent>();
+    if (playerCollider.collidedWith.size() > 0) {
+
+    }
+
+
 }

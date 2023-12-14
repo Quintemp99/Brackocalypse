@@ -65,7 +65,8 @@ void Player::init(size_t layer, Vector2 position) {
     addComponent(std::move(walkAnimation));
 
     auto playerCollision = std::make_unique<GameObject>();
-    auto collision = std::make_unique<BoxCollisionComponent>(Vector2(96, 128));
+    auto collision = std::make_unique<BoxCollisionComponent>(Vector2(64, 96));
+    collision->offset = std::make_unique<Vector2>(0, 16);
     auto playerRigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     playerRigidBody->gravityScale = 0.0f;
     collision->isTrigger = true;
