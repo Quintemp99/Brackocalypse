@@ -41,7 +41,15 @@ add_executable(Brackocalypse main.cpp
         Scripts/SpawnInBeers.cpp
         Src/BeerPool.cpp
         Scripts/CollectBeers.cpp
-        Src/Scenes/EndScreen.cpp)
+        Src/Scenes/EndScreen.cpp
+        Scripts/GunFollowMouse.hpp
+        Scripts/PauseHandler.cpp
+        Scripts/PauseHandler.hpp
+        Src/PauseMenu.cpp
+        Src/PauseMenu.hpp
+        Src/PauseManager.cpp
+        Src/PauseManager.hpp
+)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 
