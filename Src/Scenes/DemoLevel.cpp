@@ -9,7 +9,6 @@
 #include "Components/SoundTrackComponent.hpp"
 #include "../Gun.hpp"
 #include "../Bullet.hpp"
-#include "../BulletPool.hpp"
 #include "../../Scripts/EnemySpawn.hpp"
 #include "../PoolCreator.hpp"
 #include "../Enemy.hpp"
@@ -186,8 +185,6 @@ DemoLevel::DemoLevel() : Scene() {
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));
     }
-
-
 
 
     auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
