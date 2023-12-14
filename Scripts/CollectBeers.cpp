@@ -15,6 +15,8 @@ void CollectBeers::onUpdate(milliseconds deltaTime) {
             setActive(false);
             PlayerProgress& script = player->tryGetBehaviourScript<PlayerProgress>();
             script.addBeer();
+
+            return;
         }
     }
 }

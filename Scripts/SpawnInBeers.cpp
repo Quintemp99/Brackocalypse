@@ -15,8 +15,6 @@ void SpawnInBeers::onUpdate(milliseconds deltaTime) {
             if(distance < 300)
                 break;
 
-            auto collision = beer->tryGetComponent<BoxCollisionComponent>();
-
             beer->setActive(true);
         }
     }
