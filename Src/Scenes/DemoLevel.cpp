@@ -179,15 +179,14 @@ DemoLevel::DemoLevel() : Scene() {
     auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
 
 
-    this->addGameObject(std::move(bulletPool));
-    this->addGameObject(std::move(enemyPool));
-
     auto parent = std::make_unique<GameObject>();
     parent->setName("GameParent");
 
     auto beerPool = std::make_unique<BeerPool>(10);
     beerPool->addBehaviourScript(SpawnInBeers());
     parent->addChild(std::move(beerPool));
+    parent->addChild(std::move(bulletPool));
+    parent->addChild(std::move(enemyPool));
 
     auto progressBar = std::make_unique<ProgressBar>();
     parent->addChild(std::move(progressBar));
