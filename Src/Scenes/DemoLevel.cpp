@@ -13,8 +13,14 @@
 #include "../../Scripts/EnemySpawn.hpp"
 #include "../PoolCreator.hpp"
 #include "../Enemy.hpp"
+#include "../PauseMenu.hpp"
+#include "EngineManagers/ReplayManager.hpp"
+#include "../../Scripts/PauseHandler.hpp"
+#include "../PauseManager.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
+    ReplayManager::getInstance().startRecording(10000, 100);
+
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
@@ -174,10 +180,24 @@ DemoLevel::DemoLevel() : Scene() {
     this->addGameObject(std::move(bulletPool));
     this->addGameObject(std::move(enemyPool));
 
+    auto parent = std::make_unique<GameObject>();
+    parent->setName("GameParent");
+
     for (auto &go: levelBuilder.gameObjects) {
-        this->addGameObject(std::move(go));
+        parent->addChild(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(this->getGameObjectByName("PlayerSpawn"));
-    this->addGameObject(std::move(player));
+
+
+
+    auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
+    parent->addChild(std::move(player));
+
+    this->addGameObject(std::move(parent));
+
+    auto pause = std::make_unique<PauseMenu>();
+    this->addGameObject(std::move(pause));
+
+    auto pauseHandler = std::make_unique<PauseManager>();
+    this->addGameObject(std::move(pauseHandler));
 }
