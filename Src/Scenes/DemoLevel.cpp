@@ -8,7 +8,10 @@
 #include "../LevelBuilder.hpp"
 #include "Components/SoundTrackComponent.hpp"
 #include "../Gun.hpp"
-#include "../BulletPool.hpp"
+#include "../Bullet.hpp"
+#include "../../Scripts/EnemySpawn.hpp"
+#include "../PoolCreator.hpp"
+#include "../Enemy.hpp"
 #include "../PauseMenu.hpp"
 #include "EngineManagers/ReplayManager.hpp"
 #include "../../Scripts/PauseHandler.hpp"
@@ -28,6 +31,8 @@ DemoLevel::DemoLevel() : Scene() {
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
+    camera->addBehaviourScript(EnemySpawn());
+
 
     std::vector<std::vector<std::string>> objectMap{};
     std::vector<std::vector<std::string>> tileMap{};
@@ -40,7 +45,7 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx.........................");
     collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back(".....x................x........................");
+    collisionMap.emplace_back(".....x......E.........x........................");
     collisionMap.emplace_back(".....x...x........x...x........................");
     collisionMap.emplace_back(".....x......x.........x........................");
     collisionMap.emplace_back(".....x................x........................");
@@ -49,12 +54,12 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("....x.......x.x....x..x.........xxxxxxxxxx.....");
     collisionMap.emplace_back(".....x....xx....x.....x........x..........x....");
     collisionMap.emplace_back(".....x.....x..........xxxxxxxxxx..........x....");
-    collisionMap.emplace_back(".....x............x.......................x....");
+    collisionMap.emplace_back(".....x............x.......E............E..x....");
     collisionMap.emplace_back(".....x..x......x......xxxxxxxxxx..........x....");
     collisionMap.emplace_back(".....x................x........x..........x....");
     collisionMap.emplace_back(".....x.....x..........x........x..........x....");
-    collisionMap.emplace_back(".....x................x........x..........x....");
-    collisionMap.emplace_back(".....x................x........x..........x....");
+    collisionMap.emplace_back(".....x............E...x........x..........x....");
+    collisionMap.emplace_back(".....x..E.............x........x..........x....");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
@@ -170,12 +175,18 @@ DemoLevel::DemoLevel() : Scene() {
 
     levelBuilder.buildLevel();
 
+    auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
+
+
     auto parent = std::make_unique<GameObject>();
     parent->setName("GameParent");
 
     auto beerPool = std::make_unique<BeerPool>(10);
     beerPool->addBehaviourScript(SpawnInBeers());
     parent->addChild(std::move(beerPool));
+    parent->addChild(std::move(bulletPool));
+    parent->addChild(std::move(enemyPool));
 
     auto progressBar = std::make_unique<ProgressBar>();
     parent->addChild(std::move(progressBar));
@@ -183,9 +194,6 @@ DemoLevel::DemoLevel() : Scene() {
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));
     }
-
-    auto bulletPool = std::make_unique<BulletPool>(1, 30);
-    parent->addChild(std::move(bulletPool));
 
 
     auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));

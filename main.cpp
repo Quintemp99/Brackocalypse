@@ -1,3 +1,4 @@
+#include <Components/TileMapComponent.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"

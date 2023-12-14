@@ -35,6 +35,15 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
         Scripts/GunFollowMouse.hpp
+        Src/Enemy.cpp
+        Src/Enemy.hpp
+        Src/PoolCreator.hpp
+        Src/PoolCreator.hpp
+        Scripts/EnemySpawn.cpp
+        Scripts/EnemySpawn.hpp
+        Scripts/EnemySpawn.hpp
+        Src/Components/HealthComponent.hpp
+        Src/Components/SpawnComponent.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
         Scripts/PlayerProgress.cpp
         Src/ProgressBar.cpp
