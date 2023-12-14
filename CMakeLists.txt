@@ -25,6 +25,7 @@ add_executable(Brackocalypse main.cpp
         Scripts/GunShooting.cpp
         Src/SaveLoad.cpp
         Src/Bullet.cpp
+        Src/BulletPool.cpp
         Scripts/BulletActions.cpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/CampfireMapTile.hpp
@@ -43,7 +44,14 @@ add_executable(Brackocalypse main.cpp
         Scripts/EnemySpawn.hpp
         Src/Components/HealthComponent.hpp
         Src/Components/SpawnComponent.hpp
-
+        Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
+        Scripts/PlayerProgress.cpp
+        Src/ProgressBar.cpp
+        Scripts/SpawnInBeers.cpp
+        Src/BeerPool.cpp
+        Scripts/CollectBeers.cpp
+        Src/Scenes/EndScreen.cpp
+        Scripts/GunFollowMouse.hpp
         Scripts/PauseHandler.cpp
         Scripts/PauseHandler.hpp
         Src/PauseMenu.cpp
