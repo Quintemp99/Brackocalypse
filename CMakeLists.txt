@@ -44,9 +44,16 @@ add_executable(Brackocalypse main.cpp
         Scripts/EnemySpawn.hpp
         Src/EnemyPool.cpp
         Src/EnemyPool.hpp
-        Src/EnemyPool.cpp
         Src/Components/HealthComponent.hpp
         Src/Components/SpawnComponent.hpp)
+
+        Scripts/PauseHandler.cpp
+        Scripts/PauseHandler.hpp
+        Src/PauseMenu.cpp
+        Src/PauseMenu.hpp
+        Src/PauseManager.cpp
+        Src/PauseManager.hpp
+)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 

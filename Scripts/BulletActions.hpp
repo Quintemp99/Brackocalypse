@@ -22,7 +22,10 @@ public:
         return std::make_unique<BulletActions>(*this);
     }
 
-    BulletActions(const BulletActions &other) : BehaviourScript(other) {}
+    BulletActions(const BulletActions &other) : BehaviourScript(other) {
+        lifeTime = other.lifeTime;
+        timer = other.timer;
+    }
 
 private:
     milliseconds lifeTime;

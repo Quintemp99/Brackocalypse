@@ -14,8 +14,14 @@
 #include "../PoolCreator.hpp"
 #include "../Enemy.hpp"
 #include "../EnemyPool.hpp"
+#include "../PauseMenu.hpp"
+#include "EngineManagers/ReplayManager.hpp"
+#include "../../Scripts/PauseHandler.hpp"
+#include "../PauseManager.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
+    ReplayManager::getInstance().startRecording(10000, 100);
+
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
@@ -25,7 +31,6 @@ DemoLevel::DemoLevel() : Scene() {
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
     camera->addBehaviourScript(EnemySpawn());
-
 
     std::vector<std::vector<std::string>> objectMap{};
     std::vector<std::vector<std::string>> tileMap{};
@@ -171,15 +176,29 @@ DemoLevel::DemoLevel() : Scene() {
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
     auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
 
-//    auto bulletPool = std::make_unique<BulletPool>(1, 30);
-//    auto enemyPool = std::make_unique<EnemyPool>(1, 30);
+
     this->addGameObject(std::move(bulletPool));
     this->addGameObject(std::move(enemyPool));
 
+    auto parent = std::make_unique<GameObject>();
+    parent->setName("GameParent");
+
     for (auto &go: levelBuilder.gameObjects) {
-        this->addGameObject(std::move(go));
+        parent->addChild(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(this->getGameObjectByName("PlayerSpawn"));
-    this->addGameObject(std::move(player));
+    auto bulletPool = std::make_unique<BulletPool>(1, 30);
+    parent->addChild(std::move(bulletPool));
+
+
+    auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
+    parent->addChild(std::move(player));
+
+    this->addGameObject(std::move(parent));
+
+    auto pause = std::make_unique<PauseMenu>();
+    this->addGameObject(std::move(pause));
+
+    auto pauseHandler = std::make_unique<PauseManager>();
+    this->addGameObject(std::move(pauseHandler));
 }
