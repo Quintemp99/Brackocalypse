@@ -17,9 +17,7 @@ void PlayerProgress::onUpdate(float deltaTime) {
     progressBar.size->setX(progressWidth);
 
     if(totalProgress >= maxForLevel) {
-        //TODO: Go to next level
         maxForLevel += 10;
-
         auto scene = new EndScreen();
         SceneManager::getInstance().goToNewScene(scene);
     }
