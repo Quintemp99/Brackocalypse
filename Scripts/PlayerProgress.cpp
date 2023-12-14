@@ -24,7 +24,6 @@ void PlayerProgress::onUpdate(float deltaTime) {
 
     if(totalProgress >= maxForLevel) {
         //TODO: Go to next level
-
         auto camera = Camera();
         camera.addComponent(VelocityComponent());
         camera.SetBackgroundColor(Color(255, 0, 0, 255));

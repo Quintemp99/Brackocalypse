@@ -14,6 +14,8 @@
 
 class Beer : public GameObject {
 public:
+    Beer(entity entity1) : GameObject(entity1) {}
+
     Beer() : GameObject() {
         setTag("Beer");
 
@@ -24,6 +26,7 @@ public:
         spriteComponent->orderInLayer = 0;
 
         auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(512, 512));
+        collisionComponent->isTrigger = true;
         addComponent(std::move(collisionComponent));
 
         auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::STATIC);
@@ -36,6 +39,8 @@ public:
         this->addBehaviourScript(std::make_unique<CollectBeers>());
         this->addComponent(std::move(spriteComponent));
     }
+
+    bool isCollected = false;
 };
 
 

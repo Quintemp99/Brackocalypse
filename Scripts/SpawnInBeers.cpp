@@ -1,14 +1,23 @@
 #include "SpawnInBeers.hpp"
 #include <Components/TransformComponent.hpp>
+#include <Components/BoxCollisionComponent.hpp>
 
 void SpawnInBeers::onUpdate(float deltaTime) {
-    for (auto &bullet: getGameObjectsByTag("Beer")) {
-        if (!bullet->isActive()) {
-            auto& transform = bullet->tryGetComponent<TransformComponent>();
+    for (auto &beer: getGameObjectsByTag("Beer")) {
+        if (!beer->isActive()) {
+            auto& transform = beer->tryGetComponent<TransformComponent>();
             transform.position->setX(getRandomNumber(-1080, -280));
-            transform.position->setY(getRandomNumber(-190, 610));
+            transform.position->setY(getRandomNumber(-190, 510));
 
-            bullet->setActive(true);
+            auto player = getGameObjectByTag("Player");
+            auto& transformComponentPlayer = player->tryGetComponent<TransformComponent>();
+            float distance = transformComponentPlayer.position->distance(*transform.position);
+            if(distance < 300)
+                break;
+
+            auto collision = beer->tryGetComponent<BoxCollisionComponent>();
+
+            beer->setActive(true);
         }
     }
 }
