@@ -36,7 +36,7 @@ Player::Player(size_t layer, Vector2 position) : GameObject() {
 void Player::init(size_t layer, Vector2 position) {
     addComponent(std::make_unique<VelocityComponent>());
     addBehaviourScript(std::make_unique<UserInputMovement>());
-    addBehaviourScript(std::make_unique<PlayerCollision>());
+//    addBehaviourScript(std::make_unique<PlayerCollision>());
 
     auto sprite = std::make_unique<SpriteComponent>();
     auto &transform = tryGetComponent<TransformComponent>();

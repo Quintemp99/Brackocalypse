@@ -1,5 +1,9 @@
 #include "DemoLevel.hpp"
 #include <Components/AnimationComponent.hpp>
+#include <Objects/Graph.hpp>
+#include <Components/GraphComponent.hpp>
+#include <Components/AIComponent.hpp>
+#include <Components/RectangleComponent.hpp>
 #include "BrackEngine.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "../Helpers/RogueLikeSheetMap.hpp"
@@ -7,9 +11,8 @@
 #include "../../Scripts/FollowGameObject.hpp"
 #include "../LevelBuilder.hpp"
 #include "Components/SoundTrackComponent.hpp"
-#include "../Gun.hpp"
-#include "../Bullet.hpp"
 #include "../BulletPool.hpp"
+#include "../../Scripts/EnemyFollowPlayer.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     auto camera = getAllCameras()[0];
@@ -26,7 +29,7 @@ DemoLevel::DemoLevel() : Scene() {
     std::vector<std::vector<std::string>> tileMap{};
     std::vector<std::string> collisionMap{};
 
-    collisionMap.emplace_back("x..............................................");
+    collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
@@ -51,7 +54,7 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("......xxxxxxx.xxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
-    collisionMap.emplace_back("x.............................................x");
+    collisionMap.emplace_back("...............................................");
 
     tileMap.emplace_back();
     tileMap[0].emplace_back("WWWWWWWFWWWWWWWWWWWWWWWeWWWW...................");
@@ -149,7 +152,7 @@ DemoLevel::DemoLevel() : Scene() {
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...........I...................................");
-    objectMap[0].emplace_back("............d..................................");
+    objectMap[0].emplace_back("...................d...........................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
@@ -169,6 +172,22 @@ DemoLevel::DemoLevel() : Scene() {
         this->addGameObject(std::move(go));
     }
 
+    auto graph = std::make_unique<Graph>(Vector2(1000,1000), Vector2(20,20), Vector2(1,1));
+//    graph->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(-100,0);
+    this->addGameObject(std::move(graph));
+
     auto player = std::make_unique<Player>(this->getGameObjectByName("PlayerSpawn"));
+    auto aiComponent = std::make_unique<AIComponent>();
+    aiComponent->speed = 0.1;
+    aiComponent->target = std::make_unique<Vector2>(-400,0);
+
+    auto rect = std::make_unique<GameObject>();
+    rect->addComponent(std::make_unique<RectangleComponent>(Vector2(50,50)));
+    rect->addComponent(std::make_unique<VelocityComponent>());
+    rect->addComponent(std::move(aiComponent));
+    rect->addBehaviourScript(std::make_unique<EnemyFollowPlayer>());
+    rect->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(-400,0);
+    addGameObject(std::move(rect));
+
     this->addGameObject(std::move(player));
 }
