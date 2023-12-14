@@ -32,9 +32,6 @@ Player::Player(size_t layer, Vector2 position) : GameObject() {
 }
 
 void Player::init(size_t layer, Vector2 position) {
-    std::cout << position.getX() << " " << position.getY() << std::endl;
-
-
     addComponent(std::make_unique<VelocityComponent>());
     addBehaviourScript(std::make_unique<UserInputMovement>());
 
