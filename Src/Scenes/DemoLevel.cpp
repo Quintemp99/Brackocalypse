@@ -24,7 +24,6 @@ DemoLevel::DemoLevel() : Scene() {
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
     camera->addBehaviourScript(FollowGameObject("Player"));
-    camera->addBehaviourScript(SpawnInBeers());
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
@@ -175,10 +174,11 @@ DemoLevel::DemoLevel() : Scene() {
     parent->setName("GameParent");
 
     auto beerPool = std::make_unique<BeerPool>(10);
-    this->addGameObject(std::move(beerPool));
+    beerPool->addBehaviourScript(SpawnInBeers());
+    parent->addChild(std::move(beerPool));
 
     auto progressBar = std::make_unique<ProgressBar>();
-    this->addGameObject(std::move(progressBar));
+    parent->addChild(std::move(progressBar));
 
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));
