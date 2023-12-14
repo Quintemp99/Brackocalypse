@@ -92,7 +92,7 @@ void LevelBuilder::buildLevel() {
                              tileMapSize.getY() * tileScale.getY() * tileSize.getY() / 2 +
                              tileSize.getY() * tileScale.getY() * height / 2;
                 transform.position = std::make_unique<Vector2>(posX, posY);
-                gameObjects.push_back(std::move(collisionObject));
+//                gameObjects.push_back(std::move(collisionObject));
                 continue;
             }
 
@@ -119,7 +119,7 @@ void LevelBuilder::buildLevel() {
                          tileMapSize.getY() * tileScale.getY() * tileSize.getY() / 2 +
                          tileSize.getY() * tileScale.getY() * height / 2;
             transform.position = std::make_unique<Vector2>(posX, posY);
-            gameObjects.push_back(std::move(collisionObject));
+//            gameObjects.push_back(std::move(collisionObject));
         }
     }
 }

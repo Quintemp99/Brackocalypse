@@ -6,6 +6,7 @@
 #include <Helpers/KeyMap.hpp>
 #include <Components/SoundEffectComponent.hpp>
 #include <Components/SpriteComponent.hpp>
+#include <Components/TransformComponent.hpp>
 #include "UserInputMovement.hpp"
 #include "Components/VelocityComponent.hpp"
 
@@ -15,6 +16,13 @@ void UserInputMovement::onUpdate(milliseconds deltaTime) {
     auto &playerVelocityComponent = tryGetComponent<VelocityComponent>();
     auto &spriteComponent = tryGetComponent<SpriteComponent>();
     auto &walkAnimation = tryGetComponent<AnimationComponent>();
+
+    auto &playerTransform = tryGetComponent<TransformComponent>();
+    auto playerCollision = getGameObjectByTag("PlayerCollision");
+    auto &playerCollisionTransform = playerCollision->tryGetComponent<TransformComponent>();
+    auto gun = getGameObjectByTag("Gun");
+    auto &gunTransform = gun->tryGetComponent<TransformComponent>();
+
 //    auto &soundEffect = tryGetComponent<SoundEffectComponent>();
 
     int left = static_cast<int>(InputManager::GetInstance().IsKeyPressed(KeyMap::a) ||

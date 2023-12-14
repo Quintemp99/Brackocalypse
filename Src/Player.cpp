@@ -64,7 +64,17 @@ void Player::init(size_t layer, Vector2 position) {
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
 
+    auto playerCollision = std::make_unique<GameObject>();
+    auto collision = std::make_unique<BoxCollisionComponent>(Vector2(96, 128));
+    auto playerRigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
+    playerRigidBody->gravityScale = 0.0f;
+    collision->isTrigger = true;
+    playerCollision->addComponent(std::move(playerRigidBody));
+    playerCollision->addComponent(std::move(collision));
+    playerCollision->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(0, 0);
+    playerCollision->setTag("PlayerCollision");
     auto gun = std::make_unique<Gun>(layer);
+    addChild(std::move(playerCollision));
     addChild(std::move(gun));
     setTag("Player");
     setName("Player");
