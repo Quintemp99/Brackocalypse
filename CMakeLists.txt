@@ -34,7 +34,14 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
-        Scripts/GunFollowMouse.hpp)
+        Scripts/GunFollowMouse.hpp
+        Scripts/PauseHandler.cpp
+        Scripts/PauseHandler.hpp
+        Src/PauseMenu.cpp
+        Src/PauseMenu.hpp
+        Src/PauseManager.cpp
+        Src/PauseManager.hpp
+)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 
