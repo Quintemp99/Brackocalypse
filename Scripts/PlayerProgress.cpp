@@ -9,7 +9,7 @@ void PlayerProgress::onStart() {
 
 }
 
-void PlayerProgress::onUpdate(float deltaTime) {
+void PlayerProgress::onUpdate(milliseconds deltaTime) {
     int totalProgress = beersCollected - foodCollected;
 
     auto& progressBar = getGameObjectByTag("ProgressBar")->tryGetComponent<RectangleComponent>();

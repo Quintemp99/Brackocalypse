@@ -2,7 +2,7 @@
 #include <Components/TransformComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
 
-void SpawnInBeers::onUpdate(float deltaTime) {
+void SpawnInBeers::onUpdate(milliseconds deltaTime) {
     for (auto &beer: getGameObjectsByTag("Beer")) {
         if (!beer->isActive()) {
             auto& transform = beer->tryGetComponent<TransformComponent>();

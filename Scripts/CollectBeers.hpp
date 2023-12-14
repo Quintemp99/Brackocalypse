@@ -13,7 +13,7 @@ public:
     }
 
     virtual void onStart() override;
-    virtual void onUpdate(float deltaTime) override;
+    virtual void onUpdate(milliseconds deltaTime) override;
 };
 
 
