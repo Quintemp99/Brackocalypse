@@ -13,7 +13,6 @@
 #include "../../Scripts/EnemySpawn.hpp"
 #include "../PoolCreator.hpp"
 #include "../Enemy.hpp"
-#include "../EnemyPool.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     auto camera = getAllCameras()[0];
@@ -171,8 +170,7 @@ DemoLevel::DemoLevel() : Scene() {
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
     auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
 
-//    auto bulletPool = std::make_unique<BulletPool>(1, 30);
-//    auto enemyPool = std::make_unique<EnemyPool>(1, 30);
+
     this->addGameObject(std::move(bulletPool));
     this->addGameObject(std::move(enemyPool));
 

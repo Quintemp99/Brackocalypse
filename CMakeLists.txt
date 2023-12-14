@@ -42,9 +42,6 @@ add_executable(Brackocalypse main.cpp
         Scripts/EnemySpawn.cpp
         Scripts/EnemySpawn.hpp
         Scripts/EnemySpawn.hpp
-        Src/EnemyPool.cpp
-        Src/EnemyPool.hpp
-        Src/EnemyPool.cpp
         Src/Components/HealthComponent.hpp
         Src/Components/SpawnComponent.hpp)
 
