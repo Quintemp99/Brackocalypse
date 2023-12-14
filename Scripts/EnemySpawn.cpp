@@ -13,37 +13,40 @@ void EnemySpawn::onStart() {
 }
 
 void EnemySpawn::onUpdate(milliseconds deltaTime) {
-    if (currentEnemyCount == 0) {
-        currentWave++;
-        if (currentWave > 5) {
-            currentWave = 5;
-        }
-        for (int i = 0; i < waves[currentWave - 1]; i++) {
-            auto enemies = getGameObjectsByTag("Enemy");
-            for (auto &enemy: enemies) {
-
-                if (!enemy->isActive()) {
-                    auto spawnObject = getGameObjectsByTag("EnemySpawner")[0];
-                    auto &transform = enemy->tryGetComponent<TransformComponent>();
-
-                    auto &spawnComponent = spawnObject->tryGetComponent<SpawnComponent>();
-                    auto spawnLocation =
-                            spawnComponent.spawnLocations[RandomGenerator::randomInt(0,
-                                                                                     spawnComponent.spawnLocations.size() -
-                                                                                     1)].get();
-                    transform.position = std::make_unique<Vector2>(spawnLocation->getX(), spawnLocation->getY());
-
-
-                    enemy->setActive(true);
-                    auto &health = enemy->tryGetComponent<HealthComponent>();
-
-                    health.health = 3;
-                    currentEnemyCount++;
-                    break;
-                }
-            }
-        }
-
-
+    if (currentEnemyCount != 0) {
+        return;
     }
+    if (currentWave > sizeof(waves) / sizeof(waves[0])) {
+        currentWave = sizeof(waves) / sizeof(waves[0]);
+    }
+    for (int i = 0; i < waves[currentWave - 1]; i++) {
+        auto enemies = getGameObjectsByTag("Enemy");
+        for (auto &enemy: enemies) {
+
+            if (enemy->isActive()) {
+                break;
+            }
+            auto spawnObject = getGameObjectsByTag("EnemySpawner")[0];
+            auto &transform = enemy->tryGetComponent<TransformComponent>();
+
+            auto &spawnComponent = spawnObject->tryGetComponent<SpawnComponent>();
+            auto spawnLocation =
+                    spawnComponent.spawnLocations[RandomGenerator::randomInt(0,
+                                                                             spawnComponent.spawnLocations.size() -
+                                                                             1)].get();
+            transform.position = std::make_unique<Vector2>(spawnLocation->getX(), spawnLocation->getY());
+
+
+            enemy->setActive(true);
+            auto &health = enemy->tryGetComponent<HealthComponent>();
+
+            health.health = 3;
+            currentEnemyCount++;
+            break;
+        }
+    }
+
+    currentWave++;
+
+
 }

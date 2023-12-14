@@ -16,7 +16,7 @@ HomeScene::HomeScene() : Scene() {
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
     backgroundSound->volume = 0.1;
     backgroundSound->startPlaying = true;
-//    camera->addComponent(std::move(backgroundSound));
+    camera->addComponent(std::move(backgroundSound));
     auto windowSize = ConfigSingleton::GetInstance().GetWindowSize();
 
     auto bgImage = std::make_unique<GameObject>();
@@ -49,7 +49,7 @@ HomeScene::HomeScene() : Scene() {
     //Start button
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
     startButton->setFontSize(40);
-    startButton->setClickEvent([](){
+    startButton->setClickEvent([]() {
         auto scene = new DemoLevel();
         SceneManager::getInstance().goToNewScene(scene);
     });
