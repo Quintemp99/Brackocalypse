@@ -7,9 +7,6 @@
 void CollectBeers::onStart() {}
 
 void CollectBeers::onUpdate(float deltaTime) {
-    if(!getActive())
-        return;
-
     auto boxCollision = tryGetComponent<BoxCollisionComponent>();
 
     auto player = getGameObjectByTag("Player");
