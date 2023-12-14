@@ -8,7 +8,7 @@ ProgressBar::ProgressBar() : GameObject() {
 
     //Position
     auto& transformBgImage = this->tryGetComponent<TransformComponent>();
-    transformBgImage.position = std::make_unique<Vector2>(0, 20);
+    transformBgImage.position = std::make_unique<Vector2>(0, 40);
 
     //Background
     auto backRecObj = std::make_unique<GameObject>();
