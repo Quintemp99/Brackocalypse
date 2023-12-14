@@ -7,23 +7,44 @@
 #include "Helpers/KeyMap.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Objects/Button.hpp"
+#include "EngineManagers/SceneManager.hpp"
 
 void PauseHandler::onStart() {}
 
 void PauseHandler::togglePause() {
-    auto gameParent = EntityManager::getInstance().getEntityByName("GameParent");
-    auto resumeButton = EntityManager::getInstance().getEntityByName("ResumeButton");
-    auto quitButton = EntityManager::getInstance().getEntityByName("QuitButton");
-    auto speed2x = EntityManager::getInstance().getEntityByName("Speed2x");
-    auto speed1x = EntityManager::getInstance().getEntityByName("Speed1x");
-    auto replay = EntityManager::getInstance().getEntityByName("ReplayButton");
-    EntityManager::getInstance().setEntityActive(gameParent, !EntityManager::getInstance().isEntityActive(gameParent));
-    EntityManager::getInstance().setEntityActive(resumeButton,
-                                                 !EntityManager::getInstance().isEntityActive(resumeButton));
-    EntityManager::getInstance().setEntityActive(quitButton, !EntityManager::getInstance().isEntityActive(quitButton));
-    EntityManager::getInstance().setEntityActive(speed2x, !EntityManager::getInstance().isEntityActive(speed2x));
-    EntityManager::getInstance().setEntityActive(speed1x, !EntityManager::getInstance().isEntityActive(speed1x));
-    EntityManager::getInstance().setEntityActive(replay, !EntityManager::getInstance().isEntityActive(replay));
+
+    auto gameParent = getGameObjectByName("GameParent");
+    auto pauseMenu = getGameObjectByName("PauseMenu");
+
+    if (gameParent.has_value())
+        gameParent.value()->setActive(!gameParent.value()->isActive());
+
+    if (pauseMenu.has_value())
+        pauseMenu.value()->setActive(!pauseMenu.value()->isActive());
+
+//    auto resumeButton = getGameObjectByName("ResumeButton");
+//    auto quitButton = getGameObjectByName("QuitButton");
+//    auto speed2x = getGameObjectByName("Speed2x");
+//    auto speed1x = getGameObjectByName("Speed1x");
+//    auto replay = getGameObjectByName("ReplayButton");
+//
+//    if (gameParent.has_value())
+//        gameParent.value()->setActive(!gameParent.value()->isActive());
+//
+//    if (resumeButton.has_value())
+//        resumeButton.value()->setActive(!resumeButton.value()->isActive());
+//
+//    if (quitButton.has_value())
+//        quitButton.value()->setActive(!quitButton.value()->isActive());
+//
+//    if (speed2x.has_value())
+//        speed2x.value()->setActive(!speed2x.value()->isActive());
+//
+//    if (speed1x.has_value())
+//        speed1x.value()->setActive(!speed1x.value()->isActive());
+//
+//    if (replay.has_value())
+//        replay.value()->setActive(!replay.value()->isActive());
 
     bool isCurrentlyPaused = ConfigSingleton::GetInstance().deltaTimeMultiplier == 0.0;
 
