@@ -8,12 +8,14 @@
 #include "../LevelBuilder.hpp"
 #include "Components/SoundTrackComponent.hpp"
 #include "../Gun.hpp"
-#include "../Bullet.hpp"
 #include "../BulletPool.hpp"
 #include "../PauseMenu.hpp"
 #include "EngineManagers/ReplayManager.hpp"
 #include "../../Scripts/PauseHandler.hpp"
 #include "../PauseManager.hpp"
+#include "../ProgressBar.hpp"
+#include "../../Scripts/SpawnInBeers.hpp"
+#include "../BeerPool.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     ReplayManager::getInstance().startRecording(10000, 100);
@@ -170,6 +172,13 @@ DemoLevel::DemoLevel() : Scene() {
 
     auto parent = std::make_unique<GameObject>();
     parent->setName("GameParent");
+
+    auto beerPool = std::make_unique<BeerPool>(10);
+    beerPool->addBehaviourScript(SpawnInBeers());
+    parent->addChild(std::move(beerPool));
+
+    auto progressBar = std::make_unique<ProgressBar>();
+    parent->addChild(std::move(progressBar));
 
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));

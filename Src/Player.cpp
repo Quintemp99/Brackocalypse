@@ -15,6 +15,7 @@
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
 #include "Components/BoxCollisionComponent.hpp"
+#include "../Scripts/PlayerProgress.hpp"
 
 #include "Components/RigidBodyComponent.hpp"
 
@@ -24,7 +25,7 @@ Player::Player(GameObject *spawnLocationMapTile) {
     auto spriteComponent = spawnLocationMapTile->tryGetComponent<SpriteComponent>();
     int layer = spriteComponent.sortingLayer;
 
-
+    addBehaviourScript(std::make_unique<PlayerProgress>());
     init(layer, location);
 }
 

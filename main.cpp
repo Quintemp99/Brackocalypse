@@ -1,4 +1,3 @@
-#include <Components/TileMapComponent.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
@@ -15,8 +14,8 @@ int main() {
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
 
-    auto scene = HomeScene();
-    SceneManager::getInstance().setActiveScene(scene);
+    auto scene = new HomeScene();
+    SceneManager::getInstance().goToNewScene(scene);
 
     brackEngine.Run();
     return 0;

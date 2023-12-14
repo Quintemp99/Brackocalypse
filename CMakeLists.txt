@@ -35,6 +35,14 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
         Scripts/GunFollowMouse.hpp
+        Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
+        Scripts/PlayerProgress.cpp
+        Src/ProgressBar.cpp
+        Scripts/SpawnInBeers.cpp
+        Src/BeerPool.cpp
+        Scripts/CollectBeers.cpp
+        Src/Scenes/EndScreen.cpp
+        Scripts/GunFollowMouse.hpp
         Scripts/PauseHandler.cpp
         Scripts/PauseHandler.hpp
         Src/PauseMenu.cpp

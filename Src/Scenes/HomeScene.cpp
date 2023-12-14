@@ -49,9 +49,9 @@ HomeScene::HomeScene() : Scene() {
     //Start button
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
     startButton->setFontSize(40);
-    startButton->setClickEvent([]() {
-        auto scene = DemoLevel();
-        SceneManager::getInstance().setActiveScene(scene);
+    startButton->setClickEvent([](){
+        auto scene = new DemoLevel();
+        SceneManager::getInstance().goToNewScene(scene);
     });
 
     auto centerY = ConfigSingleton::GetInstance().GetWindowSize().getY() / 2;
