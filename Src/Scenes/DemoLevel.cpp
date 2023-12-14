@@ -12,6 +12,8 @@
 #include "../BulletPool.hpp"
 #include "../PauseMenu.hpp"
 #include "EngineManagers/ReplayManager.hpp"
+#include "../../Scripts/PauseHandler.hpp"
+#include "../PauseManager.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     ReplayManager::getInstance().startRecording(10000, 100);
@@ -184,4 +186,7 @@ DemoLevel::DemoLevel() : Scene() {
 
     auto pause = std::make_unique<PauseMenu>();
     this->addGameObject(std::move(pause));
+
+    auto pauseHandler = std::make_unique<PauseManager>();
+    this->addGameObject(std::move(pauseHandler));
 }

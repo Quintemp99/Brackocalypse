@@ -12,7 +12,6 @@
 void PauseHandler::onStart() {}
 
 void PauseHandler::togglePause() {
-
     auto gameParent = getGameObjectByName("GameParent");
     auto pauseMenu = getGameObjectByName("PauseMenu");
 
@@ -21,30 +20,6 @@ void PauseHandler::togglePause() {
 
     if (pauseMenu.has_value())
         pauseMenu.value()->setActive(!pauseMenu.value()->isActive());
-
-//    auto resumeButton = getGameObjectByName("ResumeButton");
-//    auto quitButton = getGameObjectByName("QuitButton");
-//    auto speed2x = getGameObjectByName("Speed2x");
-//    auto speed1x = getGameObjectByName("Speed1x");
-//    auto replay = getGameObjectByName("ReplayButton");
-//
-//    if (gameParent.has_value())
-//        gameParent.value()->setActive(!gameParent.value()->isActive());
-//
-//    if (resumeButton.has_value())
-//        resumeButton.value()->setActive(!resumeButton.value()->isActive());
-//
-//    if (quitButton.has_value())
-//        quitButton.value()->setActive(!quitButton.value()->isActive());
-//
-//    if (speed2x.has_value())
-//        speed2x.value()->setActive(!speed2x.value()->isActive());
-//
-//    if (speed1x.has_value())
-//        speed1x.value()->setActive(!speed1x.value()->isActive());
-//
-//    if (replay.has_value())
-//        replay.value()->setActive(!replay.value()->isActive());
 
     bool isCurrentlyPaused = ConfigSingleton::GetInstance().deltaTimeMultiplier == 0.0;
 

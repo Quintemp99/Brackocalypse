@@ -8,16 +8,13 @@
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Components/TransformComponent.hpp"
 #include "EngineManagers/ReplayManager.hpp"
+#include "EngineManagers/SceneManager.hpp"
 #include <Objects/Button.hpp>
 
 PauseMenu::PauseMenu() : GameObject() {
     setTag("PauseMenu");
     setName("PauseMenu");
     setActive(false);
-
-    auto pauseHandler = std::make_unique<PauseHandler>();
-    PauseHandler *pauseHandlerPtr = pauseHandler.get();
-    addBehaviourScript(std::move(pauseHandler));
 
     auto centerY = ConfigSingleton::GetInstance().GetWindowSize().getY() / 2;
     auto centerX = ConfigSingleton::GetInstance().GetWindowSize().getX() / 2;
@@ -27,8 +24,12 @@ PauseMenu::PauseMenu() : GameObject() {
     startButton->setFontSize(40);
     startButton->setTag("ResumeButton");
     startButton->setName("ResumeButton");
-    startButton->setClickEvent([pauseHandlerPtr]() {
-        pauseHandlerPtr->togglePause();
+    startButton->setClickEvent([]() {
+        auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
+        auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
+                obj.value()->getEntityId())[0];
+
+        pauseHandlerPtr.get().togglePause();
     });
 
     auto &transformStartButton = startButton->tryGetComponent<TransformComponent>();
@@ -40,8 +41,12 @@ PauseMenu::PauseMenu() : GameObject() {
     speed1x->setFontSize(40);
     speed1x->setTag("Speed1x");
     speed1x->setName("Speed1x");
-    speed1x->setClickEvent([pauseHandlerPtr]() {
-        pauseHandlerPtr->togglePause();
+    speed1x->setClickEvent([]() {
+        auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
+        auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
+                obj.value()->getEntityId())[0];
+
+        pauseHandlerPtr.get().togglePause();
         ConfigSingleton::GetInstance().deltaTimeMultiplier = 1.0;
     });
 
@@ -53,8 +58,12 @@ PauseMenu::PauseMenu() : GameObject() {
     speed2x->setFontSize(40);
     speed2x->setTag("Speed2x");
     speed2x->setName("Speed2x");
-    speed2x->setClickEvent([pauseHandlerPtr]() {
-        pauseHandlerPtr->togglePause();
+    speed2x->setClickEvent([]() {
+        auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
+        auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
+                obj.value()->getEntityId())[0];
+
+        pauseHandlerPtr.get().togglePause();
         ConfigSingleton::GetInstance().deltaTimeMultiplier = 2.0;
     });
 
@@ -66,8 +75,12 @@ PauseMenu::PauseMenu() : GameObject() {
     replayButton->setFontSize(40);
     replayButton->setTag("ReplayButton");
     replayButton->setName("ReplayButton");
-    replayButton->setClickEvent([pauseHandlerPtr]() {
-        pauseHandlerPtr->togglePause();
+    replayButton->setClickEvent([]() {
+        auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
+        auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
+                obj.value()->getEntityId())[0];
+
+        pauseHandlerPtr.get().togglePause();
         ReplayManager::getInstance().toggleReplay();
         ConfigSingleton::GetInstance().deltaTimeMultiplier = 1.0;
     });
