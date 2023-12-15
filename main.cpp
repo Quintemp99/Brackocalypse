@@ -10,6 +10,8 @@
 
 int main() {
     Config config = new Config();
+    config.fpsLimit = 120;
+    config.showFPS = true;
     config.windowTitle = "Brackocalypse";
     config.windowSize = Vector2(640, 640);
 
