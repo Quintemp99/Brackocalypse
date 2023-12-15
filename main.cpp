@@ -7,6 +7,7 @@
 #include "Src/Scenes/HomeScene.hpp"
 #include "Scripts/FollowGameObject.hpp"
 #include "Src/LevelBuilder.hpp"
+#include "Scripts/ToggleFPS.hpp"
 
 int main() {
     Config config = new Config();

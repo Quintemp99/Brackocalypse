@@ -8,8 +8,13 @@
 #include "../Helpers/RogueLikeSheetMap.hpp"
 #include "../Player.hpp"
 #include "DemoLevel.hpp"
+#include "../../Scripts/ToggleFPS.hpp"
 
 HomeScene::HomeScene() : Scene() {
+    auto obj = SceneManager::getInstance().getGameObjectByName("FPS");
+    if (obj.has_value()) {
+        obj.value()->addBehaviourScript(std::make_unique<ToggleFPS>());
+    }
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
@@ -33,6 +38,7 @@ HomeScene::HomeScene() : Scene() {
 
 
     auto logo = std::make_unique<GameObject>();
+
     auto spriteBg = std::make_unique<SpriteComponent>();
     spriteBg->spritePath = "Sprites/logo.png";
     spriteBg->spriteSize = std::make_unique<Vector2>(736, 105);

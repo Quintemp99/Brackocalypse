@@ -58,6 +58,8 @@ add_executable(Brackocalypse main.cpp
         Src/PauseMenu.hpp
         Src/PauseManager.cpp
         Src/PauseManager.hpp
+        Scripts/ToggleFPS.cpp
+        Scripts/ToggleFPS.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
