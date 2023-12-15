@@ -58,6 +58,7 @@ add_executable(Brackocalypse main.cpp
         Src/PauseMenu.hpp
         Src/PauseManager.cpp
         Src/PauseManager.hpp
+        Scripts/BulletHitEnemy.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

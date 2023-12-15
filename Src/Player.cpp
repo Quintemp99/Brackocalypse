@@ -74,7 +74,6 @@ void Player::init(size_t layer, Vector2 position) {
     collision->isTrigger = true;
     playerCollision->addComponent(std::move(playerRigidBody));
     playerCollision->addComponent(std::move(collision));
-    playerCollision->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(0, 0);
     playerCollision->setTag("PlayerCollision");
     auto gun = std::make_unique<Gun>(layer);
     addChild(std::move(playerCollision));
