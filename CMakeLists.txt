@@ -32,13 +32,35 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
-        Scripts/PlayerCollision.cpp
-        Scripts/PlayerCollision.hpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
         Scripts/GunFollowMouse.hpp
         Scripts/EnemyFollowPlayer.cpp
-        Scripts/EnemyFollowPlayer.hpp)
+        Scripts/EnemyFollowPlayer.hpp
+        Src/Enemy.cpp
+        Src/Enemy.hpp
+        Src/PoolCreator.hpp
+        Src/PoolCreator.hpp
+        Scripts/EnemySpawn.cpp
+        Scripts/EnemySpawn.hpp
+        Scripts/EnemySpawn.hpp
+        Src/Components/HealthComponent.hpp
+        Src/Components/SpawnComponent.hpp
+        Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
+        Scripts/PlayerProgress.cpp
+        Src/ProgressBar.cpp
+        Scripts/SpawnInBeers.cpp
+        Src/BeerPool.cpp
+        Scripts/CollectBeers.cpp
+        Src/Scenes/EndScreen.cpp
+        Scripts/GunFollowMouse.hpp
+        Scripts/PauseHandler.cpp
+        Scripts/PauseHandler.hpp
+        Src/PauseMenu.cpp
+        Src/PauseMenu.hpp
+        Src/PauseManager.cpp
+        Src/PauseManager.hpp
+)
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
 
