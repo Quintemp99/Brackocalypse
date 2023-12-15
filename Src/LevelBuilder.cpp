@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <Components/TileMapComponent.hpp>
 #include <Components/TransformComponent.hpp>
+#include <Graph/GraphNode.hpp>
+#include <Objects/Graph.hpp>
 #include "LevelBuilder.hpp"
 #include "Components/BoxCollisionComponent.hpp"
 #include "Components/RigidBodyComponent.hpp"
@@ -66,20 +68,30 @@ void LevelBuilder::buildLevel() {
     auto spawnComponent = std::make_unique<SpawnComponent>();
     spawnerObject->setTag("EnemySpawner");
 
+    std::vector<std::vector<GraphNode*>> twoDGraphGrid;
+    std::vector<std::unique_ptr<GraphNode>> nodes;
+
     for (int y = 0; y < collisionMap.size(); ++y) {
+        twoDGraphGrid.push_back({});
         for (int x = 0; x < collisionMap[y].size(); ++x) {
+            auto location = std::make_unique<Vector2>(x * tileSize.getX() * tileScale.getX() -
+                                                      tileMapSize.getX() * tileScale.getX() *
+                                                      tileSize.getX() / 2 +
+                                                      tileSize.getX() * tileScale.getX() / 2,
+                                                      y * tileSize.getY() * tileScale.getY() -
+                                                      tileMapSize.getY() * tileScale.getY() *
+                                                      tileSize.getY() / 2 +
+                                                      tileSize.getY() * tileScale.getY() / 2);
+
+            if(collisionMap[y][x] == ','){
+                nodes.push_back(std::make_unique<GraphNode>(*location));
+                twoDGraphGrid.back().push_back(nodes.back().get());
+            }else{
+                twoDGraphGrid.back().push_back(nullptr);
+            }
 
             if (collisionMap[y][x] == 'E') {
-                auto location = std::make_unique<Vector2>(x * tileSize.getX() * tileScale.getX() -
-                                                          tileMapSize.getX() * tileScale.getX() *
-                                                          tileSize.getX() / 2 +
-                                                          tileSize.getX() * tileScale.getX() / 2,
-                                                          y * tileSize.getY() * tileScale.getY() -
-                                                          tileMapSize.getY() * tileScale.getY() *
-                                                          tileSize.getY() / 2 +
-                                                          tileSize.getY() * tileScale.getY() / 2);
                 spawnComponent->spawnLocations.emplace_back(std::move(location));
-
             }
 
             if (collisionMap[y][x] != 'x') {
@@ -141,6 +153,37 @@ void LevelBuilder::buildLevel() {
             gameObjects.push_back(std::move(collisionObject));
         }
     }
+
+    for (int y = 0; y < twoDGraphGrid.size(); ++y) {
+        for (int x = 0; x < twoDGraphGrid[y].size(); ++x) {
+            auto& node = twoDGraphGrid[y][x];
+            if(node != nullptr){
+                if (twoDGraphGrid[y-1][x] != nullptr) {
+                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y-1][x], node, 1);
+                    node->addEdge(std::move(edge));
+                }
+
+                if (twoDGraphGrid[y][x + 1] != nullptr) {
+                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y][x + 1], node, 1);
+                    node->addEdge(std::move(edge));
+                }
+
+                if (twoDGraphGrid[y+1][x] != nullptr) {
+                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y+1][x], node, 1);
+                    node->addEdge(std::move(edge));
+                }
+
+                if (twoDGraphGrid[y][x-1] != nullptr) {
+                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y][x-1], node, 1);
+                    node->addEdge(std::move(edge));
+                }
+            }
+        }
+    }
+
+    auto graph = std::make_unique<Graph>(std::move(nodes));
+    gameObjects.push_back(std::move(graph));
+
     spawnerObject->addComponent(std::move(spawnComponent));
     gameObjects.push_back(std::move(spawnerObject));
 

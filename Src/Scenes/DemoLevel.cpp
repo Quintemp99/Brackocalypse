@@ -47,22 +47,22 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx.........................");
-    collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back(".....x......E.........x........................");
-    collisionMap.emplace_back(".....x...x........x...x........................");
-    collisionMap.emplace_back(".....x......x.........x........................");
-    collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back(".....x.x..x.....x.....x........................");
-    collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back("....x.......x.x....x..x.........xxxxxxxxxx.....");
-    collisionMap.emplace_back(".....x....xx....x.....x........x..........x....");
-    collisionMap.emplace_back(".....x.....x..........xxxxxxxxxx..........x....");
-    collisionMap.emplace_back(".....x............x....................E..x....");
-    collisionMap.emplace_back(".....x..x......x......xxxxxxxxxx..........x....");
-    collisionMap.emplace_back(".....x................x........x..........x....");
-    collisionMap.emplace_back(".....x.....x..........x........x..........x....");
-    collisionMap.emplace_back(".....x............E...x........x...E......x....");
-    collisionMap.emplace_back(".....x..E.............x........x..........x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,,,,,,E,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,,,x,,,,,,,,x,,,x........................");
+    collisionMap.emplace_back(".....x,,,,,,x,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,x,,x,,,,,x,,,,,x........................");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back("....x,,,,,,,x,x,,,,x,,x.........xxxxxxxxxx.....");
+    collisionMap.emplace_back(".....x,,,,xx,,,,x,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,x,,,,,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,x,,,,,,,,,,,,,,,,,,,,E,,x....");
+    collisionMap.emplace_back(".....x,,x,,,,,,x,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,x,,,,,,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,E,,,x........x,,,E,,,,,,x....");
+    collisionMap.emplace_back(".....x,,E,,,,,,,,,,,,,x........x,,,,,,,,,,x....");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
@@ -198,10 +198,6 @@ DemoLevel::DemoLevel() : Scene() {
         parent->addChild(std::move(go));
     }
 
-    auto graph = std::make_unique<Graph>(Vector2(1000,1000), Vector2(20,20), Vector2(1,1));
-    graph->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(100,0);
-    parent->addChild(std::move(graph));
-
     auto aiComponent = std::make_unique<AIComponent>();
     aiComponent->speed = 0.08;
     aiComponent->target = std::make_unique<Vector2>(-400,0);
@@ -213,7 +209,11 @@ DemoLevel::DemoLevel() : Scene() {
     auto rigidBodyComponent = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     rigidBodyComponent->gravityScale = 0.0;
     rect->addComponent(std::move(rigidBodyComponent));
-    rect->addComponent(std::make_unique<BoxCollisionComponent>(Vector2(50,50)));
+
+
+    auto enemyBoxCollider = std::make_unique<BoxCollisionComponent>(Vector2(50,50));
+    enemyBoxCollider->offset = std::make_unique<Vector2>(0,25);
+    rect->addComponent(std::move(enemyBoxCollider));
     rect->addBehaviourScript(std::make_unique<EnemyFollowPlayer>());
     rect->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(-400,0);
     parent->addChild(std::move(rect));
