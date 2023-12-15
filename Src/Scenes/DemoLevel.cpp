@@ -1,8 +1,6 @@
 #include "DemoLevel.hpp"
 #include <Components/AnimationComponent.hpp>
-#include <Objects/Graph.hpp>
 #include <Components/GraphComponent.hpp>
-#include <Components/AIComponent.hpp>
 #include <Components/RectangleComponent.hpp>
 #include "BrackEngine.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
@@ -11,7 +9,6 @@
 #include "../../Scripts/FollowGameObject.hpp"
 #include "../LevelBuilder.hpp"
 #include "Components/SoundTrackComponent.hpp"
-#include "../../Scripts/EnemyFollowPlayer.hpp"
 #include "../Bullet.hpp"
 #include "../../Scripts/EnemySpawn.hpp"
 #include "../PoolCreator.hpp"
@@ -197,27 +194,6 @@ DemoLevel::DemoLevel() : Scene() {
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));
     }
-
-    auto aiComponent = std::make_unique<AIComponent>();
-    aiComponent->speed = 0.08;
-    aiComponent->target = std::make_unique<Vector2>(-400,0);
-
-    auto rect = std::make_unique<GameObject>();
-    rect->addComponent(std::make_unique<RectangleComponent>(Vector2(50,50)));
-    rect->addComponent(std::make_unique<VelocityComponent>());
-    rect->addComponent(std::move(aiComponent));
-    auto rigidBodyComponent = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
-    rigidBodyComponent->gravityScale = 0.0;
-    rect->addComponent(std::move(rigidBodyComponent));
-
-
-    auto enemyBoxCollider = std::make_unique<BoxCollisionComponent>(Vector2(50,50));
-    enemyBoxCollider->offset = std::make_unique<Vector2>(0,25);
-    rect->addComponent(std::move(enemyBoxCollider));
-    rect->addBehaviourScript(std::make_unique<EnemyFollowPlayer>());
-    rect->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(-400,0);
-    parent->addChild(std::move(rect));
-
 
     auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
     parent->addChild(std::move(player));

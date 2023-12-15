@@ -6,10 +6,11 @@
 #define BRACKOCALYPSE_ENEMYFOLLOWPLAYER_HPP
 
 #include <BehaviourScripts/BehaviourScript.hpp>
+#include <utility>
 
 class EnemyFollowPlayer : public BehaviourScript {
 public:
-    EnemyFollowPlayer() : BehaviourScript() {}
+    EnemyFollowPlayer(std::string graphName) : BehaviourScript(), graphName(std::move(graphName)) {}
 
     ~EnemyFollowPlayer() override = default;
 
@@ -22,6 +23,8 @@ public:
     }
 
     EnemyFollowPlayer(const EnemyFollowPlayer &other) : BehaviourScript(other) {}
+
+    std::string graphName;
 };
 
 

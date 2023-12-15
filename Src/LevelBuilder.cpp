@@ -182,6 +182,7 @@ void LevelBuilder::buildLevel() {
     }
 
     auto graph = std::make_unique<Graph>(std::move(nodes));
+    graph->setName("MainGraph");
     gameObjects.push_back(std::move(graph));
 
     spawnerObject->addComponent(std::move(spawnComponent));

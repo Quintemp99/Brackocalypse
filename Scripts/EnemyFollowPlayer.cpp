@@ -12,11 +12,17 @@ void EnemyFollowPlayer::onStart() {
 }
 
 void EnemyFollowPlayer::onUpdate(float deltaTime) {
+    auto& aiComponent = tryGetComponent<AIComponent>();
+    if(aiComponent.graphId == 0){
+        auto graphGameobject = getGameObjectByName(graphName);
+        if(!graphGameobject.has_value()) return;
+        aiComponent.graphId = graphGameobject.value()->getEntityId();
+    }
+
     auto player = getGameObjectByTag("Player");
     if (!player.has_value()) return;
     auto &playerTransform = player.value().tryGetComponent<TransformComponent>();
 
-    auto& aiComponent = tryGetComponent<AIComponent>();
     if(aiComponent.target != playerTransform.position){
         aiComponent.target = std::make_unique<Vector2>(*playerTransform.position);
     }

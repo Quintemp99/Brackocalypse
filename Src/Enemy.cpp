@@ -9,8 +9,10 @@
 #include <Helpers/CollisionType.hpp>
 #include <Components/RigidBodyComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
+#include <Components/AIComponent.hpp>
 #include "Enemy.hpp"
 #include "Components/HealthComponent.hpp"
+#include "../Scripts/EnemyFollowPlayer.hpp"
 
 Enemy::Enemy(size_t layer) {
     addComponent(std::make_unique<VelocityComponent>());
@@ -38,6 +40,13 @@ Enemy::Enemy(size_t layer) {
     animation->frameCount = 8;
     animation->imageSize = std::make_unique<Vector2>(864, 640);
 
+    auto aiComponent = std::make_unique<AIComponent>();
+    aiComponent->speed = 0.08;
+    aiComponent->target = std::make_unique<Vector2>(-400,0);
+
+    addBehaviourScript(std::make_unique<EnemyFollowPlayer>("MainGraph"));
+
+    addComponent(std::move(aiComponent));
     addComponent(std::move(animation));
     addComponent(std::move(sprite));
     addComponent(std::move(collision));
