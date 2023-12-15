@@ -10,6 +10,7 @@
 #include <Components/BoxCollisionComponent.hpp>
 #include "Bullet.hpp"
 #include "../Scripts/BulletActions.hpp"
+#include "../Scripts/BulletHitEnemy.hpp"
 
 Bullet::Bullet(size_t layer) {
     addComponent(std::make_unique<VelocityComponent>());
@@ -28,6 +29,7 @@ Bullet::Bullet(size_t layer) {
     boxCollision->isTrigger = true;
     addComponent(std::move(boxCollision));
     addComponent(std::move(sprite));
+    addBehaviourScript(std::make_unique<BulletHitEnemy>());
     addBehaviourScript(std::make_unique<BulletActions>(5000));
     setTag("Bullet");
 }

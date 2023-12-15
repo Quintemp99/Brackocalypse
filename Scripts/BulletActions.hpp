@@ -27,6 +27,8 @@ public:
         timer = other.timer;
     }
 
+    void setInactive();
+
 private:
     milliseconds lifeTime;
     milliseconds timer = 0.0f;
