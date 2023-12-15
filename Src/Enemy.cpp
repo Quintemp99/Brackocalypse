@@ -13,6 +13,7 @@
 #include "Enemy.hpp"
 #include "Components/HealthComponent.hpp"
 #include "../Scripts/EnemyFollowPlayer.hpp"
+#include "../Scripts/TakeDamage.hpp"
 
 Enemy::Enemy(size_t layer) {
     addComponent(std::make_unique<VelocityComponent>());
@@ -47,10 +48,22 @@ Enemy::Enemy(size_t layer) {
     addBehaviourScript(std::make_unique<EnemyFollowPlayer>("MainGraph"));
 
     addComponent(std::move(aiComponent));
+    auto enemyCollisionObject = std::make_unique<GameObject>();
+    auto enemyCollision = std::make_unique<BoxCollisionComponent>(Vector2(64, 96));
+    enemyCollision->offset = std::make_unique<Vector2>(0, 16);
+    auto playerRigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
+    playerRigidBody->gravityScale = 0.0f;
+    enemyCollision->isTrigger = true;
+    enemyCollisionObject->addComponent(std::move(playerRigidBody));
+    enemyCollisionObject->addComponent(std::move(enemyCollision));
+    enemyCollisionObject->setTag("EnemyCollision");
+
+    addChild(std::move(enemyCollisionObject));
     addComponent(std::move(animation));
     addComponent(std::move(sprite));
     addComponent(std::move(collision));
     addComponent(std::move(rigidBody));
     addComponent(std::move(health));
+    addBehaviourScript(std::make_unique<TakeDamage>());
     setTag("Enemy");
 }
