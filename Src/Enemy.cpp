@@ -11,6 +11,7 @@
 #include <Components/BoxCollisionComponent.hpp>
 #include "Enemy.hpp"
 #include "Components/HealthComponent.hpp"
+#include "../Scripts/TakeDamage.hpp"
 
 Enemy::Enemy(size_t layer) {
     addComponent(std::make_unique<VelocityComponent>());
@@ -54,5 +55,6 @@ Enemy::Enemy(size_t layer) {
     addComponent(std::move(collision));
     addComponent(std::move(rigidBody));
     addComponent(std::move(health));
+    addBehaviourScript(std::make_unique<TakeDamage>());
     setTag("Enemy");
 }

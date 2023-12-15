@@ -16,7 +16,6 @@ void CollectBeers::onUpdate(milliseconds deltaTime) {
             boxCollision.collidedWith.clear();
             PlayerProgress &script = player->tryGetBehaviourScript<PlayerProgress>();
             script.addBeer();
-
             return;
         }
     }

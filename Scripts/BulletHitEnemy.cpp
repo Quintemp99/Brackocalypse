@@ -5,6 +5,7 @@
 #include <Components/BoxCollisionComponent.hpp>
 #include "BulletHitEnemy.hpp"
 #include "BulletActions.hpp"
+#include "TakeDamage.hpp"
 #include <algorithm>
 
 void BulletHitEnemy::onStart() {}
@@ -22,7 +23,8 @@ void BulletHitEnemy::onUpdate(milliseconds deltaTime) {
             auto enemy = (*it)->getParent();
             if (enemy.has_value()) {
                 boxCollision.collidedWith.clear();
-                enemy.value().setActive(false);
+                auto &takeDamage = enemy.value().tryGetBehaviourScript<TakeDamage>();
+                takeDamage.doDamage(1);
             }
             bulletActions.setInactive();
             return;
