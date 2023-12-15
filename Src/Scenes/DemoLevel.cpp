@@ -12,14 +12,12 @@
 #include "../LevelBuilder.hpp"
 #include "Components/SoundTrackComponent.hpp"
 #include "../../Scripts/EnemyFollowPlayer.hpp"
-#include "../Gun.hpp"
 #include "../Bullet.hpp"
 #include "../../Scripts/EnemySpawn.hpp"
 #include "../PoolCreator.hpp"
 #include "../Enemy.hpp"
 #include "../PauseMenu.hpp"
 #include "EngineManagers/ReplayManager.hpp"
-#include "../../Scripts/PauseHandler.hpp"
 #include "../PauseManager.hpp"
 #include "../ProgressBar.hpp"
 #include "../../Scripts/SpawnInBeers.hpp"
@@ -59,11 +57,11 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("....x.......x.x....x..x.........xxxxxxxxxx.....");
     collisionMap.emplace_back(".....x....xx....x.....x........x..........x....");
     collisionMap.emplace_back(".....x.....x..........xxxxxxxxxx..........x....");
-    collisionMap.emplace_back(".....x............x.......E............E..x....");
+    collisionMap.emplace_back(".....x............x....................E..x....");
     collisionMap.emplace_back(".....x..x......x......xxxxxxxxxx..........x....");
     collisionMap.emplace_back(".....x................x........x..........x....");
     collisionMap.emplace_back(".....x.....x..........x........x..........x....");
-    collisionMap.emplace_back(".....x............E...x........x..........x....");
+    collisionMap.emplace_back(".....x............E...x........x...E......x....");
     collisionMap.emplace_back(".....x..E.............x........x..........x....");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
@@ -201,17 +199,21 @@ DemoLevel::DemoLevel() : Scene() {
     }
 
     auto graph = std::make_unique<Graph>(Vector2(1000,1000), Vector2(20,20), Vector2(1,1));
-//    graph->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(-100,0);
+    graph->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(100,0);
     parent->addChild(std::move(graph));
 
     auto aiComponent = std::make_unique<AIComponent>();
-    aiComponent->speed = 0.1;
+    aiComponent->speed = 0.08;
     aiComponent->target = std::make_unique<Vector2>(-400,0);
 
     auto rect = std::make_unique<GameObject>();
     rect->addComponent(std::make_unique<RectangleComponent>(Vector2(50,50)));
     rect->addComponent(std::make_unique<VelocityComponent>());
     rect->addComponent(std::move(aiComponent));
+    auto rigidBodyComponent = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
+    rigidBodyComponent->gravityScale = 0.0;
+    rect->addComponent(std::move(rigidBodyComponent));
+    rect->addComponent(std::make_unique<BoxCollisionComponent>(Vector2(50,50)));
     rect->addBehaviourScript(std::make_unique<EnemyFollowPlayer>());
     rect->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(-400,0);
     parent->addChild(std::move(rect));

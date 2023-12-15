@@ -22,8 +22,6 @@ public:
     }
 
     EnemyFollowPlayer(const EnemyFollowPlayer &other) : BehaviourScript(other) {}
-
-
 };
 
 
