@@ -35,6 +35,8 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
         Scripts/GunFollowMouse.hpp
+        Scripts/EnemyFollowPlayer.cpp
+        Scripts/EnemyFollowPlayer.hpp
         Src/Enemy.cpp
         Src/Enemy.hpp
         Src/PoolCreator.hpp

@@ -9,8 +9,11 @@
 #include <Helpers/CollisionType.hpp>
 #include <Components/RigidBodyComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
+#include <Components/AIComponent.hpp>
+#include <Components/SoundEffectComponent.hpp>
 #include "Enemy.hpp"
 #include "Components/HealthComponent.hpp"
+#include "../Scripts/EnemyFollowPlayer.hpp"
 #include "../Scripts/TakeDamage.hpp"
 
 Enemy::Enemy(size_t layer) {
@@ -21,6 +24,9 @@ Enemy::Enemy(size_t layer) {
     auto collision = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
     auto health = std::make_unique<HealthComponent>(3);
     collision->offset = std::make_unique<Vector2>(0, 44);
+
+    auto zombieHitSound = std::make_unique<SoundEffectComponent>("Sounds/zombie-death-sound.mp3");
+    zombieHitSound->volume = 0.05;
 
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     rigidBody->gravityScale = 0.0f;
@@ -39,6 +45,13 @@ Enemy::Enemy(size_t layer) {
     animation->frameCount = 8;
     animation->imageSize = std::make_unique<Vector2>(864, 640);
 
+    auto aiComponent = std::make_unique<AIComponent>();
+    aiComponent->speed = 0.08;
+    aiComponent->target = std::make_unique<Vector2>(-400,0);
+
+    addBehaviourScript(std::make_unique<EnemyFollowPlayer>("MainGraph"));
+
+    addComponent(std::move(aiComponent));
     auto enemyCollisionObject = std::make_unique<GameObject>();
     auto enemyCollision = std::make_unique<BoxCollisionComponent>(Vector2(64, 96));
     enemyCollision->offset = std::make_unique<Vector2>(0, 16);
@@ -55,6 +68,7 @@ Enemy::Enemy(size_t layer) {
     addComponent(std::move(collision));
     addComponent(std::move(rigidBody));
     addComponent(std::move(health));
+    addComponent(std::move(zombieHitSound));
     addBehaviourScript(std::make_unique<TakeDamage>());
     setTag("Enemy");
 }
