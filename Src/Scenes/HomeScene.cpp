@@ -8,6 +8,7 @@
 #include "../Helpers/RogueLikeSheetMap.hpp"
 #include "../Player.hpp"
 #include "DemoLevel.hpp"
+#include "../SaveLoadGame.hpp"
 
 HomeScene::HomeScene() : Scene() {
     auto &camera = getCameras()[0];

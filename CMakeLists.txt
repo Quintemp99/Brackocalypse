@@ -23,14 +23,14 @@ add_executable(Brackocalypse main.cpp
         Src/Gun.cpp
         Scripts/GunFollowMouse.cpp
         Scripts/GunShooting.cpp
-        Src/SaveLoad.cpp
+        Src/SaveLoadGame.cpp
         Src/Bullet.cpp
         Src/BulletPool.cpp
         Scripts/BulletActions.cpp
-        Src/SaveLoad.cpp
+        Src/SaveLoadGame.cpp
         Src/RogueLikeMapTiles/CampfireMapTile.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
-        Src/SaveLoad.cpp
+        Src/SaveLoadGame.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp

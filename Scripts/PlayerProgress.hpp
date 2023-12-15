@@ -25,6 +25,9 @@ public:
 
     void addBeer() { ++beersCollected; }
     void addFood() { ++foodCollected; }
+
+    int getBeersCollected() { return beersCollected; }
+    void setBeersCollected(int amount) { beersCollected = amount; }
 private:
     int maxForLevel;
     int beersCollected;
