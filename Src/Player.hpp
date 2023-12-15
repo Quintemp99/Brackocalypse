@@ -7,6 +7,7 @@
 
 
 #include <Objects/GameObject.hpp>
+#include "Beer.hpp"
 
 class Player : public GameObject {
 public:
@@ -16,6 +17,7 @@ public:
 
     ~Player() = default;
 
+    std::vector<Beer> collectedBeers;
 private:
     void init(size_t layer, Vector2 position);
 };

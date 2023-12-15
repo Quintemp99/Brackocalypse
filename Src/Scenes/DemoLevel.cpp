@@ -9,9 +9,20 @@
 #include "Components/SoundTrackComponent.hpp"
 #include "../Gun.hpp"
 #include "../Bullet.hpp"
-#include "../BulletPool.hpp"
+#include "../../Scripts/EnemySpawn.hpp"
+#include "../PoolCreator.hpp"
+#include "../Enemy.hpp"
+#include "../PauseMenu.hpp"
+#include "EngineManagers/ReplayManager.hpp"
+#include "../../Scripts/PauseHandler.hpp"
+#include "../PauseManager.hpp"
+#include "../ProgressBar.hpp"
+#include "../../Scripts/SpawnInBeers.hpp"
+#include "../BeerPool.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
+    ReplayManager::getInstance().startRecording(10000, 100);
+
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
@@ -20,6 +31,7 @@ DemoLevel::DemoLevel() : Scene() {
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
+    camera->addBehaviourScript(EnemySpawn());
 
 
     std::vector<std::vector<std::string>> objectMap{};
@@ -33,7 +45,7 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx.........................");
     collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back(".....x................x........................");
+    collisionMap.emplace_back(".....x......E.........x........................");
     collisionMap.emplace_back(".....x...x........x...x........................");
     collisionMap.emplace_back(".....x......x.........x........................");
     collisionMap.emplace_back(".....x................x........................");
@@ -42,12 +54,12 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("....x.......x.x....x..x.........xxxxxxxxxx.....");
     collisionMap.emplace_back(".....x....xx....x.....x........x..........x....");
     collisionMap.emplace_back(".....x.....x..........xxxxxxxxxx..........x....");
-    collisionMap.emplace_back(".....x............x.......................x....");
+    collisionMap.emplace_back(".....x............x.......E............E..x....");
     collisionMap.emplace_back(".....x..x......x......xxxxxxxxxx..........x....");
     collisionMap.emplace_back(".....x................x........x..........x....");
     collisionMap.emplace_back(".....x.....x..........x........x..........x....");
-    collisionMap.emplace_back(".....x................x........x..........x....");
-    collisionMap.emplace_back(".....x................x........x..........x....");
+    collisionMap.emplace_back(".....x............E...x........x..........x....");
+    collisionMap.emplace_back(".....x..E.............x........x..........x....");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
@@ -162,13 +174,36 @@ DemoLevel::DemoLevel() : Scene() {
     auto levelBuilder = LevelBuilder(objectMap, tileMap, collisionMap);
 
     levelBuilder.buildLevel();
-    auto bulletPool = std::make_unique<BulletPool>(1, 30);
-    this->addGameObject(std::move(bulletPool));
+
+    auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
+
+
+    auto parent = std::make_unique<GameObject>();
+    parent->setName("GameParent");
+
+    auto beerPool = std::make_unique<BeerPool>(10);
+    beerPool->addBehaviourScript(SpawnInBeers());
+    parent->addChild(std::move(beerPool));
+    parent->addChild(std::move(bulletPool));
+    parent->addChild(std::move(enemyPool));
+
+    auto progressBar = std::make_unique<ProgressBar>();
+    parent->addChild(std::move(progressBar));
 
     for (auto &go: levelBuilder.gameObjects) {
-        this->addGameObject(std::move(go));
+        parent->addChild(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(this->getGameObjectByName("PlayerSpawn"));
-    this->addGameObject(std::move(player));
+
+    auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
+    parent->addChild(std::move(player));
+
+    this->addGameObject(std::move(parent));
+
+    auto pause = std::make_unique<PauseMenu>();
+    this->addGameObject(std::move(pause));
+
+    auto pauseHandler = std::make_unique<PauseManager>();
+    this->addGameObject(std::move(pauseHandler));
 }

@@ -10,6 +10,9 @@
 #include <Components/SpriteComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
 #include "GunShooting.hpp"
+#include "../Src/Beer.hpp"
+#include "PlayerProgress.hpp"
+#include "../Src/Player.hpp"
 
 void GunShooting::onStart() {
 
@@ -42,25 +45,6 @@ void GunShooting::onUpdate(milliseconds deltaTime) {
     }
 }
 
-void GunShooting::shakeCamera() {
-    auto cameraId = ComponentStore::GetInstance().getEntitiesWithComponent<CameraComponent>()[0];
-    auto &cameraPosition = ComponentStore::GetInstance().tryGetComponent<TransformComponent>(cameraId);
-    if (cameraShakeTimer >= cameraShakeDuration) {
-        cameraShakeTimer = 0.0f;
-        shaking = false;
-        cameraPosition.position = std::make_unique<Vector2>(originalCameraPosition);
-        return;
-    }
-
-    float offsetX = cameraShakeIntensity * distribution(randomGenerator);
-    float offsetY = cameraShakeIntensity * distribution(randomGenerator);
-
-
-    cameraPosition.position = std::make_unique<Vector2>(cameraPosition.position->getX() + offsetX,
-                                                        cameraPosition.position->getY() + offsetY);
-
-}
-
 void GunShooting::shoot() {
     for (auto &bullet: getGameObjectsByTag("Bullet")) {
         if (!bullet->isActive()) {
@@ -84,4 +68,23 @@ void GunShooting::shoot() {
             return;
         }
     }
+}
+
+void GunShooting::shakeCamera() {
+    auto cameraId = ComponentStore::GetInstance().getEntitiesWithComponent<CameraComponent>()[0];
+    auto &cameraPosition = ComponentStore::GetInstance().tryGetComponent<TransformComponent>(cameraId);
+    if (cameraShakeTimer >= cameraShakeDuration) {
+        cameraShakeTimer = 0.0f;
+        shaking = false;
+        cameraPosition.position = std::make_unique<Vector2>(originalCameraPosition);
+        return;
+    }
+
+    float offsetX = cameraShakeIntensity * distribution(randomGenerator);
+    float offsetY = cameraShakeIntensity * distribution(randomGenerator);
+
+
+    cameraPosition.position = std::make_unique<Vector2>(cameraPosition.position->getX() + offsetX,
+                                                        cameraPosition.position->getY() + offsetY);
+
 }
