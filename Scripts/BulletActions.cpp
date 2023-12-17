@@ -10,7 +10,11 @@ void BulletActions::onStart() {
 void BulletActions::onUpdate(milliseconds deltaTime) {
     timer += deltaTime;
     if (timer >= lifeTime) {
-        timer = 0.0f;
-        setActive(false);
+        setInactive();
     }
+}
+
+void BulletActions::setInactive() {
+    timer = 0.0f;
+    setActive(false);
 }

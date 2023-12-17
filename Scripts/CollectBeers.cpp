@@ -7,15 +7,15 @@
 void CollectBeers::onStart() {}
 
 void CollectBeers::onUpdate(milliseconds deltaTime) {
-    auto boxCollision = tryGetComponent<BoxCollisionComponent>();
+    auto &boxCollision = tryGetComponent<BoxCollisionComponent>();
 
     auto player = getGameObjectByTag("Player");
-    for(auto& id : boxCollision.collidedWith) {
-        if(player->getEntityId() == id) {
+    for (auto &id: boxCollision.collidedWith) {
+        if (player->getEntityId() == id) {
             setActive(false);
-            PlayerProgress& script = player->tryGetBehaviourScript<PlayerProgress>();
+            boxCollision.collidedWith.clear();
+            PlayerProgress &script = player->tryGetBehaviourScript<PlayerProgress>();
             script.addBeer();
-
             return;
         }
     }
