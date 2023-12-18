@@ -46,8 +46,8 @@ Enemy::Enemy(size_t layer) {
     animation->imageSize = std::make_unique<Vector2>(864, 640);
 
     auto aiComponent = std::make_unique<AIComponent>();
-    aiComponent->speed = 0.08;
-    aiComponent->target = std::make_unique<Vector2>(-400,0);
+    aiComponent->speed = 10;
+    aiComponent->target = std::make_unique<Vector2>(-400, 0);
 
     addBehaviourScript(std::make_unique<EnemyFollowPlayer>("MainGraph"));
 

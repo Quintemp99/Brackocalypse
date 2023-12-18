@@ -25,7 +25,7 @@ public:
     UserInputMovement(const UserInputMovement &other) : BehaviourScript(other) {}
 
 private:
-    float velocity = 0.25;
+    float velocity = 25.0f;
 };
 
 #endif //BRACKOCALYPSE_USERINPUT_HPP

@@ -64,7 +64,9 @@ void GunShooting::shoot() {
 
             auto radians = rotation * M_PI / 180;
             auto velocity = Vector2(cos(radians), sin(radians));
-            bullet->tryGetComponent<VelocityComponent>().velocity = velocity;
+            velocity = velocity * speed;
+            auto &velocityComponent = bullet->tryGetComponent<VelocityComponent>();
+            velocityComponent.velocity = velocity;
             return;
         }
     }
