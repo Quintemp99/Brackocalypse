@@ -1,5 +1,7 @@
 #include "DemoLevel.hpp"
 #include <Components/AnimationComponent.hpp>
+#include <Components/GraphComponent.hpp>
+#include <Components/RectangleComponent.hpp>
 #include "BrackEngine.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "../Helpers/RogueLikeSheetMap.hpp"
@@ -7,14 +9,12 @@
 #include "../../Scripts/FollowGameObject.hpp"
 #include "../LevelBuilder.hpp"
 #include "Components/SoundTrackComponent.hpp"
-#include "../Gun.hpp"
 #include "../Bullet.hpp"
 #include "../../Scripts/EnemySpawn.hpp"
 #include "../PoolCreator.hpp"
 #include "../Enemy.hpp"
 #include "../PauseMenu.hpp"
 #include "EngineManagers/ReplayManager.hpp"
-#include "../../Scripts/PauseHandler.hpp"
 #include "../PauseManager.hpp"
 #include "../ProgressBar.hpp"
 #include "../../Scripts/SpawnInBeers.hpp"
@@ -44,22 +44,22 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx.........................");
-    collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back(".....x......E.........x........................");
-    collisionMap.emplace_back(".....x...x........x...x........................");
-    collisionMap.emplace_back(".....x......x.........x........................");
-    collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back(".....x.x..x.....x.....x........................");
-    collisionMap.emplace_back(".....x................x........................");
-    collisionMap.emplace_back("....x.......x.x....x..x.........xxxxxxxxxx.....");
-    collisionMap.emplace_back(".....x....xx....x.....x........x..........x....");
-    collisionMap.emplace_back(".....x.....x..........xxxxxxxxxx..........x....");
-    collisionMap.emplace_back(".....x............x.......E............E..x....");
-    collisionMap.emplace_back(".....x..x......x......xxxxxxxxxx..........x....");
-    collisionMap.emplace_back(".....x................x........x..........x....");
-    collisionMap.emplace_back(".....x.....x..........x........x..........x....");
-    collisionMap.emplace_back(".....x............E...x........x..........x....");
-    collisionMap.emplace_back(".....x..E.............x........x..........x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,,,,,,E,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,,,x,,,,,,,,x,,,x........................");
+    collisionMap.emplace_back(".....x,,,,,,x,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,x,,x,,,,,x,,,,,x........................");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back("....x,,,,,,,x,x,,,,x,,x.........xxxxxxxxxx.....");
+    collisionMap.emplace_back(".....x,,,,xx,,,,x,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,x,,,,,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,x,,,,,,,,,,,,,,,,,,,,E,,x....");
+    collisionMap.emplace_back(".....x,,x,,,,,,x,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,x,,,,,,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,E,,,x........x,,,E,,,,,,x....");
+    collisionMap.emplace_back(".....x,,E,,,,,,,,,,,,,x........x,,,,,,,,,,x....");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
@@ -161,7 +161,7 @@ DemoLevel::DemoLevel() : Scene() {
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...........I...................................");
-    objectMap[0].emplace_back("............d..................................");
+    objectMap[0].emplace_back("...................d...........................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
@@ -194,7 +194,6 @@ DemoLevel::DemoLevel() : Scene() {
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));
     }
-
 
     auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
     parent->addChild(std::move(player));

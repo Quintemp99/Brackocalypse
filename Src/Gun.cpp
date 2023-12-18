@@ -14,7 +14,6 @@
 Gun::Gun(size_t layer) : GameObject() {
     auto sprite = std::make_unique<SpriteComponent>();
     auto &transform = tryGetComponent<TransformComponent>();
-//    auto boxCollider = std::make_unique<BoxCollisionComponent>(Vector2(80, 28));
     auto animation = std::make_unique<AnimationComponent>();
     sprite->spritePath = "Sprites/Guns/Pistol_Shooting.png";
     sprite->spriteSize = std::make_unique<Vector2>(80, 28);
