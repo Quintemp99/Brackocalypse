@@ -11,6 +11,7 @@
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/RectangleComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
+#include <Components/CircleCollisionComponent.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
