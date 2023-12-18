@@ -15,6 +15,7 @@ void CollectBeers::onUpdate(milliseconds deltaTime) {
             setActive(false);
             boxCollision.collidedWith.clear();
             PlayerProgress &script = player->tryGetBehaviourScript<PlayerProgress>();
+            tryGetComponent<SoundEffectComponent>().startPlaying = true;
             script.addBeer();
             return;
         }

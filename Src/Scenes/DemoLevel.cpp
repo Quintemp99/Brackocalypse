@@ -20,6 +20,7 @@
 #include "../../Scripts/SpawnInBeers.hpp"
 #include "../BeerPool.hpp"
 #include "../PlayerHealthBar.hpp"
+#include "../Components/WanderSoundComponent.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     ReplayManager::getInstance().startRecording(10000, 100);
@@ -32,8 +33,6 @@ DemoLevel::DemoLevel() : Scene() {
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
-    camera->addBehaviourScript(EnemySpawn());
-
 
     std::vector<std::vector<std::string>> objectMap{};
     std::vector<std::vector<std::string>> tileMap{};
@@ -182,6 +181,14 @@ DemoLevel::DemoLevel() : Scene() {
 
     auto parent = std::make_unique<GameObject>();
     parent->setName("GameParent");
+
+    auto zombieWanderSound = std::make_unique<WanderSoundComponent>("Sounds/zombie-sound.mp3");
+    zombieWanderSound->volume = 0.01;
+
+    auto enemySpawner = std::make_unique<GameObject>();
+    enemySpawner->addBehaviourScript(EnemySpawn(4000));
+    enemySpawner->addComponent(std::move(zombieWanderSound));
+    parent->addChild(std::move(enemySpawner));
 
     auto beerPool = std::make_unique<BeerPool>(10);
     beerPool->addBehaviourScript(SpawnInBeers());

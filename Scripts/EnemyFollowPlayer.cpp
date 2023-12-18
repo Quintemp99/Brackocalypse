@@ -15,12 +15,15 @@ void EnemyFollowPlayer::onStart() {
 }
 
 void EnemyFollowPlayer::onUpdate(float deltaTime) {
-    auto& aiComponent = tryGetComponent<AIComponent>();
-    auto player = getGameObjectByTag("Player");
-    if (!player.has_value()) return;
-    auto &playerTransform = player.value().tryGetComponent<TransformComponent>();
+    if(isActive){
+        auto& aiComponent = tryGetComponent<AIComponent>();
 
-    if(aiComponent.target != playerTransform.position){
-        aiComponent.target = std::make_unique<Vector2>(*playerTransform.position);
+        auto player = getGameObjectByTag("Player");
+        if (!player.has_value()) return;
+        auto &playerTransform = player.value().tryGetComponent<TransformComponent>();
+
+        if(aiComponent.target != playerTransform.position){
+            aiComponent.target = std::make_unique<Vector2>(*playerTransform.position);
+        }
     }
 }

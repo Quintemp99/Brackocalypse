@@ -15,6 +15,8 @@
 #include "Components/HealthComponent.hpp"
 #include "../Scripts/EnemyFollowPlayer.hpp"
 #include "../Scripts/TakeDamage.hpp"
+#include "Components/HitSoundComponent.hpp"
+#include "Components/WanderSoundComponent.hpp"
 
 Enemy::Enemy(size_t layer) {
     addComponent(std::make_unique<VelocityComponent>());
@@ -25,7 +27,7 @@ Enemy::Enemy(size_t layer) {
     auto health = std::make_unique<HealthComponent>(3);
     collision->offset = std::make_unique<Vector2>(0, 44);
 
-    auto zombieHitSound = std::make_unique<SoundEffectComponent>("Sounds/zombie-death-sound.mp3");
+    auto zombieHitSound = std::make_unique<HitSoundComponent>("Sounds/zombie-death-sound.mp3");
     zombieHitSound->volume = 0.05;
 
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
@@ -67,6 +69,7 @@ Enemy::Enemy(size_t layer) {
 
     auto healthBar = std::make_unique<GameObject>();
     healthBar->setTag("EnemyHealth");
+    healthBar->setName("EnemyHealth");
     for (auto i = 0; i < health->maxHealth; i++) {
         auto healthObject = std::make_unique<GameObject>();
         auto healthSprite = std::make_unique<SpriteComponent>();

@@ -3,26 +3,32 @@
 //
 
 #include <Components/TransformComponent.hpp>
+#include <Components/SpriteComponent.hpp>
 #include "EnemySpawn.hpp"
 #include "../Src/Enemy.hpp"
 #include "../Src/Components/HealthComponent.hpp"
 #include "RandomGenerator.hpp"
 #include "../Src/Components/SpawnComponent.hpp"
+#include "../Src/Components/WanderSoundComponent.hpp"
 
 void EnemySpawn::onStart() {
 }
 
 void EnemySpawn::onUpdate(milliseconds deltaTime) {
-    if (currentEnemyCount != 0) {
-        return;
+    if(currentEnemyCount > 0){
+        if(lastWanderSound <= 0){
+            auto& wandersound = tryGetComponent<WanderSoundComponent>();
+            wandersound.startPlaying = true;
+            lastWanderSound = makeWanderSoundInterval;
+        }else{
+            lastWanderSound -= deltaTime;
+        }
     }
-    if (currentWave > sizeof(waves) / sizeof(waves[0])) {
-        currentWave = sizeof(waves) / sizeof(waves[0]);
-    }
-    for (int i = 0; i < waves[currentWave - 1]; i++) {
+
+    if(lastSpawned <= 0){
+        lastSpawned = spawnInterval_;
         auto enemies = getGameObjectsByTag("Enemy");
         for (auto &enemy: enemies) {
-
             if (enemy->isActive()) {
                 continue;
             }
@@ -39,14 +45,22 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
 
             enemy->setActive(true);
             auto &health = enemy->tryGetComponent<HealthComponent>();
+            auto children = enemy->getChildren();
+            for (auto& child: children) {
+                if(child->getName() == "EnemyHealth"){
+                    auto healthObjects = child->getChildren();
+                    for (auto& healthObject: healthObjects) {
+                        auto& sprite = healthObject->tryGetComponent<SpriteComponent>();
+                        sprite.spritePath = "Sprites/heart_full.png";
+                    }
+                }
+            }
 
             health.health = 3;
             currentEnemyCount++;
             break;
         }
+    }else{
+        lastSpawned -= deltaTime;
     }
-
-    currentWave++;
-
-
 }

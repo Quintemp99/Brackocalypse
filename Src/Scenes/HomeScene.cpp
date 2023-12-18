@@ -14,7 +14,7 @@ HomeScene::HomeScene() : Scene() {
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
-    backgroundSound->volume = 0.1;
+    backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
     auto windowSize = ConfigSingleton::getInstance().getWindowSize();
