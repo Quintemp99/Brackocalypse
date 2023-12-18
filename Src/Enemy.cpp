@@ -47,6 +47,7 @@ Enemy::Enemy(size_t layer) {
 
     auto aiComponent = std::make_unique<AIComponent>();
     aiComponent->speed = 10;
+    aiComponent->speed = 0.08;
     aiComponent->target = std::make_unique<Vector2>(-400, 0);
 
     addBehaviourScript(std::make_unique<EnemyFollowPlayer>("MainGraph"));
@@ -62,6 +63,27 @@ Enemy::Enemy(size_t layer) {
     enemyCollisionObject->addComponent(std::move(enemyCollision));
     enemyCollisionObject->setTag("EnemyCollision");
 
+    int totalWidth = health->maxHealth * 19;
+    int offsetX = -totalWidth / 2;
+
+    auto healthBar = std::make_unique<GameObject>();
+    healthBar->setTag("EnemyHealth");
+    for (auto i = 0; i < health->maxHealth; i++) {
+        auto healthObject = std::make_unique<GameObject>();
+        auto healthSprite = std::make_unique<SpriteComponent>();
+        healthSprite->spritePath = "Sprites/heart_full.png";
+        healthSprite->spriteSize = std::make_unique<Vector2>(36, 32);
+        healthSprite->tileOffset = std::make_unique<Vector2>(0, 0);
+
+        auto &healthTransform = healthObject->tryGetComponent<TransformComponent>();
+        healthTransform.scale = std::make_unique<Vector2>(0.5, 0.5);
+        healthTransform.position = std::make_unique<Vector2>(offsetX + (i + 0.5) * 19, -45);
+        healthObject->addComponent(std::move(healthSprite));
+        healthBar->addChild(std::move(healthObject));
+    }
+
+
+    addChild(std::move(healthBar));
     addChild(std::move(enemyCollisionObject));
     addComponent(std::move(animation));
     addComponent(std::move(sprite));
