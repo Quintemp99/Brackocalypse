@@ -21,15 +21,15 @@ void PauseHandler::togglePause() {
     if (pauseMenu.has_value())
         pauseMenu.value()->setActive(!pauseMenu.value()->isActive());
 
-    bool isCurrentlyPaused = ConfigSingleton::GetInstance().deltaTimeMultiplier == 0.0;
+    bool isCurrentlyPaused = ConfigSingleton::getInstance().deltaTimeMultiplier == 0.0;
 
     if (isCurrentlyPaused) {
         // Unpause: Restore the saved multiplier
-        ConfigSingleton::GetInstance().deltaTimeMultiplier = previousMultiplier;
+        ConfigSingleton::getInstance().deltaTimeMultiplier = previousMultiplier;
     } else {
         // Pause: Save the current multiplier and set it to 0
-        previousMultiplier = ConfigSingleton::GetInstance().deltaTimeMultiplier;
-        ConfigSingleton::GetInstance().deltaTimeMultiplier = 0.0;
+        previousMultiplier = ConfigSingleton::getInstance().deltaTimeMultiplier;
+        ConfigSingleton::getInstance().deltaTimeMultiplier = 0.0;
     }
 }
 
