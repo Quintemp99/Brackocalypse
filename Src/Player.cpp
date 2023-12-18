@@ -11,6 +11,7 @@
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/RectangleComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
+#include <Components/CircleCollisionComponent.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
@@ -56,7 +57,8 @@ void Player::init(size_t layer, Vector2 position) {
     walkAnimation->frameCount = 8;
     walkAnimation->imageSize = std::make_unique<Vector2>(864, 640);
 
-    auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
+//    auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
+    auto collisionComponent = std::make_unique<CircleCollisionComponent>(32);
     collisionComponent->offset = std::make_unique<Vector2>(0, 44);
     addComponent(std::move(collisionComponent));
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
