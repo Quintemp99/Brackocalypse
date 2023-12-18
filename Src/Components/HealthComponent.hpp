@@ -8,7 +8,7 @@
 #include "../../../Brack-Engine/outfacingInterfaces/Components/IComponent.hpp"
 
 struct HealthComponent : public IComponent {
-    explicit HealthComponent(int health) : IComponent(), health(health) {
+    explicit HealthComponent(int health) : IComponent(), health(health), maxHealth(health) {
     }
 
     ~HealthComponent() override = default;
@@ -19,9 +19,12 @@ struct HealthComponent : public IComponent {
 
     HealthComponent(const HealthComponent &other) : IComponent(other) {
         health = other.health;
+        maxHealth = other.maxHealth;
+
     }
 
     int health;
+    int maxHealth;
 };
 
 #endif //BRACKOCALYPSE_HEALTHCOMPONENT_HPP
