@@ -25,7 +25,6 @@ add_executable(Brackocalypse main.cpp
         Scripts/GunShooting.cpp
         Src/SaveLoad.cpp
         Src/Bullet.cpp
-        Src/BulletPool.cpp
         Scripts/BulletActions.cpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/CampfireMapTile.hpp
@@ -62,6 +61,10 @@ add_executable(Brackocalypse main.cpp
         Src/PauseManager.hpp
         Scripts/BulletHitEnemy.cpp
         Scripts/TakeDamage.cpp
+        Scripts/UpdateHealth.cpp
+        Scripts/UpdateHealth.hpp
+        Src/PlayerHealthBar.cpp
+        Src/PlayerHealthBar.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

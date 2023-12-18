@@ -16,8 +16,8 @@ PauseMenu::PauseMenu() : GameObject() {
     setName("PauseMenu");
     setActive(false);
 
-    auto centerY = ConfigSingleton::GetInstance().GetWindowSize().getY() / 2;
-    auto centerX = ConfigSingleton::GetInstance().GetWindowSize().getX() / 2;
+    auto centerY = ConfigSingleton::getInstance().getWindowSize().getY() / 2;
+    auto centerX = ConfigSingleton::getInstance().getWindowSize().getX() / 2;
     auto buttonSize = Vector2(210, 70);
 
     auto startButton = std::make_unique<Button>(buttonSize, "Resume");
@@ -47,7 +47,7 @@ PauseMenu::PauseMenu() : GameObject() {
                 obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
-        ConfigSingleton::GetInstance().deltaTimeMultiplier = 1.0;
+        ConfigSingleton::getInstance().deltaTimeMultiplier = 1.0;
     });
 
     auto &transformSpeed2x = speed1x->tryGetComponent<TransformComponent>();
@@ -64,7 +64,7 @@ PauseMenu::PauseMenu() : GameObject() {
                 obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
-        ConfigSingleton::GetInstance().deltaTimeMultiplier = 2.0;
+        ConfigSingleton::getInstance().deltaTimeMultiplier = 2.0;
     });
 
     auto &transformSpeed1x = speed2x->tryGetComponent<TransformComponent>();
@@ -82,7 +82,7 @@ PauseMenu::PauseMenu() : GameObject() {
 
         pauseHandlerPtr.get().togglePause();
         ReplayManager::getInstance().toggleReplay();
-        ConfigSingleton::GetInstance().deltaTimeMultiplier = 1.0;
+        ConfigSingleton::getInstance().deltaTimeMultiplier = 1.0;
     });
 
     auto &transformReplay = replayButton->tryGetComponent<TransformComponent>();
@@ -94,7 +94,7 @@ PauseMenu::PauseMenu() : GameObject() {
     quitButton->setTag("QuitButton");
     quitButton->setName("QuitButton");
     quitButton->setClickEvent([]() {
-        ConfigSingleton::GetInstance().ToggleIsRunning();
+        ConfigSingleton::getInstance().toggleIsRunning();
     });
 
     auto &transformQuit = quitButton->tryGetComponent<TransformComponent>();
