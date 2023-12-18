@@ -19,7 +19,7 @@
 #include "../ProgressBar.hpp"
 #include "../../Scripts/SpawnInBeers.hpp"
 #include "../BeerPool.hpp"
-#include "../HealthBar.hpp"
+#include "../PlayerHealthBar.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     ReplayManager::getInstance().startRecording(10000, 100);
@@ -199,7 +199,7 @@ DemoLevel::DemoLevel() : Scene() {
 
     auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
     parent->addChild(std::move(player));
-    parent->addChild(std::make_unique<HealthBar>());
+    parent->addChild(std::make_unique<PlayerHealthBar>());
 
     this->addGameObject(std::move(parent));
 

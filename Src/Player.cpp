@@ -19,7 +19,7 @@
 
 #include "Components/RigidBodyComponent.hpp"
 #include "Components/HealthComponent.hpp"
-#include "../Scripts/HealthBars.hpp"
+#include "../Scripts/UpdateHealth.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
@@ -79,7 +79,7 @@ void Player::init(size_t layer, Vector2 position) {
     auto gun = std::make_unique<Gun>(layer);
     addChild(std::move(playerCollision));
     addChild(std::move(gun));
-    addBehaviourScript(std::make_unique<HealthBars>());
+    addBehaviourScript(std::make_unique<UpdateHealth>());
     setTag("Player");
     setName("Player");
 }

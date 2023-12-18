@@ -2,15 +2,12 @@
 // Created by Olaf van den Berg on 18/12/2023.
 //
 
-#include "HealthBar.hpp"
+#include "PlayerHealthBar.hpp"
 #include "Components/TransformComponent.hpp"
-#include "Components/SpriteComponent.hpp"
-#include "EngineManagers/SceneManager.hpp"
-#include "Components/HealthComponent.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
 
-HealthBar::HealthBar() : GameObject() {
-    this->setName("HealthBar");
+PlayerHealthBar::PlayerHealthBar() : GameObject() {
+    this->setName("PlayerHealthBar");
 
     //Position
     auto &transform = this->tryGetComponent<TransformComponent>();
@@ -20,4 +17,3 @@ HealthBar::HealthBar() : GameObject() {
 
 }
 
-//}

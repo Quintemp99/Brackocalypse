@@ -61,10 +61,10 @@ add_executable(Brackocalypse main.cpp
         Src/PauseManager.hpp
         Scripts/BulletHitEnemy.cpp
         Scripts/TakeDamage.cpp
-        Scripts/HealthBars.cpp
-        Scripts/HealthBars.hpp
-        Src/HealthBar.cpp
-        Src/HealthBar.hpp
+        Scripts/UpdateHealth.cpp
+        Scripts/UpdateHealth.hpp
+        Src/PlayerHealthBar.cpp
+        Src/PlayerHealthBar.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
