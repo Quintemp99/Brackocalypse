@@ -19,6 +19,7 @@
 #include "../ProgressBar.hpp"
 #include "../../Scripts/SpawnInBeers.hpp"
 #include "../BeerPool.hpp"
+#include "../Crate.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
     ReplayManager::getInstance().startRecording(10000, 100);
@@ -205,4 +206,7 @@ DemoLevel::DemoLevel() : Scene() {
 
     auto pauseHandler = std::make_unique<PauseManager>();
     this->addGameObject(std::move(pauseHandler));
+
+    auto crate = std::make_unique<Crate>(1, Vector2(-200, 0));
+    this->addGameObject(std::move(crate));
 }

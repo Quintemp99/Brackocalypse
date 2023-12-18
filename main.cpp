@@ -12,6 +12,7 @@ int main() {
     Config config = new Config();
     config.windowTitle = "Brackocalypse";
     config.windowSize = Vector2(640, 640);
+//    config.fpsLimit = 60;
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
 
