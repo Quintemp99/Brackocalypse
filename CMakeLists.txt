@@ -86,7 +86,7 @@ add_custom_command(
 add_custom_command(
         TARGET ${PROJECT_NAME}
         POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E rename
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_BINARY_DIR}/Resources
         ${CMAKE_BINARY_DIR}/Assets/Resources
 )
