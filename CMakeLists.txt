@@ -59,7 +59,6 @@ add_executable(Brackocalypse main.cpp
         Src/PauseMenu.hpp
         Src/PauseManager.cpp
         Src/PauseManager.hpp
-        Scripts/BulletHitEnemy.cpp
         Scripts/TakeDamage.cpp
         Src/Crate.cpp
         Scripts/UpdateHealth.cpp

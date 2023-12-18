@@ -21,7 +21,7 @@ Enemy::Enemy(size_t layer) {
     auto &transform = tryGetComponent<TransformComponent>();
     auto sprite = std::make_unique<SpriteComponent>();
     auto animation = std::make_unique<AnimationComponent>();
-    auto collision = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
+    auto collision = std::make_unique<BoxCollisionComponent>(Vector2(48, 40));
     auto health = std::make_unique<HealthComponent>(3);
     collision->offset = std::make_unique<Vector2>(0, 44);
 
@@ -47,7 +47,6 @@ Enemy::Enemy(size_t layer) {
 
     auto aiComponent = std::make_unique<AIComponent>();
     aiComponent->speed = 10;
-    aiComponent->speed = 0.08;
     aiComponent->target = std::make_unique<Vector2>(-400, 0);
 
     addBehaviourScript(std::make_unique<EnemyFollowPlayer>("MainGraph"));
