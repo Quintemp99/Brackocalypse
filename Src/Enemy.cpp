@@ -68,7 +68,7 @@ Enemy::Enemy(size_t layer) {
     enemyRigidbody->gravityScale = 0.0f;
     enemyRigidbody->collisionCategory = CollisionLayerManager::getInstance().getCategory("EnemyHitbox");
     enemyRigidbody->collisionMask = CollisionLayerManager::getInstance().getMask("EnemyHitbox");
-    enemyCollision->isTrigger = true;
+    enemyCollision->isTrigger = false;
 
     enemyRigidbody->gravityScale = 0.0f;
 

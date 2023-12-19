@@ -10,12 +10,12 @@ void EnemyDamage::onStart() {
 }
 
 void EnemyDamage::onUpdate(milliseconds deltaTime) {
-    auto &playerCollision = getGameObjectByTag("Player")->tryGetComponent<BoxCollisionComponent>();
+    auto &playerCollision = getGameObjectByTag("PlayerCollision")->tryGetComponent<BoxCollisionComponent>();
     auto enemies = getGameObjectsByTag("EnemyCollision");
 
     for (auto &id: playerCollision.collidedWith) {
         auto it = std::find_if(enemies.begin(), enemies.end(), [id](GameObject *e) {
-            return e->getParent()->getEntityId() == id;
+            return e->getEntityId() == id;
         });
 
         if (it != enemies.end()) {
