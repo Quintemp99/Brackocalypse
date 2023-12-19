@@ -72,18 +72,6 @@ void Player::init(size_t layer, Vector2 position) {
     rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Player");
     rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Player");
 
-    playerRigidBody->gravityScale = 0.0f;
-
-    collision->isTrigger = true;
-    collision->offset = std::make_unique<Vector2>(0, 16);
-
-    playerCollision->addComponent(std::move(playerRigidBody));
-    playerCollision->addComponent(std::move(collision));
-    playerCollision->setTag("PlayerCollision");
-
-    addChild(std::move(playerCollision));
-    addChild(std::move(gun));
-
     addComponent(std::make_unique<VelocityComponent>());
     addComponent(std::move(collisionComponent));
     addComponent(std::move(rigidBody));
@@ -92,13 +80,14 @@ void Player::init(size_t layer, Vector2 position) {
     addComponent(std::move(health));
 
     collision->offset = std::make_unique<Vector2>(0, 16);
+    collision->isTrigger = false;
     playerRigidBody->gravityScale = 0.0f;
     playerRigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("PlayerHitbox");
     playerRigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("PlayerHitbox");
-    collision->isTrigger = false;
     playerCollision->addComponent(std::move(playerRigidBody));
     playerCollision->addComponent(std::move(collision));
     playerCollision->setTag("PlayerCollision");
+
     addChild(std::move(playerCollision));
     addChild(std::move(gun));
 

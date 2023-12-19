@@ -70,9 +70,9 @@ Enemy::Enemy(size_t layer) {
     enemyRigidbody->collisionMask = CollisionLayerManager::getInstance().getMask("EnemyHitbox");
     enemyCollision->isTrigger = true;
 
-    playerRigidBody->gravityScale = 0.0f;
+    enemyRigidbody->gravityScale = 0.0f;
 
-    enemyCollisionObject->addComponent(std::move(playerRigidBody));
+    enemyCollisionObject->addComponent(std::move(enemyRigidbody));
     enemyCollisionObject->addComponent(std::move(enemyCollision));
     enemyCollisionObject->setTag("EnemyCollision");
 

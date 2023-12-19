@@ -23,7 +23,7 @@ struct CampfireMapTile : public RogueLikeMapTile {
         auto particleEmitterComponent = ParticleEmitterComponent(20);
         particleEmitterComponent.sortingLayer = layer;
         particleEmitterComponent.orderInLayer = 3;
-        particleEmitterComponent.speed = 0.07;
+        particleEmitterComponent.speed = 7;
         particleEmitterComponent.lifeTime = 700;
         particleEmitterComponent.color = std::make_unique<Color>(220, 150, 150, 255);
         particleEmitterComponent.emitInterval = 200;
