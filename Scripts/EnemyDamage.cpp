@@ -15,7 +15,7 @@ void EnemyDamage::onUpdate(milliseconds deltaTime) {
 
     for (auto &id: playerCollision.collidedWith) {
         auto it = std::find_if(enemies.begin(), enemies.end(), [id](GameObject *e) {
-            return e->getParent()->getEntityId() == id;
+            return e->getEntityId() == id;
         });
 
         if (it != enemies.end()) {

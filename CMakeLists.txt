@@ -59,12 +59,13 @@ add_executable(Brackocalypse main.cpp
         Src/PauseMenu.hpp
         Src/PauseManager.cpp
         Src/PauseManager.hpp
-        Scripts/BulletHitEnemy.cpp
         Scripts/TakeDamage.cpp
+        Src/Crate.cpp
         Scripts/UpdateHealth.cpp
         Scripts/UpdateHealth.hpp
         Src/PlayerHealthBar.cpp
         Src/PlayerHealthBar.hpp
+        Scripts/PlayBoxMovingSound.cpp
         Scripts/EnemyDamage.cpp
         Scripts/EnemyDamage.hpp
         Src/Components/HitSoundComponent.hpp

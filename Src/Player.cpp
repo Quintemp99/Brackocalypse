@@ -9,6 +9,7 @@
 #include <Components/AnimationComponent.hpp>
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/BoxCollisionComponent.hpp>
+#include <EngineManagers/CollisionLayerManager.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
@@ -39,7 +40,7 @@ void Player::init(size_t layer, Vector2 position) {
     auto &transform = tryGetComponent<TransformComponent>();
     auto walkAnimation = std::make_unique<AnimationComponent>();
     auto health = std::make_unique<HealthComponent>(3);
-    auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
+    auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(48, 40));
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     auto playerCollision = std::make_unique<GameObject>();
     auto collision = std::make_unique<BoxCollisionComponent>(Vector2(64, 96));
@@ -65,18 +66,8 @@ void Player::init(size_t layer, Vector2 position) {
     collisionComponent->offset = std::make_unique<Vector2>(0, 44);
 
     rigidBody->gravityScale = 0.0f;
-
-    playerRigidBody->gravityScale = 0.0f;
-
-    collision->isTrigger = true;
-    collision->offset = std::make_unique<Vector2>(0, 16);
-
-    playerCollision->addComponent(std::move(playerRigidBody));
-    playerCollision->addComponent(std::move(collision));
-    playerCollision->setTag("PlayerCollision");
-
-    addChild(std::move(playerCollision));
-    addChild(std::move(gun));
+    rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Player");
+    rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Player");
 
     addComponent(std::make_unique<VelocityComponent>());
     addComponent(std::move(collisionComponent));
@@ -84,6 +75,18 @@ void Player::init(size_t layer, Vector2 position) {
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
     addComponent(std::move(health));
+
+    collision->offset = std::make_unique<Vector2>(0, 16);
+    collision->isTrigger = false;
+    playerRigidBody->gravityScale = 0.0f;
+    playerRigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("PlayerHitbox");
+    playerRigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("PlayerHitbox");
+    playerCollision->addComponent(std::move(playerRigidBody));
+    playerCollision->addComponent(std::move(collision));
+    playerCollision->setTag("PlayerCollision");
+
+    addChild(std::move(playerCollision));
+    addChild(std::move(gun));
 
     addBehaviourScript(std::make_unique<UserInputMovement>());
     addBehaviourScript(std::make_unique<MovementAnimation>());

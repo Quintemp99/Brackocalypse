@@ -27,7 +27,7 @@ public:
 
 private:
     int damage = 1;
-    milliseconds damageCooldown = 500;
+    milliseconds damageCooldown = 1000;
     milliseconds damageTimer = damageCooldown;
 
 };

@@ -10,6 +10,7 @@
 #include <Components/TransformComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
 #include <Components/RigidBodyComponent.hpp>
+#include <EngineManagers/CollisionLayerManager.hpp>
 #include "../Scripts/CollectBeers.hpp"
 #include "Components/SoundEffectComponent.hpp"
 #include "../Scripts/BopAnimation.hpp"
@@ -28,10 +29,13 @@ public:
         spriteComponent->orderInLayer = 0;
 
         auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(512, 512));
-        collisionComponent->isTrigger = true;
+        collisionComponent->isTrigger = false;
         addComponent(std::move(collisionComponent));
 
-        auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::STATIC);
+        auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
+        rigidBody->gravityScale = 0.0f;
+        rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Collectable");
+        rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Collectable");
         addComponent(std::move(rigidBody));
 
         auto collectBeerSound = std::make_unique<SoundEffectComponent>("Sounds/drink-sound.mp3");
@@ -39,7 +43,7 @@ public:
 
         addComponent(std::move(collectBeerSound));
 
-        auto& transform = tryGetComponent<TransformComponent>();
+        auto &transform = tryGetComponent<TransformComponent>();
         transform.scale->setX(0.12);
         transform.scale->setY(0.12);
 

@@ -4,13 +4,12 @@
 
 #include <Components/VelocityComponent.hpp>
 #include <Components/SpriteComponent.hpp>
-#include <Components/SoundEffectComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include <Components/RigidBodyComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
+#include <EngineManagers/CollisionLayerManager.hpp>
 #include "Bullet.hpp"
 #include "../Scripts/BulletActions.hpp"
-#include "../Scripts/BulletHitEnemy.hpp"
 
 Bullet::Bullet(size_t layer) {
     addComponent(std::make_unique<VelocityComponent>());
@@ -24,12 +23,13 @@ Bullet::Bullet(size_t layer) {
     transform.scale = std::make_unique<Vector2>(1, 1);
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     rigidBody->gravityScale = 0.0f;
+    rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Bullet");
+    rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Bullet");
     addComponent(std::move(rigidBody));
     auto boxCollision = std::make_unique<BoxCollisionComponent>(Vector2(18, 8));
-    boxCollision->isTrigger = true;
+    boxCollision->isTrigger = false;
     addComponent(std::move(boxCollision));
     addComponent(std::move(sprite));
-    addBehaviourScript(std::make_unique<BulletHitEnemy>());
     addBehaviourScript(std::make_unique<BulletActions>(5000));
     setTag("Bullet");
 }
