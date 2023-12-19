@@ -7,21 +7,18 @@
 #include <Components/TransformComponent.hpp>
 #include <Helpers/Vector2.hpp>
 #include <Components/AnimationComponent.hpp>
-#include <Components/SoundEffectComponent.hpp>
 #include <EngineManagers/SceneManager.hpp>
-#include <Components/RectangleComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
-#include <Components/CircleCollisionComponent.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
-#include "Components/BoxCollisionComponent.hpp"
 #include "../Scripts/PlayerProgress.hpp"
-
 #include "Components/RigidBodyComponent.hpp"
 #include "Components/HealthComponent.hpp"
 #include "../Scripts/MovementAnimation.hpp"
 #include "../Scripts/UpdateHealth.hpp"
+#include "../Scripts/TakeDamage.hpp"
+#include "../Scripts/EnemyDamage.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
@@ -90,6 +87,8 @@ void Player::init(size_t layer, Vector2 position) {
 
     addBehaviourScript(std::make_unique<UserInputMovement>());
     addBehaviourScript(std::make_unique<MovementAnimation>());
+    addBehaviourScript(std::make_unique<EnemyDamage>());
+    addBehaviourScript(std::make_unique<TakeDamage>());
     addBehaviourScript(std::make_unique<UpdateHealth>());
 
     setTag("Player");
