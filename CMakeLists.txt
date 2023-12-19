@@ -70,6 +70,8 @@ add_executable(Brackocalypse main.cpp
         Scripts/BopAnimation.cpp
         Scripts/BopAnimation.hpp
         Src/RogueLikeMapTiles/BoatMapTile.hpp
+        Scripts/MovementAnimation.cpp
+        Scripts/MovementAnimation.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
