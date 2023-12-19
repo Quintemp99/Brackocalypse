@@ -31,7 +31,7 @@ Crate::Crate(size_t layer, Vector2 localPosition, Vector2 size) : GameObject() {
     addComponent(std::move(sprite));
 
     auto cratePushSound = std::make_unique<SoundEffectComponent>("Sounds/box-push-sound.mp3");
-    cratePushSound->volume = 0.05;
+    cratePushSound->volume = 0.01;
     addComponent(std::move(cratePushSound));
 
     auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(250, 250));
