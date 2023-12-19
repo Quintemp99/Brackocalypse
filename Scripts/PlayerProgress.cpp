@@ -5,6 +5,7 @@
 #include "UserInputMovement.hpp"
 #include "../Src/Scenes/EndScreen.hpp"
 #include "../Src/Components/HealthComponent.hpp"
+#include "../Src/Scenes/GameOverScene.hpp"
 
 void PlayerProgress::onStart() {
 
@@ -21,6 +22,10 @@ void PlayerProgress::onUpdate(milliseconds deltaTime) {
     if (totalProgress >= maxForLevel || health.health <= 0) {
         maxForLevel += 10;
         auto scene = new EndScreen();
+        SceneManager::getInstance().goToNewScene(scene);
+    }
+    if (health.health <= 0) {
+        auto scene = new GameOverScene();
         SceneManager::getInstance().goToNewScene(scene);
     }
 }
