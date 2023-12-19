@@ -65,9 +65,13 @@ void LevelBuilder::buildLevel() {
         }
         sortingLayer--;
     }
-    auto spawnerObject = std::make_unique<GameObject>();
-    auto spawnComponent = std::make_unique<SpawnComponent>();
-    spawnerObject->setTag("EnemySpawner");
+    auto enemySpawnerObject = std::make_unique<GameObject>();
+    auto enemySpawnComponent = std::make_unique<SpawnComponent>();
+    enemySpawnerObject->setTag("EnemySpawner");
+
+    auto beerSpawnerObject = std::make_unique<GameObject>();
+    auto beerSpawnComponent = std::make_unique<SpawnComponent>();
+    beerSpawnerObject->setTag("BeerSpawner");
 
     std::vector<std::vector<GraphNode *>> twoDGraphGrid;
     std::vector<std::unique_ptr<GraphNode>> nodes;
@@ -84,15 +88,19 @@ void LevelBuilder::buildLevel() {
                                                       tileSize.getY() / 2 +
                                                       tileSize.getY() * tileScale.getY() / 2);
 
-            if (collisionMap[y][x] == ',') {
+            if (collisionMap[y][x] != '.' && collisionMap[y][x] != 'x') {
                 nodes.push_back(std::make_unique<GraphNode>(*location));
                 twoDGraphGrid.back().push_back(nodes.back().get());
             } else {
                 twoDGraphGrid.back().push_back(nullptr);
             }
 
+            if (collisionMap[y][x] == 'B') {
+                beerSpawnComponent->availableSpawnLocations.emplace_back(std::make_unique<Vector2>(*location));
+            }
+
             if (collisionMap[y][x] == 'E') {
-                spawnComponent->spawnLocations.emplace_back(std::move(location));
+                enemySpawnComponent->availableSpawnLocations.emplace_back(std::make_unique<Vector2>(*location));
             }
 
             if (collisionMap[y][x] != 'x') {
@@ -191,7 +199,10 @@ void LevelBuilder::buildLevel() {
     graph->setName("MainGraph");
     gameObjects.push_back(std::move(graph));
 
-    spawnerObject->addComponent(std::move(spawnComponent));
-    gameObjects.push_back(std::move(spawnerObject));
+    enemySpawnerObject->addComponent(std::move(enemySpawnComponent));
+    gameObjects.push_back(std::move(enemySpawnerObject));
+
+    beerSpawnerObject->addComponent(std::move(beerSpawnComponent));
+    gameObjects.push_back(std::move(beerSpawnerObject));
 
 }

@@ -12,6 +12,8 @@
 #include <Components/RigidBodyComponent.hpp>
 #include <EngineManagers/CollisionLayerManager.hpp>
 #include "../Scripts/CollectBeers.hpp"
+#include "Components/SoundEffectComponent.hpp"
+#include "../Scripts/BopAnimation.hpp"
 
 class Beer : public GameObject {
 public:
@@ -36,11 +38,17 @@ public:
         rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Collectable");
         addComponent(std::move(rigidBody));
 
+        auto collectBeerSound = std::make_unique<SoundEffectComponent>("Sounds/drink-sound.mp3");
+        collectBeerSound->volume = 0.05;
+
+        addComponent(std::move(collectBeerSound));
+
         auto &transform = tryGetComponent<TransformComponent>();
         transform.scale->setX(0.12);
         transform.scale->setY(0.12);
 
         this->addBehaviourScript(std::make_unique<CollectBeers>());
+        addBehaviourScript(std::make_unique<BopAnimation>(30, 3000));
         this->addComponent(std::move(spriteComponent));
     }
 

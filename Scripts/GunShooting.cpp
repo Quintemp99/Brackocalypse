@@ -32,7 +32,7 @@ void GunShooting::onUpdate(milliseconds deltaTime) {
             animationComponent.currentFrame = 0;
             animationComponent.isPlaying = true;
         } else if (animationComponent.currentFrame == 1) {
-            auto cameraId = ComponentStore::GetInstance().getEntitiesWithComponent<CameraComponent>()[0];
+            auto cameraId = ComponentStore::GetInstance().getActiveEntitiesWithComponent<CameraComponent>()[0];
             auto &cameraPosition = ComponentStore::GetInstance().tryGetComponent<TransformComponent>(cameraId);
             shaking = true;
             originalCameraPosition = *cameraPosition.position;
@@ -76,7 +76,7 @@ void GunShooting::shoot(GameObject &player) {
 }
 
 void GunShooting::shakeCamera() {
-    auto cameraId = ComponentStore::GetInstance().getEntitiesWithComponent<CameraComponent>()[0];
+    auto cameraId = ComponentStore::GetInstance().getActiveEntitiesWithComponent<CameraComponent>()[0];
     auto &cameraPosition = ComponentStore::GetInstance().tryGetComponent<TransformComponent>(cameraId);
     if (cameraShakeTimer >= cameraShakeDuration) {
         cameraShakeTimer = 0.0f;
