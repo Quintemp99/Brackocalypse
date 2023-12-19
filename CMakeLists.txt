@@ -65,6 +65,7 @@ add_executable(Brackocalypse main.cpp
         Scripts/UpdateHealth.hpp
         Src/PlayerHealthBar.cpp
         Src/PlayerHealthBar.hpp
+        Scripts/PlayBoxMovingSound.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

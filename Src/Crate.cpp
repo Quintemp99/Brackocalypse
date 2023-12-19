@@ -7,7 +7,9 @@
 #include <Components/TransformComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
 #include <Components/RigidBodyComponent.hpp>
+#include <Components/SoundEffectComponent.hpp>
 #include "Crate.hpp"
+#include "../Scripts/PlayBoxMovingSound.hpp"
 
 Crate::Crate(size_t layer, Vector2 position) {
     addComponent(std::make_unique<VelocityComponent>());
@@ -21,6 +23,10 @@ Crate::Crate(size_t layer, Vector2 position) {
     transform.scale = std::make_unique<Vector2>(0.256, 0.256);
     addComponent(std::move(sprite));
 
+    auto cratePushSound = std::make_unique<SoundEffectComponent>("Sounds/box-push-sound.mp3");
+    cratePushSound->volume = 0.05;
+    addComponent(std::move(cratePushSound));
+
     auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(250, 250));
     collisionComponent->offset = std::make_unique<Vector2>(0, 0);
     addComponent(std::move(collisionComponent));
@@ -31,6 +37,8 @@ Crate::Crate(size_t layer, Vector2 position) {
     rigidBodyComponent->restitution = 0;
     rigidBodyComponent->gravityScale = 0;
     addComponent(std::move(rigidBodyComponent));
+
+    addBehaviourScript(std::make_unique<PlayBoxMovingSound>());
 
     setTag("Crate");
 }

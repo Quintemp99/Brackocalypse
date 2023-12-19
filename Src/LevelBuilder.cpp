@@ -68,7 +68,7 @@ void LevelBuilder::buildLevel() {
     auto spawnComponent = std::make_unique<SpawnComponent>();
     spawnerObject->setTag("EnemySpawner");
 
-    std::vector<std::vector<GraphNode*>> twoDGraphGrid;
+    std::vector<std::vector<GraphNode *>> twoDGraphGrid;
     std::vector<std::unique_ptr<GraphNode>> nodes;
 
     for (int y = 0; y < collisionMap.size(); ++y) {
@@ -83,10 +83,10 @@ void LevelBuilder::buildLevel() {
                                                       tileSize.getY() / 2 +
                                                       tileSize.getY() * tileScale.getY() / 2);
 
-            if(collisionMap[y][x] == ','){
+            if (collisionMap[y][x] == ',') {
                 nodes.push_back(std::make_unique<GraphNode>(*location));
                 twoDGraphGrid.back().push_back(nodes.back().get());
-            }else{
+            } else {
                 twoDGraphGrid.back().push_back(nullptr);
             }
 
@@ -109,6 +109,7 @@ void LevelBuilder::buildLevel() {
                     collisionMap[y][x + i] = '.';
 
                 auto collisionObject = std::make_unique<GameObject>();
+                collisionObject->setTag("Collision");
                 auto boxCollision = std::make_unique<BoxCollisionComponent>(
                         tileSize * tileScale * Vector2(width, height));
                 collisionObject->addComponent(std::move(boxCollision));
@@ -156,10 +157,10 @@ void LevelBuilder::buildLevel() {
 
     for (int y = 0; y < twoDGraphGrid.size(); ++y) {
         for (int x = 0; x < twoDGraphGrid[y].size(); ++x) {
-            auto& node = twoDGraphGrid[y][x];
-            if(node != nullptr){
-                if (twoDGraphGrid[y-1][x] != nullptr) {
-                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y-1][x], node, 1);
+            auto &node = twoDGraphGrid[y][x];
+            if (node != nullptr) {
+                if (twoDGraphGrid[y - 1][x] != nullptr) {
+                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y - 1][x], node, 1);
                     node->addEdge(std::move(edge));
                 }
 
@@ -168,13 +169,13 @@ void LevelBuilder::buildLevel() {
                     node->addEdge(std::move(edge));
                 }
 
-                if (twoDGraphGrid[y+1][x] != nullptr) {
-                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y+1][x], node, 1);
+                if (twoDGraphGrid[y + 1][x] != nullptr) {
+                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y + 1][x], node, 1);
                     node->addEdge(std::move(edge));
                 }
 
-                if (twoDGraphGrid[y][x-1] != nullptr) {
-                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y][x-1], node, 1);
+                if (twoDGraphGrid[y][x - 1] != nullptr) {
+                    auto edge = std::make_unique<GraphEdge>(twoDGraphGrid[y][x - 1], node, 1);
                     node->addEdge(std::move(edge));
                 }
             }
