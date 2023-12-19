@@ -10,6 +10,7 @@
 #include "../RogueLikeMapTiles/PlayerSpawnMapTile.hpp"
 #include "../RogueLikeMapTiles/BoxCollisionMapTile.hpp"
 #include "../RogueLikeMapTiles/BoatMapTile.hpp"
+#include "../Crate.hpp"
 
 void LevelFactory::setSize(Vector2 size) {
     size_ = size;
@@ -25,6 +26,8 @@ std::unique_ptr<GameObject> LevelFactory::createGameObject(char c, Vector2 posit
             return std::make_unique<CampfireMapTile>(rogueLikeSheetMap.map[Campfire], position, size_, layer);
         case 'H':
             return std::make_unique<BoatMapTile>(rogueLikeSheetMap.map[BoatLeft], position, size_, layer);
+        case 'l':
+            return std::make_unique<Crate>(layer, position, size_);
         default:
             return std::make_unique<RogueLikeMapTile>(getSpriteTileOffset(c), position, size_, layer);
 

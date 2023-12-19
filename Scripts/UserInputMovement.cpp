@@ -48,12 +48,4 @@ void UserInputMovement::onUpdate(milliseconds deltaTime) {
     // Set the player's velocity based on the normalized input and desired speed
     playerVelocityComponent.velocity.setX(normalizedHorizontalMovement * velocity);
     playerVelocityComponent.velocity.setY(normalizedVerticalMovement * velocity);
-
-    auto playerCol = getGameObjectByTag("PlayerCollision");
-    auto &playerCollider = playerCol->tryGetComponent<BoxCollisionComponent>();
-    if (playerCollider.collidedWith.size() > 0) {
-
-    }
-
-
 }

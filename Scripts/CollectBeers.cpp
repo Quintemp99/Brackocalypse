@@ -10,23 +10,23 @@ void CollectBeers::onStart() {}
 void CollectBeers::onUpdate(milliseconds deltaTime) {
     auto &boxCollision = tryGetComponent<BoxCollisionComponent>();
 
-    auto player = getGameObjectByTag("Player");
+    auto playerCollision = getGameObjectByTag("PlayerCollision");
     for (auto &id: boxCollision.collidedWith) {
-        if (player->getEntityId() == id) {
+        if (playerCollision->getEntityId() == id) {
             setActive(false);
             boxCollision.collidedWith.clear();
-            PlayerProgress &script = player->tryGetBehaviourScript<PlayerProgress>();
+            PlayerProgress &script = playerCollision->getParent().value().tryGetBehaviourScript<PlayerProgress>();
             tryGetComponent<SoundEffectComponent>().startPlaying = true;
             script.addBeer();
 
-            auto playerLocation = player->tryGetComponent<TransformComponent>().position.get();
+            auto playerLocation = playerCollision->getParent().value().tryGetComponent<TransformComponent>().position.get();
             auto spawnObject = getGameObjectByTag("BeerSpawner");
             auto &spawnComponent = spawnObject->tryGetComponent<SpawnComponent>();
 
             auto closestPositionIter = std::min_element(
                     spawnComponent.unavailableSpawnLocations.begin(),
                     spawnComponent.unavailableSpawnLocations.end(),
-                    [playerLocation](const auto& a, const auto& b) {
+                    [playerLocation](const auto &a, const auto &b) {
                         return a->distance(*playerLocation) < b->distance(*playerLocation);
                     }
             );

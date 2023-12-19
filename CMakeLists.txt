@@ -59,12 +59,15 @@ add_executable(Brackocalypse main.cpp
         Src/PauseMenu.hpp
         Src/PauseManager.cpp
         Src/PauseManager.hpp
-        Scripts/BulletHitEnemy.cpp
         Scripts/TakeDamage.cpp
+        Src/Crate.cpp
         Scripts/UpdateHealth.cpp
         Scripts/UpdateHealth.hpp
         Src/PlayerHealthBar.cpp
         Src/PlayerHealthBar.hpp
+        Scripts/PlayBoxMovingSound.cpp
+        Scripts/EnemyDamage.cpp
+        Scripts/EnemyDamage.hpp
         Src/Components/HitSoundComponent.hpp
         Src/Components/WanderSoundComponent.hpp
         Scripts/BopAnimation.cpp
@@ -78,6 +81,8 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/IntroductionScene.hpp
         Scripts/WriteTextAnimation.cpp
         Scripts/WriteTextAnimation.hpp
+        Src/Scenes/GameOverScene.cpp
+        Src/Scenes/GameOverScene.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
