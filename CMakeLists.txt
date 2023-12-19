@@ -25,7 +25,6 @@ add_executable(Brackocalypse main.cpp
         Scripts/GunShooting.cpp
         Src/SaveLoad.cpp
         Src/Bullet.cpp
-        Src/BulletPool.cpp
         Scripts/BulletActions.cpp
         Src/SaveLoad.cpp
         Src/RogueLikeMapTiles/CampfireMapTile.hpp
@@ -60,8 +59,24 @@ add_executable(Brackocalypse main.cpp
         Src/PauseMenu.hpp
         Src/PauseManager.cpp
         Src/PauseManager.hpp
-        Scripts/BulletHitEnemy.cpp
         Scripts/TakeDamage.cpp
+        Src/Crate.cpp
+        Scripts/UpdateHealth.cpp
+        Scripts/UpdateHealth.hpp
+        Src/PlayerHealthBar.cpp
+        Src/PlayerHealthBar.hpp
+        Scripts/PlayBoxMovingSound.cpp
+        Scripts/EnemyDamage.cpp
+        Scripts/EnemyDamage.hpp
+        Src/Components/HitSoundComponent.hpp
+        Src/Components/WanderSoundComponent.hpp
+        Scripts/BopAnimation.cpp
+        Scripts/BopAnimation.hpp
+        Src/RogueLikeMapTiles/BoatMapTile.hpp
+        Scripts/MovementAnimation.cpp
+        Scripts/MovementAnimation.hpp
+        Src/Scenes/GameOverScene.cpp
+        Src/Scenes/GameOverScene.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
@@ -81,5 +96,13 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/Assets
         ${CMAKE_BINARY_DIR}/Assets
+)
+
+add_custom_command(
+        TARGET ${PROJECT_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_BINARY_DIR}/Resources
+        ${CMAKE_BINARY_DIR}/Assets/Resources
 )
 

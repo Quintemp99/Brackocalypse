@@ -20,18 +20,27 @@ struct SpawnComponent : public IComponent {
     }
 
     SpawnComponent(const SpawnComponent &other) {
-        if (!other.spawnLocations.empty())
-            for (const auto &ptr: other.spawnLocations) {
+        if (!other.availableSpawnLocations.empty())
+            for (const auto &ptr: other.availableSpawnLocations) {
                 if (ptr != nullptr) {
-                    spawnLocations.push_back(std::make_unique<Vector2>(*ptr));
+                    availableSpawnLocations.push_back(std::make_unique<Vector2>(*ptr));
                 } else {
-                    spawnLocations.push_back(nullptr);
+                    availableSpawnLocations.push_back(nullptr);
+                }
+            }
+
+        if (!other.unavailableSpawnLocations.empty())
+            for (const auto &ptr: other.unavailableSpawnLocations) {
+                if (ptr != nullptr) {
+                    unavailableSpawnLocations.push_back(std::make_unique<Vector2>(*ptr));
+                } else {
+                    unavailableSpawnLocations.push_back(nullptr);
                 }
             }
     }
 
-    std::vector<std::unique_ptr<Vector2>> spawnLocations;
-
+    std::vector<std::unique_ptr<Vector2>> availableSpawnLocations;
+    std::vector<std::unique_ptr<Vector2>> unavailableSpawnLocations;
 };
 
 #endif //BRACKOCALYPSE_SPAWNCOMPONENT_HPP
