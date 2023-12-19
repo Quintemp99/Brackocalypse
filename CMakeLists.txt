@@ -62,6 +62,8 @@ add_executable(Brackocalypse main.cpp
         Src/PauseManager.hpp
         Scripts/BulletHitEnemy.cpp
         Scripts/TakeDamage.cpp
+        Scripts/MovementAnimation.cpp
+        Scripts/MovementAnimation.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
@@ -81,13 +83,5 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/Assets
         ${CMAKE_BINARY_DIR}/Assets
-)
-
-add_custom_command(
-        TARGET ${PROJECT_NAME}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_BINARY_DIR}/Resources
-        ${CMAKE_BINARY_DIR}/Assets/Resources
 )
 

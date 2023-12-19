@@ -15,6 +15,7 @@
 #include "Components/HealthComponent.hpp"
 #include "../Scripts/EnemyFollowPlayer.hpp"
 #include "../Scripts/TakeDamage.hpp"
+#include "../Scripts/MovementAnimation.hpp"
 
 Enemy::Enemy(size_t layer) {
     addComponent(std::make_unique<VelocityComponent>());
@@ -43,11 +44,12 @@ Enemy::Enemy(size_t layer) {
     animation->isPlaying = false;
     animation->startPosition = std::make_unique<Vector2>(0, 4);
     animation->frameCount = 8;
+    animation->fps = 15;
     animation->imageSize = std::make_unique<Vector2>(864, 640);
 
     auto aiComponent = std::make_unique<AIComponent>();
     aiComponent->speed = 0.08;
-    aiComponent->target = std::make_unique<Vector2>(-400,0);
+    aiComponent->target = std::make_unique<Vector2>(-400, 0);
 
     addBehaviourScript(std::make_unique<EnemyFollowPlayer>("MainGraph"));
 
@@ -70,5 +72,6 @@ Enemy::Enemy(size_t layer) {
     addComponent(std::move(health));
     addComponent(std::move(zombieHitSound));
     addBehaviourScript(std::make_unique<TakeDamage>());
+    addBehaviourScript(std::make_unique<MovementAnimation>());
     setTag("Enemy");
 }
