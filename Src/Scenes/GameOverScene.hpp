@@ -11,6 +11,7 @@
 class GameOverScene : public Scene {
 public:
     GameOverScene();
+    void build() override;
 };
 
 

@@ -31,8 +31,6 @@ struct RogueLikeMapTile : public GameObject {
                       ((spriteSize.getY() * spriteScale.getY()) / 2)) -
                      (size.getY() * (spriteSize.getY() * spriteScale.getY()) / 2);
         transform.position = std::make_unique<Vector2>(posX, posY);
-
-
     }
 
     ~RogueLikeMapTile() = default;

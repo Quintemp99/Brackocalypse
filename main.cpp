@@ -35,6 +35,7 @@ int main() {
     collisionManager.defineMask("Wall", {"Player", "Enemy", "Crate"});
 
     auto scene = new HomeScene();
+    scene->build();
     SceneManager::getInstance().goToNewScene(scene);
 
     brackEngine.Run();
