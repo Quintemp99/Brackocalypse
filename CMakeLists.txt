@@ -67,6 +67,9 @@ add_executable(Brackocalypse main.cpp
         Src/PlayerHealthBar.hpp
         Src/Components/HitSoundComponent.hpp
         Src/Components/WanderSoundComponent.hpp
+        Scripts/BopAnimation.cpp
+        Scripts/BopAnimation.hpp
+        Src/RogueLikeMapTiles/BoatMapTile.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

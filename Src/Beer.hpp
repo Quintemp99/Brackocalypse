@@ -12,6 +12,7 @@
 #include <Components/RigidBodyComponent.hpp>
 #include "../Scripts/CollectBeers.hpp"
 #include "Components/SoundEffectComponent.hpp"
+#include "../Scripts/BopAnimation.hpp"
 
 class Beer : public GameObject {
 public:
@@ -43,6 +44,7 @@ public:
         transform.scale->setY(0.12);
 
         this->addBehaviourScript(std::make_unique<CollectBeers>());
+        addBehaviourScript(std::make_unique<BopAnimation>(30, 1500));
         this->addComponent(std::move(spriteComponent));
     }
 

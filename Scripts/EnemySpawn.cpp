@@ -45,6 +45,7 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
 
             enemy->setActive(true);
             auto &health = enemy->tryGetComponent<HealthComponent>();
+
             auto children = enemy->getChildren();
             for (auto& child: children) {
                 if(child->getName() == "EnemyHealth"){
