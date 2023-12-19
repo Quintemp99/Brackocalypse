@@ -36,7 +36,7 @@ private:
 
     void shakeCamera();
 
-    void shoot();
+    void shoot(GameObject &player);
 
 };
 
