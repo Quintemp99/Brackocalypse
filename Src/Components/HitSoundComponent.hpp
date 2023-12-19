@@ -18,5 +18,8 @@ struct HitSoundComponent : public SoundEffectComponent{
         return std::make_unique<HitSoundComponent>(*this);
     }
 
+    HitSoundComponent(const HitSoundComponent &other) : SoundEffectComponent(other) {
+    }
+
 };
 #endif //BRACKOCALYPSE_HITSOUNDCOMPONENT_HPP

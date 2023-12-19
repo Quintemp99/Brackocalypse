@@ -8,6 +8,11 @@
 #include <Objects/Button.hpp>
 
 GameOverScene::GameOverScene() {
+
+}
+
+void GameOverScene::build() {
+    Scene::build();
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(255, 255, 0, 255));

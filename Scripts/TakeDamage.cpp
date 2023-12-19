@@ -22,9 +22,7 @@ void TakeDamage::onUpdate(milliseconds deltaTime) {
 void TakeDamage::doDamage(int damage) {
     auto &health = tryGetComponent<HealthComponent>();
     auto tag = tryGetComponent<ObjectInfoComponent>().tag;
-    if (tag == "Enemy") {
-        auto &hitSound = tryGetComponent<HitSoundComponent>();
-        hitSound.startPlaying = true;
-    }
+    auto &hitSound = tryGetComponent<HitSoundComponent>();
+    hitSound.startPlaying = true;
     health.health -= damage;
 }

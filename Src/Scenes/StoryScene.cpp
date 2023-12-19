@@ -9,10 +9,15 @@
 #include "StoryScene.hpp"
 #include "../../Scripts/WriteTextAnimation.hpp"
 
-StoryScene::StoryScene(std::vector<std::string> lines) : Scene() {
+StoryScene::StoryScene(std::vector<std::string> lines, Scene* nextScene) : Scene(), lines_(lines), nextScene(nextScene) {
+
+}
+
+void StoryScene::build() {
+    Scene::build();
     auto camera = getAllCameras()[0];
     camera->SetBackgroundColor(Color(0, 0, 0, 255));
-    camera->addBehaviourScript(WriteTextAnimation(lines));
+    camera->addBehaviourScript(WriteTextAnimation(lines_, nextScene));
     auto soundComponent = std::make_unique<SoundEffectComponent>("Sounds/type-sound1.mp3");
     soundComponent->volume = 0.01;
     camera->addComponent(std::move(soundComponent));
@@ -20,7 +25,7 @@ StoryScene::StoryScene(std::vector<std::string> lines) : Scene() {
     Vector2 startText = Vector2(30,30);
 
     int lineNumber = 0;
-    for (auto& line: lines) {
+    for (auto& line: lines_) {
         std::stringstream tag;
         tag << "Line" << lineNumber;
 

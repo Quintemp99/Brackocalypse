@@ -7,10 +7,11 @@
 
 
 #include <BehaviourScripts/BehaviourScript.hpp>
+#include <Objects/Scene.hpp>
 
 class WriteTextAnimation : public BehaviourScript{
 public:
-    explicit WriteTextAnimation(std::vector<std::string> lines) : BehaviourScript(), lines_(lines) {}
+    explicit WriteTextAnimation(std::vector<std::string> lines, Scene* nextScene) : BehaviourScript(), lines(lines), nextScene(nextScene) {}
     ~WriteTextAnimation() override = default;
 
     std::unique_ptr<IBehaviourScript> clone() const override {
@@ -18,19 +19,22 @@ public:
     }
 
     WriteTextAnimation(const WriteTextAnimation &other) : BehaviourScript(other) {
-        lines_ = other.lines_;
+        lines = other.lines;
         writeInterval = other.writeInterval;
         lastWrite = other.lastWrite;
         linePos = other.linePos;
         charPos = other.charPos;
         soundInterval = other.soundInterval;
+        soundPaths = other.soundPaths;
         lastSound = other.lastSound;
+        nextScene = other.nextScene;
     }
 
     virtual void onStart() override;
     virtual void onUpdate(milliseconds deltaTime) override;
 private:
-    std::vector<std::string> lines_;
+    Scene* nextScene;
+    std::vector<std::string> lines;
     milliseconds writeInterval = 20;
     milliseconds lastWrite = 0;
     milliseconds soundInterval = 40;

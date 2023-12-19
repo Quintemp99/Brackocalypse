@@ -22,6 +22,11 @@
 #include "../Components/WanderSoundComponent.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
+
+}
+
+void DemoLevel::build() {
+    Scene::build();
     ReplayManager::getInstance().startRecording(10000, 100);
 
     auto camera = getAllCameras()[0];
@@ -213,7 +218,4 @@ DemoLevel::DemoLevel() : Scene() {
 
     auto pauseHandler = std::make_unique<PauseManager>();
     this->addGameObject(std::move(pauseHandler));
-
-//    auto crate = std::make_unique<Crate>(1, Vector2(-200, 0));
-//    this->addGameObject(std::move(crate));
 }

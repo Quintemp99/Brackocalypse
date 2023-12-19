@@ -11,6 +11,7 @@
 class IntroductionScene : public StoryScene {
 public:
     IntroductionScene();
+    void build() override;
 };
 
 

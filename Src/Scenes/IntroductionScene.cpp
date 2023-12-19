@@ -3,6 +3,7 @@
 //
 
 #include "IntroductionScene.hpp"
+#include "DemoLevel.hpp"
 
 IntroductionScene::IntroductionScene() : StoryScene(
         {
@@ -17,4 +18,8 @@ IntroductionScene::IntroductionScene() : StoryScene(
             "beneath the towering trees and open skies.",
             " ",
             "Press enter to continue..."
-        }) {}
+        }, new DemoLevel()) {}
+
+void IntroductionScene::build() {
+    StoryScene::build();
+}

@@ -10,7 +10,11 @@
 
 class StoryScene : public Scene {
 public:
-    StoryScene(std::vector<std::string> lines);
+    StoryScene(std::vector<std::string> lines, Scene* scene);
+    void build() override;
+private:
+    Scene* nextScene;
+    std::vector<std::string> lines_;
 };
 
 

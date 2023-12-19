@@ -7,6 +7,7 @@
 class DemoLevel : public Scene {
 public:
     DemoLevel();
+    void build() override;
 };
 
 

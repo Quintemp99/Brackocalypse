@@ -7,8 +7,12 @@
 #include "../Helpers/RogueLikeSheetMap.hpp"
 #include "StoryScene.hpp"
 #include "IntroductionScene.hpp"
+#include "DemoLevel.hpp"
 
-HomeScene::HomeScene() : Scene() {
+HomeScene::HomeScene() : Scene() {}
+
+void HomeScene::build() {
+    Scene::build();
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
@@ -50,6 +54,7 @@ HomeScene::HomeScene() : Scene() {
     startButton->setFontSize(40);
     startButton->setClickEvent([]() {
         auto scene = new IntroductionScene();
+        scene->build();
         SceneManager::getInstance().goToNewScene(scene);
     });
 
