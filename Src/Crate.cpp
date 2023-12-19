@@ -12,16 +12,22 @@
 #include "Crate.hpp"
 #include "../Scripts/PlayBoxMovingSound.hpp"
 
-Crate::Crate(size_t layer, Vector2 position) {
+Crate::Crate(size_t layer, Vector2 localPosition, Vector2 size) : GameObject() {
     addComponent(std::make_unique<VelocityComponent>());
     auto sprite = std::make_unique<SpriteComponent>();
     sprite->spritePath = "Sprites/Crate.png";
     sprite->spriteSize = std::make_unique<Vector2>(250, 250);
     sprite->sortingLayer = layer;
-    sprite->orderInLayer = 1;
+    sprite->orderInLayer = 2;
     auto &transform = tryGetComponent<TransformComponent>();
-    transform.position = std::make_unique<Vector2>(position);
     transform.scale = std::make_unique<Vector2>(0.256, 0.256);
+    float posX = ((localPosition.getX() * (sprite->spriteSize->getX() * transform.scale->getX())) +
+                  ((sprite->spriteSize->getX() * transform.scale->getX()) / 2)) -
+                 (size.getX() * (transform.scale->getX() * sprite->spriteSize->getX()) / 2);
+    float posY = ((localPosition.getY() * (sprite->spriteSize->getY() * transform.scale->getY())) +
+                  ((sprite->spriteSize->getY() * transform.scale->getY()) / 2)) -
+                 (size.getY() * (sprite->spriteSize->getY() * transform.scale->getY()) / 2);
+    transform.position = std::make_unique<Vector2>(posX, posY);
     addComponent(std::move(sprite));
 
     auto cratePushSound = std::make_unique<SoundEffectComponent>("Sounds/box-push-sound.mp3");

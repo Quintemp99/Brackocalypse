@@ -11,7 +11,7 @@
 
 class Crate : public GameObject {
 public:
-    Crate(size_t layer, Vector2 position);
+    Crate(size_t layer, Vector2 localPosition, Vector2 size);
 
     ~Crate() = default;
 };

@@ -17,9 +17,7 @@
 #include "EngineManagers/ReplayManager.hpp"
 #include "../PauseManager.hpp"
 #include "../ProgressBar.hpp"
-#include "../../Scripts/SpawnInBeers.hpp"
 #include "../BeerPool.hpp"
-#include "../Crate.hpp"
 #include "../PlayerHealthBar.hpp"
 #include "../Components/WanderSoundComponent.hpp"
 
@@ -157,13 +155,13 @@ DemoLevel::DemoLevel() : Scene() {
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
-    objectMap[0].emplace_back("...............................................");
+    objectMap[0].emplace_back("...............l...............................");
     objectMap[0].emplace_back("....H..........................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...........I...................................");
-    objectMap[0].emplace_back("...................d...........................");
-    objectMap[0].emplace_back("...............................................");
+    objectMap[0].emplace_back("...................d.l.........................");
+    objectMap[0].emplace_back("........l.............................l........");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
@@ -216,6 +214,6 @@ DemoLevel::DemoLevel() : Scene() {
     auto pauseHandler = std::make_unique<PauseManager>();
     this->addGameObject(std::move(pauseHandler));
 
-    auto crate = std::make_unique<Crate>(1, Vector2(-200, 0));
-    this->addGameObject(std::move(crate));
+//    auto crate = std::make_unique<Crate>(1, Vector2(-200, 0));
+//    this->addGameObject(std::move(crate));
 }
