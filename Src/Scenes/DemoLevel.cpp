@@ -44,22 +44,22 @@ DemoLevel::DemoLevel() : Scene() {
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx.........................");
-    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,,B,,,,,,,,,,,,Bx........................");
     collisionMap.emplace_back(".....x,,,,,,E,,,,,,,,,x........................");
     collisionMap.emplace_back(".....x,,,x,,,,,,,,x,,,x........................");
     collisionMap.emplace_back(".....x,,,,,,x,,,,,,,,,x........................");
     collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
-    collisionMap.emplace_back(".....x,x,,x,,,,,x,,,,,x........................");
-    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,x,,x,,,,,x,,B,,x........................");
+    collisionMap.emplace_back(".....x,B,,,,,,,,,,,,,,x........................");
     collisionMap.emplace_back("....x,,,,,,,x,x,,,,x,,x.........xxxxxxxxxx.....");
-    collisionMap.emplace_back(".....x,,,,xx,,,,x,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,xx,,,,x,,,,,x........x,B,,,,,,,,x....");
     collisionMap.emplace_back(".....x,,,,,x,,,,,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
     collisionMap.emplace_back(".....x,,,,,,,,,,,,x,,,,,,,,,,,,,,,,,,,,E,,x....");
-    collisionMap.emplace_back(".....x,,x,,,,,,x,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,x,,B,,,x,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
     collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........x,,,,,,,,,,x....");
     collisionMap.emplace_back(".....x,,,,,x,,,,,,,,,,x........x,,,,,,,,,,x....");
-    collisionMap.emplace_back(".....x,,,,,,,,,,,,E,,,x........x,,,E,,,,,,x....");
-    collisionMap.emplace_back(".....x,,E,,,,,,,,,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,E,,,x........x,,,E,,,B,,x....");
+    collisionMap.emplace_back(".....xB,E,,,,,,,B,,,,,x........x,,,,,,,,,,x....");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
@@ -186,7 +186,7 @@ DemoLevel::DemoLevel() : Scene() {
     zombieWanderSound->volume = 0.01;
 
     auto enemySpawner = std::make_unique<GameObject>();
-    enemySpawner->addBehaviourScript(EnemySpawn(4000));
+    enemySpawner->addBehaviourScript(EnemySpawn(10000));
     enemySpawner->addComponent(std::move(zombieWanderSound));
     parent->addChild(std::move(enemySpawner));
 

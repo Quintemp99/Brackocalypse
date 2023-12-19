@@ -10,23 +10,25 @@ void BopAnimation::onStart() {
 }
 
 void BopAnimation::onUpdate(milliseconds deltaTime) {
-    if(lastChange_ <= 0){
-        auto& transformComponent = tryGetComponent<TransformComponent>();
-        if(up_){
-            bopProgress_--;
-            transformComponent.position->setY(transformComponent.position->getY() - 1);
-        }else{
-            bopProgress_++;
-            transformComponent.position->setY(transformComponent.position->getY() + 1);
-        }
+    if(isActive){
+        if(lastChange_ <= 0){
+            auto& transformComponent = tryGetComponent<TransformComponent>();
+            if(up_){
+                bopProgress_--;
+                transformComponent.position->setY(transformComponent.position->getY() - 1);
+            }else{
+                bopProgress_++;
+                transformComponent.position->setY(transformComponent.position->getY() + 1);
+            }
 
-        if(bopProgress_ >= bopDepth_){
-            up_ = true;
-        }else if (bopProgress_ <= 0){
-            up_ = false;
+            if(bopProgress_ >= bopDepth_){
+                up_ = true;
+            }else if (bopProgress_ <= 0){
+                up_ = false;
+            }
+            lastChange_ = changeInterval_;
+        } else{
+            lastChange_ -= deltaTime;
         }
-        lastChange_ = changeInterval_;
-    } else{
-        lastChange_ -= deltaTime;
     }
 }

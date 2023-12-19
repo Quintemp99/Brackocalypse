@@ -16,6 +16,7 @@ ProgressBar::ProgressBar() : GameObject() {
     auto backRec = std::make_unique<RectangleComponent>(size);
     backRec->fill = std::make_unique<Color>(168, 168, 168, 1);
     backRec->sortingLayer = 0;
+    backRec->orderInLayer = 1;
     backRecObj->addComponent(std::move(backRec));
 
     //Progress
@@ -23,6 +24,7 @@ ProgressBar::ProgressBar() : GameObject() {
     auto frontRec = std::make_unique<RectangleComponent>(sizeProgress);
     frontRec->fill = std::make_unique<Color>(254, 218, 44, 1);
     frontRec->sortingLayer = 0;
+    frontRec->orderInLayer = 0;
     
     this->addComponent(std::move(frontRec));
     this->addChild(std::move(backRecObj));

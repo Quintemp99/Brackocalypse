@@ -32,13 +32,14 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
             if (enemy->isActive()) {
                 continue;
             }
-            auto spawnObject = getGameObjectsByTag("EnemySpawner")[0];
+
+            auto spawnObject = getGameObjectByTag("EnemySpawner");
             auto &transform = enemy->tryGetComponent<TransformComponent>();
 
             auto &spawnComponent = spawnObject->tryGetComponent<SpawnComponent>();
             auto spawnLocation =
-                    spawnComponent.spawnLocations[RandomGenerator::randomInt(0,
-                                                                             spawnComponent.spawnLocations.size() -
+                    spawnComponent.availableSpawnLocations[RandomGenerator::randomInt(0,
+                                                                             spawnComponent.availableSpawnLocations.size() -
                                                                              1)].get();
             transform.position = std::make_unique<Vector2>(spawnLocation->getX(), spawnLocation->getY());
 
