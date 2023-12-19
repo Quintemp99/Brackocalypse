@@ -12,7 +12,7 @@ void PlayerProgress::onStart() {
 void PlayerProgress::onUpdate(milliseconds deltaTime) {
     int totalProgress = beersCollected - foodCollected;
 
-    auto& progressBar = getGameObjectByTag("ProgressBar")->tryGetComponent<RectangleComponent>();
+    auto& progressBar = getGameObjectByTag("ProgressBar").value().tryGetComponent<RectangleComponent>();
     int progressWidth = 300 / 100 * (totalProgress * 10);
     progressBar.size->setX(progressWidth);
 

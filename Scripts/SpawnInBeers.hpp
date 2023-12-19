@@ -8,7 +8,7 @@
 
 class SpawnInBeers : public BehaviourScript {
 public:
-    SpawnInBeers() : BehaviourScript() {};
+    SpawnInBeers(milliseconds spawnInterval) : BehaviourScript(), spawnInterval_(spawnInterval) {};
     ~SpawnInBeers() override = default;
 
     std::unique_ptr<IBehaviourScript> clone() const override {
@@ -18,13 +18,10 @@ public:
     virtual void onStart() override;
     virtual void onUpdate(milliseconds deltaTime) override;
 
-    float getRandomNumber(int min, int max) {
-        int range = max-min;
-        int random = min + (std::rand() % range);
-        auto randomNum = static_cast<float>(random);
-
-        return randomNum;
-    }
+private:
+    int currentBeerCount = 0;
+    milliseconds spawnInterval_;
+    milliseconds lastSpawned = 0;
 };
 
 

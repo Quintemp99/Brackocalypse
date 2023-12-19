@@ -15,6 +15,8 @@
 #include "Components/HealthComponent.hpp"
 #include "../Scripts/EnemyFollowPlayer.hpp"
 #include "../Scripts/TakeDamage.hpp"
+#include "Components/HitSoundComponent.hpp"
+#include "Components/WanderSoundComponent.hpp"
 #include "../Scripts/MovementAnimation.hpp"
 
 Enemy::Enemy(size_t layer) {
@@ -22,9 +24,12 @@ Enemy::Enemy(size_t layer) {
     auto sprite = std::make_unique<SpriteComponent>();
     auto animation = std::make_unique<AnimationComponent>();
     auto collision = std::make_unique<BoxCollisionComponent>(Vector2(64, 40));
-    auto health = std::make_unique<HealthComponent>(3);
+    auto healthComponent = std::make_unique<HealthComponent>(health_);
+    collision->offset = std::make_unique<Vector2>(0, 44);
+
+    auto zombieHitSound = std::make_unique<HitSoundComponent>("Sounds/zombie-death-sound.mp3");
+
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
-    auto zombieHitSound = std::make_unique<SoundEffectComponent>("Sounds/zombie-death-sound.mp3");
     auto aiComponent = std::make_unique<AIComponent>();
     auto enemyCollisionObject = std::make_unique<GameObject>();
     auto enemyCollision = std::make_unique<BoxCollisionComponent>(Vector2(64, 96));
@@ -63,12 +68,13 @@ Enemy::Enemy(size_t layer) {
     enemyCollisionObject->addComponent(std::move(enemyCollision));
     enemyCollisionObject->setTag("EnemyCollision");
 
-    int totalWidth = health->maxHealth * 19;
+    int totalWidth = healthComponent->maxHealth * 19;
     int offsetX = -totalWidth / 2;
 
     auto healthBar = std::make_unique<GameObject>();
     healthBar->setTag("EnemyHealth");
-    for (auto i = 0; i < health->maxHealth; i++) {
+    healthBar->setName("EnemyHealth");
+    for (auto i = 0; i < healthComponent->maxHealth; i++) {
         auto healthObject = std::make_unique<GameObject>();
         auto healthSprite = std::make_unique<SpriteComponent>();
         healthSprite->spritePath = "Sprites/heart_full.png";
@@ -91,7 +97,7 @@ Enemy::Enemy(size_t layer) {
     addComponent(std::move(sprite));
     addComponent(std::move(collision));
     addComponent(std::move(rigidBody));
-    addComponent(std::move(health));
+    addComponent(std::move(healthComponent));
     addComponent(std::move(zombieHitSound));
     addComponent(std::move(aiComponent));
 

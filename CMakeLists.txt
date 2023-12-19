@@ -67,6 +67,11 @@ add_executable(Brackocalypse main.cpp
         Src/PlayerHealthBar.hpp
         Scripts/EnemyDamage.cpp
         Scripts/EnemyDamage.hpp
+        Src/Components/HitSoundComponent.hpp
+        Src/Components/WanderSoundComponent.hpp
+        Scripts/BopAnimation.cpp
+        Scripts/BopAnimation.hpp
+        Src/RogueLikeMapTiles/BoatMapTile.hpp
         Scripts/MovementAnimation.cpp
         Scripts/MovementAnimation.hpp
 )

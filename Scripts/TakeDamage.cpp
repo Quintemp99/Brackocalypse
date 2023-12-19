@@ -5,6 +5,7 @@
 #include <Components/SoundEffectComponent.hpp>
 #include "TakeDamage.hpp"
 #include "../Src/Components/HealthComponent.hpp"
+#include "../Src/Components/HitSoundComponent.hpp"
 
 void TakeDamage::onStart() {}
 
@@ -22,7 +23,7 @@ void TakeDamage::doDamage(int damage) {
     auto &health = tryGetComponent<HealthComponent>();
     auto tag = tryGetComponent<ObjectInfoComponent>().tag;
     if (tag == "Enemy") {
-        auto &hitSound = tryGetComponent<SoundEffectComponent>();
+        auto &hitSound = tryGetComponent<HitSoundComponent>();
         hitSound.startPlaying = true;
     }
     health.health -= damage;
