@@ -49,21 +49,21 @@ void UserInputMovement::onUpdate(milliseconds deltaTime) {
     playerVelocityComponent.velocity.setX(normalizedHorizontalMovement * velocity);
     playerVelocityComponent.velocity.setY(normalizedVerticalMovement * velocity);
 
-    if (normalizedHorizontalMovement > 0) {
-        spriteComponent.flipX = false;
-    } else if (normalizedHorizontalMovement < 0) {
-        spriteComponent.flipX = true;
-    }
-
-    if (playerVelocityComponent.velocity == Vector2(0, 0)) {
-        walkAnimation.isPlaying = false;
-        spriteComponent.tileOffset = std::make_unique<Vector2>(0, 0);
-    } else {
-        walkAnimation.isPlaying = true;
-        if (walkAnimation.currentFrame == 0 || walkAnimation.currentFrame == 4) {
-//            soundEffect.startPlaying = true;
-        }
-    }
+//    if (normalizedHorizontalMovement > 0) {
+//        spriteComponent.flipX = false;
+//    } else if (normalizedHorizontalMovement < 0) {
+//        spriteComponent.flipX = true;
+//    }
+//
+//    if (playerVelocityComponent.velocity == Vector2(0, 0)) {
+//        walkAnimation.isPlaying = false;
+//        spriteComponent.tileOffset = std::make_unique<Vector2>(0, 0);
+//    } else {
+//        walkAnimation.isPlaying = true;
+//        if (walkAnimation.currentFrame == 0 || walkAnimation.currentFrame == 4) {
+////            soundEffect.startPlaying = true;
+//        }
+//    }
 
     auto playerCol = getGameObjectByTag("PlayerCollision");
     auto &playerCollider = playerCol->tryGetComponent<BoxCollisionComponent>();
