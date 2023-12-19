@@ -40,7 +40,7 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
             enemy->setActive(true);
             auto &health = enemy->tryGetComponent<HealthComponent>();
 
-            health.health = 3;
+            health.health = health.maxHealth;
             currentEnemyCount++;
             break;
         }

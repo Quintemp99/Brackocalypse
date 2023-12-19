@@ -65,6 +65,8 @@ add_executable(Brackocalypse main.cpp
         Scripts/UpdateHealth.hpp
         Src/PlayerHealthBar.cpp
         Src/PlayerHealthBar.hpp
+        Scripts/EnemyDamage.cpp
+        Scripts/EnemyDamage.hpp
         Scripts/MovementAnimation.cpp
         Scripts/MovementAnimation.hpp
 )
