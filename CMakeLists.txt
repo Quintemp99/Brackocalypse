@@ -72,6 +72,12 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/BoatMapTile.hpp
         Scripts/MovementAnimation.cpp
         Scripts/MovementAnimation.hpp
+        Src/Scenes/StoryScene.cpp
+        Src/Scenes/StoryScene.hpp
+        Src/Scenes/IntroductionScene.cpp
+        Src/Scenes/IntroductionScene.hpp
+        Scripts/WriteTextAnimation.cpp
+        Scripts/WriteTextAnimation.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

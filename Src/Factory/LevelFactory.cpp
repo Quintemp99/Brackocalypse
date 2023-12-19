@@ -5,7 +5,6 @@
 #include "LevelFactory.hpp"
 #include "../RogueLikeMapTiles/RogueLikeMapTile.hpp"
 #include "../RogueLikeMapTiles/WaterMapTile.hpp"
-#include "../Player.hpp"
 #include "../../Scripts/UserInputMovement.hpp"
 #include "../RogueLikeMapTiles/CampfireMapTile.hpp"
 #include "../RogueLikeMapTiles/PlayerSpawnMapTile.hpp"

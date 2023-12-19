@@ -3,11 +3,10 @@
 #include <Objects/Button.hpp>
 #include <Components/SpriteComponent.hpp>
 #include <Components/SoundTrackComponent.hpp>
-#include "BrackEngine.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "../Helpers/RogueLikeSheetMap.hpp"
-#include "../Player.hpp"
-#include "DemoLevel.hpp"
+#include "StoryScene.hpp"
+#include "IntroductionScene.hpp"
 
 HomeScene::HomeScene() : Scene() {
     auto &camera = getCameras()[0];
@@ -50,7 +49,7 @@ HomeScene::HomeScene() : Scene() {
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
     startButton->setFontSize(40);
     startButton->setClickEvent([]() {
-        auto scene = new DemoLevel();
+        auto scene = new IntroductionScene();
         SceneManager::getInstance().goToNewScene(scene);
     });
 
