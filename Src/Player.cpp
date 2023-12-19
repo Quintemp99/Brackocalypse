@@ -12,6 +12,7 @@
 #include <Components/RectangleComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
 #include <Components/CircleCollisionComponent.hpp>
+#include <EngineManagers/CollisionLayerManager.hpp>
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
@@ -63,6 +64,8 @@ void Player::init(size_t layer, Vector2 position) {
     addComponent(std::move(collisionComponent));
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     rigidBody->gravityScale = 0.0f;
+    rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Player");
+    rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Player");
     addComponent(std::move(rigidBody));
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
@@ -73,7 +76,9 @@ void Player::init(size_t layer, Vector2 position) {
     collision->offset = std::make_unique<Vector2>(0, 16);
     auto playerRigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     playerRigidBody->gravityScale = 0.0f;
-    collision->isTrigger = true;
+    playerRigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("PlayerHitbox");
+    playerRigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("PlayerHitbox");
+    collision->isTrigger = false;
     playerCollision->addComponent(std::move(playerRigidBody));
     playerCollision->addComponent(std::move(collision));
     playerCollision->setTag("PlayerCollision");

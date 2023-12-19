@@ -8,6 +8,7 @@
 #include <Components/BoxCollisionComponent.hpp>
 #include <Components/RigidBodyComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
+#include <EngineManagers/CollisionLayerManager.hpp>
 #include "Crate.hpp"
 #include "../Scripts/PlayBoxMovingSound.hpp"
 
@@ -36,6 +37,8 @@ Crate::Crate(size_t layer, Vector2 position) {
     rigidBodyComponent->friction = 0;
     rigidBodyComponent->restitution = 0;
     rigidBodyComponent->gravityScale = 0;
+    rigidBodyComponent->collisionCategory = CollisionLayerManager::getInstance().getCategory("Crate");
+    rigidBodyComponent->collisionMask = CollisionLayerManager::getInstance().getMask("Crate");
     addComponent(std::move(rigidBodyComponent));
 
     addBehaviourScript(std::make_unique<PlayBoxMovingSound>());

@@ -7,6 +7,7 @@
 #include <Components/TransformComponent.hpp>
 #include <Components/RigidBodyComponent.hpp>
 #include <Components/BoxCollisionComponent.hpp>
+#include <EngineManagers/CollisionLayerManager.hpp>
 #include "Bullet.hpp"
 #include "../Scripts/BulletActions.hpp"
 
@@ -22,6 +23,8 @@ Bullet::Bullet(size_t layer) {
     transform.scale = std::make_unique<Vector2>(1, 1);
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     rigidBody->gravityScale = 0.0f;
+    rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Bullet");
+    rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Bullet");
     addComponent(std::move(rigidBody));
     auto boxCollision = std::make_unique<BoxCollisionComponent>(Vector2(18, 8));
     boxCollision->isTrigger = false;

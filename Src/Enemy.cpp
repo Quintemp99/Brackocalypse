@@ -11,6 +11,7 @@
 #include <Components/BoxCollisionComponent.hpp>
 #include <Components/AIComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
+#include <EngineManagers/CollisionLayerManager.hpp>
 #include "Enemy.hpp"
 #include "Components/HealthComponent.hpp"
 #include "../Scripts/EnemyFollowPlayer.hpp"
@@ -30,6 +31,8 @@ Enemy::Enemy(size_t layer) {
 
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     rigidBody->gravityScale = 0.0f;
+    rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Enemy");
+    rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Enemy");
 
     sprite->spritePath = "Sprites/character_zombie_sheet.png";
     sprite->spriteSize = std::make_unique<Vector2>(96, 128);
@@ -57,6 +60,8 @@ Enemy::Enemy(size_t layer) {
     enemyCollision->offset = std::make_unique<Vector2>(0, 16);
     auto playerRigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     playerRigidBody->gravityScale = 0.0f;
+    playerRigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("EnemyHitbox");
+    playerRigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("EnemyHitbox");
     enemyCollision->isTrigger = true;
     enemyCollisionObject->addComponent(std::move(playerRigidBody));
     enemyCollisionObject->addComponent(std::move(enemyCollision));
