@@ -10,7 +10,7 @@ void EnemyDamage::onStart() {
 }
 
 void EnemyDamage::onUpdate(milliseconds deltaTime) {
-    auto &playerCollision = getGameObjectByTag("PlayerCollision")->tryGetComponent<BoxCollisionComponent>();
+    auto &playerCollision = getGameObjectByTag("Player")->tryGetComponent<BoxCollisionComponent>();
     auto enemies = getGameObjectsByTag("EnemyCollision");
 
     for (auto &id: playerCollision.collidedWith) {
