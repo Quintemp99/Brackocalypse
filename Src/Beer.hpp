@@ -44,7 +44,7 @@ public:
         transform.scale->setY(0.12);
 
         this->addBehaviourScript(std::make_unique<CollectBeers>());
-        addBehaviourScript(std::make_unique<BopAnimation>(30, 1500));
+        addBehaviourScript(std::make_unique<BopAnimation>(30, 3000));
         this->addComponent(std::move(spriteComponent));
     }
 

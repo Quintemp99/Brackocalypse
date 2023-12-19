@@ -57,7 +57,7 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
                 }
             }
 
-            health.health = 3;
+            health.health = health.maxHealth;
             currentEnemyCount++;
             break;
         }

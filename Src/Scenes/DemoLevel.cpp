@@ -191,7 +191,6 @@ DemoLevel::DemoLevel() : Scene() {
     parent->addChild(std::move(enemySpawner));
 
     auto beerPool = std::make_unique<BeerPool>(10);
-    beerPool->addBehaviourScript(SpawnInBeers());
     parent->addChild(std::move(beerPool));
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));
