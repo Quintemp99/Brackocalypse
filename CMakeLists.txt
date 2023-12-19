@@ -66,6 +66,8 @@ add_executable(Brackocalypse main.cpp
         Src/PlayerHealthBar.cpp
         Src/PlayerHealthBar.hpp
         Scripts/PlayBoxMovingSound.cpp
+        Scripts/EnemyDamage.cpp
+        Scripts/EnemyDamage.hpp
         Src/Components/HitSoundComponent.hpp
         Src/Components/WanderSoundComponent.hpp
         Scripts/BopAnimation.cpp
@@ -73,6 +75,8 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/BoatMapTile.hpp
         Scripts/MovementAnimation.cpp
         Scripts/MovementAnimation.hpp
+        Src/Scenes/GameOverScene.cpp
+        Src/Scenes/GameOverScene.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
