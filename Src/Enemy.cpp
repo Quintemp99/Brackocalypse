@@ -60,7 +60,7 @@ Enemy::Enemy(size_t layer) {
     animation->fps = 15;
     animation->imageSize = std::make_unique<Vector2>(864, 640);
 
-    aiComponent->speed = 10;
+    aiComponent->speed = 15;
     aiComponent->target = std::make_unique<Vector2>(-400, 0);
 
     enemyCollision->offset = std::make_unique<Vector2>(0, 16);
