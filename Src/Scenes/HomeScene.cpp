@@ -78,7 +78,7 @@ void HomeScene::build() {
     auto quitButton = std::make_unique<Button>(Vector2(210, 70), "Quit");
     quitButton->setFontSize(40);
     quitButton->setClickEvent([]() {
-        ConfigSingleton::getInstance().ToggleIsRunning();
+        ConfigSingleton::getInstance().toggleIsRunning();
     });
 
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
