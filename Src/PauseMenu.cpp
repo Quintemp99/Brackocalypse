@@ -94,7 +94,7 @@ PauseMenu::PauseMenu() : GameObject() {
     quitButton->setTag("QuitButton");
     quitButton->setName("QuitButton");
     quitButton->setClickEvent([]() {
-        ConfigSingleton::getInstance().toggleIsRunning();
+        ConfigSingleton::getInstance().ToggleIsRunning();
     });
 
     auto &transformQuit = quitButton->tryGetComponent<TransformComponent>();

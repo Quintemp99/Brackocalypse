@@ -1,10 +1,10 @@
-#include <EngineManagers/CollisionLayerManager.hpp>
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 #include "../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Src/Helpers/RogueLikeSheetMap.hpp"
 #include "Scripts/UserInputMovement.hpp"
 #include "Src/Scenes/HomeScene.hpp"
+#include "EngineManagers/CollisionLayerManager.hpp"
 
 int main() {
     Config config = new Config();

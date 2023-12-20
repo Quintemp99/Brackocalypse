@@ -77,6 +77,8 @@ add_executable(Brackocalypse main.cpp
         Scripts/MovementAnimation.hpp
         Src/Scenes/GameOverScene.cpp
         Src/Scenes/GameOverScene.hpp
+        Scripts/ToggleFPS.hpp
+        Scripts/ToggleFPS.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

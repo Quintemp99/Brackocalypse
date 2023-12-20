@@ -9,12 +9,16 @@
 #include "../Player.hpp"
 #include "DemoLevel.hpp"
 #include "../../Scripts/ToggleFPS.hpp"
+#include "Components/PersistenceTag.hpp"
 
 HomeScene::HomeScene() : Scene() {
-    auto obj = SceneManager::getInstance().getGameObjectByName("FPS");
-    if (obj.has_value()) {
-        obj.value()->addBehaviourScript(std::make_unique<ToggleFPS>());
+    auto obj = std::make_unique<GameObject>();
+    obj->addComponent(std::make_unique<PersistenceTag>());
+    if (obj) {
+        obj->addBehaviourScript(std::make_unique<ToggleFPS>());
     }
+    addGameObject(std::move(obj));
+
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
@@ -71,7 +75,7 @@ HomeScene::HomeScene() : Scene() {
     auto quitButton = std::make_unique<Button>(Vector2(210, 70), "Quit");
     quitButton->setFontSize(40);
     quitButton->setClickEvent([]() {
-        ConfigSingleton::getInstance().toggleIsRunning();
+        ConfigSingleton::getInstance().ToggleIsRunning();
     });
 
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
