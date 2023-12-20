@@ -10,7 +10,8 @@
 
 class MovementAnimation : public BehaviourScript {
 public:
-    MovementAnimation() : BehaviourScript() {}
+    MovementAnimation() : BehaviourScript() {
+    }
 
     ~MovementAnimation() override = default;
 
@@ -20,7 +21,9 @@ public:
 
     std::unique_ptr<IBehaviourScript> clone() const override {
         return std::make_unique<MovementAnimation>(*this);
+    }
 
+    MovementAnimation(const MovementAnimation &other) : BehaviourScript(other) {
     }
 };
 

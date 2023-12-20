@@ -10,8 +10,8 @@
 #include <EngineManagers/InputManager.hpp>
 #include <Helpers/KeyMap.hpp>
 
-void WriteTextAnimation::onUpdate(milliseconds deltaTime){
-    if(InputManager::GetInstance().IsKeyClicked(KeyMap::RETURN)){
+void WriteTextAnimation::onUpdate(milliseconds deltaTime) {
+    if (InputManager::GetInstance().IsKeyClicked(KeyMap::RETURN)) {
         nextScene->build();
         SceneManager::getInstance().goToNewScene(nextScene);
     }
@@ -20,18 +20,18 @@ void WriteTextAnimation::onUpdate(milliseconds deltaTime){
         charPos = 0;
         linePos++;
     }
-    if(linePos == lines.size()) {
+    if (linePos == lines.size()) {
         return;
     };
 
     if (lastWrite <= 0) {
-        if(lastSound <= 0){
+        if (lastSound <= 0) {
             int randomIndexSound = RandomGenerator::randomInt(0, 3);
-            auto& soundComponent = tryGetComponent<SoundEffectComponent>();
+            auto &soundComponent = tryGetComponent<SoundEffectComponent>();
             soundComponent.startPlaying = true;
             soundComponent.audioPath = soundPaths[randomIndexSound];
             lastSound = soundInterval;
-        }else
+        } else
             lastSound -= deltaTime;
         lastWrite = writeInterval;
         std::stringstream tag;
@@ -45,4 +45,8 @@ void WriteTextAnimation::onUpdate(milliseconds deltaTime){
     }
 }
 
-void WriteTextAnimation::onStart() {}
+WriteTextAnimation::~WriteTextAnimation() {
+}
+
+void WriteTextAnimation::onStart() {
+}

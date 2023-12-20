@@ -18,6 +18,11 @@ public:
     virtual void onStart() override;
     virtual void onUpdate(milliseconds deltaTime) override;
 
+    SpawnInBeers(const SpawnInBeers &other) : BehaviourScript(other) {
+        spawnInterval_ = other.spawnInterval_;
+        lastSpawned = other.lastSpawned;
+    }
+
 private:
     int currentBeerCount = 0;
     milliseconds spawnInterval_;

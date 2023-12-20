@@ -10,7 +10,8 @@
 
 class ToggleFPS : public BehaviourScript {
 public:
-    ToggleFPS() : BehaviourScript() {}
+    ToggleFPS() : BehaviourScript() {
+    }
 
     ~ToggleFPS() override = default;
 
@@ -22,7 +23,9 @@ public:
         return std::make_unique<ToggleFPS>(*this);
     }
 
-    ToggleFPS(const ToggleFPS &other) : BehaviourScript(other) {}
+
+    ToggleFPS(const ToggleFPS &other) : BehaviourScript(other) {
+    }
 };
 
 
