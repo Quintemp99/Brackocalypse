@@ -37,7 +37,7 @@ Enemy::Enemy(size_t layer) {
     auto enemyCollision = std::make_unique<BoxCollisionComponent>(Vector2(64, 96));
     auto enemyRigidbody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
 
-    zombieHitSound->volume = 0.05;
+    zombieHitSound->volume = 0.01;
 
     rigidBody->gravityScale = 0.0f;
     rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Enemy");
@@ -60,7 +60,7 @@ Enemy::Enemy(size_t layer) {
     animation->fps = 15;
     animation->imageSize = std::make_unique<Vector2>(864, 640);
 
-    aiComponent->speed = 10;
+    aiComponent->speed = 15;
     aiComponent->target = std::make_unique<Vector2>(-400, 0);
 
     enemyCollision->offset = std::make_unique<Vector2>(0, 16);

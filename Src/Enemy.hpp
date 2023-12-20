@@ -15,7 +15,7 @@ public:
 
     ~Enemy() = default;
 
-    int health_ = 2;
+    int health_ = 3;
 };
 
 

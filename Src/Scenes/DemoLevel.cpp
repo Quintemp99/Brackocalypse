@@ -22,6 +22,11 @@
 #include "../Components/WanderSoundComponent.hpp"
 
 DemoLevel::DemoLevel() : Scene() {
+
+}
+
+void DemoLevel::build() {
+    Scene::build();
     ReplayManager::getInstance().startRecording(10000, 100);
 
     auto camera = getAllCameras()[0];
@@ -177,7 +182,6 @@ DemoLevel::DemoLevel() : Scene() {
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
     auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
 
-
     auto parent = std::make_unique<GameObject>();
     parent->setName("GameParent");
 
@@ -185,11 +189,11 @@ DemoLevel::DemoLevel() : Scene() {
     zombieWanderSound->volume = 0.01;
 
     auto enemySpawner = std::make_unique<GameObject>();
-    enemySpawner->addBehaviourScript(EnemySpawn(10000));
+    enemySpawner->addBehaviourScript(EnemySpawn(4000));
     enemySpawner->addComponent(std::move(zombieWanderSound));
     parent->addChild(std::move(enemySpawner));
 
-    auto beerPool = std::make_unique<BeerPool>(10);
+    auto beerPool = std::make_unique<BeerPool>(6);
     parent->addChild(std::move(beerPool));
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));
@@ -202,8 +206,12 @@ DemoLevel::DemoLevel() : Scene() {
         parent->addChild(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
-    parent->addChild(std::move(player));
+    auto spawnObject = parent->getChildGameObjectByName("PlayerSpawn");
+    if (spawnObject.has_value()) {
+        auto player = std::make_unique<Player>(spawnObject.value());
+        parent->addChild(std::move(player));
+    }
+
     parent->addChild(std::make_unique<PlayerHealthBar>());
 
     this->addGameObject(std::move(parent));
@@ -213,7 +221,4 @@ DemoLevel::DemoLevel() : Scene() {
 
     auto pauseHandler = std::make_unique<PauseManager>();
     this->addGameObject(std::move(pauseHandler));
-
-//    auto crate = std::make_unique<Crate>(1, Vector2(-200, 0));
-//    this->addGameObject(std::move(crate));
 }

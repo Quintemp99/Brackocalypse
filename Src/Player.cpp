@@ -20,6 +20,7 @@
 #include "../Scripts/UpdateHealth.hpp"
 #include "../Scripts/TakeDamage.hpp"
 #include "../Scripts/EnemyDamage.hpp"
+#include "Components/HitSoundComponent.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
@@ -46,6 +47,7 @@ void Player::init(size_t layer, Vector2 position) {
     auto collision = std::make_unique<BoxCollisionComponent>(Vector2(64, 96));
     auto playerRigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     auto gun = std::make_unique<Gun>(layer);
+    auto hitSound = std::make_unique<HitSoundComponent>("Sounds/player-hit-sound.mp3");
 
     sprite->spritePath = "Sprites/character_maleAdventurer_sheet.png";
     sprite->spriteSize = std::make_unique<Vector2>(96, 128);
@@ -69,12 +71,15 @@ void Player::init(size_t layer, Vector2 position) {
     rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Player");
     rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Player");
 
+    hitSound->volume = 0.01;
+
     addComponent(std::make_unique<VelocityComponent>());
     addComponent(std::move(collisionComponent));
     addComponent(std::move(rigidBody));
     addComponent(std::move(sprite));
     addComponent(std::move(walkAnimation));
     addComponent(std::move(health));
+    addComponent(std::move(hitSound));
 
     collision->offset = std::make_unique<Vector2>(0, 16);
     collision->isTrigger = false;
