@@ -37,8 +37,11 @@ void WriteTextAnimation::onUpdate(milliseconds deltaTime) {
         std::stringstream tag;
         tag << "Line" << linePos;
         auto textObject = getGameObjectByTag(tag.str());
-        auto &textComponent = textObject->tryGetComponent<TextComponent>();
-        textComponent.text += lines[linePos][charPos];
+        if (textObject.has_value()) {
+            auto &textComponent = textObject->tryGetComponent<TextComponent>();
+            textComponent.text += lines[linePos][charPos];
+        }
+
         charPos++;
     } else {
         lastWrite -= deltaTime;
