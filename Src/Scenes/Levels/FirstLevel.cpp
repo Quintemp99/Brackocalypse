@@ -17,10 +17,12 @@
 #include "EngineManagers/ReplayManager.hpp"
 #include "../../PauseManager.hpp"
 #include "../../ProgressBar.hpp"
-#include "../../../Scripts/SpawnInBeers.hpp"
 #include "../../BeerPool.hpp"
+#include "../../PlayerHealthBar.hpp"
+#include "../../Components/WanderSoundComponent.hpp"
 
-FirstLevel::FirstLevel() : Scene() {
+void FirstLevel::build() {
+    Scene::build();
     ReplayManager::getInstance().startRecording(10000, 100);
 
     auto camera = getAllCameras()[0];
@@ -31,8 +33,6 @@ FirstLevel::FirstLevel() : Scene() {
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
-    camera->addBehaviourScript(EnemySpawn());
-
 
     std::vector<std::vector<std::string>> objectMap{};
     std::vector<std::vector<std::string>> tileMap{};
@@ -44,22 +44,22 @@ FirstLevel::FirstLevel() : Scene() {
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx.........................");
-    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,,B,,,,,,,,,,,,Bx........................");
     collisionMap.emplace_back(".....x,,,,,,E,,,,,,,,,x........................");
     collisionMap.emplace_back(".....x,,,x,,,,,,,,x,,,x........................");
     collisionMap.emplace_back(".....x,,,,,,x,,,,,,,,,x........................");
     collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
-    collisionMap.emplace_back(".....x,x,,x,,,,,x,,,,,x........................");
-    collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........................");
+    collisionMap.emplace_back(".....x,x,,x,,,,,x,,B,,x........................");
+    collisionMap.emplace_back(".....x,B,,,,,,,,,,,,,,x........................");
     collisionMap.emplace_back("....x,,,,,,,x,x,,,,x,,x.........xxxxxxxxxx.....");
-    collisionMap.emplace_back(".....x,,,,xx,,,,x,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,xx,,,,x,,,,,x........x,B,,,,,,,,x....");
     collisionMap.emplace_back(".....x,,,,,x,,,,,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
     collisionMap.emplace_back(".....x,,,,,,,,,,,,x,,,,,,,,,,,,,,,,,,,,E,,x....");
-    collisionMap.emplace_back(".....x,,x,,,,,,x,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,x,,B,,,x,,,,,,xxxxxxxxxx,,,,,,,,,,x....");
     collisionMap.emplace_back(".....x,,,,,,,,,,,,,,,,x........x,,,,,,,,,,x....");
     collisionMap.emplace_back(".....x,,,,,x,,,,,,,,,,x........x,,,,,,,,,,x....");
-    collisionMap.emplace_back(".....x,,,,,,,,,,,,E,,,x........x,,,E,,,,,,x....");
-    collisionMap.emplace_back(".....x,,E,,,,,,,,,,,,,x........x,,,,,,,,,,x....");
+    collisionMap.emplace_back(".....x,,,,,,,,,,,,E,,,x........x,,,E,,,B,,x....");
+    collisionMap.emplace_back(".....xB,E,,,,,,,B,,,,,x........x,,,,,,,,,,x....");
     collisionMap.emplace_back("......xxxxxxxxxxxxxxxx..........xxxxxxxxxx.....");
     collisionMap.emplace_back("...............................................");
     collisionMap.emplace_back("...............................................");
@@ -105,7 +105,7 @@ FirstLevel::FirstLevel() : Scene() {
     tileMap[1].emplace_back("............K..................................");
     tileMap[1].emplace_back("...............................................");
     tileMap[1].emplace_back(".......K..K.....K..............................");
-    tileMap[1].emplace_back("....HJ.........................................");
+    tileMap[1].emplace_back(".....J.........................................");
     tileMap[1].emplace_back(".....a......D.R....K...........................");
     tileMap[1].emplace_back("..........ij....K..............................");
     tileMap[1].emplace_back("...............................................");
@@ -156,13 +156,13 @@ FirstLevel::FirstLevel() : Scene() {
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
-    objectMap[0].emplace_back("...............................................");
-    objectMap[0].emplace_back("...............................................");
+    objectMap[0].emplace_back("...............l...............................");
+    objectMap[0].emplace_back("....H..........................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...........I...................................");
-    objectMap[0].emplace_back("...................d...........................");
-    objectMap[0].emplace_back("...............................................");
+    objectMap[0].emplace_back("...................d.l.........................");
+    objectMap[0].emplace_back("........l.............................l........");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
     objectMap[0].emplace_back("...............................................");
@@ -177,14 +177,19 @@ FirstLevel::FirstLevel() : Scene() {
 
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
     auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
-    enemyPool->setTag("EnemyPool");
-
 
     auto parent = std::make_unique<GameObject>();
     parent->setName("GameParent");
 
-    auto beerPool = std::make_unique<BeerPool>(10);
-    beerPool->addBehaviourScript(SpawnInBeers());
+    auto zombieWanderSound = std::make_unique<WanderSoundComponent>("Sounds/zombie-sound.mp3");
+    zombieWanderSound->volume = 0.01;
+
+    auto enemySpawner = std::make_unique<GameObject>();
+    enemySpawner->addBehaviourScript(EnemySpawn(4000));
+    enemySpawner->addComponent(std::move(zombieWanderSound));
+    parent->addChild(std::move(enemySpawner));
+
+    auto beerPool = std::make_unique<BeerPool>(6);
     parent->addChild(std::move(beerPool));
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));
@@ -192,12 +197,18 @@ FirstLevel::FirstLevel() : Scene() {
     auto progressBar = std::make_unique<ProgressBar>();
     parent->addChild(std::move(progressBar));
 
+
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(parent->getChildGameObjectByName("PlayerSpawn"));
-    parent->addChild(std::move(player));
+    auto spawnObject = parent->getChildGameObjectByName("PlayerSpawn");
+    if (spawnObject.has_value()) {
+        auto player = std::make_unique<Player>(spawnObject.value());
+        parent->addChild(std::move(player));
+    }
+
+    parent->addChild(std::make_unique<PlayerHealthBar>());
 
     this->addGameObject(std::move(parent));
 

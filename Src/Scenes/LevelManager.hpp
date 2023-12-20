@@ -16,9 +16,10 @@ public:
     LevelManager &operator=(LevelManager &&) = delete;
 
     int currentLevel = 0;
-    void goToLevel(bool goDirectly = false);
+    void goToLevel();
     void goToNextLevel();
-    void goToSpecificLevel(int level, bool goDirectly = false);
+    void goToSpecificLevel(int level);
+    void loadLevel(int level);
 private:
     LevelManager() = default;
     static LevelManager instance;

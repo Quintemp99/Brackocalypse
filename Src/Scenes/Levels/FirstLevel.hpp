@@ -6,7 +6,9 @@
 
 class FirstLevel : public Scene {
 public:
-    FirstLevel();
+    FirstLevel() = default;
+
+    void build() override;
 };
 
 

@@ -10,6 +10,7 @@
 #include "DemoLevel.hpp"
 #include "../SaveLoadGame.hpp"
 #include "LevelManager.hpp"
+#include "Levels/FirstLevel.hpp"
 
 HomeScene::HomeScene() : Scene() {}
 

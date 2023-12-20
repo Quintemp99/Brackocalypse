@@ -22,9 +22,12 @@ std::string SaveLoadGame::stringifyEnemy(Enemy& enemy) const {
     auto& transformComp = enemy.tryGetComponent<TransformComponent>();
     auto& position = transformComp.position;
 
+    bool test = enemy.isActive();
+
     content += "[";
     content += std::to_string(position->getX()) + ",";
-    content += std::to_string(position->getY());
+    content += std::to_string(position->getY()) + ",";
+    content += std::to_string(enemy.isActive() ? 1 : 0);
     content += "]";
 
     return content;
@@ -89,22 +92,52 @@ bool SaveLoadGame::load(const std::string &filePath) const {
         }
 
         int level = std::stof(keyValueMap["level"]);
-        LevelManager::getInstance().goToSpecificLevel(level, true);
+        LevelManager::getInstance().loadLevel(level);
 
         auto player = GameObjectConverter::getGameObjectByName("Player");
         auto& transformComp = player.value()->tryGetComponent<TransformComponent>();
         transformComp.position->setX(std::stof(keyValueMap["xPosition"]));
         transformComp.position->setY(std::stof(keyValueMap["yPosition"]));
 
-//        int beers = std::stof(keyValueMap["beers"]);
-//        auto playerS = player.value();
-//        PlayerProgress& script = player.value()->tryGetBehaviourScript<PlayerProgress>();
-//        script.setBeersCollected(beers);
+        //Zombies
+        auto inputEnemy = keyValueMap["enemies"];
+        inputEnemy.erase(std::remove(inputEnemy.begin(), inputEnemy.end(), '['), inputEnemy.end());
 
-        auto enemyContent = keyValueMap["enemies"];
-        auto enemyPool = GameObjectConverter::getGameObjectByTag("EnemyPool").value();
-        for(auto& enemy : enemyPool.getChildren()) {
-            enemy->setActive(false);
+        std::vector<std::vector<int>> enemies;
+        std::istringstream ss(inputEnemy);
+        std::string arrayString;
+
+        // Split the string by "][" and store each array string in the vector
+        while (std::getline(ss, arrayString, ']')) {
+            if (!arrayString.empty()) {
+                //Toke
+                std::istringstream ss(arrayString);
+                std::string arrayItemString;
+                std::vector<int> array;
+
+                while (std::getline(ss, arrayItemString, ',')) {
+                    if (!arrayItemString.empty()) {
+                        array.push_back(std::stoi(arrayItemString));
+                    }
+                }
+                enemies.push_back(array);
+            }
+        }
+
+        auto enemyPool = GameObjectConverter::getGameObjectsByTag("Enemy");
+        for(int i = 0; i < enemyPool.size(); ++i) {
+            auto& enemy = enemyPool[i];
+
+            if(enemies.size() <= i) {
+                enemy->setActive(false);
+                continue;
+            }
+
+            auto enemyItems = enemies[i];
+            auto& transformCompEnemy = enemy->tryGetComponent<TransformComponent>();
+            transformCompEnemy.position->setX(enemyItems[0]);
+            transformCompEnemy.position->setY(enemyItems[1]);
+            enemy->setActive(enemyItems[2]);
         }
 
         return true;

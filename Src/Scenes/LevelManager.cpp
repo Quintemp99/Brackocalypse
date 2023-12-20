@@ -18,18 +18,28 @@ void LevelManager::goToNextLevel() {
     goToLevel();
 }
 
-void LevelManager::goToLevel(bool goDirectly) {
+void LevelManager::goToLevel() {
+    Scene* level = nullptr;
+
     switch(currentLevel) {
         case 1:
-            SceneManager::getInstance().goToNewScene(new FirstLevel(), goDirectly);
+            level = new FirstLevel();
             break;
         default:
-            SceneManager::getInstance().goToNewScene(new EndScene(), goDirectly);
+            level = new EndScene();
             break;
     }
+
+    level->build();
+    SceneManager::getInstance().goToNewScene(level);
 }
 
-void LevelManager::goToSpecificLevel(int level, bool goDirectly) {
+void LevelManager::goToSpecificLevel(int level) {
     currentLevel = level;
-    goToLevel(goDirectly);
+    goToLevel();
+}
+
+void LevelManager::loadLevel(int level) {
+    goToSpecificLevel(level);
+    SceneManager::getInstance().setActiveScene();
 }
