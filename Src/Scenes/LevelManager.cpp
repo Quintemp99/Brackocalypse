@@ -5,7 +5,7 @@
 #include "LevelManager.hpp"
 #include <EngineManagers/SceneManager.hpp>
 #include "./Levels/FirstLevel.hpp"
-#include "EndScreen.hpp"
+#include "EndScene.hpp"
 
 LevelManager LevelManager::instance;
 
@@ -24,7 +24,7 @@ void LevelManager::goToLevel(bool goDirectly) {
             SceneManager::getInstance().goToNewScene(new FirstLevel(), goDirectly);
             break;
         default:
-            SceneManager::getInstance().goToNewScene(new EndScreen(), goDirectly);
+            SceneManager::getInstance().goToNewScene(new EndScene(), goDirectly);
             break;
     }
 }
