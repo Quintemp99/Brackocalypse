@@ -62,6 +62,8 @@ add_executable(Brackocalypse main.cpp
         Src/PauseManager.hpp
         Scripts/BulletHitEnemy.cpp
         Scripts/TakeDamage.cpp
+        Src/Scenes/LevelManager.cpp
+        Src/Scenes/Levels/FirstLevel.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

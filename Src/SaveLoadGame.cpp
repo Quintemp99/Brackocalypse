@@ -15,6 +15,20 @@ bool SaveLoadGame::load() const {
     return load(defaultPath);
 }
 
+std::string SaveLoadGame::stringifyEnemy(Enemy& enemy) const {
+    std::string content;
+
+    auto& transformComp = enemy.tryGetComponent<TransformComponent>();
+    auto& position = transformComp.position;
+
+    content += "[";
+    content += std::to_string(position->getX()) + ",";
+    content += std::to_string(position->getY());
+    content += "]";
+
+    return content;
+}
+
 bool SaveLoadGame::save(const std::string &filePath) const {
     std::string content;
 
@@ -23,10 +37,17 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     auto& position = transformComp.position;
     PlayerProgress& script = player.value()->tryGetBehaviourScript<PlayerProgress>();
 
-    //Example data
     content += "xPosition: " + std::to_string(position->getX()) + "\n";
     content += "yPosition: " + std::to_string(position->getY()) + "\n";
     content += "beers: " + std::to_string(script.getBeersCollected()) + "\n";
+
+    auto enemies = SceneManager::getGameObjectsByTag("Enemy");
+    content += "enemies: ";
+    for(auto& enemy : enemies) {
+        auto enemyCast = static_cast<Enemy *>(enemy);
+        content += stringifyEnemy(*enemyCast);
+    }
+    content += "\n";
 
     try {
         SaveLoad::getInstance().save(filePath, content);
@@ -72,6 +93,8 @@ bool SaveLoadGame::load(const std::string &filePath) const {
 
         PlayerProgress& script = player.value()->tryGetBehaviourScript<PlayerProgress>();
         script.setBeersCollected(std::stof(keyValueMap["beers"]));
+
+        auto enemieContent = keyValueMap["enemies"];
 
         return true;
     } catch(std::exception exception) {

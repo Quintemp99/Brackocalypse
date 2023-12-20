@@ -2,6 +2,7 @@
 #define BRACKOCALYPSE_SAVELOADGAME_HPP
 
 #include "BrackEngine.hpp"
+#include "Enemy.hpp"
 
 class SaveLoadGame {
 public:
@@ -24,6 +25,7 @@ private:
     static SaveLoadGame instance;
     static const std::string defaultPath;
     std::vector<std::string> splitString(const std::string& input, char delimiter) const;
+    std::string stringifyEnemy(Enemy& enemy) const;
 };
 
 
