@@ -8,12 +8,11 @@
 
 int main() {
     Config config = new Config();
-    config.fpsLimit = 120;
     config.showFPS = true;
     config.deltaTimeMultiplier = 1.0;
     config.windowTitle = "Brackocalypse";
     config.windowSize = Vector2(640, 640);
-//    config.fpsLimit = 60;
+    //    config.fpsLimit = 60;
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
 

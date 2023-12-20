@@ -15,6 +15,12 @@ HomeScene::HomeScene() : Scene() {}
 
 void HomeScene::build() {
     Scene::build();
+    auto obj = std::make_unique<GameObject>();
+    obj->addComponent(std::make_unique<PersistenceTag>());
+    if (obj) {
+        obj->addBehaviourScript(std::make_unique<ToggleFPS>());
+    }
+    addGameObject(std::move(obj));
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
