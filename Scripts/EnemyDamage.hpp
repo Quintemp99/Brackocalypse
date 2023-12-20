@@ -10,7 +10,8 @@
 
 class EnemyDamage : public BehaviourScript {
 public:
-    EnemyDamage() : BehaviourScript() {}
+    EnemyDamage() : BehaviourScript() {
+    }
 
     ~EnemyDamage() override = default;
 
@@ -23,13 +24,15 @@ public:
     }
 
     EnemyDamage(const EnemyDamage &other) : BehaviourScript(other) {
+        damage = other.damage;
+        damageCooldown = other.damageCooldown;
+        damageTimer = other.damageTimer;
     }
 
 private:
     int damage = 1;
     milliseconds damageCooldown = 1000;
     milliseconds damageTimer = damageCooldown;
-
 };
 
 

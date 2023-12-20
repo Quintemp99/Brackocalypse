@@ -8,11 +8,19 @@
 #include "StoryScene.hpp"
 #include "IntroductionScene.hpp"
 #include "DemoLevel.hpp"
+#include "../../Scripts/ToggleFPS.hpp"
+#include "Components/PersistenceTag.hpp"
 
 HomeScene::HomeScene() : Scene() {}
 
 void HomeScene::build() {
     Scene::build();
+    auto obj = std::make_unique<GameObject>();
+    obj->addComponent(std::make_unique<PersistenceTag>());
+    if (obj) {
+        obj->addBehaviourScript(std::make_unique<ToggleFPS>());
+    }
+    addGameObject(std::move(obj));
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
@@ -36,6 +44,7 @@ void HomeScene::build() {
 
 
     auto logo = std::make_unique<GameObject>();
+
     auto spriteBg = std::make_unique<SpriteComponent>();
     spriteBg->spritePath = "Sprites/logo.png";
     spriteBg->spriteSize = std::make_unique<Vector2>(736, 105);

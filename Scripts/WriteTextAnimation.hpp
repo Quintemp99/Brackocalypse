@@ -12,7 +12,7 @@
 class WriteTextAnimation : public BehaviourScript{
 public:
     explicit WriteTextAnimation(std::vector<std::string> lines, Scene* nextScene) : BehaviourScript(), lines(lines), nextScene(nextScene) {}
-    ~WriteTextAnimation() override = default;
+    ~WriteTextAnimation() override;
 
     std::unique_ptr<IBehaviourScript> clone() const override {
         return std::make_unique<WriteTextAnimation>(*this);

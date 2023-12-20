@@ -10,7 +10,8 @@
 
 class EnemyFollowPlayer : public BehaviourScript {
 public:
-    EnemyFollowPlayer(std::string graphName) : BehaviourScript(), graphName(std::move(graphName)) {}
+    EnemyFollowPlayer(std::string graphName) : BehaviourScript(), graphName(std::move(graphName)) {
+    }
 
     ~EnemyFollowPlayer() override = default;
 
@@ -22,11 +23,12 @@ public:
         return std::make_unique<EnemyFollowPlayer>(*this);
     }
 
-    EnemyFollowPlayer(const EnemyFollowPlayer &other) : BehaviourScript(other) {}
+    EnemyFollowPlayer(const EnemyFollowPlayer &other) : BehaviourScript(other) {
+        graphName = other.graphName;
+    }
 
     std::string graphName;
 };
-
 
 
 #endif //BRACKOCALYPSE_ENEMYFOLLOWPLAYER_HPP

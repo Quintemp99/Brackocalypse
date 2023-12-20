@@ -10,7 +10,8 @@
 
 class PlayBoxMovingSound : public BehaviourScript {
 public:
-    PlayBoxMovingSound() : BehaviourScript() {};
+    PlayBoxMovingSound() : BehaviourScript() {
+    };
 
     ~PlayBoxMovingSound() override = default;
 
@@ -22,8 +23,11 @@ public:
         return std::make_unique<PlayBoxMovingSound>(*this);
     }
 
-    PlayBoxMovingSound(const PlayBoxMovingSound &other) :
-            BehaviourScript(other) {};
+    PlayBoxMovingSound(const PlayBoxMovingSound &other) : BehaviourScript(other) {
+        timer = other.timer;
+        interval = other.interval;
+        canPlay = other.canPlay;
+    };
 
 private:
     milliseconds timer = 0.0f;
