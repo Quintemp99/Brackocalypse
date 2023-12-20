@@ -20,6 +20,8 @@ public:
     bool load() const;
     bool save(const std::string& filePath) const;
     bool load(const std::string& filePath) const;
+
+    bool canLoad() const;
 private:
     SaveLoadGame() = default;
     static SaveLoadGame instance;

@@ -1,5 +1,6 @@
 #include "SaveLoadGame.hpp"
 #include "../Scripts/PlayerProgress.hpp"
+#include "Scenes/LevelManager.hpp"
 #include <SaveLoad.hpp>
 #include <sstream>
 
@@ -40,6 +41,7 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     content += "xPosition: " + std::to_string(position->getX()) + "\n";
     content += "yPosition: " + std::to_string(position->getY()) + "\n";
     content += "beers: " + std::to_string(script.getBeersCollected()) + "\n";
+    content += "level: " + std::to_string(LevelManager::getInstance().currentLevel) + "\n";
 
     auto enemies = SceneManager::getGameObjectsByTag("Enemy");
     content += "enemies: ";
@@ -86,19 +88,33 @@ bool SaveLoadGame::load(const std::string &filePath) const {
             }
         }
 
+        int level = std::stof(keyValueMap["level"]);
+        LevelManager::getInstance().goToSpecificLevel(level, true);
+
         auto player = GameObjectConverter::getGameObjectByName("Player");
         auto& transformComp = player.value()->tryGetComponent<TransformComponent>();
         transformComp.position->setX(std::stof(keyValueMap["xPosition"]));
         transformComp.position->setY(std::stof(keyValueMap["yPosition"]));
 
-        PlayerProgress& script = player.value()->tryGetBehaviourScript<PlayerProgress>();
-        script.setBeersCollected(std::stof(keyValueMap["beers"]));
+//        int beers = std::stof(keyValueMap["beers"]);
+//        auto playerS = player.value();
+//        PlayerProgress& script = player.value()->tryGetBehaviourScript<PlayerProgress>();
+//        script.setBeersCollected(beers);
 
-        auto enemieContent = keyValueMap["enemies"];
+        auto enemyContent = keyValueMap["enemies"];
+        auto enemyPool = GameObjectConverter::getGameObjectByTag("EnemyPool").value();
+        for(auto& enemy : enemyPool.getChildren()) {
+            enemy->setActive(false);
+        }
 
         return true;
     } catch(std::exception exception) {
         Logger::Error("Unable to load file");
         return false;
     }
+}
+
+bool SaveLoadGame::canLoad() const {
+    std::ifstream file(defaultPath.c_str());
+    return file.good();
 }

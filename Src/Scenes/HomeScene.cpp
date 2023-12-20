@@ -48,15 +48,27 @@ HomeScene::HomeScene() : Scene() {
     logo->addComponent(std::move(transformBg));
     addGameObject(std::move(logo));
 
+    auto centerY = ConfigSingleton::GetInstance().GetWindowSize().getY() / 2;
+    auto centerX = ConfigSingleton::GetInstance().GetWindowSize().getX() / 2;
+
+    if(SaveLoadGame::getInstance().canLoad()) {
+        auto loadButton = std::make_unique<Button>(Vector2(210, 70), "Load game");
+        loadButton->setFontSize(40);
+        loadButton->setClickEvent([]() {
+            SaveLoadGame::getInstance().load();
+        });
+
+        auto &transformLoadButton = loadButton->tryGetComponent<TransformComponent>();
+        transformLoadButton.position = std::make_unique<Vector2>(centerX - 105, centerY + 150);
+        addGameObject(std::move(loadButton));
+    }
+
     //Start button
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
     startButton->setFontSize(40);
     startButton->setClickEvent([]() {
         LevelManager::getInstance().goToSpecificLevel(1);
     });
-
-    auto centerY = ConfigSingleton::GetInstance().GetWindowSize().getY() / 2;
-    auto centerX = ConfigSingleton::GetInstance().GetWindowSize().getX() / 2;
 
     auto &transformStartButton = startButton->tryGetComponent<TransformComponent>();
     transformStartButton.position = std::make_unique<Vector2>(-150 + centerX - 105, centerY + 50);

@@ -177,6 +177,7 @@ FirstLevel::FirstLevel() : Scene() {
 
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
     auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
+    enemyPool->setTag("EnemyPool");
 
 
     auto parent = std::make_unique<GameObject>();
