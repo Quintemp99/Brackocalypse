@@ -13,7 +13,6 @@ void BulletActions::onStart() {
 
 void BulletActions::onUpdate(milliseconds deltaTime) {
     timer += deltaTime;
-    std::cout << "Delta: " << deltaTime << "\n";
     if (timer >= lifeTime) {
         setInactive();
     }
