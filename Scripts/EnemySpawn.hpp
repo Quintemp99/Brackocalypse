@@ -11,7 +11,7 @@
 class EnemySpawn : public BehaviourScript {
 
 public:
-    EnemySpawn() : BehaviourScript() {}
+    EnemySpawn(milliseconds spawnInterval) : BehaviourScript(), spawnInterval_(spawnInterval) {}
 
     ~EnemySpawn() override = default;
 
@@ -25,12 +25,18 @@ public:
 
     EnemySpawn(const EnemySpawn &other) : BehaviourScript(other) {
         currentEnemyCount = other.currentEnemyCount;
+        spawnInterval_ = other.spawnInterval_;
+        lastSpawned = other.lastSpawned;
+        makeWanderSoundInterval = other.makeWanderSoundInterval;
+        lastWanderSound = other.lastWanderSound;
     }
 
 private:
-    int waves[5] = {10, 12, 14, 16, 19};
-    int currentWave = 1;
     int currentEnemyCount = 0;
+    milliseconds spawnInterval_;
+    milliseconds lastSpawned = 0;
+    milliseconds makeWanderSoundInterval = 5000;
+    milliseconds lastWanderSound = 2000;
 };
 
 

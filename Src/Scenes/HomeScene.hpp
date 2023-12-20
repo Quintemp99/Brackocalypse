@@ -7,6 +7,7 @@
 class HomeScene : public Scene {
 public:
     HomeScene();
+    void build() override;
 };
 
 

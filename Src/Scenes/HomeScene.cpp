@@ -3,23 +3,26 @@
 #include <Objects/Button.hpp>
 #include <Components/SpriteComponent.hpp>
 #include <Components/SoundTrackComponent.hpp>
-#include "BrackEngine.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "../Helpers/RogueLikeSheetMap.hpp"
-#include "../Player.hpp"
+#include "StoryScene.hpp"
+#include "IntroductionScene.hpp"
 #include "DemoLevel.hpp"
 #include "../SaveLoadGame.hpp"
 #include "LevelManager.hpp"
 
-HomeScene::HomeScene() : Scene() {
+HomeScene::HomeScene() : Scene() {}
+
+void HomeScene::build() {
+    Scene::build();
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(0, 255, 0, 255));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
-    backgroundSound->volume = 0.1;
+    backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
-    auto windowSize = ConfigSingleton::GetInstance().GetWindowSize();
+    auto windowSize = ConfigSingleton::getInstance().getWindowSize();
 
     auto bgImage = std::make_unique<GameObject>();
     auto bgImageSprite = std::make_unique<SpriteComponent>();
@@ -78,7 +81,7 @@ HomeScene::HomeScene() : Scene() {
     auto quitButton = std::make_unique<Button>(Vector2(210, 70), "Quit");
     quitButton->setFontSize(40);
     quitButton->setClickEvent([]() {
-        ConfigSingleton::GetInstance().ToggleIsRunning();
+        ConfigSingleton::getInstance().toggleIsRunning();
     });
 
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();

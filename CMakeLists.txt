@@ -25,7 +25,6 @@ add_executable(Brackocalypse main.cpp
         Scripts/GunShooting.cpp
         Src/SaveLoadGame.cpp
         Src/Bullet.cpp
-        Src/BulletPool.cpp
         Scripts/BulletActions.cpp
         Src/SaveLoadGame.cpp
         Src/RogueLikeMapTiles/CampfireMapTile.hpp
@@ -52,7 +51,6 @@ add_executable(Brackocalypse main.cpp
         Scripts/SpawnInBeers.cpp
         Src/BeerPool.cpp
         Scripts/CollectBeers.cpp
-        Src/Scenes/EndScreen.cpp
         Scripts/GunFollowMouse.hpp
         Scripts/PauseHandler.cpp
         Scripts/PauseHandler.hpp
@@ -60,8 +58,38 @@ add_executable(Brackocalypse main.cpp
         Src/PauseMenu.hpp
         Src/PauseManager.cpp
         Src/PauseManager.hpp
-        Scripts/BulletHitEnemy.cpp
         Scripts/TakeDamage.cpp
+        Src/Crate.cpp
+        Scripts/UpdateHealth.cpp
+        Scripts/UpdateHealth.hpp
+        Src/PlayerHealthBar.cpp
+        Src/PlayerHealthBar.hpp
+        Scripts/PlayBoxMovingSound.cpp
+        Scripts/EnemyDamage.cpp
+        Scripts/EnemyDamage.hpp
+        Src/Components/HitSoundComponent.hpp
+        Src/Components/WanderSoundComponent.hpp
+        Scripts/BopAnimation.cpp
+        Scripts/BopAnimation.hpp
+        Src/RogueLikeMapTiles/BoatMapTile.hpp
+        Scripts/MovementAnimation.cpp
+        Scripts/MovementAnimation.hpp
+        Src/Scenes/StoryScene.cpp
+        Src/Scenes/StoryScene.hpp
+        Src/Scenes/IntroductionScene.cpp
+        Src/Scenes/IntroductionScene.hpp
+        Scripts/WriteTextAnimation.cpp
+        Scripts/WriteTextAnimation.hpp
+        Src/Scenes/GameOverScene.cpp
+        Src/Scenes/GameOverScene.hpp
+        Src/Scenes/InterludeOneScene.cpp
+        Src/Scenes/InterludeOneScene.hpp
+        Src/Scenes/InterludeTwoScene.cpp
+        Src/Scenes/InterludeTwoScene.hpp
+        Src/Scenes/InterludeThreeScene.cpp
+        Src/Scenes/InterludeThreeScene.hpp
+        Src/Scenes/EndScene.cpp
+        Src/Scenes/EndScene.hpp
         Src/Scenes/LevelManager.cpp
         Src/Scenes/Levels/FirstLevel.cpp
 )
@@ -83,5 +111,13 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         ${CMAKE_CURRENT_SOURCE_DIR}/Assets
         ${CMAKE_BINARY_DIR}/Assets
+)
+
+add_custom_command(
+        TARGET ${PROJECT_NAME}
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_BINARY_DIR}/Resources
+        ${CMAKE_BINARY_DIR}/Assets/Resources
 )
 

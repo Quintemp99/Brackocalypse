@@ -32,10 +32,11 @@ private:
     Vector2 originalCameraPosition;
     std::mt19937 randomGenerator{std::random_device{}()};
     std::uniform_real_distribution<float> distribution{-1.0f, 1.0f};
+    float speed = 100.0f;
 
     void shakeCamera();
 
-    void shoot();
+    void shoot(GameObject &player);
 
 };
 

@@ -28,11 +28,11 @@ void GunShooting::onUpdate(milliseconds deltaTime) {
         auto &playerCollisionTransform = playerCollision->tryGetComponent<TransformComponent>();
         auto &gunTransform = tryGetComponent<TransformComponent>();
         if (!animationComponent.isPlaying) {
-            shoot();
+            shoot(player.value());
             animationComponent.currentFrame = 0;
             animationComponent.isPlaying = true;
         } else if (animationComponent.currentFrame == 1) {
-            auto cameraId = ComponentStore::GetInstance().getEntitiesWithComponent<CameraComponent>()[0];
+            auto cameraId = ComponentStore::GetInstance().getActiveEntitiesWithComponent<CameraComponent>()[0];
             auto &cameraPosition = ComponentStore::GetInstance().tryGetComponent<TransformComponent>(cameraId);
             shaking = true;
             originalCameraPosition = *cameraPosition.position;
@@ -45,7 +45,7 @@ void GunShooting::onUpdate(milliseconds deltaTime) {
     }
 }
 
-void GunShooting::shoot() {
+void GunShooting::shoot(GameObject &player) {
     for (auto &bullet: getGameObjectsByTag("Bullet")) {
         if (!bullet->isActive()) {
             bullet->setActive(true);
@@ -62,16 +62,21 @@ void GunShooting::shoot() {
             auto &soundEffectComponent = tryGetComponent<SoundEffectComponent>();
             soundEffectComponent.startPlaying = true;
 
+            auto &playerRigidBody = player.tryGetComponent<RigidBodyComponent>();
+
             auto radians = rotation * M_PI / 180;
             auto velocity = Vector2(cos(radians), sin(radians));
-            bullet->tryGetComponent<VelocityComponent>().velocity = velocity;
+            velocity = velocity * speed;
+            playerRigidBody.force = std::make_unique<Vector2>(velocity * -1.0f * 1500.0f);
+            auto &velocityComponent = bullet->tryGetComponent<VelocityComponent>();
+            velocityComponent.velocity = velocity;
             return;
         }
     }
 }
 
 void GunShooting::shakeCamera() {
-    auto cameraId = ComponentStore::GetInstance().getEntitiesWithComponent<CameraComponent>()[0];
+    auto cameraId = ComponentStore::GetInstance().getActiveEntitiesWithComponent<CameraComponent>()[0];
     auto &cameraPosition = ComponentStore::GetInstance().tryGetComponent<TransformComponent>(cameraId);
     if (cameraShakeTimer >= cameraShakeDuration) {
         cameraShakeTimer = 0.0f;
