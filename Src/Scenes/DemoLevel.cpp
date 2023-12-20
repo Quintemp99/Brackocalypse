@@ -207,8 +207,10 @@ void DemoLevel::build() {
     }
 
     auto spawnObject = parent->getChildGameObjectByName("PlayerSpawn");
-    auto player = std::make_unique<Player>(spawnObject);
-    parent->addChild(std::move(player));
+    if (spawnObject.has_value()) {
+        auto player = std::make_unique<Player>(spawnObject.value());
+        parent->addChild(std::move(player));
+    }
 
     parent->addChild(std::make_unique<PlayerHealthBar>());
 
