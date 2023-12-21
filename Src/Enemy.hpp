@@ -11,11 +11,9 @@
 
 class Enemy : public GameObject {
 public:
-    Enemy(size_t layer);
+    Enemy(size_t layer, int health);
 
     ~Enemy() = default;
-
-    int health_ = 3;
 };
 
 

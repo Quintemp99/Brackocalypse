@@ -48,7 +48,6 @@ add_executable(Brackocalypse main.cpp
         Scripts/PlayerProgress.cpp
         Src/ProgressBar.cpp
         Scripts/SpawnInBeers.cpp
-        Src/BeerPool.cpp
         Scripts/CollectBeers.cpp
         Scripts/GunFollowMouse.hpp
         Scripts/PauseHandler.cpp
