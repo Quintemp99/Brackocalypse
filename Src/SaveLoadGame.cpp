@@ -4,6 +4,7 @@
 #include "Components/HealthComponent.hpp"
 #include <SaveLoad.hpp>
 #include <sstream>
+#include <Components/TextComponent.hpp>
 
 const std::string SaveLoadGame::defaultPath{"./save_data.dat"};
 
@@ -117,6 +118,9 @@ bool SaveLoadGame::load(const std::string &filePath) const {
         PlayerProgressScript &script = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
         script.setBeersCollected(std::stof(keyValueMap["beers"]));
         script.setZombiesKilled(std::stof(keyValueMap["zombiesKilled"]));
+        
+        auto enemyKillText = GameObjectConverter::getGameObjectByName("EnemyKillText");
+        enemyKillText.value()->tryGetComponent<TextComponent>().text = std::to_string(script.getZombiesKilled());
 
         //Set the zombies
         auto inputEnemy = keyValueMap["enemies"];

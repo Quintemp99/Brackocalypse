@@ -8,6 +8,7 @@
 #include <EngineManagers/SceneManager.hpp>
 #include "EnemyKillHud.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
+#include "../Scripts/PlayerProgressScript.hpp"
 
 EnemyKillHud::EnemyKillHud() {
     setTag("EnemyKillHud");
@@ -28,12 +29,12 @@ EnemyKillHud::EnemyKillHud() {
     addComponent(std::move(spriteComponent));
     
     auto playerProgress = SceneManager::getInstance().getGameObjectByName("PlayerProgress");
-    
+    auto &playerProgressScript = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
     auto textObject = std::make_unique<GameObject>();
     textObject->setTag("EnemyKillText");
     textObject->setName("EnemyKillText");
     auto textComponent = std::make_unique<TextComponent>();
-    textComponent->text = "0";
+    textComponent->text = std::to_string(playerProgressScript.getZombiesKilled());
     textComponent->orderInLayer = 0;
     textComponent->sortingLayer = 0;
     textComponent->fontSize = 40;
