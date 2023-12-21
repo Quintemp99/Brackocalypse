@@ -87,8 +87,8 @@ struct RogueLikeSheetMap {
         indoorMap[Pans] = Vector2(31, 3);
         indoorMap[Bed] = Vector2(15, 2);
         indoorMap[Mirror] = Vector2(24, 7);
-        indoorMap[Table] = Vector2(25, 4);
-        indoorMap[Candle] = Vector2(22, 8);
+        indoorMap[FirePlace] = Vector2(12, 0);
+        indoorMap[Chest] = Vector2(37, 9);
         indoorMap[OrangeFloor] = Vector2(13, 26);
         indoorMap[OrangeFloorTopLeft] = Vector2(12, 25);
         indoorMap[OrangeFloorTopMiddle] = Vector2(13, 25);
@@ -107,8 +107,9 @@ struct RogueLikeSheetMap {
         indoorMap[BlueFloorBottomLeft] = Vector2(15, 27);
         indoorMap[BlueFloorBottomMiddle] = Vector2(16, 27);
         indoorMap[BlueFloorBottomRight] = Vector2(17, 27);
-        indoorMap[PillarBottom] = Vector2(14, 20);
-        indoorMap[PillaarTop] = Vector2(13, 20);
+        indoorMap[PillarBottom] = Vector2(21, 20);
+        indoorMap[PillarMiddle] = Vector2(20, 19);
+        indoorMap[PillarTop] = Vector2(20, 20);
 
 
     }

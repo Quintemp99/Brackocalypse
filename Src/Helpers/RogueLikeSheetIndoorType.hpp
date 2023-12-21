@@ -40,8 +40,8 @@ enum RogueLikeSheetIndoorType {
     Pans = 'g',
     Bed = 'h',
     Mirror = 'i',
-    Table = 'j',
-    Candle = 'k',
+    FirePlace = 'j',
+    Chest = 'k',
     OrangeFloor = 'l',
     OrangeFloorTopLeft = 'm',
     OrangeFloorTopMiddle = 'n',
@@ -61,7 +61,9 @@ enum RogueLikeSheetIndoorType {
     BlueFloorBottomMiddle = '2',
     BlueFloorBottomRight = '3',
     PillarBottom = '4',
-    PillaarTop = '5',
+    PillarMiddle = '5',
+    PillarTop = '6',
+
 
 };
 #endif //BRACKOCALYPSE_ROGUELIKESHEETINDOORTYPE_HPP

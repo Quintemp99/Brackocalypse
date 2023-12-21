@@ -21,9 +21,9 @@
 #include "EngineManagers/ReplayManager.hpp"
 #include "../PauseManager.hpp"
 #include "../ProgressBar.hpp"
-#include "../BeerPool.hpp"
 #include "../PlayerHealthBar.hpp"
 #include "../Components/WanderSoundComponent.hpp"
+#include "../../Scripts/SpawnInBeers.hpp"
 
 void SecondLevel::build() {
     Scene::build();
@@ -48,14 +48,14 @@ void SecondLevel::build() {
     collisionMap.emplace_back("..............................................");
     collisionMap.emplace_back("..............................................");
     collisionMap.emplace_back("......XXXXXXXXXXXXXXXX........XXXXXXXX........");
-    collisionMap.emplace_back(".....X,,,,,,,,,,,,,,,,X......X,XXXXXX,X.......");
+    collisionMap.emplace_back(".....X,E,,,,,,,,,,,,,,X......X,XXXXXX,X.......");
     collisionMap.emplace_back(".....X,,,,,,,,,,,,,,,,X......X,,,,,,,,X.......");
-    collisionMap.emplace_back(".....X,,,,X,,,,,,X,,,,XXXXXXXX,,,,,,,,X.......");
-    collisionMap.emplace_back(".....X,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,X.......");
-    collisionMap.emplace_back(".....X,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,X.......");
-    collisionMap.emplace_back(".....X,,,,X,,,,,,X,,,,XXXXXXXX,,,,,,,,X.......");
-    collisionMap.emplace_back(".....X,,,,,,,,,,,,,,,,X......X,,,,,,,,X.......");
-    collisionMap.emplace_back(".....X,,,,,,,,,,,,,,,,X......X,,,,,,,,X.......");
+    collisionMap.emplace_back(".....X,,,,X,,,,,,X,,,,XXXXXXXX,,,B,,,,X.......");
+    collisionMap.emplace_back(".....X,,,,,,,B,,,,,,,,,,,,,,,,,,,,,,,,X.......");
+    collisionMap.emplace_back(".....X,,,,,,,,,,,,,,,,,,,B,,,,,,,,,,,,X.......");
+    collisionMap.emplace_back(".....X,,,,,,,,,,,,,,,,XXXXXXXX,,,,,,,,X.......");
+    collisionMap.emplace_back(".....X,,,,X,,,,,,X,,,,X......X,,,,,,,,X.......");
+    collisionMap.emplace_back(".....X,,B,,,,,,,,,,,,,X......X,,,,,,E,X.......");
     collisionMap.emplace_back("......XXXXXXX,,XXXXXXX........XXXXXXXX........");
     collisionMap.emplace_back("............X,,X..............................");
     collisionMap.emplace_back("............X,,X..............................");
@@ -64,14 +64,14 @@ void SecondLevel::build() {
     collisionMap.emplace_back("........XXXXX,,XXXXXXX........................");
     collisionMap.emplace_back(".......X,,,,,,,,X,,,,,X.........XXXXXXXXX.....");
     collisionMap.emplace_back(".......X,,,,,,,,,,,,,,X........X,,,,,,,,,X....");
-    collisionMap.emplace_back(".......Xx,,,,,,,,,,,,,XXXXXXXXXX,,,,,,,,,X....");
-    collisionMap.emplace_back(".......X,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,X....");
+    collisionMap.emplace_back(".......Xx,,,,,,,,,,B,,XXXXXXXXXX,,B,,,,E,X....");
+    collisionMap.emplace_back(".......X,,,,,,,,,,,,,,,,,,B,,,,,,,,,,,,,,X....");
     collisionMap.emplace_back(".......X,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,X....");
     collisionMap.emplace_back(".......X,,,,,,,,,,,,,,XXXXXXXXXX,,,,,,,,,X....");
-    collisionMap.emplace_back(".......X,,,,,,,,,,,,,,X........X,,,xxx,,,X....");
-    collisionMap.emplace_back(".......X,,,,,,,,,,,,,,X........X,,,xxx,,,X....");
+    collisionMap.emplace_back(".......X,,B,,,,,,,,,,,X........X,,,xxx,B,X....");
+    collisionMap.emplace_back(".......X,E,,,,,,,,,,,,X........X,,,xxx,,,X....");
     collisionMap.emplace_back("........XXXXXXXXXXXXXX.........X,,,,,,,,,X....");
-    collisionMap.emplace_back("...............................X,,,,,,,,,X....");
+    collisionMap.emplace_back("...............................X,E,,,,,,,X....");
     collisionMap.emplace_back("................................XXXXXXXXX.....");
     collisionMap.emplace_back("..............................................");
     collisionMap.emplace_back("..............................................");
@@ -79,17 +79,17 @@ void SecondLevel::build() {
 
     tileMap.emplace_back();
     tileMap[0].emplace_back("..............................................");
-    tileMap[0].emplace_back("........ABBBC.................................");
-    tileMap[0].emplace_back("........DHIJD.................................");
-    tileMap[0].emplace_back("........DKFLD.................................");
-    tileMap[0].emplace_back("........DONMD.................................");
-    tileMap[0].emplace_back(".....ABBQBBBQBBBBBBBBBC......ABBBBBBBBC.......");
+    tileMap[0].emplace_back(".........ABBBC................................");
+    tileMap[0].emplace_back(".........DHIJD................................");
+    tileMap[0].emplace_back(".........DKFLD................................");
+    tileMap[0].emplace_back(".........DONMD................................");
+    tileMap[0].emplace_back(".....ABBBQBBBQBBBBBBBBC......ABBBBBBBBC.......");
     tileMap[0].emplace_back(".....DHIIIIIIIIIIIIIIJD......DmwnwnwnxD.......");
     tileMap[0].emplace_back(".....DKFFFFFFFFFFFFFFLD......DylululuqD.......");
     tileMap[0].emplace_back(".....DKFFFFFFFFFFFFFFLEBBBBBBGpulululzD.......");
     tileMap[0].emplace_back(".....DKFFFFFFFFFFFFFFFIIIIIIInulululuqD.......");
-    tileMap[0].emplace_back(".....DKFFF5FFFFFF5FFFFNNNNNNN2lulululzD.......");
-    tileMap[0].emplace_back(".....DKFFF4FFFFFF4FFFLABBBBBBCylululuqD.......");
+    tileMap[0].emplace_back(".....DKFFFFFFFFFFFFFFFNNNNNNN2lulululzD.......");
+    tileMap[0].emplace_back(".....DKFFFFFFFFFFFFFFLABBBBBBCylululuqD.......");
     tileMap[0].emplace_back(".....DKFFFFFFFFFFFFFFLD......DpulululzD.......");
     tileMap[0].emplace_back(".....DONNNNNNFFNNNNNNMD......D1s2s2s2tD.......");
     tileMap[0].emplace_back(".....EBBBBBBCKLABBBBBBG......EBBBBBBBBG.......");
@@ -111,16 +111,20 @@ void SecondLevel::build() {
     tileMap[0].emplace_back("...............................EBBBBBBBBBG....");
     tileMap[0].emplace_back("..............................................");
     tileMap[0].emplace_back("..............................................");
+    tileMap[0].emplace_back("..............................................");
 
     tileMap.emplace_back();
     tileMap[1].emplace_back("..............................................");
     tileMap[1].emplace_back("..............................................");
-    tileMap[1].emplace_back("..............................................");
-    tileMap[1].emplace_back(".........c.b..................................");
-    tileMap[1].emplace_back("...........a.................................");
-    tileMap[1].emplace_back(".........a...................................");
-    tileMap[1].emplace_back("..........P.........................g.........");
+    tileMap[1].emplace_back("..........c.b.................................");
+    tileMap[1].emplace_back("............a.................................");
+    tileMap[1].emplace_back("..........a...................................");
+    tileMap[1].emplace_back("...........P........................g.........");
     tileMap[1].emplace_back("...............................edfeee.........");
+    tileMap[1].emplace_back("..............................................");
+    tileMap[1].emplace_back("..........4......4............................");
+    tileMap[1].emplace_back("..............................................");
+    tileMap[1].emplace_back("..............................................");
     tileMap[1].emplace_back("..............................................");
     tileMap[1].emplace_back("..........4......4............................");
     tileMap[1].emplace_back("..............................................");
@@ -129,12 +133,8 @@ void SecondLevel::build() {
     tileMap[1].emplace_back("..............................................");
     tileMap[1].emplace_back("..............................................");
     tileMap[1].emplace_back("..............................................");
-    tileMap[1].emplace_back("..............................................");
-    tileMap[1].emplace_back("..............................................");
-    tileMap[1].emplace_back("..............................................");
-    tileMap[1].emplace_back("..............................................");
     tileMap[1].emplace_back("..........i...................................");
-    tileMap[1].emplace_back("................j.................RSST........");
+    tileMap[1].emplace_back("................k.................RSST........");
     tileMap[1].emplace_back("..............................................");
     tileMap[1].emplace_back("........h.....................................");
     tileMap[1].emplace_back("..............................................");
@@ -147,6 +147,8 @@ void SecondLevel::build() {
     tileMap[1].emplace_back("..............................................");
     tileMap[1].emplace_back("..............................................");
     tileMap[1].emplace_back("..............................................");
+    tileMap[1].emplace_back("..............................................");
+
 
     tileMap.emplace_back();
     tileMap[2].emplace_back("..............................................");
@@ -154,7 +156,13 @@ void SecondLevel::build() {
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
-    tileMap[1].emplace_back("..........5......5............................");
+    tileMap[2].emplace_back("..............................................");
+    tileMap[2].emplace_back("..........6......6............................");
+    tileMap[2].emplace_back("..........5......5............................");
+    tileMap[2].emplace_back("..............................................");
+    tileMap[2].emplace_back("..............................................");
+    tileMap[2].emplace_back("..........6......6............................");
+    tileMap[2].emplace_back("..........5......5............................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
@@ -162,13 +170,6 @@ void SecondLevel::build() {
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
-    tileMap[2].emplace_back("..............................................");
-    tileMap[2].emplace_back("..............................................");
-    tileMap[2].emplace_back("..............................................");
-    tileMap[2].emplace_back("..............................................");
-    tileMap[2].emplace_back("..............................................");
-    tileMap[2].emplace_back("..............................................");
-    tileMap[2].emplace_back("................k.............................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
@@ -181,6 +182,10 @@ void SecondLevel::build() {
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
+    tileMap[2].emplace_back("..............................................");
+    tileMap[2].emplace_back("..............................................");
+    tileMap[2].emplace_back("..............................................");
+
 
     objectMap.emplace_back();
     objectMap[0].emplace_back("..............................................");
@@ -188,6 +193,7 @@ void SecondLevel::build() {
     objectMap[0].emplace_back("..............................................");
     objectMap[0].emplace_back("..............................................");
     objectMap[0].emplace_back("..............................................");
+    objectMap[0].emplace_back("...............j..............................");
     objectMap[0].emplace_back("..............................................");
     objectMap[0].emplace_back("..............................................");
     objectMap[0].emplace_back("..............................................");
@@ -202,7 +208,8 @@ void SecondLevel::build() {
     objectMap[0].emplace_back("..............................................");
     objectMap[0].emplace_back("..............................................");
     objectMap[0].emplace_back("..............................................");
-    objectMap[0].emplace_back(".......d......................................");
+    objectMap[0].emplace_back("........d.....................................");
+    objectMap[0].emplace_back("..............................................");
     objectMap[0].emplace_back("..............................................");
     objectMap[0].emplace_back("..............................................");
     objectMap[0].emplace_back("..............................................");
@@ -221,7 +228,9 @@ void SecondLevel::build() {
     levelBuilder.buildLevel(MapType::Indoor);
 
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
-    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 3);
+    auto beerPool = std::make_unique<PoolCreator<Beer>>(1, 10);
+    beerPool->addBehaviourScript(SpawnInBeers(5000));
 
     auto parent = std::make_unique<GameObject>();
     parent->setName("GameParent");
@@ -229,12 +238,11 @@ void SecondLevel::build() {
     auto zombieWanderSound = std::make_unique<WanderSoundComponent>("Sounds/zombie-sound.mp3");
     zombieWanderSound->volume = 0.01;
 
-//    auto enemySpawner = std::make_unique<GameObject>();
-//    enemySpawner->addBehaviourScript(EnemySpawn(4000));
-//    enemySpawner->addComponent(std::move(zombieWanderSound));
-//    parent->addChild(std::move(enemySpawner));
+    auto enemySpawner = std::make_unique<GameObject>();
+    enemySpawner->addBehaviourScript(EnemySpawn(4000));
+    enemySpawner->addComponent(std::move(zombieWanderSound));
+    parent->addChild(std::move(enemySpawner));
 
-    auto beerPool = std::make_unique<BeerPool>(6);
     parent->addChild(std::move(beerPool));
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));

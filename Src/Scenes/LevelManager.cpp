@@ -36,7 +36,7 @@ void LevelManager::goToLevel() {
             level = new IntroductionScene();
             break;
         case 2:
-            level = new SecondLevel();
+            level = new FirstLevel();
             break;
         case 3:
             level = new InterludeOneScene();

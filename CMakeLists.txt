@@ -26,7 +26,7 @@ add_executable(Brackocalypse main.cpp
         Src/Bullet.cpp
         Scripts/BulletActions.cpp
         Src/SaveLoadGame.cpp
-        Src/RogueLikeMapTiles/CampfireMapTile.hpp
+        Src/RogueLikeMapTiles/FireMapTile.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
         Src/SaveLoadGame.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
@@ -98,7 +98,6 @@ add_executable(Brackocalypse main.cpp
         Src/Helpers/MapType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
-        Src/Helpers/RogueLikeSheetType.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
