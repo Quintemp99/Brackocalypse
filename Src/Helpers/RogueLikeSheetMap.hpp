@@ -86,7 +86,7 @@ struct RogueLikeSheetMap {
         map[Bed] = Vector2(15, 2);
         map[Mirror] = Vector2(24, 7);
         map[Table] = Vector2(25, 4);
-        map[Candle] = Vector2(20, 7);
+        map[Candle] = Vector2(22, 8);
 
 
     }

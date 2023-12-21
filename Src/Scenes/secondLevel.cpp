@@ -62,9 +62,9 @@ void SecondLevel::build() {
     collisionMap.emplace_back("............x,,x..............................");
     collisionMap.emplace_back("............x,,x..............................");
     collisionMap.emplace_back("........xxxxx,,xxxxxxx........................");
-    collisionMap.emplace_back(".......x,,,,,,,,,,,,,,x.........xxxxxxxxx.....");
+    collisionMap.emplace_back(".......x,,,,,,,,,x,,,,x.........xxxxxxxxx.....");
     collisionMap.emplace_back(".......x,,,,,,,,,,,,,,x........x,,,,,,,,,x....");
-    collisionMap.emplace_back(".......x,,,,,,,,,,,,,,xxxxxxxxxx,,,,,,,,,x....");
+    collisionMap.emplace_back(".......xx,,,,,,,,,,,,,xxxxxxxxxx,,,,,,,,,x....");
     collisionMap.emplace_back(".......x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,x....");
     collisionMap.emplace_back(".......x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,x....");
     collisionMap.emplace_back(".......x,,,,,,,,,,,,,,xxxxxxxxxx,,,,,,,,,x....");
@@ -167,7 +167,7 @@ void SecondLevel::build() {
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
-    tileMap[2].emplace_back("..............................................");
+    tileMap[2].emplace_back("................_.............................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
     tileMap[2].emplace_back("..............................................");
@@ -202,8 +202,8 @@ void SecondLevel::build() {
     tileMap[3].emplace_back("..............................................");
     tileMap[3].emplace_back("..............................................");
     tileMap[3].emplace_back("..............................................");
-    tileMap[3].emplace_back("................_.............................");
-    tileMap[3].emplace_back("................_.............................");
+    tileMap[3].emplace_back("..............................................");
+    tileMap[3].emplace_back("..............................................");
     tileMap[3].emplace_back("..............................................");
     tileMap[3].emplace_back("..............................................");
     tileMap[3].emplace_back("..............................................");
