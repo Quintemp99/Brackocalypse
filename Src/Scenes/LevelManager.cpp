@@ -19,10 +19,10 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    if(currentLevel >= MAX_LEVELS)
-        currentLevel = 0;
+    if(currentScene >= MAX_LEVELS)
+        currentScene = 0;
     else
-        ++currentLevel;
+        ++currentScene;
 
     goToLevel();
 }
@@ -30,7 +30,7 @@ void LevelManager::goToNextLevel() {
 void LevelManager::goToLevel() {
     Scene* level = nullptr;
 
-    switch(currentLevel) {
+    switch(currentScene) {
         case 1:
             level = new IntroductionScene();
             break;
@@ -59,7 +59,7 @@ void LevelManager::goToLevel() {
 }
 
 void LevelManager::goToSpecificLevel(int level) {
-    currentLevel = level;
+    currentScene = level;
     goToLevel();
 }
 
@@ -69,10 +69,10 @@ void LevelManager::loadLevel(int level) {
 }
 
 LevelManager::LevelManager() {
-    currentLevel = 0;
+    currentScene = 0;
 }
 
 void LevelManager::startLoop() {
-    currentLevel = 0;
+    currentScene = 0;
     goToLevel();
 }

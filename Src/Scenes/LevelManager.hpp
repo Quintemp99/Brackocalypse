@@ -15,7 +15,7 @@ public:
     LevelManager(LevelManager &&) = delete;
     LevelManager &operator=(LevelManager &&) = delete;
 
-    int currentLevel = 0;
+    int currentScene = 0;
     void goToLevel();
     void goToNextLevel();
     void goToSpecificLevel(int level);
