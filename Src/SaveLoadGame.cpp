@@ -74,20 +74,7 @@ std::vector<std::string> SaveLoadGame::splitString(const std::string& input, cha
 
 bool SaveLoadGame::load(const std::string &filePath) const {
     try {
-        const auto& content = SaveLoad::getInstance().load(filePath);
-
-        std::map<std::string, std::string> keyValueMap;
-        std::istringstream lineStream(content);
-        std::string line;
-        while (std::getline(lineStream, line, '\n')) {
-            // Split each line based on colon character and remove whitespace
-            std::vector<std::string> tokens = splitString(line, ':');
-
-            // Insert key-value pair into the map
-            if (tokens.size() == 2) {
-                keyValueMap[tokens[0]] = tokens[1];
-            }
-        }
+        std::map<std::string, std::string> keyValueMap = getLoadData(filePath);
 
         //Set level
         int level = std::stof(keyValueMap["level"]);
@@ -105,28 +92,7 @@ bool SaveLoadGame::load(const std::string &filePath) const {
 
         //Set the zombies
         auto inputEnemy = keyValueMap["enemies"];
-        inputEnemy.erase(std::remove(inputEnemy.begin(), inputEnemy.end(), '['), inputEnemy.end());
-
-        std::vector<std::vector<int>> enemies;
-        std::istringstream ss(inputEnemy);
-        std::string arrayString;
-
-        // Split the string by "][" and store each array string in the vector
-        while (std::getline(ss, arrayString, ']')) {
-            if (!arrayString.empty()) {
-                //Toke
-                std::istringstream ss(arrayString);
-                std::string arrayItemString;
-                std::vector<int> array;
-
-                while (std::getline(ss, arrayItemString, ',')) {
-                    if (!arrayItemString.empty()) {
-                        array.push_back(std::stoi(arrayItemString));
-                    }
-                }
-                enemies.push_back(array);
-            }
-        }
+        std::vector<std::vector<int>> enemies = convertEnemyData(inputEnemy);
 
         auto enemyPool = GameObjectConverter::getGameObjectsByTag("Enemy");
         for(int i = 0; i < enemyPool.size(); ++i) {
@@ -146,7 +112,7 @@ bool SaveLoadGame::load(const std::string &filePath) const {
 
         return true;
     } catch(std::exception exception) {
-        Logger::Error("Unable to load file");
+        Logger::Error("Something went wrong trying to load in the data.");
         return false;
     }
 }
@@ -154,4 +120,49 @@ bool SaveLoadGame::load(const std::string &filePath) const {
 bool SaveLoadGame::canLoad() const {
     std::ifstream file(defaultPath.c_str());
     return file.good();
+}
+
+std::map<std::string, std::string> SaveLoadGame::getLoadData(std::string filePath) const {
+    const auto& content = SaveLoad::getInstance().load(filePath);
+
+    std::map<std::string, std::string> keyValueMap;
+    std::istringstream lineStream(content);
+    std::string line;
+    while (std::getline(lineStream, line, '\n')) {
+        // Split each line based on colon character and remove whitespace
+        std::vector<std::string> tokens = splitString(line, ':');
+
+        // Insert key-value pair into the map
+        if (tokens.size() == 2) {
+            keyValueMap[tokens[0]] = tokens[1];
+        }
+    }
+    return keyValueMap;
+}
+
+std::vector<std::vector<int>> SaveLoadGame::convertEnemyData(std::string enemyData) const {
+    enemyData.erase(std::remove(enemyData.begin(), enemyData.end(), '['), enemyData.end());
+
+    std::vector<std::vector<int>> enemies;
+    std::istringstream ss(enemyData);
+    std::string arrayString;
+
+    // Split the string by "][" and store each array string in the vector
+    while (std::getline(ss, arrayString, ']')) {
+        if (!arrayString.empty()) {
+            //Toke
+            std::istringstream ss(arrayString);
+            std::string arrayItemString;
+            std::vector<int> array;
+
+            while (std::getline(ss, arrayItemString, ',')) {
+                if (!arrayItemString.empty()) {
+                    array.push_back(std::stoi(arrayItemString));
+                }
+            }
+            enemies.push_back(array);
+        }
+    }
+
+    return enemies;
 }
