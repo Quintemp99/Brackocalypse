@@ -7,7 +7,6 @@
 #include "../Helpers/RogueLikeSheetMap.hpp"
 #include "StoryScene.hpp"
 #include "IntroductionScene.hpp"
-#include "DemoLevel.hpp"
 #include "../SaveLoadGame.hpp"
 #include "LevelManager.hpp"
 #include "Levels/FirstLevel.hpp"
@@ -80,7 +79,9 @@ void HomeScene::build() {
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
     startButton->setFontSize(40);
     startButton->setClickEvent([]() {
-        LevelManager::getInstance().goToSpecificLevel(1);
+        auto scene = new IntroductionScene();
+        scene->build();
+        SceneManager::getInstance().goToNewScene(scene);
     });
 
     auto &transformStartButton = startButton->tryGetComponent<TransformComponent>();

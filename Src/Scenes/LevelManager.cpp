@@ -6,6 +6,7 @@
 #include <EngineManagers/SceneManager.hpp>
 #include "./Levels/FirstLevel.hpp"
 #include "EndScene.hpp"
+#include "InterludeOneScene.hpp"
 
 LevelManager LevelManager::instance;
 
@@ -25,6 +26,9 @@ void LevelManager::goToLevel() {
         case 1:
             level = new FirstLevel();
             break;
+        case 2:
+            level = new InterludeOneScene();
+            break;
         default:
             level = new EndScene();
             break;
@@ -42,4 +46,8 @@ void LevelManager::goToSpecificLevel(int level) {
 void LevelManager::loadLevel(int level) {
     goToSpecificLevel(level);
     SceneManager::getInstance().setActiveScene();
+}
+
+LevelManager::LevelManager() {
+    currentLevel = 1;
 }

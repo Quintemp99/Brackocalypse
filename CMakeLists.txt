@@ -19,7 +19,6 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/RogueLikeMapTile.hpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/Scenes/HomeScene.cpp
-        Src/Scenes/DemoLevel.cpp
         Src/Gun.cpp
         Scripts/GunFollowMouse.cpp
         Scripts/GunShooting.cpp

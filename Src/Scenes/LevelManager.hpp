@@ -21,7 +21,7 @@ public:
     void goToSpecificLevel(int level);
     void loadLevel(int level);
 private:
-    LevelManager() = default;
+    LevelManager();
     static LevelManager instance;
 };
 
