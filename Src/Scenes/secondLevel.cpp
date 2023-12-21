@@ -24,6 +24,7 @@
 #include "../PlayerHealthBar.hpp"
 #include "../Components/WanderSoundComponent.hpp"
 #include "../../Scripts/SpawnInBeers.hpp"
+#include "../EnemyKillHud.hpp"
 
 void SecondLevel::build() {
     Scene::build();
@@ -250,6 +251,8 @@ void SecondLevel::build() {
     auto progressBar = std::make_unique<ProgressBar>(Vector2(500, 30));
     parent->addChild(std::move(progressBar));
 
+    auto enemyKillHud = std::make_unique<EnemyKillHud>();
+    parent->addChild(std::move(enemyKillHud));
 
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));

@@ -1,6 +1,7 @@
 #include "PlayerProgressScript.hpp"
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/RectangleComponent.hpp>
+#include <Components/TextComponent.hpp>
 #include "../Src/Helpers/RogueLikeSheetMap.hpp"
 #include "UserInputMovement.hpp"
 #include "../Src/Components/HealthComponent.hpp"
@@ -62,6 +63,13 @@ void PlayerProgressScript::addBeer() {
 
 void PlayerProgressScript::addZombieKill() {
     ++zombiesKilled;
+    
+    auto textObject = getGameObjectByName("EnemyKillText");
+    if (!textObject.has_value())
+        return;
+    
+    auto& textComponent = textObject.value()->tryGetComponent<TextComponent>();
+    textComponent.text = std::to_string(zombiesKilled);
 }
 
 void PlayerProgressScript::setBeersCollected(int amount) {

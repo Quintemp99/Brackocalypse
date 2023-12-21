@@ -99,6 +99,7 @@ add_executable(Brackocalypse main.cpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
         Src/PlayerProgress.cpp
+        Src/EnemyKillHud.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
