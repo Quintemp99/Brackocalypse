@@ -90,6 +90,8 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/InterludeThreeScene.hpp
         Src/Scenes/EndScene.cpp
         Src/Scenes/EndScene.hpp
+        Src/Scenes/secondLevel.cpp
+        Src/Scenes/secondLevel.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
