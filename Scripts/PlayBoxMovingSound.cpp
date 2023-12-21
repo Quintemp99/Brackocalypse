@@ -7,6 +7,8 @@
 #include <Components/RigidBodyComponent.hpp>
 #include "PlayBoxMovingSound.hpp"
 
+#include "Components/CircleCollisionComponent.hpp"
+
 void PlayBoxMovingSound::onStart() {
 }
 
@@ -17,13 +19,13 @@ void PlayBoxMovingSound::onUpdate(milliseconds deltaTime) {
     }
 
     if (canPlay) {
-        auto &collisionComponent = tryGetComponent<BoxCollisionComponent>();
+        auto &collisionComponent = getCollisionComponent();
         if (collisionComponent.collidedWith.empty()) {
             timer = 0;
             return;
         } else {
             for (auto collidedWith: collisionComponent.collidedWith) {
-                auto &collision = ComponentStore::GetInstance().tryGetComponent<BoxCollisionComponent>(collidedWith);
+                auto &collision = getCollisionComponent(collidedWith);
                 if (collision.isTrigger) continue;
                 auto &rigidBody = ComponentStore::GetInstance().tryGetComponent<RigidBodyComponent>(collidedWith);
                 if (rigidBody.collisionType == CollisionType::STATIC) continue;
@@ -36,3 +38,22 @@ void PlayBoxMovingSound::onUpdate(milliseconds deltaTime) {
         }
     }
 }
+
+CollisionArchetype& PlayBoxMovingSound::getCollisionComponent()
+{
+    return getCollisionComponent(entityId);
+}
+
+CollisionArchetype& PlayBoxMovingSound::getCollisionComponent(entity id)
+{
+    try
+    {
+        return ComponentStore::GetInstance().tryGetComponent<BoxCollisionComponent>(id);
+    }
+    catch (...)
+    {
+        return ComponentStore::GetInstance().tryGetComponent<CircleCollisionComponent>(id);
+    }
+}
+
+

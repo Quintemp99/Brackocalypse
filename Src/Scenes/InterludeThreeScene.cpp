@@ -15,7 +15,7 @@ InterludeThreeScene::InterludeThreeScene() : StoryScene(
                 "but a disruption of the delicate balance between the",
                 "living and the undead. The beer, my constant ",
                 "companion, holds a key to this unholy alliance.",
-                "As I delve deeper into the secrets of the.",
+                "As I delve deeper into the secrets of the",
                 "past, my quest for survival transforms into",
                 "a battle against forces that threaten not",
                 "just the remnants of civilization but the very",

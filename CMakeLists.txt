@@ -92,6 +92,7 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/Levels/FirstLevel.cpp
         Scripts/ToggleFPS.hpp
         Scripts/ToggleFPS.cpp
+        Scripts/FullScreenHandler.cpp
         Scripts/CreditsScroll.cpp
         Src/Scenes/CreditsScene.cpp
 )

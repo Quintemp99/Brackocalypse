@@ -17,12 +17,12 @@ PauseMenu::PauseMenu() : GameObject() {
     setName("PauseMenu");
     setActive(false);
 
-    auto centerY = ConfigSingleton::getInstance().getWindowSize().getY() / 2;
-    auto centerX = ConfigSingleton::getInstance().getWindowSize().getX() / 2;
+    auto centerY = ConfigSingleton::getInstance().getInitialWindowSize().getY() / 2;
+    auto centerX = ConfigSingleton::getInstance().getInitialWindowSize().getX() / 2;
     auto buttonSize = Vector2(210, 70);
 
     auto startButton = std::make_unique<Button>(buttonSize, "Resume");
-    startButton->setFontSize(40);
+    startButton->setFontSize(20);
     startButton->setTag("ResumeButton");
     startButton->setName("ResumeButton");
     startButton->setClickEvent([]() {
@@ -39,7 +39,7 @@ PauseMenu::PauseMenu() : GameObject() {
 
 
     auto speed1x = std::make_unique<Button>(buttonSize, "Speed 1x");
-    speed1x->setFontSize(40);
+    speed1x->setFontSize(20);
     speed1x->setTag("Speed1x");
     speed1x->setName("Speed1x");
     speed1x->setClickEvent([]() {
@@ -56,7 +56,7 @@ PauseMenu::PauseMenu() : GameObject() {
                                                           centerY - (buttonSize.getY() / 2));
 
     auto speed2x = std::make_unique<Button>(buttonSize, "Speed 2x");
-    speed2x->setFontSize(40);
+    speed2x->setFontSize(20);
     speed2x->setTag("Speed2x");
     speed2x->setName("Speed2x");
     speed2x->setClickEvent([]() {
@@ -73,7 +73,7 @@ PauseMenu::PauseMenu() : GameObject() {
                                                           centerY - (buttonSize.getY() / 2) + 80);
 
     auto replayButton = std::make_unique<Button>(buttonSize, "Replay");
-    replayButton->setFontSize(40);
+    replayButton->setFontSize(20);
     replayButton->setTag("ReplayButton");
     replayButton->setName("ReplayButton");
     replayButton->setClickEvent([]() {
@@ -91,7 +91,7 @@ PauseMenu::PauseMenu() : GameObject() {
                                                          centerY - (buttonSize.getY() / 2) + 160);
 
     auto quitButton = std::make_unique<Button>(buttonSize, "Quit game");
-    quitButton->setFontSize(40);
+    quitButton->setFontSize(20);
     quitButton->setTag("QuitButton");
     quitButton->setName("QuitButton");
     quitButton->setClickEvent([]() {
@@ -103,7 +103,7 @@ PauseMenu::PauseMenu() : GameObject() {
                                                        centerY - (buttonSize.getY() / 2) + 240);
 
     auto saveButton = std::make_unique<Button>(buttonSize, "Save game");
-    saveButton->setFontSize(40);
+    saveButton->setFontSize(20);
     saveButton->setTag("SaveButton");
     saveButton->setName("SaveButton");
     saveButton->setClickEvent([]() {

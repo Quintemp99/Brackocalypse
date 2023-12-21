@@ -27,7 +27,7 @@ void FirstLevel::build() {
 
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
-    camera->SetBackgroundColor(Color(0, 255, 0, 255));
+    camera->SetBackgroundColor(Color(99, 197, 207, 255));
     camera->addBehaviourScript(FollowGameObject("Player"));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
     backgroundSound->volume = 0.02;
