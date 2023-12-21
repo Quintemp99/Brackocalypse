@@ -1,7 +1,7 @@
 
 #include <Components/BoxCollisionComponent.hpp>
 #include "CollectBeers.hpp"
-#include "PlayerProgress.hpp"
+#include "PlayerProgressScript.hpp"
 #include "../Src/Beer.hpp"
 #include "../Src/Components/SpawnComponent.hpp"
 
@@ -15,7 +15,8 @@ void CollectBeers::onUpdate(milliseconds deltaTime) {
         if (playerCollision->getEntityId() == id) {
             setActive(false);
             boxCollision.collidedWith.clear();
-            PlayerProgress &script = playerCollision->getParent().value().tryGetBehaviourScript<PlayerProgress>();
+            auto playerProgress = getGameObjectByName("PlayerProgress");
+            PlayerProgressScript &script = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
             tryGetComponent<SoundEffectComponent>().startPlaying = true;
             script.addBeer();
 

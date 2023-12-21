@@ -14,6 +14,7 @@
 #include "Components/PersistenceTag.hpp"
 #include "Components/TextComponent.hpp"
 #include "../../Scripts/FullScreenHandler.hpp"
+#include "../PlayerProgress.hpp"
 
 HomeScene::HomeScene() : Scene() {}
 
@@ -52,6 +53,7 @@ void HomeScene::build() {
     auto textComponent = std::make_unique<TextComponent>();
     textComponent->text = "Brackocalypse";
     textComponent->fontSize = 40;
+    textComponent->alignment = Alignment::CENTERCENTER;
     
     auto transformBg = std::make_unique<TransformComponent>();
     transformBg->position = std::make_unique<Vector2>(0, -100);
@@ -60,8 +62,8 @@ void HomeScene::build() {
     logo->addComponent(std::move(transformBg));
     addGameObject(std::move(logo));
 
-    auto centerY = ConfigSingleton::getInstance().getWindowSize().getY() / 2;
-    auto centerX = ConfigSingleton::getInstance().getWindowSize().getX() / 2;
+    auto centerY = ConfigSingleton::getInstance().getInitialWindowSize().getY() / 2;
+    auto centerX = ConfigSingleton::getInstance().getInitialWindowSize().getX() / 2;
 
     if(SaveLoadGame::getInstance().canLoad()) {
         auto loadButton = std::make_unique<Button>(Vector2(210, 70), "Load game");
@@ -101,4 +103,7 @@ void HomeScene::build() {
     fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
     fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
     addGameObject(std::move(fullScreenToggleObject));
+    
+    auto playerProgress = std::make_unique<PlayerProgress>();
+    addGameObject(std::move(playerProgress));
 }

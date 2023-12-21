@@ -5,7 +5,6 @@
 #include <Components/VelocityComponent.hpp>
 #include <Components/SpriteComponent.hpp>
 #include <Components/TransformComponent.hpp>
-#include <Helpers/Vector2.hpp>
 #include <Components/AnimationComponent.hpp>
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/BoxCollisionComponent.hpp>
@@ -13,8 +12,6 @@
 #include "Player.hpp"
 #include "../Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
-#include "../Scripts/PlayerProgress.hpp"
-#include "Components/RigidBodyComponent.hpp"
 #include "Components/HealthComponent.hpp"
 #include "../Scripts/MovementAnimation.hpp"
 #include "../Scripts/UpdateHealth.hpp"
