@@ -17,9 +17,9 @@
 #include "EngineManagers/ReplayManager.hpp"
 #include "../../PauseManager.hpp"
 #include "../../ProgressBar.hpp"
-#include "../../BeerPool.hpp"
 #include "../../PlayerHealthBar.hpp"
 #include "../../Components/WanderSoundComponent.hpp"
+#include "../../../Scripts/SpawnInBeers.hpp"
 
 void FirstLevel::build() {
     Scene::build();
@@ -177,6 +177,8 @@ void FirstLevel::build() {
 
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
     auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
+    auto beerPool = std::make_unique<PoolCreator<Beer>>(1, 6);
+    beerPool->addBehaviourScript(SpawnInBeers(5000));
 
     auto parent = std::make_unique<GameObject>();
     parent->setName("GameParent");
@@ -189,7 +191,6 @@ void FirstLevel::build() {
     enemySpawner->addComponent(std::move(zombieWanderSound));
     parent->addChild(std::move(enemySpawner));
 
-    auto beerPool = std::make_unique<BeerPool>(6);
     parent->addChild(std::move(beerPool));
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));
