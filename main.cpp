@@ -11,7 +11,7 @@ int main() {
     config.showFPS = true;
     config.deltaTimeMultiplier = 1.0;
     config.windowTitle = "Brackocalypse";
-    config.windowSize = Vector2(640, 640);
+    config.windowSize = Vector2(1280, 720);
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
 
@@ -34,7 +34,6 @@ int main() {
     collisionManager.defineMask("Bullet", {"EnemyHitbox", "Crate"});
     collisionManager.defineMask("Crate", {"Bullet", "Player", "Enemy", "Wall"});
     collisionManager.defineMask("Wall", {"Player", "Enemy", "Crate"});
-
     auto scene = new HomeScene();
     scene->build();
     SceneManager::getInstance().goToNewScene(scene);

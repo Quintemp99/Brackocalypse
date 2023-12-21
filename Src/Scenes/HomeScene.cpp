@@ -23,7 +23,7 @@ void HomeScene::build() {
     addGameObject(std::move(obj));
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
-    camera->SetBackgroundColor(Color(0, 255, 0, 255));
+    camera->SetBackgroundColor(Color(99, 197, 207, 255));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
