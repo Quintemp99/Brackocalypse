@@ -4,9 +4,10 @@
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
 
-class DemoLevel : public Scene {
+class FirstLevel : public Scene {
 public:
-    DemoLevel();
+    FirstLevel() = default;
+
     void build() override;
 };
 

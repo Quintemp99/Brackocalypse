@@ -9,7 +9,8 @@
 #include "StoryScene.hpp"
 #include "../../Scripts/WriteTextAnimation.hpp"
 
-StoryScene::StoryScene(std::vector<std::string> lines, Scene* nextScene) : Scene(), lines_(lines), nextScene(nextScene) {
+
+StoryScene::StoryScene(std::vector<std::string> lines) : Scene(), lines_(lines) {
 
 }
 
@@ -17,7 +18,7 @@ void StoryScene::build() {
     Scene::build();
     auto camera = getAllCameras()[0];
     camera->SetBackgroundColor(Color(0, 0, 0, 255));
-    camera->addBehaviourScript(WriteTextAnimation(lines_, nextScene));
+    camera->addBehaviourScript(WriteTextAnimation(lines_));
     auto soundComponent = std::make_unique<SoundEffectComponent>("Sounds/type-sound1.mp3");
     soundComponent->volume = 0.01;
     camera->addComponent(std::move(soundComponent));

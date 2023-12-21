@@ -6,6 +6,7 @@
 #include "../Src/Components/HealthComponent.hpp"
 #include "../Src/Scenes/GameOverScene.hpp"
 #include "../Src/Scenes/InterludeOneScene.hpp"
+#include "../Src/Scenes/LevelManager.hpp"
 
 void PlayerProgress::onStart() {
 
@@ -21,9 +22,7 @@ void PlayerProgress::onUpdate(milliseconds deltaTime) {
     auto &health = tryGetComponent<HealthComponent>();
     if (totalProgress >= maxForLevel || health.health <= 0) {
         maxForLevel += 10;
-        auto scene = new InterludeOneScene();
-        scene->build();
-        SceneManager::getInstance().goToNewScene(scene);
+        LevelManager::getInstance().goToNextLevel();
     }
     if (health.health <= 0) {
         auto scene = new GameOverScene();

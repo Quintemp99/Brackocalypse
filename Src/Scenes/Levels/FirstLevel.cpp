@@ -1,31 +1,27 @@
-#include "DemoLevel.hpp"
+#include "FirstLevel.hpp"
 #include <Components/AnimationComponent.hpp>
 #include <Components/GraphComponent.hpp>
 #include <Components/RectangleComponent.hpp>
 #include "BrackEngine.hpp"
 #include "../../Brack-Engine/src/ConfigSingleton.hpp"
-#include "../Helpers/RogueLikeSheetMap.hpp"
-#include "../Player.hpp"
-#include "../../Scripts/FollowGameObject.hpp"
-#include "../LevelBuilder.hpp"
+#include "../../Helpers/RogueLikeSheetMap.hpp"
+#include "../../Player.hpp"
+#include "../../../Scripts/FollowGameObject.hpp"
+#include "../../LevelBuilder.hpp"
 #include "Components/SoundTrackComponent.hpp"
-#include "../Bullet.hpp"
-#include "../../Scripts/EnemySpawn.hpp"
-#include "../PoolCreator.hpp"
-#include "../Enemy.hpp"
-#include "../PauseMenu.hpp"
+#include "../../Bullet.hpp"
+#include "../../../Scripts/EnemySpawn.hpp"
+#include "../../PoolCreator.hpp"
+#include "../../Enemy.hpp"
+#include "../../PauseMenu.hpp"
 #include "EngineManagers/ReplayManager.hpp"
-#include "../PauseManager.hpp"
-#include "../ProgressBar.hpp"
-#include "../BeerPool.hpp"
-#include "../PlayerHealthBar.hpp"
-#include "../Components/WanderSoundComponent.hpp"
+#include "../../PauseManager.hpp"
+#include "../../ProgressBar.hpp"
+#include "../../BeerPool.hpp"
+#include "../../PlayerHealthBar.hpp"
+#include "../../Components/WanderSoundComponent.hpp"
 
-DemoLevel::DemoLevel() : Scene() {
-
-}
-
-void DemoLevel::build() {
+void FirstLevel::build() {
     Scene::build();
     ReplayManager::getInstance().startRecording(10000, 100);
 

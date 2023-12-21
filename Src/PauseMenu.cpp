@@ -9,6 +9,7 @@
 #include "Components/TransformComponent.hpp"
 #include "EngineManagers/ReplayManager.hpp"
 #include "EngineManagers/SceneManager.hpp"
+#include "SaveLoadGame.hpp"
 #include <Objects/Button.hpp>
 
 PauseMenu::PauseMenu() : GameObject() {
@@ -101,6 +102,25 @@ PauseMenu::PauseMenu() : GameObject() {
     transformQuit.position = std::make_unique<Vector2>(centerX - (buttonSize.getX() / 2),
                                                        centerY - (buttonSize.getY() / 2) + 240);
 
+    auto saveButton = std::make_unique<Button>(buttonSize, "Save game");
+    saveButton->setFontSize(40);
+    saveButton->setTag("SaveButton");
+    saveButton->setName("SaveButton");
+    saveButton->setClickEvent([]() {
+        auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
+        auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
+                obj.value()->getEntityId())[0];
+
+        pauseHandlerPtr.get().togglePause();
+
+        SaveLoadGame::getInstance().save();
+    });
+
+    auto &transformSave = saveButton->tryGetComponent<TransformComponent>();
+    transformSave.position = std::make_unique<Vector2>(centerX - (buttonSize.getX() / 2),
+                                                       centerY - (buttonSize.getY() / 2) - 180);
+
+    addChild(std::move(saveButton));
     addChild(std::move(quitButton));
     addChild(std::move(startButton));
     addChild(std::move(speed1x));
