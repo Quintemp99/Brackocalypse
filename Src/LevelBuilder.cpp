@@ -14,7 +14,7 @@
 #include "Components/SpawnComponent.hpp"
 #include <EngineManagers/CollisionLayerManager.hpp>
 
-void LevelBuilder::buildLevel() {
+void LevelBuilder::buildLevel(MapType maptype) {
     size_t sortingLayer = tileMap.size();
     for (const auto &layer: tileMap) {
         auto tileMapObject = std::make_unique<GameObject>();
@@ -33,7 +33,7 @@ void LevelBuilder::buildLevel() {
                     mapRow.emplace_back(nullptr);
                     continue;
                 }
-                mapRow.emplace_back(std::make_unique<Vector2>(levelFactory_.getSpriteTileOffset(tile)));
+                mapRow.emplace_back(std::make_unique<Vector2>(levelFactory_.getSpriteTileOffset(tile, maptype)));
             }
             map.emplace_back(std::move(mapRow));
         }
@@ -55,7 +55,8 @@ void LevelBuilder::buildLevel() {
                     continue;
                 }
 
-                std::unique_ptr<GameObject> object = levelFactory_.createGameObject(c, Vector2(x, y), sortingLayer);
+                std::unique_ptr<GameObject> object = levelFactory_.createGameObject(c, Vector2(x, y), sortingLayer,
+                                                                                    maptype);
                 gameObjects.push_back(std::move(object));
                 x++;
             }
@@ -112,11 +113,16 @@ void LevelBuilder::buildLevel() {
             }
 
             if (width > 1) {
+                auto collision = collisionMap[y][x];
                 for (int i = 0; i < width; ++i)
-                    collisionMap[y][x + i] = '.';
-                if (collisionMap[y][x] == 'x')
+
+                    if (collisionMap[y][x + i] == collision) {
+                        collisionMap[y][x + i] = '.';
+                    }
+
+                if (collision == 'x')
                     addCollisionObject(width, height, x, y, "Wall");
-                else if (collisionMap[y][x] == 'X')
+                else if (collision == 'X')
                     addCollisionObject(width, height, x, y, "SolidWall");
                 continue;
             }
@@ -125,13 +131,14 @@ void LevelBuilder::buildLevel() {
             while (y + height < collisionMap.size() && collisionMap[y + height][x] == collisionMap[y][x]) {
                 height++;
             }
-
+            auto collision = collisionMap[y][x];
             for (int i = 0; i < height; ++i)
-                collisionMap[y + i][x] = '.';
+                if (collisionMap[y + i][x] == collision)
+                    collisionMap[y + i][x] = '.';
 
-            if (collisionMap[y][x] == 'x')
+            if (collision == 'x')
                 addCollisionObject(width, height, x, y, "Wall");
-            else if (collisionMap[y][x] == 'X')
+            else if (collision == 'X')
                 addCollisionObject(width, height, x, y, "SolidWall");
         }
     }

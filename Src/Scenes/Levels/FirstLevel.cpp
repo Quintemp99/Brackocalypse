@@ -173,7 +173,7 @@ void FirstLevel::build() {
 
     auto levelBuilder = LevelBuilder(objectMap, tileMap, collisionMap);
 
-    levelBuilder.buildLevel();
+    levelBuilder.buildLevel(MapType::Outdoor);
 
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
     auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);

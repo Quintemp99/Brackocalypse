@@ -31,8 +31,8 @@ int main() {
     collisionManager.defineMask("PlayerHitbox", {"EnemyHitbox", "Collectable"});
     collisionManager.defineMask("Collectable", {"PlayerHitbox"});
     collisionManager.defineMask("EnemyHitbox", {"PlayerHitbox", "Bullet"});
-    collisionManager.defineMask("Player", {"Wall", "Crate", "Enemy"});
-    collisionManager.defineMask("Enemy", {"Wall", "Crate", "Player", "Enemy"});
+    collisionManager.defineMask("Player", {"Wall", "SolidWall", "Crate", "Enemy"});
+    collisionManager.defineMask("Enemy", {"Wall", "SolidWall", "Crate", "Player", "Enemy"});
     collisionManager.defineMask("Bullet", {"EnemyHitbox", "Crate", "SolidWall"});
     collisionManager.defineMask("Crate", {"Bullet", "Player", "Enemy", "Wall"});
     collisionManager.defineMask("Wall", {"Player", "Enemy", "Crate"});

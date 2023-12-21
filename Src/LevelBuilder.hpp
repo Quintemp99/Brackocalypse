@@ -9,6 +9,8 @@
 #include <vector>
 #include <Objects/GameObject.hpp>
 #include <Helpers/Vector2.hpp>
+#include "Helpers/MapType.hpp"
+
 #include "Helpers/RogueLikeSheetMap.hpp"
 #include "Factory/LevelFactory.hpp"
 
@@ -27,7 +29,7 @@ public:
 
     ~LevelBuilder() = default;
 
-    void buildLevel();
+    void buildLevel(MapType maptype);
 
     std::vector<std::unique_ptr<GameObject>> gameObjects;
 private:

@@ -95,6 +95,10 @@ add_executable(Brackocalypse main.cpp
         Scripts/ToggleFPS.cpp
         Src/Scenes/secondLevel.cpp
         Src/Scenes/secondLevel.hpp
+        Src/Helpers/MapType.hpp
+        Src/Helpers/RogueLikeSheetIndoorType.hpp
+        Src/Helpers/RogueLikeSheetIndoorType.hpp
+        Src/Helpers/RogueLikeSheetType.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

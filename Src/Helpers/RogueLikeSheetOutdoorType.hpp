@@ -5,7 +5,7 @@
 #ifndef BRACKOCALYPSE_ROGUELIKESHEETTYPES_HPP
 #define BRACKOCALYPSE_ROGUELIKESHEETTYPES_HPP
 
-enum RogueLikeSheetType {
+enum RogueLikeSheetOutdoorType {
     Sand = 'A',
     WaterLeftBottomGrassLarge = 'B',
     WaterLeftTopGrassSmall = 'C',
@@ -43,43 +43,7 @@ enum RogueLikeSheetType {
     TentLeftBottom = 'i',
     TentRightBottom = 'j',
     TreeStump = 'k',
-    WallTopLeft = 'l',
-    WallTopMiddle = 'm',
-    WallTopRight = 'n',
-    WallLeftRight = 'o',
-    WallBottomLeft = 'p',
-    Floor = 'q',
-    WallBottomRight = 'r',
-    FloorTopLeft = 's',
-    FloorTopMiddle = 't',
-    FloorTopRight = 'u',
-    FloorLeft = 'v',
-    FloorRight = 'w',
-    FloorBottomRight = 'x',
-    FloorBottomMiddle = 'y',
-    FloorBottomLeft = 'z',
-    Door = '1',
-    WallTopExitTop = '2',
-    BooksLeft = '3',
-    BooksMiddle = '4',
-    BooksRight = '5',
-    ChairTop = '6',
-    ChairBottom = '7',
-    TableLeft = '8',
-    TableRight = '9',
-    TableMiddle = '0',
-    Drinks = '!',
-    MoneyBig = '@',
-    MoneyMedium = '#',
-    Gold = '$',
-    KitchenSink = '%',
-    KitchenCabinet = '^',
-    KitchenCabinetBottles = '&',
-    Pans = '*',
-    Bed = '(',
-    Mirror = ')',
-    Table = '-',
-    Candle = '_',
+
 
 };
 
