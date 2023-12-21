@@ -1,6 +1,7 @@
 #include "SaveLoadGame.hpp"
 #include "../Scripts/PlayerProgress.hpp"
 #include "Scenes/LevelManager.hpp"
+#include "Components/HealthComponent.hpp"
 #include <SaveLoad.hpp>
 #include <sstream>
 
@@ -21,11 +22,13 @@ std::string SaveLoadGame::stringifyEnemy(Enemy& enemy) const {
 
     auto& transformComp = enemy.tryGetComponent<TransformComponent>();
     auto& position = transformComp.position;
+    auto& healthComp = enemy.tryGetComponent<HealthComponent>();
 
     content += "[";
     content += std::to_string(position->getX()) + ",";
     content += std::to_string(position->getY()) + ",";
-    content += std::to_string(enemy.isActive() ? 1 : 0);
+    content += std::to_string(enemy.isActive() ? 1 : 0) + ",";
+    content += std::to_string(healthComp.health);
     content += "]";
 
     return content;
@@ -38,11 +41,13 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     auto& transformComp = player.value()->tryGetComponent<TransformComponent>();
     auto& position = transformComp.position;
     PlayerProgress& script = player.value()->tryGetBehaviourScript<PlayerProgress>();
+    auto& healthComp = player.value()->tryGetComponent<HealthComponent>();
 
     content += "xPosition: " + std::to_string(position->getX()) + "\n";
     content += "yPosition: " + std::to_string(position->getY()) + "\n";
     content += "beers: " + std::to_string(script.getBeersCollected()) + "\n";
     content += "level: " + std::to_string(LevelManager::getInstance().currentLevel) + "\n";
+    content += "health: " + std::to_string(healthComp.health) + "\n";
 
     auto enemies = SceneManager::getGameObjectsByTag("Enemy");
     content += "enemies: ";
@@ -80,11 +85,16 @@ bool SaveLoadGame::load(const std::string &filePath) const {
         int level = std::stof(keyValueMap["level"]);
         LevelManager::getInstance().loadLevel(level);
 
-        //Set player position
         auto player = GameObjectConverter::getGameObjectByName("Player");
+
+        //Set player position
         auto& transformComp = player.value()->tryGetComponent<TransformComponent>();
         transformComp.position->setX(std::stof(keyValueMap["xPosition"]));
         transformComp.position->setY(std::stof(keyValueMap["yPosition"]));
+
+        //Set player health
+        auto& healthComp = player.value()->tryGetComponent<HealthComponent>();
+        healthComp.health = std::stoi(keyValueMap["health"]);
 
         //Set beer progress
         PlayerProgress &script = player.value()->tryGetBehaviourScript<PlayerProgress>();
@@ -104,10 +114,16 @@ bool SaveLoadGame::load(const std::string &filePath) const {
             }
 
             auto enemyItems = enemies[i];
+
+            //Set zombie position
             auto& transformCompEnemy = enemy->tryGetComponent<TransformComponent>();
             transformCompEnemy.position->setX(enemyItems[0]);
             transformCompEnemy.position->setY(enemyItems[1]);
             enemy->setActive(enemyItems[2]);
+
+            //Set zombie health
+            auto& zombieHealthComp = enemy->tryGetComponent<HealthComponent>();
+            zombieHealthComp.health = enemyItems[3];
         }
 
         return true;
