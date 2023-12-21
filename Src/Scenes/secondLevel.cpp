@@ -25,6 +25,7 @@
 #include "../Components/WanderSoundComponent.hpp"
 #include "../../Scripts/SpawnInBeers.hpp"
 #include "../EnemyKillHud.hpp"
+#include "../../Scripts/PlayerProgressScript.hpp"
 
 void SecondLevel::build() {
     Scene::build();
@@ -273,4 +274,7 @@ void SecondLevel::build() {
 
     auto pauseHandler = std::make_unique<PauseManager>();
     this->addGameObject(std::move(pauseHandler));
+
+    auto playerProgress = SceneManager::getInstance().getGameObjectByName("PlayerProgress");
+    playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>().setBeersNeeded(5);
 }

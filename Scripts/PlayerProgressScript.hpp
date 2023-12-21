@@ -34,6 +34,8 @@ public:
     void addZombieKill();
 
     int getBeersCollected() { return beersCollected; }
+    
+    void setBeersNeeded(int amount) { beersNeeded = amount; }
 
     void setBeersCollected(int amount);
     

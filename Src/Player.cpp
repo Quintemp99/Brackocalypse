@@ -25,7 +25,6 @@ Player::Player(GameObject *spawnLocationMapTile) {
     auto spriteComponent = spawnLocationMapTile->tryGetComponent<SpriteComponent>();
     int layer = spriteComponent.sortingLayer;
 
-
     init(layer, location);
 }
 

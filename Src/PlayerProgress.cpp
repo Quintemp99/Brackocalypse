@@ -9,6 +9,6 @@
 PlayerProgress::PlayerProgress() {
     setTag("PlayerProgress");
     setName("PlayerProgress");
-    addBehaviourScript(std::make_unique<PlayerProgressScript>(5));
+    addBehaviourScript(std::make_unique<PlayerProgressScript>(10));
     addComponent(std::make_unique<PersistenceTag>());
 }
