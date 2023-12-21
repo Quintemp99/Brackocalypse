@@ -9,6 +9,8 @@
 #include <vector>
 #include <Objects/GameObject.hpp>
 #include <Helpers/Vector2.hpp>
+#include "Helpers/MapType.hpp"
+
 #include "Helpers/RogueLikeSheetMap.hpp"
 #include "Factory/LevelFactory.hpp"
 
@@ -27,7 +29,7 @@ public:
 
     ~LevelBuilder() = default;
 
-    void buildLevel();
+    void buildLevel(MapType maptype);
 
     std::vector<std::unique_ptr<GameObject>> gameObjects;
 private:
@@ -37,6 +39,10 @@ private:
     std::vector<std::vector<std::string>> tileMap;
     std::vector<std::string> collisionMap;
     LevelFactory levelFactory_ = LevelFactory();
+    Vector2 tileSize = Vector2(16, 16);
+    Vector2 tileScale = Vector2(4, 4);
+
+    void addCollisionObject(int width, int height, int x, int y, std::string category);
 };
 
 
