@@ -5,6 +5,7 @@
 #include "CreditsScene.hpp"
 #include "../../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Components/SoundTrackComponent.hpp"
+#include "Components/SpriteComponent.hpp"
 
 std::unique_ptr<GameObject> CreditsScene::createText(std::string text) {
     auto textObj = std::make_unique<GameObject>();
@@ -38,6 +39,7 @@ void CreditsScene::build() {
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
 
+    add(createImage("Sprites/Credits/credit_1.png", Vector2(706, 676)));
     add(createText("Brackopolypse"));
     add(createText("Made by:"));
     add(createText("Olaf"));
@@ -45,4 +47,21 @@ void CreditsScene::build() {
     add(createText("Stef"));
     add(createText("Jesse"));
     add(createText("Stijn"));
+    add(createImage("Sprites/Credits/credit_stijn.png", Vector2(1280, 1707)));
+}
+
+std::unique_ptr<GameObject> CreditsScene::createImage(std::string filePath, Vector2 size) {
+    auto spriteObj = std::make_unique<GameObject>();
+    auto spriteComp = std::make_unique<SpriteComponent>();
+    spriteComp->spritePath = filePath;
+    spriteComp->spriteSize = std::make_unique<Vector2>(size);
+    spriteComp->tileOffset = std::make_unique<Vector2>(0, 0);
+
+    spriteObj->addComponent(std::move(spriteComp));
+
+    auto& transform = spriteObj->tryGetComponent<TransformComponent>();
+    auto bottomY = (ConfigSingleton::getInstance().getWindowSize().getY() / 2) + 400;
+    transform.position->setY(bottomY);
+
+    return std::move(spriteObj);
 }

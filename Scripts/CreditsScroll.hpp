@@ -22,6 +22,9 @@ public:
     virtual void onUpdate(milliseconds deltaTime) override;
 private:
     int currentNewestIndex = 0;
+    float speed = 0.1;
+
+    int getCreditHeight(GameObject& gameObject);
 };
 
 

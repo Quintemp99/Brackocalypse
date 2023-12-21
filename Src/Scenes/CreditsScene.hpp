@@ -17,6 +17,7 @@ public:
 private:
     std::vector<std::unique_ptr<GameObject>> credits;
     std::unique_ptr<GameObject> createText(std::string text);
+    std::unique_ptr<GameObject> createImage(std::string filePath, Vector2 size);
 
     void add(std::unique_ptr<GameObject> component);
 };
