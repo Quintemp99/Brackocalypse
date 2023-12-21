@@ -8,7 +8,7 @@
 IntroductionScene::IntroductionScene() : StoryScene(
         {
             "Amidst the vast expanse of nature",
-            "reclaimed by the post-apocalyptic",
+            "reclaimed by the post-brackocalyptic",
             "wilderness, I, Bob de Brouwer, navigate",
             "through the overgrown remnants of",
             "a world that once belonged to",
