@@ -12,6 +12,7 @@
 #include "Levels/FirstLevel.hpp"
 #include "../../Scripts/ToggleFPS.hpp"
 #include "Components/PersistenceTag.hpp"
+#include "../../Scripts/FullScreenHandler.hpp"
 
 HomeScene::HomeScene() : Scene() {}
 
@@ -25,7 +26,7 @@ void HomeScene::build() {
     addGameObject(std::move(obj));
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
-    camera->SetBackgroundColor(Color(0, 255, 0, 255));
+    camera->SetBackgroundColor(Color(99, 197, 207, 255));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
@@ -96,4 +97,9 @@ void HomeScene::build() {
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
     transformQuitButton.position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     addGameObject(std::move(quitButton));
+    
+    auto fullScreenToggleObject = std::make_unique<GameObject>();
+    fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
+    fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
+    addGameObject(std::move(fullScreenToggleObject));
 }

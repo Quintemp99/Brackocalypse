@@ -11,7 +11,7 @@ PlayerHealthBar::PlayerHealthBar() : GameObject() {
 
     //Position
     auto &transform = this->tryGetComponent<TransformComponent>();
-    auto windowSize = ConfigSingleton::getInstance().getWindowSize();
+    auto windowSize = ConfigSingleton::getInstance().getInitialWindowSize();
     transform.position = std::make_unique<Vector2>(0, windowSize.getY() - 32);
 
 

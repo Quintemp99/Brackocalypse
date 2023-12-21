@@ -7,16 +7,17 @@
 #include "EngineManagers/CollisionLayerManager.hpp"
 #include "Src/Scenes/LevelManager.hpp"
 
-int main() {
+int main()
+{
     Config config = new Config();
     config.showFPS = true;
     config.deltaTimeMultiplier = 1.0;
     config.windowTitle = "Brackocalypse";
-    config.windowSize = Vector2(640, 640);
+    config.initialWindowSize = Vector2(1280, 720);
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
 
-    auto &collisionManager = CollisionLayerManager::getInstance();
+    auto& collisionManager = CollisionLayerManager::getInstance();
 
     collisionManager.defineCollision("Player");
     collisionManager.defineCollision("Enemy");
@@ -35,7 +36,7 @@ int main() {
     collisionManager.defineMask("Bullet", {"EnemyHitbox", "Crate"});
     collisionManager.defineMask("Crate", {"Bullet", "Player", "Enemy", "Wall"});
     collisionManager.defineMask("Wall", {"Player", "Enemy", "Crate"});
-
+    
     LevelManager::getInstance().startLoop();
 
     brackEngine.Run();
