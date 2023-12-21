@@ -38,7 +38,7 @@ int main() {
     collisionManager.defineMask("Wall", {"Player", "Enemy", "Crate"});
     collisionManager.defineMask("SolidWall", {"Player", "Enemy", "Crate", "Bullet"});
 
-    LevelManager::getInstance().startLoop();
+    LevelManager::getInstance().startLoop(HOME_SCENE);
 
     brackEngine.Run();
     return 0;

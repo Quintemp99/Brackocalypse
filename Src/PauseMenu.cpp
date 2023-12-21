@@ -12,6 +12,8 @@
 #include "SaveLoadGame.hpp"
 #include <Objects/Button.hpp>
 
+#include "Scenes/LevelManager.hpp"
+
 PauseMenu::PauseMenu() : GameObject() {
     setTag("PauseMenu");
     setName("PauseMenu");
@@ -28,14 +30,27 @@ PauseMenu::PauseMenu() : GameObject() {
     startButton->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-                obj.value()->getEntityId())[0];
+            obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
     });
 
     auto &transformStartButton = startButton->tryGetComponent<TransformComponent>();
     transformStartButton.position = std::make_unique<Vector2>(centerX - (buttonSize.getX() / 2),
-                                                              centerY - (buttonSize.getY() / 2) - 80);
+                                                              centerY - (buttonSize.getY() / 2) - 160);
+
+    auto backToMenu = std::make_unique<Button>(buttonSize, "To Main Menu");
+    backToMenu->setFontSize(20);
+    backToMenu->setTag("ToMainMenu");
+    backToMenu->setName("ToMainMenu");
+    backToMenu->setClickEvent([]() {
+        ConfigSingleton::getInstance().deltaTimeMultiplier = 1.0;
+        LevelManager::getInstance().goToSpecificLevel(HOME_SCENE);
+    });
+
+    auto &backToMenuTransform = backToMenu->tryGetComponent<TransformComponent>();
+    backToMenuTransform.position = std::make_unique<Vector2>(centerX - (buttonSize.getX() / 2),
+                                                             centerY - (buttonSize.getY() / 2) - 80);
 
 
     auto speed1x = std::make_unique<Button>(buttonSize, "Speed 1x");
@@ -45,7 +60,7 @@ PauseMenu::PauseMenu() : GameObject() {
     speed1x->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-                obj.value()->getEntityId())[0];
+            obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
         ConfigSingleton::getInstance().deltaTimeMultiplier = 1.0;
@@ -62,7 +77,7 @@ PauseMenu::PauseMenu() : GameObject() {
     speed2x->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-                obj.value()->getEntityId())[0];
+            obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
         ConfigSingleton::getInstance().deltaTimeMultiplier = 2.0;
@@ -79,7 +94,7 @@ PauseMenu::PauseMenu() : GameObject() {
     replayButton->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-                obj.value()->getEntityId())[0];
+            obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
         ReplayManager::getInstance().toggleReplay();
@@ -109,7 +124,7 @@ PauseMenu::PauseMenu() : GameObject() {
     saveButton->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-                obj.value()->getEntityId())[0];
+            obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
 
@@ -118,12 +133,13 @@ PauseMenu::PauseMenu() : GameObject() {
 
     auto &transformSave = saveButton->tryGetComponent<TransformComponent>();
     transformSave.position = std::make_unique<Vector2>(centerX - (buttonSize.getX() / 2),
-                                                       centerY - (buttonSize.getY() / 2) - 180);
+                                                       centerY - (buttonSize.getY() / 2) - 260);
 
     addChild(std::move(saveButton));
     addChild(std::move(quitButton));
     addChild(std::move(startButton));
     addChild(std::move(speed1x));
+    addChild(std::move(backToMenu));
     addChild(std::move(speed2x));
     addChild(std::move(replayButton));
 }

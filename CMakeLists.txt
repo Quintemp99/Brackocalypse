@@ -98,6 +98,7 @@ add_executable(Brackocalypse main.cpp
         Src/Helpers/MapType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
+        Src/Scenes/SceneType.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

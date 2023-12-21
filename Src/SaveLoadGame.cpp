@@ -17,12 +17,12 @@ bool SaveLoadGame::load() const {
     return load(defaultPath);
 }
 
-std::string SaveLoadGame::stringifyEnemy(Enemy& enemy) const {
+std::string SaveLoadGame::stringifyEnemy(Enemy &enemy) const {
     std::string content;
 
-    auto& transformComp = enemy.tryGetComponent<TransformComponent>();
-    auto& position = transformComp.position;
-    auto& healthComp = enemy.tryGetComponent<HealthComponent>();
+    auto &transformComp = enemy.tryGetComponent<TransformComponent>();
+    auto &position = transformComp.position;
+    auto &healthComp = enemy.tryGetComponent<HealthComponent>();
 
     content += "[";
     content += std::to_string(position->getX()) + ",";
@@ -38,23 +38,23 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     std::string content;
 
     auto player = SceneManager::getGameObjectByName("Player");
-    auto& transformComp = player.value()->tryGetComponent<TransformComponent>();
-    auto& position = transformComp.position;
-    PlayerProgress& script = player.value()->tryGetBehaviourScript<PlayerProgress>();
-    auto& healthComp = player.value()->tryGetComponent<HealthComponent>();
+    auto &transformComp = player.value()->tryGetComponent<TransformComponent>();
+    auto &position = transformComp.position;
+    PlayerProgress &script = player.value()->tryGetBehaviourScript<PlayerProgress>();
+    auto &healthComp = player.value()->tryGetComponent<HealthComponent>();
 
     content += "xPosition: " + std::to_string(position->getX()) + "\n";
     content += "yPosition: " + std::to_string(position->getY()) + "\n";
     content += "beers: " + std::to_string(script.getBeersCollected()) + "\n";
-    content += "level: " + std::to_string(LevelManager::getInstance().currentScene) + "\n";
+    content += "level: " + std::to_string(LevelManager::getInstance().currentSceneType) + "\n";
     content += "health: " + std::to_string(healthComp.health) + "\n";
 
     //Save crates
     content += "crates: ";
     auto crates = SceneManager::getGameObjectsByTag("Crate");
-    for(auto& crate : crates) {
-        auto& transformComp = crate->tryGetComponent<TransformComponent>();
-        auto& position = transformComp.position;
+    for (auto &crate: crates) {
+        auto &transformComp = crate->tryGetComponent<TransformComponent>();
+        auto &position = transformComp.position;
         content += "[";
         content += std::to_string(position->getX()) + ",";
         content += std::to_string(position->getY());
@@ -65,7 +65,7 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     //Save enemies
     auto enemies = SceneManager::getGameObjectsByTag("Enemy");
     content += "enemies: ";
-    for(auto& enemy : enemies) {
+    for (auto &enemy: enemies) {
         auto enemyCast = static_cast<Enemy *>(enemy);
         content += stringifyEnemy(*enemyCast);
     }
@@ -74,12 +74,13 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     try {
         SaveLoad::getInstance().save(filePath, content);
         return true;
-    } catch(std::exception exception) {
+    } catch (std::exception exception) {
         Logger::Error("Unable to save file");
         return false;
     }
 }
-std::vector<std::string> SaveLoadGame::splitString(const std::string& input, char delimiter) const {
+
+std::vector<std::string> SaveLoadGame::splitString(const std::string &input, char delimiter) const {
     std::vector<std::string> tokens;
     std::istringstream tokenStream(input);
     std::string token;
@@ -97,17 +98,17 @@ bool SaveLoadGame::load(const std::string &filePath) const {
 
         //Set level
         int level = std::stof(keyValueMap["level"]);
-        LevelManager::getInstance().loadLevel(level);
+        LevelManager::getInstance().loadLevel(static_cast<SceneType>(level));
 
         auto player = GameObjectConverter::getGameObjectByName("Player");
 
         //Set player position
-        auto& transformComp = player.value()->tryGetComponent<TransformComponent>();
+        auto &transformComp = player.value()->tryGetComponent<TransformComponent>();
         transformComp.position->setX(std::stof(keyValueMap["xPosition"]));
         transformComp.position->setY(std::stof(keyValueMap["yPosition"]));
 
         //Set player health
-        auto& healthComp = player.value()->tryGetComponent<HealthComponent>();
+        auto &healthComp = player.value()->tryGetComponent<HealthComponent>();
         healthComp.health = std::stoi(keyValueMap["health"]);
 
         //Set beer progress
@@ -119,10 +120,10 @@ bool SaveLoadGame::load(const std::string &filePath) const {
         auto enemies = convertArray(inputEnemy);
 
         auto enemyPool = GameObjectConverter::getGameObjectsByTag("Enemy");
-        for(int i = 0; i < enemyPool.size(); ++i) {
-            auto& enemy = enemyPool[i];
+        for (int i = 0; i < enemyPool.size(); ++i) {
+            auto &enemy = enemyPool[i];
 
-            if(enemies.size() <= i) {
+            if (enemies.size() <= i) {
                 enemy->setActive(false);
                 continue;
             }
@@ -130,34 +131,34 @@ bool SaveLoadGame::load(const std::string &filePath) const {
             auto enemyItems = enemies[i];
 
             //Set zombie position
-            auto& transformCompEnemy = enemy->tryGetComponent<TransformComponent>();
+            auto &transformCompEnemy = enemy->tryGetComponent<TransformComponent>();
             transformCompEnemy.position->setX(enemyItems[0]);
             transformCompEnemy.position->setY(enemyItems[1]);
             enemy->setActive(enemyItems[2]);
 
             //Set zombie health
-            auto& zombieHealthComp = enemy->tryGetComponent<HealthComponent>();
+            auto &zombieHealthComp = enemy->tryGetComponent<HealthComponent>();
             zombieHealthComp.health = enemyItems[3];
         }
 
         auto crates = convertArray(keyValueMap["crates"]);
         auto cratePool = GameObjectConverter::getGameObjectsByTag("Crate");
-        for(int i = 0; i < cratePool.size(); ++i) {
-            auto& crate = cratePool[i];
+        for (int i = 0; i < cratePool.size(); ++i) {
+            auto &crate = cratePool[i];
 
-            if(crates.size() <= i) {
+            if (crates.size() <= i) {
                 crate->setActive(false);
                 continue;
             }
 
             auto crateItems = crates[i];
-            auto& transformCompEnemy = crate->tryGetComponent<TransformComponent>();
+            auto &transformCompEnemy = crate->tryGetComponent<TransformComponent>();
             transformCompEnemy.position->setX(crateItems[0]);
             transformCompEnemy.position->setY(crateItems[1]);
         }
 
         return true;
-    } catch(std::exception exception) {
+    } catch (std::exception exception) {
         Logger::Error("Something went wrong trying to load in the data.");
         return false;
     }
@@ -169,7 +170,7 @@ bool SaveLoadGame::canLoad() const {
 }
 
 std::map<std::string, std::string> SaveLoadGame::getLoadData(std::string filePath) const {
-    const auto& content = SaveLoad::getInstance().load(filePath);
+    const auto &content = SaveLoad::getInstance().load(filePath);
 
     std::map<std::string, std::string> keyValueMap;
     std::istringstream lineStream(content);
@@ -186,10 +187,10 @@ std::map<std::string, std::string> SaveLoadGame::getLoadData(std::string filePat
     return keyValueMap;
 }
 
-std::vector<std::vector<int>> SaveLoadGame::convertArray(std::string contentData) const {
+std::vector<std::vector<int> > SaveLoadGame::convertArray(std::string contentData) const {
     contentData.erase(std::remove(contentData.begin(), contentData.end(), '['), contentData.end());
 
-    std::vector<std::vector<int>> arrayList;
+    std::vector<std::vector<int> > arrayList;
     std::istringstream ss(contentData);
     std::string arrayString;
 
