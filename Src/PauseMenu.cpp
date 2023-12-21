@@ -12,12 +12,23 @@
 #include "SaveLoadGame.hpp"
 #include <Objects/Button.hpp>
 
+#include "Components/SpriteComponent.hpp"
 #include "Scenes/LevelManager.hpp"
 
 PauseMenu::PauseMenu() : GameObject() {
     setTag("PauseMenu");
     setName("PauseMenu");
     setActive(false);
+
+    auto bgImageSprite = std::make_unique<SpriteComponent>();
+    bgImageSprite->spritePath = "Sprites/beer_background.png";
+    bgImageSprite->spriteSize = std::make_unique<Vector2>(1049, 699);
+    bgImageSprite->tileOffset = std::make_unique<Vector2>(0, 0);
+    bgImageSprite->orderInLayer = 2;
+    auto &transformBgImage = this->tryGetComponent<TransformComponent>();
+    transformBgImage.position = std::make_unique<Vector2>(0, 0);
+    transformBgImage.scale = std::make_unique<Vector2>(1, 1);
+    this->addComponent(std::move(bgImageSprite));
 
     auto centerY = ConfigSingleton::getInstance().getInitialWindowSize().getY() / 2;
     auto centerX = ConfigSingleton::getInstance().getInitialWindowSize().getX() / 2;
