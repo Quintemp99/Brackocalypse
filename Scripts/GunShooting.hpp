@@ -10,7 +10,8 @@
 
 class GunShooting : public BehaviourScript {
 public:
-    GunShooting() : BehaviourScript() {}
+    GunShooting() : BehaviourScript() {
+    }
 
     ~GunShooting() override = default;
 
@@ -22,8 +23,15 @@ public:
         return std::make_unique<GunShooting>(*this);
     }
 
-    GunShooting(const GunShooting &other) :
-            BehaviourScript(other) {};
+    GunShooting(const GunShooting &other) : BehaviourScript(other) {
+        cameraShakeDuration = other.cameraShakeDuration;
+        cameraShakeIntensity = other.cameraShakeIntensity;
+        cameraShakeTimer = other.cameraShakeTimer;
+        originalCameraPosition = other.originalCameraPosition;
+        shaking = other.shaking;
+        speed = other.speed;
+    };
+
 private:
     float cameraShakeIntensity = 2.5f;
     milliseconds cameraShakeDuration = 100.0f;
@@ -37,7 +45,6 @@ private:
     void shakeCamera();
 
     void shoot(GameObject &player);
-
 };
 
 

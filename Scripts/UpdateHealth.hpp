@@ -10,7 +10,8 @@
 
 class UpdateHealth : public BehaviourScript {
 public:
-    UpdateHealth() : BehaviourScript() {}
+    UpdateHealth() : BehaviourScript() {
+    }
 
     ~UpdateHealth() override = default;
 
@@ -20,6 +21,9 @@ public:
 
     std::unique_ptr<IBehaviourScript> clone() const override {
         return std::make_unique<UpdateHealth>(*this);
+    }
+
+    UpdateHealth(const UpdateHealth &other) : BehaviourScript(other) {
     }
 };
 

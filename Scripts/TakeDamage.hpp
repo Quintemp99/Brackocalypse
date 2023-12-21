@@ -18,6 +18,9 @@ public:
         return std::make_unique<TakeDamage>(*this);
     }
 
+    TakeDamage(const TakeDamage &other) : BehaviourScript(other) {
+    }
+
     virtual void onStart() override;
 
     virtual void onUpdate(milliseconds deltaTime) override;

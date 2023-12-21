@@ -20,6 +20,12 @@ public:
         return std::make_unique<PlayerProgress>(*this);
     }
 
+    PlayerProgress(const PlayerProgress &other) : BehaviourScript(other) {
+        maxForLevel = other.maxForLevel;
+        beersCollected = other.beersCollected;
+        foodCollected = other.foodCollected;
+    }
+
     virtual void onStart() override;
     virtual void onUpdate(milliseconds deltaTime) override;
 
