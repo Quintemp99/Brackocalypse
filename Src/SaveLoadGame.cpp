@@ -46,7 +46,7 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     content += "xPosition: " + std::to_string(position->getX()) + "\n";
     content += "yPosition: " + std::to_string(position->getY()) + "\n";
     content += "beers: " + std::to_string(script.getBeersCollected()) + "\n";
-    content += "level: " + std::to_string(LevelManager::getInstance().currentLevel) + "\n";
+    content += "level: " + std::to_string(LevelManager::getInstance().currentScene) + "\n";
     content += "health: " + std::to_string(healthComp.health) + "\n";
 
     //Save crates
