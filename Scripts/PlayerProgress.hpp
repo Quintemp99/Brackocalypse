@@ -10,7 +10,7 @@
 class PlayerProgress : public BehaviourScript {
 public:
     PlayerProgress() : BehaviourScript() {
-        maxForLevel = 1;
+        maxForLevel = 10;
         beersCollected = 0;
         foodCollected = 0;
     }
