@@ -21,7 +21,7 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    if (currentScene >= MAX_LEVELS)
+    if (currentScene >= 8)
         currentScene = 0;
     else
         ++currentScene;

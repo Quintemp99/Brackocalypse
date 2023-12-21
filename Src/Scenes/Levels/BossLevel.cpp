@@ -21,6 +21,7 @@
 #include "../../ProgressBar.hpp"
 #include "../../WifeHealthBar.hpp"
 #include "../../Components/HealthComponent.hpp"
+#include "../../EnemyKillHud.hpp"
 
 void BossLevel::build()
 {
@@ -275,7 +276,7 @@ void BossLevel::build()
 
     levelBuilder.buildLevel(MapType::Outdoor);
 
-    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 5, 18);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 5, 16);
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
 
     auto parent = std::make_unique<GameObject>();
@@ -285,7 +286,7 @@ void BossLevel::build()
     zombieWanderSound->volume = 0.01;
 
     auto enemySpawner = std::make_unique<GameObject>();
-    enemySpawner->addBehaviourScript(EnemySpawn(2000));
+    enemySpawner->addBehaviourScript(EnemySpawn(4000));
     enemySpawner->addComponent(std::move(zombieWanderSound));
     parent->addChild(std::move(enemySpawner));
 
@@ -299,14 +300,14 @@ void BossLevel::build()
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));
 
-    auto progressBar = std::make_unique<ProgressBar>();
-    parent->addChild(std::move(progressBar));
-
     auto wife = std::make_unique<Wife>(1,20);
 
     wife->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(250,-100);
 
     int wifeHealth = wife->tryGetComponent<HealthComponent>().maxHealth;
+
+    auto enemyKillHud = std::make_unique<EnemyKillHud>();
+    parent->addChild(std::move(enemyKillHud));
 
     parent->addChild(std::move(wife));
     parent->addChild(std::make_unique<PlayerHealthBar>());

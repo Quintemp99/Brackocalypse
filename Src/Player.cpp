@@ -94,7 +94,6 @@ void Player::init(size_t layer, Vector2 position) {
     addBehaviourScript(std::make_unique<EnemyDamage>());
     addBehaviourScript(std::make_unique<TakeDamage>());
     addBehaviourScript(std::make_unique<UpdateHealth>());
-    addBehaviourScript(std::make_unique<PlayerProgress>());
 
     setTag("Player");
     setName("Player");
