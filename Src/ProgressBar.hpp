@@ -2,13 +2,12 @@
 #define BRACKOCALYPSE_PROGRESSBAR_HPP
 
 #include <Objects/GameObject.hpp>
+#include "Helpers/Vector2.hpp"
 
 class ProgressBar : public GameObject {
 public:
-    ProgressBar();
+    ProgressBar(Vector2 size);
     ~ProgressBar() = default;
-private:
-    const int totalWidth = 300;
 };
 
 

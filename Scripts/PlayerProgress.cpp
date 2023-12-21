@@ -7,21 +7,31 @@
 #include "../Src/Scenes/GameOverScene.hpp"
 #include "../Src/Scenes/InterludeOneScene.hpp"
 #include "../Src/Scenes/LevelManager.hpp"
+#include "RandomGenerator.hpp"
 
 void PlayerProgress::onStart() {
 
 }
 
 void PlayerProgress::onUpdate(milliseconds deltaTime) {
-    int totalProgress = beersCollected - foodCollected;
+    auto progressBar = getGameObjectByTag("ProgressBar");
+    if (!progressBar.has_value())
+        return;
+    
+    auto &progressBarRectangle = progressBar.value().tryGetComponent<RectangleComponent>();
+    auto& progressBarBackground = progressBar.value().getChildGameObjectByName("ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
+    int progressWidth = progressBarBackground.size->getX() / 100 * (beersCollected * beersNeeded);
+    progressBarRectangle.size->setX(progressWidth);
 
-    auto &progressBar = getGameObjectByTag("ProgressBar").value().tryGetComponent<RectangleComponent>();
-    int progressWidth = 300 / 100 * (totalProgress * 10);
-    progressBar.size->setX(progressWidth);
-
+    auto beerImage = progressBar.value().getChildGameObjectByName("BeerImage");
+    if (beerImage.has_value()){
+        auto& beerImageTransform = beerImage.value()->tryGetComponent<TransformComponent>();
+        beerImageTransform.position->setX(progressWidth - 20);
+        
+    }
+    
     auto &health = tryGetComponent<HealthComponent>();
-    if (totalProgress >= maxForLevel || health.health <= 0) {
-        maxForLevel += 10;
+    if (beersCollected >= beersNeeded ) {
         LevelManager::getInstance().goToNextLevel();
     }
     if (health.health <= 0) {
@@ -29,4 +39,16 @@ void PlayerProgress::onUpdate(milliseconds deltaTime) {
         scene->build();
         SceneManager::getInstance().goToNewScene(scene);
     }
+}
+
+void PlayerProgress::addBeer() {
+    beersCollected++;
+    auto progressBar = getGameObjectByTag("ProgressBar");
+    if (!progressBar.has_value())
+        return;
+    auto beerImage = progressBar.value().getChildGameObjectByName("BeerImage");
+    if (!beerImage.has_value())
+        return;
+    auto& beerImageTransform = beerImage.value()->tryGetComponent<TransformComponent>();
+    beerImageTransform.rotation = RandomGenerator::randomFloat(-20,20);
 }

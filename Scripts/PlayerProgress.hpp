@@ -9,10 +9,9 @@
 
 class PlayerProgress : public BehaviourScript {
 public:
-    PlayerProgress() : BehaviourScript() {
-        maxForLevel = 10;
+    PlayerProgress(int beersNeeded) : BehaviourScript() {
+        this->beersNeeded = beersNeeded;
         beersCollected = 0;
-        foodCollected = 0;
     }
 
     ~PlayerProgress() override = default;
@@ -22,27 +21,23 @@ public:
     }
 
     PlayerProgress(const PlayerProgress &other) : BehaviourScript(other) {
-        maxForLevel = other.maxForLevel;
+        beersNeeded = other.beersNeeded;
         beersCollected = other.beersCollected;
-        foodCollected = other.foodCollected;
     }
 
     virtual void onStart() override;
 
     virtual void onUpdate(milliseconds deltaTime) override;
 
-    void addBeer() { ++beersCollected; }
-
-    void addFood() { ++foodCollected; }
+    void addBeer();
 
     int getBeersCollected() { return beersCollected; }
 
     void setBeersCollected(int amount) { beersCollected = amount; }
 
 private:
-    int maxForLevel;
+    int beersNeeded;
     int beersCollected;
-    int foodCollected;
 };
 
 

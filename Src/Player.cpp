@@ -28,7 +28,7 @@ Player::Player(GameObject *spawnLocationMapTile) {
     auto spriteComponent = spawnLocationMapTile->tryGetComponent<SpriteComponent>();
     int layer = spriteComponent.sortingLayer;
 
-    addBehaviourScript(std::make_unique<PlayerProgress>());
+    addBehaviourScript(std::make_unique<PlayerProgress>(10));
     init(layer, location);
 }
 

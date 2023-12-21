@@ -247,7 +247,7 @@ void SecondLevel::build() {
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));
 
-    auto progressBar = std::make_unique<ProgressBar>();
+    auto progressBar = std::make_unique<ProgressBar>(Vector2(300, 50));
     parent->addChild(std::move(progressBar));
 
 
