@@ -2,19 +2,20 @@
 // Created by SKIKK on 04/12/2023.
 //
 
-#ifndef BRACKOCALYPSE_CAMPFIREMAPTILE_HPP
-#define BRACKOCALYPSE_CAMPFIREMAPTILE_HPP
+#ifndef BRACKOCALYPSE_FIREMAPTILE_HPP
+#define BRACKOCALYPSE_FIREMAPTILE_HPP
 
 #include <Components/AnimationComponent.hpp>
 #include <Components/ParticleEmitterComponent.hpp>
 #include "RogueLikeMapTile.hpp"
 
-struct CampfireMapTile : public RogueLikeMapTile {
-    CampfireMapTile(Vector2 tileOffset, Vector2 position, Vector2 size, size_t layer) : RogueLikeMapTile(tileOffset,
-                                                                                                         position, size,
-                                                                                                         layer) {
+struct FireMapTile : public RogueLikeMapTile {
+    FireMapTile(Vector2 tileOffset, Vector2 position, Vector2 startPosition, Vector2 size, size_t layer)
+            : RogueLikeMapTile(tileOffset,
+                               position, size,
+                               layer) {
         auto spriteAnimationComponent = AnimationComponent();
-        spriteAnimationComponent.startPosition = std::make_unique<Vector2>(14, 8);
+        spriteAnimationComponent.startPosition = std::make_unique<Vector2>(startPosition);
         spriteAnimationComponent.frameCount = 2;
         spriteAnimationComponent.fps = 4;
         spriteAnimationComponent.imageSize = std::make_unique<Vector2>(968, 526);
@@ -31,8 +32,8 @@ struct CampfireMapTile : public RogueLikeMapTile {
         addComponent(particleEmitterComponent);
     }
 
-    ~CampfireMapTile() = default;
+    ~FireMapTile() = default;
 };
 
 
-#endif //BRACKOCALYPSE_CAMPFIREMAPTILE_HPP
+#endif //BRACKOCALYPSE_FIREMAPTILE_HPP

@@ -12,6 +12,7 @@
 #include "InterludeThreeScene.hpp"
 #include "HomeScene.hpp"
 #include "Levels/BossLevel.hpp"
+#include "secondLevel.hpp"
 
 LevelManager LevelManager::instance;
 
@@ -20,7 +21,7 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    if(currentScene >= MAX_LEVELS)
+    if (currentScene >= MAX_LEVELS)
         currentScene = 0;
     else
         ++currentScene;
@@ -29,9 +30,9 @@ void LevelManager::goToNextLevel() {
 }
 
 void LevelManager::goToLevel() {
-    Scene* level = nullptr;
+    Scene *level = nullptr;
 
-    switch(currentScene) {
+    switch (currentScene) {
         case 1:
             level = new BossLevel();
             // level = new IntroductionScene();
@@ -43,12 +44,15 @@ void LevelManager::goToLevel() {
             level = new InterludeOneScene();
             break;
         case 4:
-            level = new InterludeTwoScene();
+            level = new SecondLevel();
             break;
         case 5:
-            level = new InterludeThreeScene();
+            level = new InterludeTwoScene();
             break;
         case 6:
+            level = new InterludeThreeScene();
+            break;
+        case 7:
             level = new EndScene();
             break;
         default:
