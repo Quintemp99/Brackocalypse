@@ -49,6 +49,20 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     content += "level: " + std::to_string(LevelManager::getInstance().currentLevel) + "\n";
     content += "health: " + std::to_string(healthComp.health) + "\n";
 
+    //Save crates
+    content += "crates: ";
+    auto crates = SceneManager::getGameObjectsByTag("Crate");
+    for(auto& crate : crates) {
+        auto& transformComp = crate->tryGetComponent<TransformComponent>();
+        auto& position = transformComp.position;
+        content += "[";
+        content += std::to_string(position->getX()) + ",";
+        content += std::to_string(position->getY());
+        content += "]";
+    }
+    content += "\n";
+
+    //Save enemies
     auto enemies = SceneManager::getGameObjectsByTag("Enemy");
     content += "enemies: ";
     for(auto& enemy : enemies) {
@@ -102,7 +116,7 @@ bool SaveLoadGame::load(const std::string &filePath) const {
 
         //Set the zombies
         auto inputEnemy = keyValueMap["enemies"];
-        std::vector<std::vector<int>> enemies = convertEnemyData(inputEnemy);
+        auto enemies = convertArray(inputEnemy);
 
         auto enemyPool = GameObjectConverter::getGameObjectsByTag("Enemy");
         for(int i = 0; i < enemyPool.size(); ++i) {
@@ -124,6 +138,22 @@ bool SaveLoadGame::load(const std::string &filePath) const {
             //Set zombie health
             auto& zombieHealthComp = enemy->tryGetComponent<HealthComponent>();
             zombieHealthComp.health = enemyItems[3];
+        }
+
+        auto crates = convertArray(keyValueMap["crates"]);
+        auto cratePool = GameObjectConverter::getGameObjectsByTag("Crate");
+        for(int i = 0; i < cratePool.size(); ++i) {
+            auto& crate = cratePool[i];
+
+            if(crates.size() <= i) {
+                crate->setActive(false);
+                continue;
+            }
+
+            auto crateItems = crates[i];
+            auto& transformCompEnemy = crate->tryGetComponent<TransformComponent>();
+            transformCompEnemy.position->setX(crateItems[0]);
+            transformCompEnemy.position->setY(crateItems[1]);
         }
 
         return true;
@@ -156,11 +186,11 @@ std::map<std::string, std::string> SaveLoadGame::getLoadData(std::string filePat
     return keyValueMap;
 }
 
-std::vector<std::vector<int>> SaveLoadGame::convertEnemyData(std::string enemyData) const {
-    enemyData.erase(std::remove(enemyData.begin(), enemyData.end(), '['), enemyData.end());
+std::vector<std::vector<int>> SaveLoadGame::convertArray(std::string contentData) const {
+    contentData.erase(std::remove(contentData.begin(), contentData.end(), '['), contentData.end());
 
-    std::vector<std::vector<int>> enemies;
-    std::istringstream ss(enemyData);
+    std::vector<std::vector<int>> arrayList;
+    std::istringstream ss(contentData);
     std::string arrayString;
 
     // Split the string by "][" and store each array string in the vector
@@ -176,9 +206,9 @@ std::vector<std::vector<int>> SaveLoadGame::convertEnemyData(std::string enemyDa
                     array.push_back(std::stoi(arrayItemString));
                 }
             }
-            enemies.push_back(array);
+            arrayList.push_back(array);
         }
     }
 
-    return enemies;
+    return arrayList;
 }

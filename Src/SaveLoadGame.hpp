@@ -30,10 +30,10 @@ private:
     //Generic help functions
     std::vector<std::string> splitString(const std::string& input, char delimiter) const;
     std::map<std::string, std::string> getLoadData(std::string filePath) const;
+    std::vector<std::vector<int>> convertArray(std::string contentData) const;
 
     //Specefic help functions
     std::string stringifyEnemy(Enemy& enemy) const;
-    std::vector<std::vector<int>> convertEnemyData(std::string enemyData) const;
 };
 
 
