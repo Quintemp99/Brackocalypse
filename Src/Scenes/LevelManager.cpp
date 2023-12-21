@@ -11,6 +11,7 @@
 #include "InterludeTwoScene.hpp"
 #include "InterludeThreeScene.hpp"
 #include "HomeScene.hpp"
+#include "Levels/BossLevel.hpp"
 
 LevelManager LevelManager::instance;
 
@@ -32,7 +33,8 @@ void LevelManager::goToLevel() {
 
     switch(currentScene) {
         case 1:
-            level = new IntroductionScene();
+            level = new BossLevel();
+            // level = new IntroductionScene();
             break;
         case 2:
             level = new FirstLevel();

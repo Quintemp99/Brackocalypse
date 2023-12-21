@@ -49,7 +49,7 @@ Wife::Wife(size_t layer, int health)
     rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Enemy");
     rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Enemy");
 
-    collision->offset = std::make_unique<Vector2>(0, 44);
+    collision->offset = std::make_unique<Vector2>(0, 66);
 
     sprite->spritePath = "Sprites/character_femaleAdventurer_sheet.png";
     sprite->spriteSize = std::make_unique<Vector2>(96, 128);
@@ -68,7 +68,7 @@ Wife::Wife(size_t layer, int health)
 
     aiComponent->speed = 20;
 
-    enemyCollision->offset = std::make_unique<Vector2>(0, 16);
+    enemyCollision->offset = std::make_unique<Vector2>(0, 22);
 
     enemyRigidbody->gravityScale = 0.0f;
     enemyRigidbody->collisionCategory = CollisionLayerManager::getInstance().getCategory("EnemyHitbox");
@@ -81,28 +81,6 @@ Wife::Wife(size_t layer, int health)
     enemyCollisionObject->addComponent(std::move(enemyCollision));
     enemyCollisionObject->setTag("EnemyCollision");
 
-    int totalWidth = healthComponent->maxHealth * 19;
-    int offsetX = -totalWidth / 2;
-
-    auto healthBar = std::make_unique<GameObject>();
-    healthBar->setTag("EnemyHealth");
-    healthBar->setName("EnemyHealth");
-    for (auto i = 0; i < healthComponent->maxHealth; i++) {
-        auto healthObject = std::make_unique<GameObject>();
-        auto healthSprite = std::make_unique<SpriteComponent>();
-        healthSprite->spritePath = "Sprites/heart_full.png";
-        healthSprite->spriteSize = std::make_unique<Vector2>(36, 32);
-        healthSprite->tileOffset = std::make_unique<Vector2>(0, 0);
-
-        auto &healthTransform = healthObject->tryGetComponent<TransformComponent>();
-        healthTransform.scale = std::make_unique<Vector2>(0.5, 0.5);
-        healthTransform.position = std::make_unique<Vector2>(offsetX + (i + 0.5) * 19, -45);
-        healthObject->addComponent(std::move(healthSprite));
-        healthBar->addChild(std::move(healthObject));
-    }
-
-
-    addChild(std::move(healthBar));
     addChild(std::move(enemyCollisionObject));
 
     addComponent(std::make_unique<VelocityComponent>());

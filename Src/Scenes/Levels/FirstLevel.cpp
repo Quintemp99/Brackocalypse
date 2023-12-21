@@ -177,7 +177,7 @@ void FirstLevel::build() {
     levelBuilder.buildLevel();
 
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
-    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 3);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 3, 15);
     auto beerPool = std::make_unique<PoolCreator<Beer>>(1, 6);
     beerPool->addBehaviourScript(SpawnInBeers(5000));
 
@@ -208,12 +208,6 @@ void FirstLevel::build() {
         auto player = std::make_unique<Player>(spawnObject.value());
         parent->addChild(std::move(player));
     }
-
-    auto wife = std::make_unique<Wife>(1,10);
-
-    wife->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(-400,0);
-
-    parent->addChild(std::move(wife));
 
     parent->addChild(std::make_unique<PlayerHealthBar>());
 
