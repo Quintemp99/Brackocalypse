@@ -12,6 +12,7 @@
 #include "InterludeThreeScene.hpp"
 #include "HomeScene.hpp"
 #include "secondLevel.hpp"
+#include "../../Scripts/PlayerProgressScript.hpp"
 
 LevelManager LevelManager::instance;
 

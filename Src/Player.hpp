@@ -16,8 +16,6 @@ public:
     Player(size_t layer, Vector2 position);
 
     ~Player() = default;
-
-    std::vector<Beer> collectedBeers;
 private:
     void init(size_t layer, Vector2 position);
 };

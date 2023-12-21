@@ -24,6 +24,8 @@
 #include "../PlayerHealthBar.hpp"
 #include "../Components/WanderSoundComponent.hpp"
 #include "../../Scripts/SpawnInBeers.hpp"
+#include "../EnemyKillHud.hpp"
+#include "../../Scripts/PlayerProgressScript.hpp"
 
 void SecondLevel::build() {
     Scene::build();
@@ -247,9 +249,11 @@ void SecondLevel::build() {
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));
 
-    auto progressBar = std::make_unique<ProgressBar>();
+    auto progressBar = std::make_unique<ProgressBar>(Vector2(500, 30));
     parent->addChild(std::move(progressBar));
 
+    auto enemyKillHud = std::make_unique<EnemyKillHud>();
+    parent->addChild(std::move(enemyKillHud));
 
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));
@@ -270,4 +274,7 @@ void SecondLevel::build() {
 
     auto pauseHandler = std::make_unique<PauseManager>();
     this->addGameObject(std::move(pauseHandler));
+
+    auto playerProgress = SceneManager::getInstance().getGameObjectByName("PlayerProgress");
+    playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>().setBeersNeeded(5);
 }

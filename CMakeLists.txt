@@ -45,7 +45,7 @@ add_executable(Brackocalypse main.cpp
         Src/Components/HealthComponent.hpp
         Src/Components/SpawnComponent.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
-        Scripts/PlayerProgress.cpp
+        Scripts/PlayerProgressScript.cpp
         Src/ProgressBar.cpp
         Scripts/SpawnInBeers.cpp
         Scripts/CollectBeers.cpp
@@ -98,6 +98,8 @@ add_executable(Brackocalypse main.cpp
         Src/Helpers/MapType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
+        Src/PlayerProgress.cpp
+        Src/EnemyKillHud.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
