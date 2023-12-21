@@ -176,7 +176,7 @@ void FirstLevel::build() {
     levelBuilder.buildLevel();
 
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
-    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 3);
     auto beerPool = std::make_unique<PoolCreator<Beer>>(1, 6);
     beerPool->addBehaviourScript(SpawnInBeers(5000));
 

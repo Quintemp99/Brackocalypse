@@ -20,7 +20,9 @@
 #include "Components/WanderSoundComponent.hpp"
 #include "../Scripts/MovementAnimation.hpp"
 
-Enemy::Enemy(size_t layer) {
+Enemy::Enemy(size_t layer, int health) {
+    health_ = health;
+
     auto &transform = tryGetComponent<TransformComponent>();
     auto sprite = std::make_unique<SpriteComponent>();
     auto animation = std::make_unique<AnimationComponent>();
