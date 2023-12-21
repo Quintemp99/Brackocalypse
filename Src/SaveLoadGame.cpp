@@ -22,8 +22,6 @@ std::string SaveLoadGame::stringifyEnemy(Enemy& enemy) const {
     auto& transformComp = enemy.tryGetComponent<TransformComponent>();
     auto& position = transformComp.position;
 
-    bool test = enemy.isActive();
-
     content += "[";
     content += std::to_string(position->getX()) + ",";
     content += std::to_string(position->getY()) + ",";
@@ -91,15 +89,21 @@ bool SaveLoadGame::load(const std::string &filePath) const {
             }
         }
 
+        //Set level
         int level = std::stof(keyValueMap["level"]);
         LevelManager::getInstance().loadLevel(level);
 
+        //Set player position
         auto player = GameObjectConverter::getGameObjectByName("Player");
         auto& transformComp = player.value()->tryGetComponent<TransformComponent>();
         transformComp.position->setX(std::stof(keyValueMap["xPosition"]));
         transformComp.position->setY(std::stof(keyValueMap["yPosition"]));
 
-        //Zombies
+        //Set beer progress
+        PlayerProgress &script = player.value()->tryGetBehaviourScript<PlayerProgress>();
+        script.setBeersCollected(std::stof(keyValueMap["beers"]));
+
+        //Set the zombies
         auto inputEnemy = keyValueMap["enemies"];
         inputEnemy.erase(std::remove(inputEnemy.begin(), inputEnemy.end(), '['), inputEnemy.end());
 

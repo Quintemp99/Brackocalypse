@@ -107,38 +107,19 @@ PauseMenu::PauseMenu() : GameObject() {
     saveButton->setTag("SaveButton");
     saveButton->setName("SaveButton");
     saveButton->setClickEvent([]() {
-        SaveLoadGame::getInstance().save();
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
                 obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
-    });
 
+        SaveLoadGame::getInstance().save();
+    });
 
     auto &transformSave = saveButton->tryGetComponent<TransformComponent>();
     transformSave.position = std::make_unique<Vector2>(centerX - (buttonSize.getX() / 2),
-                                                       centerY - (buttonSize.getY() / 2) - 280);
-
-    auto loadButton = std::make_unique<Button>(buttonSize, "Load game");
-    loadButton->setFontSize(40);
-    loadButton->setTag("LoadButton");
-    loadButton->setName("LoadButton");
-    loadButton->setClickEvent([]() {
-        SaveLoadGame::getInstance().load();
-        auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
-        auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-                obj.value()->getEntityId())[0];
-
-        pauseHandlerPtr.get().togglePause();
-    });
-
-
-    auto &transformLoad = loadButton->tryGetComponent<TransformComponent>();
-    transformLoad.position = std::make_unique<Vector2>(centerX - (buttonSize.getX() / 2),
                                                        centerY - (buttonSize.getY() / 2) - 180);
 
-    addChild(std::move(loadButton));
     addChild(std::move(saveButton));
     addChild(std::move(quitButton));
     addChild(std::move(startButton));
