@@ -11,7 +11,6 @@
 #include <Components/SoundEffectComponent.hpp>
 #include "GunShooting.hpp"
 #include "../Src/Beer.hpp"
-#include "PlayerProgress.hpp"
 #include "../Src/Player.hpp"
 
 void GunShooting::onStart() {

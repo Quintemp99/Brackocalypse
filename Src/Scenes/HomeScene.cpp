@@ -14,6 +14,7 @@
 #include "Components/PersistenceTag.hpp"
 #include "Components/TextComponent.hpp"
 #include "../../Scripts/FullScreenHandler.hpp"
+#include "../PlayerProgress.hpp"
 
 HomeScene::HomeScene() : Scene() {}
 
@@ -102,4 +103,7 @@ void HomeScene::build() {
     fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
     fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
     addGameObject(std::move(fullScreenToggleObject));
+    
+    auto playerProgress = std::make_unique<PlayerProgress>();
+    addGameObject(std::move(playerProgress));
 }

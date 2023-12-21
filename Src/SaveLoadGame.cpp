@@ -1,5 +1,5 @@
 #include "SaveLoadGame.hpp"
-#include "../Scripts/PlayerProgress.hpp"
+#include "../Scripts/PlayerProgressScript.hpp"
 #include "Scenes/LevelManager.hpp"
 #include "Components/HealthComponent.hpp"
 #include <SaveLoad.hpp>
@@ -40,12 +40,14 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     auto player = SceneManager::getGameObjectByName("Player");
     auto& transformComp = player.value()->tryGetComponent<TransformComponent>();
     auto& position = transformComp.position;
-    PlayerProgress& script = player.value()->tryGetBehaviourScript<PlayerProgress>();
+    auto playerProgress = SceneManager::getGameObjectByName("PlayerProgress");
+    PlayerProgressScript& script = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
     auto& healthComp = player.value()->tryGetComponent<HealthComponent>();
 
     content += "xPosition: " + std::to_string(position->getX()) + "\n";
     content += "yPosition: " + std::to_string(position->getY()) + "\n";
     content += "beers: " + std::to_string(script.getBeersCollected()) + "\n";
+    content += "zombiesKilled: " + std::to_string(script.getZombiesKilled()) + "\n";
     content += "level: " + std::to_string(LevelManager::getInstance().currentScene) + "\n";
     content += "health: " + std::to_string(healthComp.health) + "\n";
 
@@ -111,8 +113,10 @@ bool SaveLoadGame::load(const std::string &filePath) const {
         healthComp.health = std::stoi(keyValueMap["health"]);
 
         //Set beer progress
-        PlayerProgress &script = player.value()->tryGetBehaviourScript<PlayerProgress>();
+        auto playerProgress = GameObjectConverter::getGameObjectByName("PlayerProgress");
+        PlayerProgressScript &script = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
         script.setBeersCollected(std::stof(keyValueMap["beers"]));
+        script.setZombiesKilled(std::stof(keyValueMap["zombiesKilled"]));
 
         //Set the zombies
         auto inputEnemy = keyValueMap["enemies"];
