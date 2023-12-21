@@ -25,6 +25,7 @@ int main() {
     collisionManager.defineCollision("Bullet");
     collisionManager.defineCollision("Crate");
     collisionManager.defineCollision("Wall");
+    collisionManager.defineCollision("SolidWall");
     collisionManager.defineCollision("Collectable");
 
     collisionManager.defineMask("PlayerHitbox", {"EnemyHitbox", "Collectable"});
@@ -32,9 +33,10 @@ int main() {
     collisionManager.defineMask("EnemyHitbox", {"PlayerHitbox", "Bullet"});
     collisionManager.defineMask("Player", {"Wall", "Crate", "Enemy"});
     collisionManager.defineMask("Enemy", {"Wall", "Crate", "Player", "Enemy"});
-    collisionManager.defineMask("Bullet", {"EnemyHitbox", "Crate"});
+    collisionManager.defineMask("Bullet", {"EnemyHitbox", "Crate", "SolidWall"});
     collisionManager.defineMask("Crate", {"Bullet", "Player", "Enemy", "Wall"});
     collisionManager.defineMask("Wall", {"Player", "Enemy", "Crate"});
+    collisionManager.defineMask("SolidWall", {"Player", "Enemy", "Crate", "Bullet"});
 
     LevelManager::getInstance().startLoop();
 
