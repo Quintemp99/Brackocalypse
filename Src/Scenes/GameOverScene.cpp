@@ -1,7 +1,3 @@
-//
-// Created by Olaf van den Berg on 19-12-2023.
-//
-
 #include "GameOverScene.hpp"
 #include "HomeScene.hpp"
 #include "LevelManager.hpp"
@@ -11,7 +7,6 @@
 #include "../../../Brack-Engine/src/ConfigSingleton.hpp"
 #include "Components/SpriteComponent.hpp"
 #include "Components/TextComponent.hpp"
-#include <Helpers/Vector2.hpp>
 #include <Objects/Button.hpp>
 
 GameOverScene::GameOverScene() {
