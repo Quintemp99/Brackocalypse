@@ -16,8 +16,8 @@ PauseMenu::PauseMenu() : GameObject() {
     setName("PauseMenu");
     setActive(false);
 
-    auto centerY = ConfigSingleton::getInstance().getWindowSize().getY() / 2;
-    auto centerX = ConfigSingleton::getInstance().getWindowSize().getX() / 2;
+    auto centerY = ConfigSingleton::getInstance().getInitialWindowSize().getY() / 2;
+    auto centerX = ConfigSingleton::getInstance().getInitialWindowSize().getX() / 2;
     auto buttonSize = Vector2(210, 70);
 
     auto startButton = std::make_unique<Button>(buttonSize, "Resume");
