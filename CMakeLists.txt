@@ -103,6 +103,10 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/Levels/FirstLevel.hpp
         Src/Helpers/MapType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
+        Src/WifeHealthBar.cpp
+        Src/WifeHealthBar.hpp
+        Scripts/WifeDeath.cpp
+        Scripts/WifeDeath.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
