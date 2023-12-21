@@ -2,7 +2,6 @@
 #define BRACKOCALYPSE_DEMOLEVEL_HPP
 
 #include "Objects/Scene.hpp"
-#include "BrackEngine.hpp"
 
 class FirstLevel : public Scene {
 public:

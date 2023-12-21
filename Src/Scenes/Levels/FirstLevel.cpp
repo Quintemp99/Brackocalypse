@@ -20,6 +20,7 @@
 #include "../../PlayerHealthBar.hpp"
 #include "../../Components/WanderSoundComponent.hpp"
 #include "../../../Scripts/SpawnInBeers.hpp"
+#include "../../Wife.hpp"
 
 void FirstLevel::build() {
     Scene::build();
@@ -198,7 +199,6 @@ void FirstLevel::build() {
     auto progressBar = std::make_unique<ProgressBar>();
     parent->addChild(std::move(progressBar));
 
-
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));
     }
@@ -208,6 +208,12 @@ void FirstLevel::build() {
         auto player = std::make_unique<Player>(spawnObject.value());
         parent->addChild(std::move(player));
     }
+
+    auto wife = std::make_unique<Wife>(1,10);
+
+    wife->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(-400,0);
+
+    parent->addChild(std::move(wife));
 
     parent->addChild(std::make_unique<PlayerHealthBar>());
 

@@ -93,6 +93,12 @@ add_executable(Brackocalypse main.cpp
         Scripts/ToggleFPS.hpp
         Scripts/ToggleFPS.cpp
         Scripts/FullScreenHandler.cpp
+        Scripts/WifeComplaints.cpp
+        Scripts/WifeComplaints.hpp
+        Src/Wife.cpp
+        Src/Wife.hpp
+        Src/Scenes/Levels/BossLevel.cpp
+        Src/Scenes/Levels/BossLevel.hpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
