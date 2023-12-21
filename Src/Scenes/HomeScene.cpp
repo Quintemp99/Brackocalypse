@@ -52,8 +52,7 @@ void HomeScene::build() {
     auto textComponent = std::make_unique<TextComponent>();
     textComponent->text = "Brackocalypse";
     textComponent->fontSize = 40;
-    textComponent->alignment = Alignment::CENTERCENTER;
-
+    
     auto transformBg = std::make_unique<TransformComponent>();
     transformBg->position = std::make_unique<Vector2>(0, -100);
     transformBg->scale = std::make_unique<Vector2>(0.6, 0.6);
