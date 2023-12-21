@@ -89,7 +89,7 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/EndScene.cpp
         Src/Scenes/EndScene.hpp
         Src/Scenes/LevelManager.cpp
-        Src/Scenes/Levels/FirstLevel.cpp
+        Src/Scenes/Levels/SecondLevel.cpp
         Scripts/ToggleFPS.hpp
         Scripts/ToggleFPS.cpp
         Scripts/FullScreenHandler.cpp
@@ -99,10 +99,9 @@ add_executable(Brackocalypse main.cpp
         Src/Wife.hpp
         Src/Scenes/Levels/BossLevel.cpp
         Src/Scenes/Levels/BossLevel.hpp
-        Src/Scenes/secondLevel.cpp
-        Src/Scenes/secondLevel.hpp
+        Src/Scenes/Levels/FirstLevel.cpp
+        Src/Scenes/Levels/FirstLevel.hpp
         Src/Helpers/MapType.hpp
-        Src/Helpers/RogueLikeSheetIndoorType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
 )
 

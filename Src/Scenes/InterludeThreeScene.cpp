@@ -8,7 +8,7 @@
 InterludeThreeScene::InterludeThreeScene() : StoryScene(
         {
                 "In a clearing surrounded by towering trees, I stumble",
-                "upon an ancient grove where technology and the undead",
+                "upon an ancient grove where your wife and the undead",
                 "meet in an unexpected harmony. It's here, in the heart",
                 "of the wild, that I uncover a hidden truth. The",
                 "orchestrated brackocalypse isn't just a human tragedy",
