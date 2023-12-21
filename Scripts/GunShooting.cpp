@@ -15,18 +15,13 @@
 #include "../Src/Player.hpp"
 
 void GunShooting::onStart() {
-
 }
 
 void GunShooting::onUpdate(milliseconds deltaTime) {
-
     auto &animationComponent = tryGetComponent<AnimationComponent>();
     if (InputManager::GetInstance().IsMousePressed(LEFT_MOUSE)) {
         auto player = getGameObjectByTag("Player");
-        auto &playerTransform = player->tryGetComponent<TransformComponent>();
         auto playerCollision = getGameObjectByTag("PlayerCollision");
-        auto &playerCollisionTransform = playerCollision->tryGetComponent<TransformComponent>();
-        auto &gunTransform = tryGetComponent<TransformComponent>();
         if (!animationComponent.isPlaying) {
             shoot(player.value());
             animationComponent.currentFrame = 0;
@@ -91,5 +86,4 @@ void GunShooting::shakeCamera() {
 
     cameraPosition.position = std::make_unique<Vector2>(cameraPosition.position->getX() + offsetX,
                                                         cameraPosition.position->getY() + offsetY);
-
 }

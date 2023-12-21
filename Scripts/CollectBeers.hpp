@@ -12,6 +12,8 @@ public:
         return std::make_unique<CollectBeers>(*this);
     }
 
+    CollectBeers(const CollectBeers &other) : BehaviourScript(other) {};
+
     virtual void onStart() override;
     virtual void onUpdate(milliseconds deltaTime) override;
 };

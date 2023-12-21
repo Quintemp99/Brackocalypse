@@ -10,7 +10,8 @@
 
 class UserInputMovement : public BehaviourScript {
 public:
-    UserInputMovement() : BehaviourScript() {}
+    UserInputMovement() : BehaviourScript() {
+    }
 
     ~UserInputMovement() override = default;
 
@@ -22,7 +23,9 @@ public:
         return std::make_unique<UserInputMovement>(*this);
     }
 
-    UserInputMovement(const UserInputMovement &other) : BehaviourScript(other) {}
+    UserInputMovement(const UserInputMovement &other) : BehaviourScript(other) {
+        velocity = other.velocity;
+    }
 
 private:
     float velocity = 25.0f;

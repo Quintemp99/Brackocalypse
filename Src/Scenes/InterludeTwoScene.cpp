@@ -18,7 +18,7 @@ InterludeTwoScene::InterludeTwoScene() : StoryScene(
                 "time amid the chaos.",
                 " ",
                 "Press enter to continue..."
-        }, new InterludeThreeScene()) {}
+        }) {}
 
 void InterludeTwoScene::build() {
     StoryScene::build();

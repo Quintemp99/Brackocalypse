@@ -24,7 +24,7 @@ EndScene::EndScene() : StoryScene(
                 "life, death, and the enduring spirit of the wild.",
                 " ",
                 "Press enter to continue..."
-        }, new HomeScene()) {}
+        }) {}
 
 void EndScene::build() {
     StoryScene::build();
