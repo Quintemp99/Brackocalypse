@@ -17,7 +17,7 @@ InterludeOneScene::InterludeOneScene() : StoryScene(
                 "sweet nostalgia of a world overtaken by zombies.",
                 " ",
                 "Press enter to continue..."
-        }, new InterludeTwoScene()) {}
+        }) {}
 
 void InterludeOneScene::build() {
     StoryScene::build();

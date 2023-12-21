@@ -43,7 +43,6 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
                                                                                       1)].get();
             transform.position = std::make_unique<Vector2>(spawnLocation->getX(), spawnLocation->getY());
 
-
             enemy->setActive(true);
             auto &health = enemy->tryGetComponent<HealthComponent>();
 

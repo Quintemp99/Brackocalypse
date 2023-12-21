@@ -7,11 +7,10 @@
 
 
 #include <BehaviourScripts/BehaviourScript.hpp>
-#include <Objects/Scene.hpp>
 
 class WriteTextAnimation : public BehaviourScript{
 public:
-    explicit WriteTextAnimation(std::vector<std::string> lines, Scene* nextScene) : BehaviourScript(), lines(lines), nextScene(nextScene) {}
+    explicit WriteTextAnimation(std::vector<std::string> lines) : BehaviourScript(), lines(lines) {}
     ~WriteTextAnimation() override;
 
     std::unique_ptr<IBehaviourScript> clone() const override {
@@ -27,13 +26,11 @@ public:
         soundInterval = other.soundInterval;
         soundPaths = other.soundPaths;
         lastSound = other.lastSound;
-        nextScene = other.nextScene;
     }
 
     virtual void onStart() override;
     virtual void onUpdate(milliseconds deltaTime) override;
 private:
-    Scene* nextScene;
     std::vector<std::string> lines;
     milliseconds writeInterval = 20;
     milliseconds lastWrite = 0;

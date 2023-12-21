@@ -19,17 +19,16 @@ add_executable(Brackocalypse main.cpp
         Src/RogueLikeMapTiles/RogueLikeMapTile.hpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/Scenes/HomeScene.cpp
-        Src/Scenes/DemoLevel.cpp
         Src/Gun.cpp
         Scripts/GunFollowMouse.cpp
         Scripts/GunShooting.cpp
-        Src/SaveLoad.cpp
+        Src/SaveLoadGame.cpp
         Src/Bullet.cpp
         Scripts/BulletActions.cpp
-        Src/SaveLoad.cpp
+        Src/SaveLoadGame.cpp
         Src/RogueLikeMapTiles/CampfireMapTile.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
-        Src/SaveLoad.cpp
+        Src/SaveLoadGame.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
@@ -90,6 +89,8 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/InterludeThreeScene.hpp
         Src/Scenes/EndScene.cpp
         Src/Scenes/EndScene.hpp
+        Src/Scenes/LevelManager.cpp
+        Src/Scenes/Levels/FirstLevel.cpp
         Scripts/ToggleFPS.hpp
         Scripts/ToggleFPS.cpp
         Scripts/FullScreenHandler.cpp
