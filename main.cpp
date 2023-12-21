@@ -5,6 +5,7 @@
 #include "Scripts/UserInputMovement.hpp"
 #include "Src/Scenes/HomeScene.hpp"
 #include "EngineManagers/CollisionLayerManager.hpp"
+#include "Src/Scenes/LevelManager.hpp"
 
 int main() {
     Config config = new Config();
@@ -35,9 +36,7 @@ int main() {
     collisionManager.defineMask("Crate", {"Bullet", "Player", "Enemy", "Wall"});
     collisionManager.defineMask("Wall", {"Player", "Enemy", "Crate"});
 
-    auto scene = new HomeScene();
-    scene->build();
-    SceneManager::getInstance().goToNewScene(scene);
+    LevelManager::getInstance().startLoop();
 
     brackEngine.Run();
     return 0;

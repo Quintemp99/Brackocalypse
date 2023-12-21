@@ -20,9 +20,11 @@ public:
     void goToNextLevel();
     void goToSpecificLevel(int level);
     void loadLevel(int level);
+    void startLoop();
 private:
     LevelManager();
     static LevelManager instance;
+    static const int MAX_LEVELS = 6;
 };
 
 

@@ -7,6 +7,10 @@
 #include "./Levels/FirstLevel.hpp"
 #include "EndScene.hpp"
 #include "InterludeOneScene.hpp"
+#include "IntroductionScene.hpp"
+#include "InterludeTwoScene.hpp"
+#include "InterludeThreeScene.hpp"
+#include "HomeScene.hpp"
 
 LevelManager LevelManager::instance;
 
@@ -15,7 +19,11 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    ++currentLevel;
+    if(currentLevel >= MAX_LEVELS)
+        currentLevel = 0;
+    else
+        ++currentLevel;
+
     goToLevel();
 }
 
@@ -24,13 +32,25 @@ void LevelManager::goToLevel() {
 
     switch(currentLevel) {
         case 1:
-            level = new FirstLevel();
+            level = new IntroductionScene();
             break;
         case 2:
+            level = new FirstLevel();
+            break;
+        case 3:
             level = new InterludeOneScene();
             break;
-        default:
+        case 4:
+            level = new InterludeTwoScene();
+            break;
+        case 5:
+            level = new InterludeThreeScene();
+            break;
+        case 6:
             level = new EndScene();
+            break;
+        default:
+            level = new HomeScene();
             break;
     }
 
@@ -49,5 +69,10 @@ void LevelManager::loadLevel(int level) {
 }
 
 LevelManager::LevelManager() {
-    currentLevel = 1;
+    currentLevel = 0;
+}
+
+void LevelManager::startLoop() {
+    currentLevel = 0;
+    goToLevel();
 }

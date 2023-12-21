@@ -18,7 +18,7 @@ IntroductionScene::IntroductionScene() : StoryScene(
             "beneath the towering trees and open skies.",
             " ",
             "Press enter to continue..."
-        }, new FirstLevel()) {}
+        }) {}
 
 void IntroductionScene::build() {
     StoryScene::build();

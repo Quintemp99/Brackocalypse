@@ -3,6 +3,7 @@
 //
 
 #include "WriteTextAnimation.hpp"
+#include "../Src/Scenes/LevelManager.hpp"
 #include <sstream>
 #include <Components/TextComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
@@ -12,8 +13,7 @@
 
 void WriteTextAnimation::onUpdate(milliseconds deltaTime) {
     if (InputManager::GetInstance().IsKeyClicked(KeyMap::RETURN)) {
-        nextScene->build();
-        SceneManager::getInstance().goToNewScene(nextScene);
+        LevelManager::getInstance().goToNextLevel();
     }
 
     if (charPos == lines[linePos].length()) {

@@ -22,7 +22,7 @@ InterludeThreeScene::InterludeThreeScene() : StoryScene(
                 "thing I stand for... Beer.",
                 " ",
                 "Press enter to continue..."
-        }, new EndScene()) {}
+        }) {}
 
 void InterludeThreeScene::build() {
     StoryScene::build();

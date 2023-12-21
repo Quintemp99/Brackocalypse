@@ -79,9 +79,7 @@ void HomeScene::build() {
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
     startButton->setFontSize(40);
     startButton->setClickEvent([]() {
-        auto scene = new IntroductionScene();
-        scene->build();
-        SceneManager::getInstance().goToNewScene(scene);
+        LevelManager::getInstance().goToNextLevel();
     });
 
     auto &transformStartButton = startButton->tryGetComponent<TransformComponent>();
