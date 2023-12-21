@@ -61,8 +61,8 @@ void HomeScene::build() {
     logo->addComponent(std::move(transformBg));
     addGameObject(std::move(logo));
 
-    auto centerY = ConfigSingleton::getInstance().getWindowSize().getY() / 2;
-    auto centerX = ConfigSingleton::getInstance().getWindowSize().getX() / 2;
+    auto centerY = ConfigSingleton::getInstance().getInitialWindowSize().getY() / 2;
+    auto centerX = ConfigSingleton::getInstance().getInitialWindowSize().getX() / 2;
 
     if(SaveLoadGame::getInstance().canLoad()) {
         auto loadButton = std::make_unique<Button>(Vector2(210, 70), "Load game");
