@@ -17,9 +17,9 @@
 #include "EngineManagers/ReplayManager.hpp"
 #include "../../PauseManager.hpp"
 #include "../../ProgressBar.hpp"
-#include "../../BeerPool.hpp"
 #include "../../PlayerHealthBar.hpp"
 #include "../../Components/WanderSoundComponent.hpp"
+#include "../../../Scripts/SpawnInBeers.hpp"
 
 void FirstLevel::build() {
     Scene::build();
@@ -27,7 +27,7 @@ void FirstLevel::build() {
 
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
-    camera->SetBackgroundColor(Color(0, 255, 0, 255));
+    camera->SetBackgroundColor(Color(99, 197, 207, 255));
     camera->addBehaviourScript(FollowGameObject("Player"));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
     backgroundSound->volume = 0.02;
@@ -176,7 +176,9 @@ void FirstLevel::build() {
     levelBuilder.buildLevel();
 
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
-    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 3);
+    auto beerPool = std::make_unique<PoolCreator<Beer>>(1, 6);
+    beerPool->addBehaviourScript(SpawnInBeers(5000));
 
     auto parent = std::make_unique<GameObject>();
     parent->setName("GameParent");
@@ -189,7 +191,6 @@ void FirstLevel::build() {
     enemySpawner->addComponent(std::move(zombieWanderSound));
     parent->addChild(std::move(enemySpawner));
 
-    auto beerPool = std::make_unique<BeerPool>(6);
     parent->addChild(std::move(beerPool));
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));

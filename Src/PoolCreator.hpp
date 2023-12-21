@@ -10,9 +10,10 @@
 template<typename T>
 class PoolCreator : public GameObject {
 public:
-    PoolCreator(size_t layer, size_t poolSize) {
+    template<typename...Args>
+    PoolCreator(size_t layer, size_t poolSize, Args &&...args) {
         for (size_t i = 0; i < poolSize; i++) {
-            auto enemy = std::make_unique<T>(layer);
+            auto enemy = std::make_unique<T>(layer, std::forward<Args>(args)...);
             enemy->setActive(false);
             addChild(std::move(enemy));
         }

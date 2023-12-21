@@ -15,17 +15,17 @@ void EnemySpawn::onStart() {
 }
 
 void EnemySpawn::onUpdate(milliseconds deltaTime) {
-    if(currentEnemyCount > 0){
-        if(lastWanderSound <= 0){
-            auto& wandersound = tryGetComponent<WanderSoundComponent>();
+    if (currentEnemyCount > 0) {
+        if (lastWanderSound <= 0) {
+            auto &wandersound = tryGetComponent<WanderSoundComponent>();
             wandersound.startPlaying = true;
             lastWanderSound = makeWanderSoundInterval;
-        }else{
+        } else {
             lastWanderSound -= deltaTime;
         }
     }
 
-    if(lastSpawned <= 0){
+    if (lastSpawned <= 0) {
         lastSpawned = spawnInterval_;
         auto enemies = getGameObjectsByTag("Enemy");
         for (auto &enemy: enemies) {
@@ -39,19 +39,19 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
             auto &spawnComponent = spawnObject->tryGetComponent<SpawnComponent>();
             auto spawnLocation =
                     spawnComponent.availableSpawnLocations[RandomGenerator::randomInt(0,
-                                                                             spawnComponent.availableSpawnLocations.size() -
-                                                                             1)].get();
+                                                                                      spawnComponent.availableSpawnLocations.size() -
+                                                                                      1)].get();
             transform.position = std::make_unique<Vector2>(spawnLocation->getX(), spawnLocation->getY());
 
             enemy->setActive(true);
             auto &health = enemy->tryGetComponent<HealthComponent>();
 
             auto children = enemy->getChildren();
-            for (auto& child: children) {
-                if(child->getName() == "EnemyHealth"){
+            for (auto &child: children) {
+                if (child->getName() == "EnemyHealth") {
                     auto healthObjects = child->getChildren();
-                    for (auto& healthObject: healthObjects) {
-                        auto& sprite = healthObject->tryGetComponent<SpriteComponent>();
+                    for (auto &healthObject: healthObjects) {
+                        auto &sprite = healthObject->tryGetComponent<SpriteComponent>();
                         sprite.spritePath = "Sprites/heart_full.png";
                     }
                 }
@@ -61,7 +61,7 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
             currentEnemyCount++;
             break;
         }
-    }else{
+    } else {
         lastSpawned -= deltaTime;
     }
 }

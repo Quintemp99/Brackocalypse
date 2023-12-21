@@ -16,7 +16,6 @@ void SpawnInBeers::onUpdate(milliseconds deltaTime) {
                     continue;
                 }
 
-
                 auto &transform = oneBeer->tryGetComponent<TransformComponent>();
 
                 int randomIndex = RandomGenerator::randomInt(0, spawnComponent.availableSpawnLocations.size() - 1);

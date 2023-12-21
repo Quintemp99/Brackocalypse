@@ -19,7 +19,7 @@ class Beer : public GameObject {
 public:
     Beer(entity entity1) : GameObject(entity1) {}
 
-    Beer() : GameObject() {
+    Beer(size_t layer) : GameObject() {
         setTag("Beer");
 
         auto spriteComponent = std::make_unique<SpriteComponent>();
@@ -27,6 +27,7 @@ public:
         spriteComponent->spriteSize = std::make_unique<Vector2>(512, 512);
         spriteComponent->tileOffset = std::make_unique<Vector2>(0, 0);
         spriteComponent->orderInLayer = 0;
+        spriteComponent->sortingLayer = layer;
 
         auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(512, 512));
         collisionComponent->isTrigger = false;

@@ -48,7 +48,6 @@ add_executable(Brackocalypse main.cpp
         Scripts/PlayerProgress.cpp
         Src/ProgressBar.cpp
         Scripts/SpawnInBeers.cpp
-        Src/BeerPool.cpp
         Scripts/CollectBeers.cpp
         Scripts/GunFollowMouse.hpp
         Scripts/PauseHandler.cpp
@@ -93,6 +92,7 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/Levels/FirstLevel.cpp
         Scripts/ToggleFPS.hpp
         Scripts/ToggleFPS.cpp
+        Scripts/FullScreenHandler.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
