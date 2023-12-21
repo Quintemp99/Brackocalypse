@@ -6,6 +6,7 @@
 #include "Src/Scenes/HomeScene.hpp"
 #include "EngineManagers/CollisionLayerManager.hpp"
 #include "Src/Scenes/LevelManager.hpp"
+#include "Src/Scenes/CreditsScene.hpp"
 
 int main() {
     Config config = new Config();
@@ -36,7 +37,10 @@ int main() {
     collisionManager.defineMask("Crate", {"Bullet", "Player", "Enemy", "Wall"});
     collisionManager.defineMask("Wall", {"Player", "Enemy", "Crate"});
 
-    LevelManager::getInstance().startLoop();
+//    LevelManager::getInstance().startLoop();
+    auto le = new CreditsScene();
+    le->build();
+    SceneManager::getInstance().goToNewScene(le);
 
     brackEngine.Run();
     return 0;

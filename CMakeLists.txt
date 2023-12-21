@@ -92,6 +92,8 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/Levels/FirstLevel.cpp
         Scripts/ToggleFPS.hpp
         Scripts/ToggleFPS.cpp
+        Scripts/CreditsScroll.cpp
+        Src/Scenes/CreditsScene.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
