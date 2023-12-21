@@ -19,12 +19,13 @@
 #include "Components/HitSoundComponent.hpp"
 #include "Components/WanderSoundComponent.hpp"
 #include "../Scripts/MovementAnimation.hpp"
+#include "Components/CircleCollisionComponent.hpp"
 
 Enemy::Enemy(size_t layer) {
     auto &transform = tryGetComponent<TransformComponent>();
     auto sprite = std::make_unique<SpriteComponent>();
     auto animation = std::make_unique<AnimationComponent>();
-    auto collision = std::make_unique<BoxCollisionComponent>(Vector2(48, 40));
+    auto collision = std::make_unique<CircleCollisionComponent>(30);
     auto healthComponent = std::make_unique<HealthComponent>(health_);
 
     collision->offset = std::make_unique<Vector2>(0, 44);

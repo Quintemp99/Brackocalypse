@@ -31,7 +31,7 @@ void StoryScene::build() {
         tag << "Line" << lineNumber;
 
         auto text = std::make_unique<Text>(" ");
-        text->SetFontSize(24);
+        text->SetFontSize(16);
         text->SetColor(Color(255,255,255,255));
         text->setTag(tag.str());
         text->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(startText);
