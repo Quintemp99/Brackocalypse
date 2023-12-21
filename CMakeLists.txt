@@ -92,6 +92,7 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/EndScene.hpp
         Scripts/ToggleFPS.hpp
         Scripts/ToggleFPS.cpp
+        Scripts/FullScreenHandler.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

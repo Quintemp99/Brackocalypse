@@ -15,7 +15,6 @@ void EnemySpawn::onStart() {
 }
 
 void EnemySpawn::onUpdate(milliseconds deltaTime) {
-    return;
     if (currentEnemyCount > 0) {
         if (lastWanderSound <= 0) {
             auto &wandersound = tryGetComponent<WanderSoundComponent>();

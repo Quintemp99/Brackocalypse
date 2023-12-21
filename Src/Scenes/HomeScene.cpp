@@ -10,6 +10,7 @@
 #include "DemoLevel.hpp"
 #include "../../Scripts/ToggleFPS.hpp"
 #include "Components/PersistenceTag.hpp"
+#include "../../Scripts/FullScreenHandler.hpp"
 
 HomeScene::HomeScene() : Scene() {}
 
@@ -84,4 +85,9 @@ void HomeScene::build() {
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
     transformQuitButton.position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     addGameObject(std::move(quitButton));
+    
+    auto fullScreenToggleObject = std::make_unique<GameObject>();
+    fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
+    fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
+    addGameObject(std::move(fullScreenToggleObject));
 }
