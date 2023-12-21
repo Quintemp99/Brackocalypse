@@ -9,14 +9,15 @@
 #include <Objects/GameObject.hpp>
 #include <Helpers/Vector2.hpp>
 #include "../Helpers/RogueLikeSheetMap.hpp"
+#include "../Helpers/MapType.hpp"
 
 class LevelFactory {
 public:
     void setSize(Vector2 size);
 
-    std::unique_ptr<GameObject> createGameObject(char c, Vector2 position, size_t layer);
+    std::unique_ptr<GameObject> createGameObject(char c, Vector2 position, size_t layer, MapType mapType);
 
-    Vector2 getSpriteTileOffset(char c);
+    Vector2 getSpriteTileOffset(char c, MapType mapType);
 
 private:
     Vector2 size_;

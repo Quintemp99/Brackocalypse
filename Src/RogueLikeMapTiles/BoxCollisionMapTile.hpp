@@ -6,7 +6,7 @@
 #define BRACKOCALYPSE_BOXCOLLISIONMAPTILE_HPP
 
 #include "RogueLikeMapTile.hpp"
-#include "../Helpers/RogueLikeSheetType.hpp"
+#include "../Helpers/RogueLikeSheetOutdoorType.hpp"
 #include "Components/RigidBodyComponent.hpp"
 
 struct BoxCollisionMapTile : public RogueLikeMapTile {
