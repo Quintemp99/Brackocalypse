@@ -12,6 +12,8 @@
 #include "Levels/FirstLevel.hpp"
 #include "../../Scripts/ToggleFPS.hpp"
 #include "Components/PersistenceTag.hpp"
+#include "Components/TextComponent.hpp"
+#include "../../Scripts/FullScreenHandler.hpp"
 
 HomeScene::HomeScene() : Scene() {}
 
@@ -25,7 +27,7 @@ void HomeScene::build() {
     addGameObject(std::move(obj));
     auto &camera = getCameras()[0];
     camera->addComponent(VelocityComponent());
-    camera->SetBackgroundColor(Color(0, 255, 0, 255));
+    camera->SetBackgroundColor(Color(99, 197, 207, 255));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
     backgroundSound->volume = 0.02;
     backgroundSound->startPlaying = true;
@@ -47,16 +49,14 @@ void HomeScene::build() {
 
     auto logo = std::make_unique<GameObject>();
 
-    auto spriteBg = std::make_unique<SpriteComponent>();
-    spriteBg->spritePath = "Sprites/logo.png";
-    spriteBg->spriteSize = std::make_unique<Vector2>(736, 105);
-    spriteBg->tileOffset = std::make_unique<Vector2>(0, 0);
-    spriteBg->orderInLayer = 0;
+    auto textComponent = std::make_unique<TextComponent>();
+    textComponent->text = "Brackocalypse";
+    textComponent->fontSize = 40;
 
     auto transformBg = std::make_unique<TransformComponent>();
     transformBg->position = std::make_unique<Vector2>(0, -100);
     transformBg->scale = std::make_unique<Vector2>(0.6, 0.6);
-    logo->addComponent(std::move(spriteBg));
+    logo->addComponent(std::move(textComponent));
     logo->addComponent(std::move(transformBg));
     addGameObject(std::move(logo));
 
@@ -65,7 +65,7 @@ void HomeScene::build() {
 
     if(SaveLoadGame::getInstance().canLoad()) {
         auto loadButton = std::make_unique<Button>(Vector2(210, 70), "Load game");
-        loadButton->setFontSize(40);
+        loadButton->setFontSize(20);
         loadButton->setClickEvent([]() {
             SaveLoadGame::getInstance().load();
         });
@@ -77,7 +77,7 @@ void HomeScene::build() {
 
     //Start button
     auto startButton = std::make_unique<Button>(Vector2(210, 70), "Start game");
-    startButton->setFontSize(40);
+    startButton->setFontSize(20);
     startButton->setClickEvent([]() {
         LevelManager::getInstance().goToNextLevel();
     });
@@ -88,7 +88,7 @@ void HomeScene::build() {
 
     //Quit button
     auto quitButton = std::make_unique<Button>(Vector2(210, 70), "Quit");
-    quitButton->setFontSize(40);
+    quitButton->setFontSize(20);
     quitButton->setClickEvent([]() {
         ConfigSingleton::getInstance().toggleIsRunning();
     });
@@ -96,4 +96,9 @@ void HomeScene::build() {
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
     transformQuitButton.position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     addGameObject(std::move(quitButton));
+    
+    auto fullScreenToggleObject = std::make_unique<GameObject>();
+    fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
+    fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
+    addGameObject(std::move(fullScreenToggleObject));
 }

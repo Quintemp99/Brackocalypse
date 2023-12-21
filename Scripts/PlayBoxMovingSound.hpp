@@ -33,6 +33,8 @@ private:
     milliseconds timer = 0.0f;
     milliseconds interval = 1000.0f;
     bool canPlay = true;
+    CollisionArchetype& getCollisionComponent();
+    CollisionArchetype& getCollisionComponent(entity id);
 };
 
 

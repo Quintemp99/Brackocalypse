@@ -12,11 +12,11 @@ int main() {
     config.showFPS = true;
     config.deltaTimeMultiplier = 1.0;
     config.windowTitle = "Brackocalypse";
-    config.windowSize = Vector2(640, 640);
+    config.initialWindowSize = Vector2(1280, 720);
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
 
-    auto &collisionManager = CollisionLayerManager::getInstance();
+    auto& collisionManager = CollisionLayerManager::getInstance();
 
     collisionManager.defineCollision("Player");
     collisionManager.defineCollision("Enemy");
@@ -25,7 +25,6 @@ int main() {
     collisionManager.defineCollision("Bullet");
     collisionManager.defineCollision("Crate");
     collisionManager.defineCollision("Wall");
-    collisionManager.defineCollision("SolidWall");
     collisionManager.defineCollision("Collectable");
 
     collisionManager.defineMask("PlayerHitbox", {"EnemyHitbox", "Collectable"});
