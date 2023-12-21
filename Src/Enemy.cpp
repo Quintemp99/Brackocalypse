@@ -21,13 +21,11 @@
 #include "../Scripts/MovementAnimation.hpp"
 
 Enemy::Enemy(size_t layer, int health) {
-    health_ = health;
-
     auto &transform = tryGetComponent<TransformComponent>();
     auto sprite = std::make_unique<SpriteComponent>();
     auto animation = std::make_unique<AnimationComponent>();
     auto collision = std::make_unique<BoxCollisionComponent>(Vector2(48, 40));
-    auto healthComponent = std::make_unique<HealthComponent>(health_);
+    auto healthComponent = std::make_unique<HealthComponent>(health);
 
     collision->offset = std::make_unique<Vector2>(0, 44);
 

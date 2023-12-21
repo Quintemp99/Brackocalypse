@@ -14,8 +14,6 @@ public:
     Enemy(size_t layer, int health);
 
     ~Enemy() = default;
-
-    int health_;
 };
 
 
