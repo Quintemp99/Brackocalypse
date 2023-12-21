@@ -23,7 +23,7 @@ void StoryScene::build() {
     soundComponent->volume = 0.01;
     camera->addComponent(std::move(soundComponent));
 
-    Vector2 startText = Vector2(30,30);
+    Vector2 startText = Vector2(50,50);
 
     int lineNumber = 0;
     for (auto& line: lines_) {

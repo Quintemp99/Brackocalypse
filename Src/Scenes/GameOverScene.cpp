@@ -75,7 +75,7 @@ void GameOverScene::build() {
 
     //Back to home button
     auto homeButton = std::make_unique<Button>(Vector2(250, 70), "Back to Home");
-    homeButton->setFontSize(40);
+    homeButton->setFontSize(20);
     homeButton->setClickEvent([]() {
         LevelManager::getInstance().goToSpecificLevel(0);
     });
