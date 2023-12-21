@@ -34,9 +34,7 @@ void LevelManager::goToLevel() {
 
     switch (currentScene) {
         case 1:
-            // level = new FirstLevel();
-            level = new BossLevel();
-            // level = new IntroductionScene();
+            level = new IntroductionScene();
             break;
         case 2:
             level = new FirstLevel();
@@ -54,6 +52,9 @@ void LevelManager::goToLevel() {
             level = new InterludeThreeScene();
             break;
         case 7:
+            level = new BossLevel();
+            break;
+        case 8:
             level = new EndScene();
             break;
         default:

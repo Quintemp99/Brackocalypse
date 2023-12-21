@@ -21,6 +21,7 @@
 #include "../Scripts/EnemyFollowPlayer.hpp"
 #include "../Scripts/MovementAnimation.hpp"
 #include "../Scripts/WifeComplaints.hpp"
+#include "../Scripts/WifeDeath.hpp"
 
 Wife::Wife(size_t layer, int health)
 {
@@ -66,7 +67,7 @@ Wife::Wife(size_t layer, int health)
     animation->fps = 15;
     animation->imageSize = std::make_unique<Vector2>(864, 640);
 
-    aiComponent->speed = 20;
+    aiComponent->speed = 0;
 
     enemyCollision->offset = std::make_unique<Vector2>(0, 22);
 
@@ -97,7 +98,9 @@ Wife::Wife(size_t layer, int health)
     addBehaviourScript(std::make_unique<EnemyFollowPlayer>("MainGraph"));
     addBehaviourScript(std::make_unique<MovementAnimation>());
     addBehaviourScript(std::make_unique<WifeComplaints>());
+    addBehaviourScript(std::make_unique<WifeDeath>());
 
     setTag("Enemy");
+    setName("Wife");
 }
 

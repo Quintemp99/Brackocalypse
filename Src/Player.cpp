@@ -28,7 +28,6 @@ Player::Player(GameObject *spawnLocationMapTile) {
     auto spriteComponent = spawnLocationMapTile->tryGetComponent<SpriteComponent>();
     int layer = spriteComponent.sortingLayer;
 
-    addBehaviourScript(std::make_unique<PlayerProgress>());
     init(layer, location);
 }
 
@@ -98,6 +97,7 @@ void Player::init(size_t layer, Vector2 position) {
     addBehaviourScript(std::make_unique<EnemyDamage>());
     addBehaviourScript(std::make_unique<TakeDamage>());
     addBehaviourScript(std::make_unique<UpdateHealth>());
+    addBehaviourScript(std::make_unique<PlayerProgress>());
 
     setTag("Player");
     setName("Player");

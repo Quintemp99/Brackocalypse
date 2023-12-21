@@ -19,6 +19,8 @@
 #include "../../PauseMenu.hpp"
 #include "../../PauseManager.hpp"
 #include "../../ProgressBar.hpp"
+#include "../../WifeHealthBar.hpp"
+#include "../../Components/HealthComponent.hpp"
 
 void BossLevel::build()
 {
@@ -273,7 +275,7 @@ void BossLevel::build()
 
     levelBuilder.buildLevel(MapType::Outdoor);
 
-    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 5, 20);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 5, 18);
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
 
     auto parent = std::make_unique<GameObject>();
@@ -282,16 +284,16 @@ void BossLevel::build()
     auto zombieWanderSound = std::make_unique<WanderSoundComponent>("Sounds/zombie-sound.mp3");
     zombieWanderSound->volume = 0.01;
 
-    // auto enemySpawner = std::make_unique<GameObject>();
-    // enemySpawner->addBehaviourScript(EnemySpawn(2000));
-    // enemySpawner->addComponent(std::move(zombieWanderSound));
-    // parent->addChild(std::move(enemySpawner));
+    auto enemySpawner = std::make_unique<GameObject>();
+    enemySpawner->addBehaviourScript(EnemySpawn(2000));
+    enemySpawner->addComponent(std::move(zombieWanderSound));
+    parent->addChild(std::move(enemySpawner));
 
     for (auto &go: levelBuilder.gameObjects) {
         parent->addChild(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(2,Vector2(-1100,-100));
+    auto player = std::make_unique<Player>(2,Vector2(-1200,-100));
     parent->addChild(std::move(player));
 
     parent->addChild(std::move(bulletPool));
@@ -304,9 +306,11 @@ void BossLevel::build()
 
     wife->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(250,-100);
 
-    // parent->addChild(std::move(wife));
+    int wifeHealth = wife->tryGetComponent<HealthComponent>().maxHealth;
 
+    parent->addChild(std::move(wife));
     parent->addChild(std::make_unique<PlayerHealthBar>());
+    parent->addChild(std::make_unique<WifeHealthBar>(wifeHealth * 38));
 
     this->addGameObject(std::move(parent));
 
