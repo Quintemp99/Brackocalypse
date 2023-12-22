@@ -4,7 +4,7 @@
 
 #include "WifeHealthBar.hpp"
 #include "Components/TransformComponent.hpp"
-#include "../../Brack-Engine/src/ConfigSingleton.hpp"
+#include <ConfigSingleton.hpp>
 
 WifeHealthBar::WifeHealthBar(int size) : GameObject() {
     this->setName("WifeHealthBar");

@@ -11,13 +11,14 @@
 #include <Components/BoxCollisionComponent.hpp>
 #include <Components/RigidBodyComponent.hpp>
 #include <EngineManagers/CollisionLayerManager.hpp>
-#include "../Scripts/CollectBeers.hpp"
 #include "Components/SoundEffectComponent.hpp"
-#include "../Scripts/BopAnimation.hpp"
+#include "Scripts/CollectBeers.hpp"
+#include "Scripts/BopAnimation.hpp"
 
 class Beer : public GameObject {
 public:
-    Beer(entity entity1) : GameObject(entity1) {}
+    Beer(entity entity1) : GameObject(entity1) {
+    }
 
     Beer(size_t layer) : GameObject() {
         setTag("Beer");

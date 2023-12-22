@@ -5,7 +5,7 @@
 #include "WifeComplaints.hpp"
 
 #include "RandomGenerator.hpp"
-#include "../Src/Components/WanderSoundComponent.hpp"
+#include "../Components/WanderSoundComponent.hpp"
 #include "Components/SoundEffectComponent.hpp"
 
 void WifeComplaints::onStart() {
@@ -18,8 +18,7 @@ void WifeComplaints::onUpdate(milliseconds deltaTime) {
         soundComponent.startPlaying = true;
         soundComponent.audioPath = soundPaths[randomIndexSound];
         lastSound = soundInterval;
-    } else
-    {
+    } else {
         lastSound -= deltaTime;
     }
 }

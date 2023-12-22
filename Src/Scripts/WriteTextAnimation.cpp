@@ -3,13 +3,13 @@
 //
 
 #include "WriteTextAnimation.hpp"
-#include "../Src/Scenes/LevelManager.hpp"
 #include <sstream>
 #include <Components/TextComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
 #include <RandomGenerator.hpp>
 #include <EngineManagers/InputManager.hpp>
 #include <Helpers/KeyMap.hpp>
+#include "../Scenes/LevelManager.hpp"
 
 void WriteTextAnimation::onUpdate(milliseconds deltaTime) {
     if (InputManager::GetInstance().IsKeyClicked(KeyMap::RETURN)) {

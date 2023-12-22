@@ -3,7 +3,7 @@
 //
 
 #include "PlayerProgress.hpp"
-#include "../Scripts/PlayerProgressScript.hpp"
+#include "Scripts/PlayerProgressScript.hpp"
 #include "Components/PersistenceTag.hpp"
 
 PlayerProgress::PlayerProgress() {

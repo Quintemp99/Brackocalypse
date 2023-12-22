@@ -3,9 +3,8 @@
 //
 
 #include "PauseMenu.hpp"
-#include "../Scripts/PauseHandler.hpp"
 #include "Helpers/Vector2.hpp"
-#include "../../Brack-Engine/src/ConfigSingleton.hpp"
+#include <ConfigSingleton.hpp>
 #include "Components/TransformComponent.hpp"
 #include "EngineManagers/ReplayManager.hpp"
 #include "EngineManagers/SceneManager.hpp"
@@ -14,6 +13,7 @@
 
 #include "Components/SpriteComponent.hpp"
 #include "Scenes/LevelManager.hpp"
+#include "Scripts/PauseHandler.hpp"
 
 PauseMenu::PauseMenu() : GameObject() {
     setTag("PauseMenu");

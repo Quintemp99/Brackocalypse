@@ -1,9 +1,6 @@
 #include "Objects/Scene.hpp"
 #include "BrackEngine.hpp"
-#include "../Brack-Engine/src/ConfigSingleton.hpp"
-#include "Src/Helpers/RogueLikeSheetMap.hpp"
-#include "Scripts/UserInputMovement.hpp"
-#include "Src/Scenes/HomeScene.hpp"
+#include <ConfigSingleton.hpp>
 #include "EngineManagers/CollisionLayerManager.hpp"
 #include "Src/Scenes/LevelManager.hpp"
 

@@ -1,5 +1,5 @@
 #include "SaveLoadGame.hpp"
-#include "../Scripts/PlayerProgressScript.hpp"
+#include "Scripts/PlayerProgressScript.hpp"
 #include "Scenes/LevelManager.hpp"
 #include "Components/HealthComponent.hpp"
 #include <SaveLoad.hpp>

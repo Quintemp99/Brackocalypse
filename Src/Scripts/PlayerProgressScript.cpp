@@ -2,15 +2,14 @@
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/RectangleComponent.hpp>
 #include <Components/TextComponent.hpp>
-#include "../Src/Helpers/RogueLikeSheetMap.hpp"
 #include "UserInputMovement.hpp"
-#include "../Src/Components/HealthComponent.hpp"
-#include "../Src/Scenes/GameOverScene.hpp"
-#include "../Src/Scenes/LevelManager.hpp"
 #include "RandomGenerator.hpp"
+#include "../PlayerHealthBar.hpp"
+#include "../Components/HealthComponent.hpp"
+#include "../Scenes/GameOverScene.hpp"
+#include "../Scenes/LevelManager.hpp"
 
 void PlayerProgressScript::onStart() {
-
 }
 
 void PlayerProgressScript::onUpdate(milliseconds deltaTime) {
@@ -34,7 +33,7 @@ void PlayerProgressScript::onUpdate(milliseconds deltaTime) {
 
     auto &progressBarRectangle = progressBar.value().tryGetComponent<RectangleComponent>();
     auto &progressBarBackground = progressBar.value().getChildGameObjectByName(
-            "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
+        "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
 
     if (progressBarRectangle.size->getX() < newWidth) {
         progressBarRectangle.size->setX(progressBarRectangle.size->getX() + 1);
@@ -51,7 +50,6 @@ void PlayerProgressScript::onUpdate(milliseconds deltaTime) {
         setBeersCollected(0);
         LevelManager::getInstance().goToNextLevel();
     }
-
 }
 
 void PlayerProgressScript::addBeer() {
@@ -60,7 +58,7 @@ void PlayerProgressScript::addBeer() {
     if (!progressBar.has_value())
         return;
     auto &progressBarBackground = progressBar.value().getChildGameObjectByName(
-            "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
+        "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
     newWidth = progressBarBackground.size->getX() / 100 * (100 / beersNeeded * beersCollected);
     auto beerImage = progressBar.value().getChildGameObjectByName("BeerImage");
     if (!beerImage.has_value())
@@ -88,7 +86,7 @@ void PlayerProgressScript::setBeersCollected(int amount) {
     if (!progressBar.has_value())
         return;
     auto &progressBarBackground = progressBar.value().getChildGameObjectByName(
-            "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
+        "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
     newWidth = progressBarBackground.size->getX() / 100 * (100 / beersNeeded * beersCollected);
     auto beerImage = progressBar.value().getChildGameObjectByName("BeerImage");
     if (!beerImage.has_value())

@@ -9,11 +9,11 @@
 #include "BrackEngine.hpp"
 #include "../../Helpers/RogueLikeSheetMap.hpp"
 #include "../../Player.hpp"
-#include "../../../Scripts/FollowGameObject.hpp"
+#include "../../Scripts/FollowGameObject.hpp"
 #include "../../LevelBuilder.hpp"
 #include "Components/SoundTrackComponent.hpp"
 #include "../../Bullet.hpp"
-#include "../../../Scripts/EnemySpawn.hpp"
+#include "../../Scripts/EnemySpawn.hpp"
 #include "../../PoolCreator.hpp"
 #include "../../Enemy.hpp"
 #include "../../PauseMenu.hpp"
@@ -21,7 +21,7 @@
 #include "../../ProgressBar.hpp"
 #include "../../PlayerHealthBar.hpp"
 #include "../../Components/WanderSoundComponent.hpp"
-#include "../../../Scripts/SpawnInBeers.hpp"
+#include "../../Scripts/SpawnInBeers.hpp"
 #include "EngineManagers/ReplayManager.hpp"
 #include "../../EnemyKillHud.hpp"
 
@@ -38,8 +38,8 @@ void FirstLevel::build() {
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
 
-    std::vector<std::vector<std::string>> objectMap{};
-    std::vector<std::vector<std::string>> tileMap{};
+    std::vector<std::vector<std::string> > objectMap{};
+    std::vector<std::vector<std::string> > tileMap{};
     std::vector<std::string> collisionMap{};
 
     collisionMap.emplace_back("..............................................");
@@ -227,9 +227,9 @@ void FirstLevel::build() {
 
     levelBuilder.buildLevel(MapType::Indoor);
 
-    auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
-    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 3,20);
-    auto beerPool = std::make_unique<PoolCreator<Beer>>(1, 10);
+    auto bulletPool = std::make_unique<PoolCreator<Bullet> >(1, 30);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy> >(1, 30, 3, 20);
+    auto beerPool = std::make_unique<PoolCreator<Beer> >(1, 10);
     beerPool->addBehaviourScript(SpawnInBeers(5000));
 
     auto parent = std::make_unique<GameObject>();
@@ -249,7 +249,7 @@ void FirstLevel::build() {
 
     auto progressBar = std::make_unique<ProgressBar>(Vector2(500, 30));
     parent->addChild(std::move(progressBar));
-    
+
     auto enemyKillHud = std::make_unique<EnemyKillHud>();
     parent->addChild(std::move(enemyKillHud));
 

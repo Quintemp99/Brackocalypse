@@ -10,8 +10,8 @@
 #include <Components/SpriteComponent.hpp>
 #include <Components/SoundEffectComponent.hpp>
 #include "GunShooting.hpp"
-#include "../Src/Beer.hpp"
-#include "../Src/Player.hpp"
+
+#include "Components/RigidBodyComponent.hpp"
 
 void GunShooting::onStart() {
 }
