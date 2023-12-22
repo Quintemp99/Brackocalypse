@@ -13,6 +13,7 @@ std::unique_ptr<GameObject> CreditsScene::createText(std::string text) {
     textComp->text = text;
     textComp->fontSize = 40;
     textComp->color = std::make_unique<Color>(255, 255, 255, 255);
+    textComp->alignment = Alignment::CENTERCENTER;
     textObj->addComponent(std::move(textComp));
 
     auto& transform = textObj->tryGetComponent<TransformComponent>();
