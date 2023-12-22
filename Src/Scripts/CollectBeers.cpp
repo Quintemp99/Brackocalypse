@@ -1,11 +1,13 @@
 
 #include <Components/BoxCollisionComponent.hpp>
 #include "CollectBeers.hpp"
-#include "PlayerProgress.hpp"
-#include "../Src/Beer.hpp"
-#include "../Src/Components/SpawnComponent.hpp"
+#include "PlayerProgressScript.hpp"
+#include <Components/SoundEffectComponent.hpp>
+#include <Components/TransformComponent.hpp>
+#include "../Components/SpawnComponent.hpp"
 
-void CollectBeers::onStart() {}
+void CollectBeers::onStart() {
+}
 
 void CollectBeers::onUpdate(milliseconds deltaTime) {
     auto &boxCollision = tryGetComponent<BoxCollisionComponent>();
@@ -15,20 +17,22 @@ void CollectBeers::onUpdate(milliseconds deltaTime) {
         if (playerCollision->getEntityId() == id) {
             setActive(false);
             boxCollision.collidedWith.clear();
-            PlayerProgress &script = playerCollision->getParent().value().tryGetBehaviourScript<PlayerProgress>();
+            auto playerProgress = getGameObjectByName("PlayerProgress");
+            PlayerProgressScript &script = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
             tryGetComponent<SoundEffectComponent>().startPlaying = true;
             script.addBeer();
 
-            auto playerLocation = playerCollision->getParent().value().tryGetComponent<TransformComponent>().position.get();
+            auto playerLocation = playerCollision->getParent().value().tryGetComponent<TransformComponent>().position.
+                    get();
             auto spawnObject = getGameObjectByTag("BeerSpawner");
             auto &spawnComponent = spawnObject->tryGetComponent<SpawnComponent>();
 
             auto closestPositionIter = std::min_element(
-                    spawnComponent.unavailableSpawnLocations.begin(),
-                    spawnComponent.unavailableSpawnLocations.end(),
-                    [playerLocation](const auto &a, const auto &b) {
-                        return a->distance(*playerLocation) < b->distance(*playerLocation);
-                    }
+                spawnComponent.unavailableSpawnLocations.begin(),
+                spawnComponent.unavailableSpawnLocations.end(),
+                [playerLocation](const auto &a, const auto &b) {
+                    return a->distance(*playerLocation) < b->distance(*playerLocation);
+                }
             );
 
             if (closestPositionIter != spawnComponent.unavailableSpawnLocations.end()) {

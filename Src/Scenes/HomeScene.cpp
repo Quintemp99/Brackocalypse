@@ -3,19 +3,18 @@
 #include <Objects/Button.hpp>
 #include <Components/SpriteComponent.hpp>
 #include <Components/SoundTrackComponent.hpp>
-#include "../../Brack-Engine/src/ConfigSingleton.hpp"
-#include "../Helpers/RogueLikeSheetMap.hpp"
+#include <ConfigSingleton.hpp>
 #include "StoryScene.hpp"
-#include "IntroductionScene.hpp"
 #include "../SaveLoadGame.hpp"
 #include "LevelManager.hpp"
-#include "Levels/FirstLevel.hpp"
-#include "../../Scripts/ToggleFPS.hpp"
 #include "Components/PersistenceTag.hpp"
 #include "Components/TextComponent.hpp"
-#include "../../Scripts/FullScreenHandler.hpp"
+#include "../PlayerProgress.hpp"
+#include "../Scripts/FullScreenHandler.hpp"
+#include "../Scripts/ToggleFPS.hpp"
 
-HomeScene::HomeScene() : Scene() {}
+HomeScene::HomeScene() : Scene() {
+}
 
 void HomeScene::build() {
     Scene::build();
@@ -52,6 +51,7 @@ void HomeScene::build() {
     auto textComponent = std::make_unique<TextComponent>();
     textComponent->text = "Brackocalypse";
     textComponent->fontSize = 40;
+    textComponent->alignment = Alignment::CENTERCENTER;
 
     auto transformBg = std::make_unique<TransformComponent>();
     transformBg->position = std::make_unique<Vector2>(0, -100);
@@ -60,10 +60,10 @@ void HomeScene::build() {
     logo->addComponent(std::move(transformBg));
     addGameObject(std::move(logo));
 
-    auto centerY = ConfigSingleton::getInstance().getWindowSize().getY() / 2;
-    auto centerX = ConfigSingleton::getInstance().getWindowSize().getX() / 2;
+    auto centerY = ConfigSingleton::getInstance().getInitialWindowSize().getY() / 2;
+    auto centerX = ConfigSingleton::getInstance().getInitialWindowSize().getX() / 2;
 
-    if(SaveLoadGame::getInstance().canLoad()) {
+    if (SaveLoadGame::getInstance().canLoad()) {
         auto loadButton = std::make_unique<Button>(Vector2(210, 70), "Load game");
         loadButton->setFontSize(20);
         loadButton->setClickEvent([]() {
@@ -96,9 +96,12 @@ void HomeScene::build() {
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
     transformQuitButton.position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     addGameObject(std::move(quitButton));
-    
+
     auto fullScreenToggleObject = std::make_unique<GameObject>();
     fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
     fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
     addGameObject(std::move(fullScreenToggleObject));
+
+    auto playerProgress = std::make_unique<PlayerProgress>();
+    addGameObject(std::move(playerProgress));
 }

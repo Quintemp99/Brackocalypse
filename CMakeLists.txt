@@ -6,78 +6,78 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(../Brack-Engine ${CMAKE_CURRENT_BINARY_DIR}/Brack-Engine_build)
 
 add_executable(Brackocalypse main.cpp
-        Scripts/UserInputMovement.cpp
-        Scripts/UserInputMovement.hpp
+        Src/Scripts/UserInputMovement.cpp
+        Src/Scripts/UserInputMovement.hpp
         Src/LevelBuilder.cpp
         Src/LevelBuilder.hpp
         Src/Player.cpp
         Src/Player.hpp
-        Scripts/FollowGameObject.cpp
-        Scripts/FollowGameObject.hpp
+        Src/Scripts/FollowGameObject.cpp
+        Src/Scripts/FollowGameObject.hpp
         Src/Factory/LevelFactory.cpp
         Src/Factory/LevelFactory.hpp
         Src/RogueLikeMapTiles/RogueLikeMapTile.hpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/Scenes/HomeScene.cpp
         Src/Gun.cpp
-        Scripts/GunFollowMouse.cpp
-        Scripts/GunShooting.cpp
+        Src/Scripts/GunFollowMouse.cpp
+        Src/Scripts/GunShooting.cpp
         Src/SaveLoadGame.cpp
         Src/Bullet.cpp
-        Scripts/BulletActions.cpp
+        Src/Scripts/BulletActions.cpp
         Src/SaveLoadGame.cpp
-        Src/RogueLikeMapTiles/CampfireMapTile.hpp
+        Src/RogueLikeMapTiles/FireMapTile.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
         Src/SaveLoadGame.cpp
         Src/RogueLikeMapTiles/WaterMapTile.hpp
         Src/RogueLikeMapTiles/BoxCollisionMapTile.hpp
         Src/RogueLikeMapTiles/SolidBoxMapTile.hpp
-        Scripts/GunFollowMouse.hpp
-        Scripts/EnemyFollowPlayer.cpp
-        Scripts/EnemyFollowPlayer.hpp
+        Src/Scripts/GunFollowMouse.hpp
+        Src/Scripts/EnemyFollowPlayer.cpp
+        Src/Scripts/EnemyFollowPlayer.hpp
         Src/Enemy.cpp
         Src/Enemy.hpp
         Src/PoolCreator.hpp
         Src/PoolCreator.hpp
-        Scripts/EnemySpawn.cpp
-        Scripts/EnemySpawn.hpp
-        Scripts/EnemySpawn.hpp
+        Src/Scripts/EnemySpawn.cpp
+        Src/Scripts/EnemySpawn.hpp
+        Src/Scripts/EnemySpawn.hpp
         Src/Components/HealthComponent.hpp
         Src/Components/SpawnComponent.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
-        Scripts/PlayerProgress.cpp
+        Src/Scripts/PlayerProgressScript.cpp
         Src/ProgressBar.cpp
-        Scripts/SpawnInBeers.cpp
-        Scripts/CollectBeers.cpp
-        Scripts/GunFollowMouse.hpp
-        Scripts/PauseHandler.cpp
-        Scripts/PauseHandler.hpp
+        Src/Scripts/SpawnInBeers.cpp
+        Src/Scripts/CollectBeers.cpp
+        Src/Scripts/GunFollowMouse.hpp
+        Src/Scripts/PauseHandler.cpp
+        Src/Scripts/PauseHandler.hpp
         Src/PauseMenu.cpp
         Src/PauseMenu.hpp
         Src/PauseManager.cpp
         Src/PauseManager.hpp
-        Scripts/TakeDamage.cpp
+        Src/Scripts/TakeDamage.cpp
         Src/Crate.cpp
-        Scripts/UpdateHealth.cpp
-        Scripts/UpdateHealth.hpp
+        Src/Scripts/UpdateHealth.cpp
+        Src/Scripts/UpdateHealth.hpp
         Src/PlayerHealthBar.cpp
         Src/PlayerHealthBar.hpp
-        Scripts/PlayBoxMovingSound.cpp
-        Scripts/EnemyDamage.cpp
-        Scripts/EnemyDamage.hpp
+        Src/Scripts/PlayBoxMovingSound.cpp
+        Src/Scripts/EnemyDamage.cpp
+        Src/Scripts/EnemyDamage.hpp
         Src/Components/HitSoundComponent.hpp
         Src/Components/WanderSoundComponent.hpp
-        Scripts/BopAnimation.cpp
-        Scripts/BopAnimation.hpp
+        Src/Scripts/BopAnimation.cpp
+        Src/Scripts/BopAnimation.hpp
         Src/RogueLikeMapTiles/BoatMapTile.hpp
-        Scripts/MovementAnimation.cpp
-        Scripts/MovementAnimation.hpp
+        Src/Scripts/MovementAnimation.cpp
+        Src/Scripts/MovementAnimation.hpp
         Src/Scenes/StoryScene.cpp
         Src/Scenes/StoryScene.hpp
         Src/Scenes/IntroductionScene.cpp
         Src/Scenes/IntroductionScene.hpp
-        Scripts/WriteTextAnimation.cpp
-        Scripts/WriteTextAnimation.hpp
+        Src/Scripts/WriteTextAnimation.cpp
+        Src/Scripts/WriteTextAnimation.hpp
         Src/Scenes/GameOverScene.cpp
         Src/Scenes/GameOverScene.hpp
         Src/Scenes/InterludeOneScene.cpp
@@ -89,7 +89,27 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/EndScene.cpp
         Src/Scenes/EndScene.hpp
         Src/Scenes/LevelManager.cpp
+        Src/Scenes/Levels/SecondLevel.cpp
+        Src/Scripts/ToggleFPS.hpp
+        Src/Scripts/ToggleFPS.cpp
+        Src/Scripts/FullScreenHandler.cpp
+        Src/Scripts/WifeComplaints.cpp
+        Src/Scripts/WifeComplaints.hpp
+        Src/Wife.cpp
+        Src/Wife.hpp
+        Src/Scenes/Levels/BossLevel.cpp
+        Src/Scenes/Levels/BossLevel.hpp
         Src/Scenes/Levels/FirstLevel.cpp
+        Src/Scenes/Levels/FirstLevel.hpp
+        Src/Helpers/MapType.hpp
+        Src/Helpers/RogueLikeSheetIndoorType.hpp
+        Src/WifeHealthBar.cpp
+        Src/WifeHealthBar.hpp
+        Src/Scripts/WifeDeath.cpp
+        Src/Scripts/WifeDeath.hpp
+        Src/Helpers/RogueLikeSheetIndoorType.hpp
+        Src/PlayerProgress.cpp
+        Src/EnemyKillHud.cpp
         Scripts/ToggleFPS.hpp
         Scripts/ToggleFPS.cpp
         Scripts/FullScreenHandler.cpp

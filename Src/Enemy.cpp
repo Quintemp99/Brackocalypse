@@ -14,14 +14,13 @@
 #include <EngineManagers/CollisionLayerManager.hpp>
 #include "Enemy.hpp"
 #include "Components/HealthComponent.hpp"
-#include "../Scripts/EnemyFollowPlayer.hpp"
-#include "../Scripts/TakeDamage.hpp"
 #include "Components/HitSoundComponent.hpp"
-#include "Components/WanderSoundComponent.hpp"
-#include "../Scripts/MovementAnimation.hpp"
 #include "Components/CircleCollisionComponent.hpp"
+#include "Scripts/EnemyFollowPlayer.hpp"
+#include "Scripts/MovementAnimation.hpp"
+#include "Scripts/TakeDamage.hpp"
 
-Enemy::Enemy(size_t layer, int health) {
+Enemy::Enemy(size_t layer, int health, int speed) {
     auto &transform = tryGetComponent<TransformComponent>();
     auto sprite = std::make_unique<SpriteComponent>();
     auto animation = std::make_unique<AnimationComponent>();
@@ -61,8 +60,7 @@ Enemy::Enemy(size_t layer, int health) {
     animation->fps = 15;
     animation->imageSize = std::make_unique<Vector2>(864, 640);
 
-    aiComponent->speed = 15;
-    aiComponent->target = std::make_unique<Vector2>(-400, 0);
+    aiComponent->speed = speed;
 
     enemyCollision->offset = std::make_unique<Vector2>(0, 16);
 

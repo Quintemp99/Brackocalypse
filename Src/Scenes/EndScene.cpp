@@ -13,7 +13,7 @@ EndScene::EndScene() : StoryScene(
                 "now unfolds before my eyes. The beer, my",
                 "ever-faithful companion, has become a",
                 "conduit between worlds, a bridge between the living",
-                " and the undead. In the fading light of the setting",
+                "and the undead. In the fading light of the setting",
                 "sun, I take a final sip from the enchanted beer.",
                 "The bitterness of survival and the sweetness of",
                 "nostalgia blend into a taste that transcends",

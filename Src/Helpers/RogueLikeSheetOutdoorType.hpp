@@ -5,7 +5,7 @@
 #ifndef BRACKOCALYPSE_ROGUELIKESHEETTYPES_HPP
 #define BRACKOCALYPSE_ROGUELIKESHEETTYPES_HPP
 
-enum RogueLikeSheetType {
+enum RogueLikeSheetOutdoorType {
     Sand = 'A',
     WaterLeftBottomGrassLarge = 'B',
     WaterLeftTopGrassSmall = 'C',
@@ -42,7 +42,20 @@ enum RogueLikeSheetType {
     TentRightTop = 'h',
     TentLeftBottom = 'i',
     TentRightBottom = 'j',
-    TreeStump = 'k'
+    TreeStump = 'k',
+    Gravel = 'l',
+    GravelTopBorder = 'm',
+    GravelBottomBorder = 'n',
+    GravelRightBorder = 'o',
+    GravelLeftBorder = 'p',
+    GravelCornerTopRight = 'q',
+    GravelCornerTopLeft = 'r',
+    GravelCornerBottomRight = 's',
+    GravelCornerBottomLeft = 't',
+    PillarBottomWhite = 'u',
+    PillarTopWhite = 'v',
+    PillarMiddleCrackWhite = 'w',
+    PillarMiddleWhite = 'x',
 };
 
 

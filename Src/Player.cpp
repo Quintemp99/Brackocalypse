@@ -5,22 +5,20 @@
 #include <Components/VelocityComponent.hpp>
 #include <Components/SpriteComponent.hpp>
 #include <Components/TransformComponent.hpp>
-#include <Helpers/Vector2.hpp>
 #include <Components/AnimationComponent.hpp>
 #include <EngineManagers/SceneManager.hpp>
 #include <Components/BoxCollisionComponent.hpp>
 #include <EngineManagers/CollisionLayerManager.hpp>
 #include "Player.hpp"
-#include "../Scripts/UserInputMovement.hpp"
+#include "Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
-#include "../Scripts/PlayerProgress.hpp"
-#include "Components/RigidBodyComponent.hpp"
 #include "Components/HealthComponent.hpp"
-#include "../Scripts/MovementAnimation.hpp"
-#include "../Scripts/UpdateHealth.hpp"
-#include "../Scripts/TakeDamage.hpp"
-#include "../Scripts/EnemyDamage.hpp"
+#include "Scripts/MovementAnimation.hpp"
+#include "Scripts/UpdateHealth.hpp"
+#include "Scripts/TakeDamage.hpp"
+#include "Scripts/EnemyDamage.hpp"
 #include "Components/HitSoundComponent.hpp"
+#include "Scripts/PlayerProgressScript.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
@@ -28,7 +26,6 @@ Player::Player(GameObject *spawnLocationMapTile) {
     auto spriteComponent = spawnLocationMapTile->tryGetComponent<SpriteComponent>();
     int layer = spriteComponent.sortingLayer;
 
-    addBehaviourScript(std::make_unique<PlayerProgress>());
     init(layer, location);
 }
 
@@ -40,7 +37,12 @@ void Player::init(size_t layer, Vector2 position) {
     auto sprite = std::make_unique<SpriteComponent>();
     auto &transform = tryGetComponent<TransformComponent>();
     auto walkAnimation = std::make_unique<AnimationComponent>();
-    auto health = std::make_unique<HealthComponent>(3);
+
+    auto playerProgress = SceneManager::getGameObjectByName("PlayerProgress");
+    auto &playerProgressScript = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
+
+    auto health = std::make_unique<HealthComponent>(playerProgressScript.getNumberOfLives(),
+                                                    playerProgressScript.getMaxNumberOfLives());
     auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(48, 40));
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     auto playerCollision = std::make_unique<GameObject>();

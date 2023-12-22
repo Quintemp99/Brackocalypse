@@ -8,8 +8,9 @@
 #include <Components/SoundEffectComponent.hpp>
 #include <Components/TransformComponent.hpp>
 #include "Gun.hpp"
-#include "../Scripts/GunFollowMouse.hpp"
-#include "../Scripts/GunShooting.hpp"
+
+#include "Scripts/GunFollowMouse.hpp"
+#include "Scripts/GunShooting.hpp"
 
 Gun::Gun(size_t layer) : GameObject() {
     auto sprite = std::make_unique<SpriteComponent>();
