@@ -37,7 +37,6 @@ public:
 
 private:
     static LevelManager instance;
-    static const int MAX_LEVELS = 6;
 };
 
 

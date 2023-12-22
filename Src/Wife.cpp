@@ -1,57 +1,64 @@
 //
-// Created by Olaf van den Berg on 11-12-2023.
+// Created by qtemp on 21-12-2023.
 //
 
-#include <Components/VelocityComponent.hpp>
-#include <Components/TransformComponent.hpp>
-#include <Components/SpriteComponent.hpp>
-#include <Components/AnimationComponent.hpp>
-#include <Helpers/CollisionType.hpp>
-#include <Components/RigidBodyComponent.hpp>
-#include <Components/BoxCollisionComponent.hpp>
-#include <Components/AIComponent.hpp>
-#include <Components/SoundEffectComponent.hpp>
-#include <EngineManagers/CollisionLayerManager.hpp>
-#include "Enemy.hpp"
-#include "Components/HealthComponent.hpp"
-#include "../Scripts/EnemyFollowPlayer.hpp"
-#include "../Scripts/TakeDamage.hpp"
-#include "Components/HitSoundComponent.hpp"
-#include "../Scripts/MovementAnimation.hpp"
-#include "Components/CircleCollisionComponent.hpp"
+#include "Wife.hpp"
 
-Enemy::Enemy(size_t layer, int health, int speed) {
+#include <EngineManagers/CollisionLayerManager.hpp>
+
+#include "Components/AIComponent.hpp"
+#include "Components/AnimationComponent.hpp"
+#include "Components/BoxCollisionComponent.hpp"
+#include "Components/CircleCollisionComponent.hpp"
+#include "Components/HealthComponent.hpp"
+#include "Components/HitSoundComponent.hpp"
+#include "Components/RigidBodyComponent.hpp"
+#include "Components/SpriteComponent.hpp"
+#include "Components/TransformComponent.hpp"
+#include "Components/VelocityComponent.hpp"
+#include "Components/WanderSoundComponent.hpp"
+#include "../Scripts/TakeDamage.hpp"
+#include "../Scripts/EnemyFollowPlayer.hpp"
+#include "../Scripts/MovementAnimation.hpp"
+#include "../Scripts/WifeComplaints.hpp"
+#include "../Scripts/WifeDeath.hpp"
+
+Wife::Wife(size_t layer, int health)
+{
     auto &transform = tryGetComponent<TransformComponent>();
     auto sprite = std::make_unique<SpriteComponent>();
     auto animation = std::make_unique<AnimationComponent>();
-    auto collision = std::make_unique<CircleCollisionComponent>(30);
+    auto collision = std::make_unique<CircleCollisionComponent>(20);
     auto healthComponent = std::make_unique<HealthComponent>(health);
 
-    collision->offset = std::make_unique<Vector2>(0, 44);
+    collision->offset = std::make_unique<Vector2>(0, 88);
 
-    auto zombieHitSound = std::make_unique<HitSoundComponent>("Sounds/zombie-death-sound.mp3");
+    auto wifeHitSound = std::make_unique<HitSoundComponent>("Sounds/hit-sound-wife.mp3");
+    auto wifeWanderSound = std::make_unique<WanderSoundComponent>("Sounds/wife-complaint1.mp3");
 
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     auto aiComponent = std::make_unique<AIComponent>();
     auto enemyCollisionObject = std::make_unique<GameObject>();
-    auto enemyCollision = std::make_unique<BoxCollisionComponent>(Vector2(64, 96));
+    auto enemyCollision = std::make_unique<BoxCollisionComponent>(Vector2(60, 100));
     auto enemyRigidbody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
 
-    zombieHitSound->volume = 0.01;
+    wifeHitSound->volume = 0.06;
+
+    wifeWanderSound->volume = 0.08;
 
     rigidBody->gravityScale = 0.0f;
     rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Enemy");
     rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Enemy");
 
-    collision->offset = std::make_unique<Vector2>(0, 44);
+    collision->offset = std::make_unique<Vector2>(0, 66);
 
-    sprite->spritePath = "Sprites/character_zombie_sheet.png";
+    sprite->spritePath = "Sprites/character_femaleAdventurer_sheet.png";
     sprite->spriteSize = std::make_unique<Vector2>(96, 128);
     sprite->sortingLayer = layer;
     sprite->orderInLayer = 1;
     sprite->tileOffset = std::make_unique<Vector2>(0, 0);
 
-    transform.scale = std::make_unique<Vector2>(1, 1);
+    transform.scale = std::make_unique<Vector2>(1.3, 1.3);
 
     animation->isLooping = true;
     animation->isPlaying = false;
@@ -60,9 +67,9 @@ Enemy::Enemy(size_t layer, int health, int speed) {
     animation->fps = 15;
     animation->imageSize = std::make_unique<Vector2>(864, 640);
 
-    aiComponent->speed = speed;
+    aiComponent->speed = 20;
 
-    enemyCollision->offset = std::make_unique<Vector2>(0, 16);
+    enemyCollision->offset = std::make_unique<Vector2>(0, 22);
 
     enemyRigidbody->gravityScale = 0.0f;
     enemyRigidbody->collisionCategory = CollisionLayerManager::getInstance().getCategory("EnemyHitbox");
@@ -75,28 +82,6 @@ Enemy::Enemy(size_t layer, int health, int speed) {
     enemyCollisionObject->addComponent(std::move(enemyCollision));
     enemyCollisionObject->setTag("EnemyCollision");
 
-    int totalWidth = healthComponent->maxHealth * 19;
-    int offsetX = -totalWidth / 2;
-
-    auto healthBar = std::make_unique<GameObject>();
-    healthBar->setTag("EnemyHealth");
-    healthBar->setName("EnemyHealth");
-    for (auto i = 0; i < healthComponent->maxHealth; i++) {
-        auto healthObject = std::make_unique<GameObject>();
-        auto healthSprite = std::make_unique<SpriteComponent>();
-        healthSprite->spritePath = "Sprites/heart_full.png";
-        healthSprite->spriteSize = std::make_unique<Vector2>(36, 32);
-        healthSprite->tileOffset = std::make_unique<Vector2>(0, 0);
-
-        auto &healthTransform = healthObject->tryGetComponent<TransformComponent>();
-        healthTransform.scale = std::make_unique<Vector2>(0.5, 0.5);
-        healthTransform.position = std::make_unique<Vector2>(offsetX + (i + 0.5) * 19, -45);
-        healthObject->addComponent(std::move(healthSprite));
-        healthBar->addChild(std::move(healthObject));
-    }
-
-
-    addChild(std::move(healthBar));
     addChild(std::move(enemyCollisionObject));
 
     addComponent(std::make_unique<VelocityComponent>());
@@ -105,12 +90,17 @@ Enemy::Enemy(size_t layer, int health, int speed) {
     addComponent(std::move(collision));
     addComponent(std::move(rigidBody));
     addComponent(std::move(healthComponent));
-    addComponent(std::move(zombieHitSound));
+    addComponent(std::move(wifeHitSound));
     addComponent(std::move(aiComponent));
+    addComponent(std::move(wifeWanderSound));
 
     addBehaviourScript(std::make_unique<TakeDamage>());
     addBehaviourScript(std::make_unique<EnemyFollowPlayer>("MainGraph"));
     addBehaviourScript(std::make_unique<MovementAnimation>());
+    addBehaviourScript(std::make_unique<WifeComplaints>());
+    addBehaviourScript(std::make_unique<WifeDeath>());
 
     setTag("Enemy");
+    setName("Wife");
 }
+

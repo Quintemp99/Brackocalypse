@@ -45,7 +45,7 @@ add_executable(Brackocalypse main.cpp
         Src/Components/HealthComponent.hpp
         Src/Components/SpawnComponent.hpp
         Src/RogueLikeMapTiles/PlayerSpawnMapTile.hpp
-        Scripts/PlayerProgress.cpp
+        Scripts/PlayerProgressScript.cpp
         Src/ProgressBar.cpp
         Scripts/SpawnInBeers.cpp
         Scripts/CollectBeers.cpp
@@ -89,16 +89,27 @@ add_executable(Brackocalypse main.cpp
         Src/Scenes/EndScene.cpp
         Src/Scenes/EndScene.hpp
         Src/Scenes/LevelManager.cpp
-        Src/Scenes/Levels/FirstLevel.cpp
+        Src/Scenes/Levels/SecondLevel.cpp
         Scripts/ToggleFPS.hpp
         Scripts/ToggleFPS.cpp
         Scripts/FullScreenHandler.cpp
-        Src/Scenes/secondLevel.cpp
-        Src/Scenes/secondLevel.hpp
+        Scripts/WifeComplaints.cpp
+        Scripts/WifeComplaints.hpp
+        Src/Wife.cpp
+        Src/Wife.hpp
+        Src/Scenes/Levels/BossLevel.cpp
+        Src/Scenes/Levels/BossLevel.hpp
+        Src/Scenes/Levels/FirstLevel.cpp
+        Src/Scenes/Levels/FirstLevel.hpp
         Src/Helpers/MapType.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
+        Src/WifeHealthBar.cpp
+        Src/WifeHealthBar.hpp
+        Scripts/WifeDeath.cpp
+        Scripts/WifeDeath.hpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
-        Src/Scenes/SceneType.hpp
+        Src/PlayerProgress.cpp
+        Src/EnemyKillHud.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)

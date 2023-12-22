@@ -4,7 +4,6 @@
 
 #include "LevelManager.hpp"
 #include <EngineManagers/SceneManager.hpp>
-#include "./Levels/FirstLevel.hpp"
 #include "EndScene.hpp"
 #include "InterludeOneScene.hpp"
 #include "IntroductionScene.hpp"

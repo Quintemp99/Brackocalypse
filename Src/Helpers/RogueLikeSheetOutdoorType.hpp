@@ -43,8 +43,19 @@ enum RogueLikeSheetOutdoorType {
     TentLeftBottom = 'i',
     TentRightBottom = 'j',
     TreeStump = 'k',
-
-
+    Gravel = 'l',
+    GravelTopBorder = 'm',
+    GravelBottomBorder = 'n',
+    GravelRightBorder = 'o',
+    GravelLeftBorder = 'p',
+    GravelCornerTopRight = 'q',
+    GravelCornerTopLeft = 'r',
+    GravelCornerBottomRight = 's',
+    GravelCornerBottomLeft = 't',
+    PillarBottomWhite = 'u',
+    PillarTopWhite = 'v',
+    PillarMiddleCrackWhite = 'w',
+    PillarMiddleWhite = 'x',
 };
 
 
