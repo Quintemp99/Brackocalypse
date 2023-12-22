@@ -4,11 +4,12 @@
 
 #include <Components/SoundEffectComponent.hpp>
 #include "TakeDamage.hpp"
-#include "../Src/Components/HealthComponent.hpp"
-#include "../Src/Components/HitSoundComponent.hpp"
 #include "PlayerProgressScript.hpp"
+#include "../Components/HealthComponent.hpp"
+#include "../Components/HitSoundComponent.hpp"
 
-void TakeDamage::onStart() {}
+void TakeDamage::onStart() {
+}
 
 void TakeDamage::onUpdate(milliseconds deltaTime) {
     auto &health = tryGetComponent<HealthComponent>();

@@ -5,7 +5,6 @@
 #include "LevelFactory.hpp"
 #include "../RogueLikeMapTiles/RogueLikeMapTile.hpp"
 #include "../RogueLikeMapTiles/WaterMapTile.hpp"
-#include "../../Scripts/UserInputMovement.hpp"
 #include "../RogueLikeMapTiles/FireMapTile.hpp"
 #include "../RogueLikeMapTiles/PlayerSpawnMapTile.hpp"
 #include "../RogueLikeMapTiles/BoxCollisionMapTile.hpp"
@@ -35,7 +34,6 @@ std::unique_ptr<GameObject> LevelFactory::createGameObject(char c, Vector2 posit
                                                  size_, layer);
         default:
             return std::make_unique<RogueLikeMapTile>(getSpriteTileOffset(c, mapType), position, size_, layer);
-
     }
 }
 

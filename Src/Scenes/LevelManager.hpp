@@ -4,25 +4,38 @@
 
 #ifndef BRACKOCALYPSE_LEVELMANAGER_HPP
 #define BRACKOCALYPSE_LEVELMANAGER_HPP
+#include "SceneType.hpp"
 
 
 class LevelManager {
 public:
     static LevelManager &getInstance();
+
     ~LevelManager() = default;
+
     LevelManager(const LevelManager &) = delete;
+
     LevelManager &operator=(const LevelManager &) = delete;
+
     LevelManager(LevelManager &&) = delete;
+
     LevelManager &operator=(LevelManager &&) = delete;
 
-    int currentScene = 0;
+    SceneType currentSceneType;
+
     void goToLevel();
-    void goToNextLevel();
-    void goToSpecificLevel(int level);
-    void loadLevel(int level);
-    void startLoop();
-private:
+
+    void goToSpecificLevel(SceneType type);
+
+    void loadLevel(SceneType type);
+
     LevelManager();
+
+    void startLoop(SceneType type);
+
+    void goToNextLevel();
+
+private:
     static LevelManager instance;
 };
 

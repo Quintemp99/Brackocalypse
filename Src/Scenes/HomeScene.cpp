@@ -3,20 +3,18 @@
 #include <Objects/Button.hpp>
 #include <Components/SpriteComponent.hpp>
 #include <Components/SoundTrackComponent.hpp>
-#include "../../Brack-Engine/src/ConfigSingleton.hpp"
-#include "../Helpers/RogueLikeSheetMap.hpp"
+#include <ConfigSingleton.hpp>
 #include "StoryScene.hpp"
-#include "IntroductionScene.hpp"
 #include "../SaveLoadGame.hpp"
 #include "LevelManager.hpp"
-#include "Levels/FirstLevel.hpp"
-#include "../../Scripts/ToggleFPS.hpp"
 #include "Components/PersistenceTag.hpp"
 #include "Components/TextComponent.hpp"
-#include "../../Scripts/FullScreenHandler.hpp"
 #include "../PlayerProgress.hpp"
+#include "../Scripts/FullScreenHandler.hpp"
+#include "../Scripts/ToggleFPS.hpp"
 
-HomeScene::HomeScene() : Scene() {}
+HomeScene::HomeScene() : Scene() {
+}
 
 void HomeScene::build() {
     Scene::build();
@@ -98,8 +96,7 @@ void HomeScene::build() {
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
     transformQuitButton.position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     addGameObject(std::move(quitButton));
-
-
+    
     auto fullScreenToggle = SceneManager::getGameObjectByName("FullScreenToggle");
     if (!fullScreenToggle.has_value()) {
         auto fullScreenToggleObject = std::make_unique<GameObject>();
@@ -115,4 +112,5 @@ void HomeScene::build() {
         auto playerProgressObject = std::make_unique<PlayerProgress>();
         addGameObject(std::move(playerProgressObject));
     }
+
 }

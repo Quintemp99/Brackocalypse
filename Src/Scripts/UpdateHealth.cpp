@@ -3,11 +3,10 @@
 //
 
 #include "UpdateHealth.hpp"
-#include <Components/RectangleComponent.hpp>
-#include "../Src/Components/HealthComponent.hpp"
 #include "Components/TransformComponent.hpp"
 #include "EngineManagers/SceneManager.hpp"
 #include "Components/SpriteComponent.hpp"
+#include "../Components/HealthComponent.hpp"
 
 void UpdateHealth::onStart() {
     auto healtBar = getGameObjectByName("PlayerHealthBar");
@@ -83,7 +82,6 @@ void UpdateHealth::onUpdate(milliseconds deltaTime) {
                 continue;
             }
             sprite.spritePath = "Sprites/heart_empty.png";
-
         }
     }
 
