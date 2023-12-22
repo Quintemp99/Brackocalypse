@@ -276,7 +276,7 @@ void BossLevel::build()
 
     levelBuilder.buildLevel(MapType::Outdoor);
 
-    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(1, 30, 5, 16);
+    auto enemyPool = std::make_unique<PoolCreator<Enemy>>(2, 30, 5, 16);
     auto bulletPool = std::make_unique<PoolCreator<Bullet>>(1, 30);
 
     auto parent = std::make_unique<GameObject>();
@@ -303,6 +303,7 @@ void BossLevel::build()
     auto wife = std::make_unique<Wife>(1,20);
 
     wife->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(250,-100);
+    wife->tryGetComponent<SpriteComponent>().sortingLayer = 2;
 
     int wifeHealth = wife->tryGetComponent<HealthComponent>().maxHealth;
 
