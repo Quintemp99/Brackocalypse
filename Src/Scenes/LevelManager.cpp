@@ -49,9 +49,6 @@ void LevelManager::goToLevel() {
         case SECOND_LEVEL:
             level = new SecondLevel();
             break;
-        case INTERLUDE_TWO_SCENE:
-            level = new InterludeTwoScene();
-            break;
         case INTERLUDE_THREE_SCENE:
             level = new InterludeThreeScene();
             break;
