@@ -54,7 +54,7 @@ void HomeScene::build() {
     textComponent->text = "Brackocalypse";
     textComponent->fontSize = 40;
     textComponent->alignment = Alignment::CENTERCENTER;
-    
+
     auto transformBg = std::make_unique<TransformComponent>();
     transformBg->position = std::make_unique<Vector2>(0, -100);
     transformBg->scale = std::make_unique<Vector2>(0.6, 0.6);
@@ -65,7 +65,7 @@ void HomeScene::build() {
     auto centerY = ConfigSingleton::getInstance().getInitialWindowSize().getY() / 2;
     auto centerX = ConfigSingleton::getInstance().getInitialWindowSize().getX() / 2;
 
-    if(SaveLoadGame::getInstance().canLoad()) {
+    if (SaveLoadGame::getInstance().canLoad()) {
         auto loadButton = std::make_unique<Button>(Vector2(210, 70), "Load game");
         loadButton->setFontSize(20);
         loadButton->setClickEvent([]() {
@@ -98,12 +98,21 @@ void HomeScene::build() {
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
     transformQuitButton.position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     addGameObject(std::move(quitButton));
-    
-    auto fullScreenToggleObject = std::make_unique<GameObject>();
-    fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
-    fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
-    addGameObject(std::move(fullScreenToggleObject));
-    
-    auto playerProgress = std::make_unique<PlayerProgress>();
-    addGameObject(std::move(playerProgress));
+
+
+    auto fullScreenToggle = SceneManager::getGameObjectByName("FullScreenToggle");
+    if (!fullScreenToggle.has_value()) {
+        auto fullScreenToggleObject = std::make_unique<GameObject>();
+        fullScreenToggleObject->setName("FullScreenToggle");
+        fullScreenToggleObject->setTag("FullScreenToggle");
+        fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
+        fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
+        addGameObject(std::move(fullScreenToggleObject));
+    }
+
+    auto playerPorgress = SceneManager::getGameObjectByName("PlayerProgress");
+    if (!playerPorgress.has_value()) {
+        auto playerProgressObject = std::make_unique<PlayerProgress>();
+        addGameObject(std::move(playerProgressObject));
+    }
 }
