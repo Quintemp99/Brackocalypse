@@ -6,7 +6,7 @@
 
 #include "Components/SoundTrackComponent.hpp"
 #include "EngineManagers/ReplayManager.hpp"
-#include "../../../Scripts/FollowGameObject.hpp"
+#include "../../../src/Scripts/FollowGameObject.hpp"
 #include "../../LevelBuilder.hpp"
 #include "../../Player.hpp"
 #include "../../PlayerHealthBar.hpp"
@@ -15,16 +15,14 @@
 #include "../../Enemy.hpp"
 #include "../../PoolCreator.hpp"
 #include "../../Components/WanderSoundComponent.hpp"
-#include "../../../Scripts/EnemySpawn.hpp"
+#include "../../../src/Scripts/EnemySpawn.hpp"
 #include "../../PauseMenu.hpp"
 #include "../../PauseManager.hpp"
-#include "../../ProgressBar.hpp"
 #include "../../WifeHealthBar.hpp"
 #include "../../Components/HealthComponent.hpp"
 #include "../../EnemyKillHud.hpp"
 
-void BossLevel::build()
-{
+void BossLevel::build() {
     Scene::build();
     ReplayManager::getInstance().startRecording(10000, 100);
 
@@ -294,15 +292,15 @@ void BossLevel::build()
         parent->addChild(std::move(go));
     }
 
-    auto player = std::make_unique<Player>(2,Vector2(-1200,-100));
+    auto player = std::make_unique<Player>(2, Vector2(-1200, -100));
     parent->addChild(std::move(player));
 
     parent->addChild(std::move(bulletPool));
     parent->addChild(std::move(enemyPool));
 
-    auto wife = std::make_unique<Wife>(1,20);
+    auto wife = std::make_unique<Wife>(1, 20);
 
-    wife->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(250,-100);
+    wife->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(250, -100);
     wife->tryGetComponent<SpriteComponent>().sortingLayer = 2;
 
     int wifeHealth = wife->tryGetComponent<HealthComponent>().maxHealth;
