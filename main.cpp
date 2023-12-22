@@ -3,6 +3,7 @@
 #include <ConfigSingleton.hpp>
 #include "EngineManagers/CollisionLayerManager.hpp"
 #include "Src/Scenes/LevelManager.hpp"
+#include "Src/Scenes/CreditsScene.hpp"
 
 int main() {
     Config config = new Config();
@@ -10,6 +11,7 @@ int main() {
     config.deltaTimeMultiplier = 1.0;
     config.windowTitle = "Brackocalypse";
     config.initialWindowSize = Vector2(1280, 720);
+    config.appLogoPath = "Sprites/Brackocalypse.png";
 
     BrackEngine brackEngine = BrackEngine(std::move(config));
 
