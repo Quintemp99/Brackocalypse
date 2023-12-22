@@ -8,12 +8,18 @@
 #include "../Scenes/LevelManager.hpp"
 #include "Components/SpriteComponent.hpp"
 #include "Components/TextComponent.hpp"
+#include <EngineManagers/InputManager.hpp>
+#include <Helpers/KeyMap.hpp>
 
 void CreditsScroll::onStart() {
 
 }
 
 void CreditsScroll::onUpdate(milliseconds deltaTime) {
+    if (InputManager::GetInstance().IsKeyClicked(KeyMap::RETURN)) {
+        LevelManager::getInstance().goToNextLevel();
+    }
+
     auto credits = getGameObjectsByTag("Credit");
 
     for(int i = 0; i < credits.size(); ++i) {
