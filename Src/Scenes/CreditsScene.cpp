@@ -13,12 +13,14 @@ std::unique_ptr<GameObject> CreditsScene::createText(std::string text) {
     textComp->text = text;
     textComp->fontSize = 40;
     textComp->color = std::make_unique<Color>(255, 255, 255, 255);
-    textComp->alignment = Alignment::CENTERCENTER;
+    textComp->alignment = Alignment::CENTERTOP;
+    textComp->sortingLayer = 0;
     textObj->addComponent(std::move(textComp));
 
     auto& transform = textObj->tryGetComponent<TransformComponent>();
-    auto bottomY = (ConfigSingleton::getInstance().getWindowSize().getY() / 2) + 20;
+    auto bottomY = (ConfigSingleton::getInstance().getInitialWindowSize().getY());
     transform.position->setY(bottomY);
+    transform.position->setX(ConfigSingleton::getInstance().getInitialWindowSize().getX()/2);
 
     return std::move(textObj);
 }
@@ -67,12 +69,13 @@ std::unique_ptr<GameObject> CreditsScene::createImage(std::string filePath, Vect
     spriteComp->spritePath = filePath;
     spriteComp->spriteSize = std::make_unique<Vector2>(size);
     spriteComp->tileOffset = std::make_unique<Vector2>(0, 0);
-
-    spriteObj->addComponent(std::move(spriteComp));
+    spriteComp->sortingLayer = 0;
 
     auto& transform = spriteObj->tryGetComponent<TransformComponent>();
-    auto bottomY = (ConfigSingleton::getInstance().getWindowSize().getY() / 2) + (size.getY() / 2);
+    auto bottomY = (ConfigSingleton::getInstance().getInitialWindowSize().getY());
     transform.position->setY(bottomY);
+    transform.position->setX((ConfigSingleton::getInstance().getInitialWindowSize().getX()/2) - (spriteComp->spriteSize->getX()/2));
 
+    spriteObj->addComponent(std::move(spriteComp));
     return std::move(spriteObj);
 }
