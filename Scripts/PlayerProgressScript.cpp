@@ -22,6 +22,7 @@ void PlayerProgressScript::onUpdate(milliseconds deltaTime) {
 
     if (health.health <= 0) {
         setBeersCollected(0);
+        setZombiesKilled(0);
         auto scene = new GameOverScene();
         scene->build();
         SceneManager::getInstance().goToNewScene(scene);
