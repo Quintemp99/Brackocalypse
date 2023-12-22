@@ -9,8 +9,10 @@
 
 class PlayerProgressScript : public BehaviourScript {
 public:
-    PlayerProgressScript(int beersNeeded) : BehaviourScript() {
+    PlayerProgressScript(int beersNeeded, int numberOfLives) : BehaviourScript() {
         this->beersNeeded = beersNeeded;
+        this->numberOfLives = numberOfLives;
+        this->currentNumberOfLives = numberOfLives;
         beersCollected = 0;
     }
 
@@ -30,17 +32,23 @@ public:
     virtual void onUpdate(milliseconds deltaTime) override;
 
     void addBeer();
-    
+
     void addZombieKill();
 
     int getBeersCollected() { return beersCollected; }
-    
+
     void setBeersNeeded(int amount) { beersNeeded = amount; }
 
+    void setNumberOfLives(int amount) { currentNumberOfLives = amount; }
+
+    int getNumberOfLives() { return currentNumberOfLives; }
+
+    int getMaxNumberOfLives() { return numberOfLives; }
+
     void setBeersCollected(int amount);
-    
+
     int getZombiesKilled() { return zombiesKilled; }
-    
+
     void setZombiesKilled(int amount) { zombiesKilled = amount; }
 
 private:
@@ -48,6 +56,8 @@ private:
     int beersCollected = 0;
     int zombiesKilled = 0;
     float newWidth = 0;
+    int numberOfLives = 0;
+    int currentNumberOfLives = 0;
 };
 
 
