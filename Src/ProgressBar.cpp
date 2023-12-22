@@ -1,5 +1,5 @@
 #include "ProgressBar.hpp"
-#include "../../Brack-Engine/src/ConfigSingleton.hpp"
+#include <ConfigSingleton.hpp>
 #include "Components/SpriteComponent.hpp"
 
 #include <Components/RectangleComponent.hpp>
@@ -9,7 +9,7 @@ ProgressBar::ProgressBar(Vector2 size) : GameObject() {
     this->setTag("ProgressBar");
 
     //Position
-    auto& transformBgImage = this->tryGetComponent<TransformComponent>();
+    auto &transformBgImage = this->tryGetComponent<TransformComponent>();
     auto screenSize = ConfigSingleton::getInstance().getInitialWindowSize();
     transformBgImage.position = std::make_unique<Vector2>(screenSize.getX() / 2 - size.getX() / 2, 10);
 
@@ -29,7 +29,7 @@ ProgressBar::ProgressBar(Vector2 size) : GameObject() {
     frontRec->fill = std::make_unique<Color>(254, 218, 44, 1);
     frontRec->sortingLayer = 0;
     frontRec->orderInLayer = 1;
-    
+
     auto beerImage = std::make_unique<GameObject>();
     beerImage->setName("BeerImage");
     beerImage->setTag("BeerImage");
@@ -39,12 +39,12 @@ ProgressBar::ProgressBar(Vector2 size) : GameObject() {
     beerImageSprite->tileOffset = std::make_unique<Vector2>(0, 0);
     beerImageSprite->orderInLayer = 0;
     beerImageSprite->sortingLayer = 0;
-    auto& transformBeerImage = beerImage->tryGetComponent<TransformComponent>();
+    auto &transformBeerImage = beerImage->tryGetComponent<TransformComponent>();
     transformBeerImage.position = std::make_unique<Vector2>(-20, -10);
     transformBeerImage.scale = std::make_unique<Vector2>(0.1, 0.1);
-    
+
     beerImage->addComponent(std::move(beerImageSprite));
-    
+
     this->addComponent(std::move(frontRec));
     this->addChild(std::move(backRecObj));
     this->addChild(std::move(beerImage));

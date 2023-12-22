@@ -17,14 +17,13 @@
 #include "Components/TransformComponent.hpp"
 #include "Components/VelocityComponent.hpp"
 #include "Components/WanderSoundComponent.hpp"
-#include "../Scripts/TakeDamage.hpp"
-#include "../Scripts/EnemyFollowPlayer.hpp"
-#include "../Scripts/MovementAnimation.hpp"
-#include "../Scripts/WifeComplaints.hpp"
-#include "../Scripts/WifeDeath.hpp"
+#include "Scripts/TakeDamage.hpp"
+#include "Scripts/EnemyFollowPlayer.hpp"
+#include "Scripts/MovementAnimation.hpp"
+#include "Scripts/WifeComplaints.hpp"
+#include "Scripts/WifeDeath.hpp"
 
-Wife::Wife(size_t layer, int health)
-{
+Wife::Wife(size_t layer, int health) {
     auto &transform = tryGetComponent<TransformComponent>();
     auto sprite = std::make_unique<SpriteComponent>();
     auto animation = std::make_unique<AnimationComponent>();

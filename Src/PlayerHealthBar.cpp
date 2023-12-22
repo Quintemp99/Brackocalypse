@@ -4,7 +4,7 @@
 
 #include "PlayerHealthBar.hpp"
 #include "Components/TransformComponent.hpp"
-#include "../../Brack-Engine/src/ConfigSingleton.hpp"
+#include <ConfigSingleton.hpp>
 
 PlayerHealthBar::PlayerHealthBar() : GameObject() {
     this->setName("PlayerHealthBar");

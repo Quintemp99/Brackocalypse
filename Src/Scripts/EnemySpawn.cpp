@@ -5,11 +5,10 @@
 #include <Components/TransformComponent.hpp>
 #include <Components/SpriteComponent.hpp>
 #include "EnemySpawn.hpp"
-#include "../Src/Enemy.hpp"
-#include "../Src/Components/HealthComponent.hpp"
 #include "RandomGenerator.hpp"
-#include "../Src/Components/SpawnComponent.hpp"
-#include "../Src/Components/WanderSoundComponent.hpp"
+#include "../Components/SpawnComponent.hpp"
+#include "../Components/WanderSoundComponent.hpp"
+#include "../Components/HealthComponent.hpp"
 
 void EnemySpawn::onStart() {
 }
@@ -39,8 +38,8 @@ void EnemySpawn::onUpdate(milliseconds deltaTime) {
             auto &spawnComponent = spawnObject->tryGetComponent<SpawnComponent>();
             auto spawnLocation =
                     spawnComponent.availableSpawnLocations[RandomGenerator::randomInt(0,
-                                                                                      spawnComponent.availableSpawnLocations.size() -
-                                                                                      1)].get();
+                        spawnComponent.availableSpawnLocations.size() -
+                        1)].get();
             transform.position = std::make_unique<Vector2>(spawnLocation->getX(), spawnLocation->getY());
 
             enemy->setActive(true);
