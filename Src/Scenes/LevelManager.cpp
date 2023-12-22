@@ -11,6 +11,7 @@
 #include "InterludeThreeScene.hpp"
 #include "HomeScene.hpp"
 #include "SceneType.hpp"
+#include "EngineManagers/ReplayManager.hpp"
 #include "Levels/BossLevel.hpp"
 #include "Levels/FirstLevel.hpp"
 #include "Levels/SecondLevel.hpp"
@@ -32,6 +33,8 @@ void LevelManager::goToNextLevel() {
 
 void LevelManager::goToLevel() {
     Scene *level = nullptr;
+
+    ReplayManager::getInstance().stopRecording();
 
     switch (currentSceneType) {
         case INTRODUCTION_SCENE:

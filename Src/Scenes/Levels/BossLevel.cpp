@@ -25,7 +25,7 @@
 
 void BossLevel::build() {
     Scene::build();
-    ReplayManager::getInstance().startRecording(10000, 100);
+    ReplayManager::getInstance().startRecording(20000, 40);
 
     auto camera = getAllCameras()[0];
     camera->addComponent(VelocityComponent());
