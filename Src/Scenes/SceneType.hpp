@@ -13,7 +13,8 @@ enum SceneType {
     SECOND_LEVEL,
     INTERLUDE_THREE_SCENE,
     BOSS_LEVEL,
-    END_SCENE
+    END_SCENE,
+    CREDIT_SCENE
 };
 
 #endif //SCENETYPE_HPP

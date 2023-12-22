@@ -15,6 +15,7 @@
 #include "Levels/BossLevel.hpp"
 #include "Levels/FirstLevel.hpp"
 #include "Levels/SecondLevel.hpp"
+#include "CreditsScene.hpp"
 
 LevelManager LevelManager::instance;
 
@@ -23,7 +24,7 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    if (currentSceneType < END_SCENE) {
+    if (currentSceneType < CREDIT_SCENE) {
         currentSceneType = static_cast<SceneType>(currentSceneType + 1);
     } else
         currentSceneType = HOME_SCENE;
@@ -57,6 +58,9 @@ void LevelManager::goToLevel() {
             break;
         case END_SCENE:
             level = new EndScene();
+            break;
+        case CREDIT_SCENE:
+            level = new CreditsScene();
             break;
         default:
             level = new HomeScene();
