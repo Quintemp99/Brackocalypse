@@ -14,6 +14,19 @@ void PlayerProgressScript::onStart() {
 }
 
 void PlayerProgressScript::onUpdate(milliseconds deltaTime) {
+    auto player = getGameObjectByTag("Player");
+    if(!player.has_value())
+        return;
+
+    auto &health = player.value().tryGetComponent<HealthComponent>();
+
+    if (health.health <= 0) {
+        setBeersCollected(0);
+        auto scene = new GameOverScene();
+        scene->build();
+        SceneManager::getInstance().goToNewScene(scene);
+    }
+
     auto progressBar = getGameObjectByTag("ProgressBar");
     if (!progressBar.has_value())
         return;
@@ -30,19 +43,13 @@ void PlayerProgressScript::onUpdate(milliseconds deltaTime) {
             beerImageTransform.position->setX(progressBarRectangle.size->getX() - 20);
         }
     }
-    
-    auto player = getGameObjectByTag("Player");
-    auto &health = player.value().tryGetComponent<HealthComponent>();
-    if (progressBarRectangle.size->getX() >= progressBarBackground.size->getX()) {
+
+    if (progressBarRectangle.size->getX() >= progressBarBackground.size->getX())
+    {
         setBeersCollected(0);
         LevelManager::getInstance().goToNextLevel();
     }
-    if (health.health <= 0) {
-        setBeersCollected(0);
-        auto scene = new GameOverScene();
-        scene->build();
-        SceneManager::getInstance().goToNewScene(scene);
-    }
+
 }
 
 void PlayerProgressScript::addBeer() {

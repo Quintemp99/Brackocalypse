@@ -4,15 +4,15 @@
 
 #include "LevelManager.hpp"
 #include <EngineManagers/SceneManager.hpp>
-#include "./Levels/FirstLevel.hpp"
 #include "EndScene.hpp"
 #include "InterludeOneScene.hpp"
 #include "IntroductionScene.hpp"
 #include "InterludeTwoScene.hpp"
 #include "InterludeThreeScene.hpp"
 #include "HomeScene.hpp"
-#include "secondLevel.hpp"
-#include "../../Scripts/PlayerProgressScript.hpp"
+#include "Levels/BossLevel.hpp"
+#include "Levels/FirstLevel.hpp"
+#include "Levels/SecondLevel.hpp"
 
 LevelManager LevelManager::instance;
 
@@ -21,7 +21,7 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    if (currentScene >= MAX_LEVELS)
+    if (currentScene >= 8)
         currentScene = 0;
     else
         ++currentScene;
@@ -52,6 +52,9 @@ void LevelManager::goToLevel() {
             level = new InterludeThreeScene();
             break;
         case 7:
+            level = new BossLevel();
+            break;
+        case 8:
             level = new EndScene();
             break;
         default:

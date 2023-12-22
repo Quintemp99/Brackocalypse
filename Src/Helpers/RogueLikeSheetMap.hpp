@@ -110,8 +110,19 @@ struct RogueLikeSheetMap {
         indoorMap[PillarBottom] = Vector2(21, 20);
         indoorMap[PillarMiddle] = Vector2(20, 19);
         indoorMap[PillarTop] = Vector2(20, 20);
-
-
+        outdoorMap[PillarTopWhite] = Vector2(20,20);
+        outdoorMap[PillarBottomWhite] = Vector2(21,20);
+        outdoorMap[PillarMiddleWhite] = Vector2(20,19);
+        outdoorMap[PillarMiddleCrackWhite] = Vector2(21,19);
+        outdoorMap[Gravel] = Vector2(8,16);
+        outdoorMap[GravelTopBorder] = Vector2(8,15);
+        outdoorMap[GravelRightBorder] = Vector2(9,16);
+        outdoorMap[GravelBottomBorder] = Vector2(8,17);
+        outdoorMap[GravelLeftBorder] = Vector2(7,16);
+        outdoorMap[GravelCornerTopLeft] = Vector2(7,15);
+        outdoorMap[GravelCornerTopRight] = Vector2(9,15);
+        outdoorMap[GravelCornerBottomRight] = Vector2(9,17);
+        outdoorMap[GravelCornerBottomLeft] = Vector2(7,17);
     }
 };
 

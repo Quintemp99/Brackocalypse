@@ -1,8 +1,13 @@
-#ifndef BRACKOCALYPSE_DEMOLEVEL_HPP
-#define BRACKOCALYPSE_DEMOLEVEL_HPP
+//
+// Created by Olaf van den Berg on 20-12-2023.
+//
 
-#include "Objects/Scene.hpp"
-#include "BrackEngine.hpp"
+#ifndef BRACKOCALYPSE_SECONDLEVEL_HPP
+#define BRACKOCALYPSE_SECONDLEVEL_HPP
+
+
+#include "../../../../Brack-Engine/outfacingInterfaces/Objects/Scene.hpp"
+#include "../../../../Brack-Engine/outfacingInterfaces/BrackEngine.hpp"
 
 class FirstLevel : public Scene {
 public:
@@ -11,5 +16,4 @@ public:
     void build() override;
 };
 
-
-#endif //BRACKOCALYPSE_DEMOLEVEL_HPP
+#endif //BRACKOCALYPSE_SECONDLEVEL_HPP
