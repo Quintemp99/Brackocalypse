@@ -11,6 +11,9 @@ struct HealthComponent : public IComponent {
     explicit HealthComponent(int health) : IComponent(), health(health), maxHealth(health) {
     }
 
+    explicit HealthComponent(int health, int maxHealth) : IComponent(), health(health), maxHealth(maxHealth) {
+    }
+
     ~HealthComponent() override = default;
 
     virtual std::unique_ptr<IComponent> clone() const override {
