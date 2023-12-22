@@ -13,6 +13,7 @@ enum SceneType {
     SECOND_LEVEL,
     INTERLUDE_TWO_SCENE,
     INTERLUDE_THREE_SCENE,
+    BOSS_LEVEL,
     END_SCENE
 };
 

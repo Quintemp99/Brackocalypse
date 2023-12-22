@@ -39,17 +39,17 @@ bool SaveLoadGame::save(const std::string &filePath) const {
     std::string content;
 
     auto player = SceneManager::getGameObjectByName("Player");
-    auto& transformComp = player.value()->tryGetComponent<TransformComponent>();
-    auto& position = transformComp.position;
+    auto &transformComp = player.value()->tryGetComponent<TransformComponent>();
+    auto &position = transformComp.position;
     auto playerProgress = SceneManager::getGameObjectByName("PlayerProgress");
-    PlayerProgressScript& script = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
-    auto& healthComp = player.value()->tryGetComponent<HealthComponent>();
+    PlayerProgressScript &script = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
+    auto &healthComp = player.value()->tryGetComponent<HealthComponent>();
 
     content += "xPosition: " + std::to_string(position->getX()) + "\n";
     content += "yPosition: " + std::to_string(position->getY()) + "\n";
     content += "beers: " + std::to_string(script.getBeersCollected()) + "\n";
     content += "zombiesKilled: " + std::to_string(script.getZombiesKilled()) + "\n";
-    content += "level: " + std::to_string(LevelManager::getInstance().currentScene) + "\n";
+    content += "level: " + std::to_string(static_cast<int>(LevelManager::getInstance().currentSceneType)) + "\n";
     content += "health: " + std::to_string(healthComp.health) + "\n";
 
     //Save crates
@@ -119,7 +119,7 @@ bool SaveLoadGame::load(const std::string &filePath) const {
         PlayerProgressScript &script = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
         script.setBeersCollected(std::stof(keyValueMap["beers"]));
         script.setZombiesKilled(std::stof(keyValueMap["zombiesKilled"]));
-        
+
         auto enemyKillText = GameObjectConverter::getGameObjectByName("EnemyKillText");
         enemyKillText.value()->tryGetComponent<TextComponent>().text = std::to_string(script.getZombiesKilled());
 

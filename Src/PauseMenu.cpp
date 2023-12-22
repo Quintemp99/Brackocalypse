@@ -22,12 +22,13 @@ PauseMenu::PauseMenu() : GameObject() {
 
     auto bgImageSprite = std::make_unique<SpriteComponent>();
     bgImageSprite->spritePath = "Sprites/beer_background.png";
-    bgImageSprite->spriteSize = std::make_unique<Vector2>(1049, 699);
+    bgImageSprite->spriteSize = std::make_unique<Vector2>(1048, 698);
     bgImageSprite->tileOffset = std::make_unique<Vector2>(0, 0);
+    bgImageSprite->sortingLayer = 0;
     bgImageSprite->orderInLayer = 2;
     auto &transformBgImage = this->tryGetComponent<TransformComponent>();
     transformBgImage.position = std::make_unique<Vector2>(0, 0);
-    transformBgImage.scale = std::make_unique<Vector2>(1, 1);
+    transformBgImage.scale = std::make_unique<Vector2>(1.25, 1.25);
     this->addComponent(std::move(bgImageSprite));
 
     auto centerY = ConfigSingleton::getInstance().getInitialWindowSize().getY() / 2;
@@ -50,10 +51,10 @@ PauseMenu::PauseMenu() : GameObject() {
     transformStartButton.position = std::make_unique<Vector2>(centerX - (buttonSize.getX() / 2),
                                                               centerY - (buttonSize.getY() / 2) - 160);
 
-    auto backToMenu = std::make_unique<Button>(buttonSize, "To Main Menu");
+    auto backToMenu = std::make_unique<Button>(buttonSize, "Main Menu");
     backToMenu->setFontSize(20);
-    backToMenu->setTag("ToMainMenu");
-    backToMenu->setName("ToMainMenu");
+    backToMenu->setTag("MainMenuButton");
+    backToMenu->setName("MainMenuButton");
     backToMenu->setClickEvent([]() {
         ConfigSingleton::getInstance().deltaTimeMultiplier = 1.0;
         LevelManager::getInstance().goToSpecificLevel(HOME_SCENE);

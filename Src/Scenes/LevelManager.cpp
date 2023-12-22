@@ -11,7 +11,9 @@
 #include "InterludeThreeScene.hpp"
 #include "HomeScene.hpp"
 #include "SceneType.hpp"
-#include "secondLevel.hpp"
+#include "Levels/BossLevel.hpp"
+#include "Levels/FirstLevel.hpp"
+#include "Levels/SecondLevel.hpp"
 
 LevelManager LevelManager::instance;
 
@@ -20,7 +22,7 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    if (currentSceneType < MAX_LEVELS) {
+    if (currentSceneType < END_SCENE) {
         currentSceneType = static_cast<SceneType>(currentSceneType + 1);
     } else
         currentSceneType = HOME_SCENE;
@@ -49,6 +51,9 @@ void LevelManager::goToLevel() {
             break;
         case INTERLUDE_THREE_SCENE:
             level = new InterludeThreeScene();
+            break;
+        case BOSS_LEVEL:
+            level = new BossLevel();
             break;
         case END_SCENE:
             level = new EndScene();
