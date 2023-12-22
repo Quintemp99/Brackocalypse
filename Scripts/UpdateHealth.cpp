@@ -67,7 +67,6 @@ void UpdateHealth::onUpdate(milliseconds deltaTime) {
                 continue;
             }
             sprite.spritePath = "Sprites/heart_empty.png";
-
         }
     }
 

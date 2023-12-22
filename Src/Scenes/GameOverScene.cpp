@@ -49,7 +49,7 @@ void GameOverScene::build() {
     sprite->orderInLayer = 1;
     sprite->tileOffset = std::make_unique<Vector2>(8, 4);
 
-    auto& transformBg = player->tryGetComponent<TransformComponent>();
+    auto &transformBg = player->tryGetComponent<TransformComponent>();
     transformBg.position = std::make_unique<Vector2>(0, -150);
     transformBg.scale = std::make_unique<Vector2>(1, 1);
     player->addComponent(std::move(sprite));
@@ -64,14 +64,14 @@ void GameOverScene::build() {
     textComp->color->g = 255;
     textComp->color->b = 255;
 
-    auto& transformText = gameOverText->tryGetComponent<TransformComponent>();
+    auto &transformText = gameOverText->tryGetComponent<TransformComponent>();
     transformText.position = std::make_unique<Vector2>(0, -80);
     transformText.scale = std::make_unique<Vector2>(1, 1);
     gameOverText->addComponent(std::move(textComp));
     addGameObject(std::move(gameOverText));
 
-    auto centerY = ConfigSingleton::getInstance().getWindowSize().getY() / 2;
-    auto centerX = ConfigSingleton::getInstance().getWindowSize().getX() / 2;
+    auto centerY = ConfigSingleton::getInstance().getInitialWindowSize().getY() / 2;
+    auto centerX = ConfigSingleton::getInstance().getInitialWindowSize().getX() / 2;
 
     //Back to home button
     auto homeButton = std::make_unique<Button>(Vector2(250, 70), "Back to Home");

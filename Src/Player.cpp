@@ -18,6 +18,7 @@
 #include "../Scripts/TakeDamage.hpp"
 #include "../Scripts/EnemyDamage.hpp"
 #include "Components/HitSoundComponent.hpp"
+#include "../Scripts/PlayerProgressScript.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();
@@ -36,7 +37,12 @@ void Player::init(size_t layer, Vector2 position) {
     auto sprite = std::make_unique<SpriteComponent>();
     auto &transform = tryGetComponent<TransformComponent>();
     auto walkAnimation = std::make_unique<AnimationComponent>();
-    auto health = std::make_unique<HealthComponent>(3);
+
+    auto playerProgress = SceneManager::getGameObjectByName("PlayerProgress");
+    auto &playerProgressScript = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
+
+    auto health = std::make_unique<HealthComponent>(playerProgressScript.getNumberOfLives(),
+                                                    playerProgressScript.getMaxNumberOfLives());
     auto collisionComponent = std::make_unique<BoxCollisionComponent>(Vector2(48, 40));
     auto rigidBody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
     auto playerCollision = std::make_unique<GameObject>();
