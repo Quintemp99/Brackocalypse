@@ -14,6 +14,7 @@
 #include "Components/SpriteComponent.hpp"
 #include "Scenes/LevelManager.hpp"
 #include "Scripts/PauseHandler.hpp"
+#include "Scripts/PlayerProgressScript.hpp"
 
 PauseMenu::PauseMenu() : GameObject() {
     setTag("PauseMenu");
@@ -45,7 +46,7 @@ PauseMenu::PauseMenu() : GameObject() {
     resume->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-            obj.value()->getEntityId())[0];
+                obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
     });
@@ -56,6 +57,12 @@ PauseMenu::PauseMenu() : GameObject() {
     backToMenu->setName("MainMenuButton");
     backToMenu->setClickEvent([]() {
         ConfigSingleton::getInstance().deltaTimeMultiplier = 1.0;
+        auto playerProgress = SceneManager::getGameObjectByName("PlayerProgress");
+        if (playerProgress.has_value()) {
+            auto &playerProgressScript = playerProgress.value()->tryGetBehaviourScript<PlayerProgressScript>();
+            playerProgressScript.setZombiesKilled(0);
+            playerProgressScript.setBeersCollected(0);
+        }
         LevelManager::getInstance().goToSpecificLevel(HOME_SCENE);
     });
 
@@ -66,7 +73,7 @@ PauseMenu::PauseMenu() : GameObject() {
     speed1x->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-            obj.value()->getEntityId())[0];
+                obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
         ConfigSingleton::getInstance().deltaTimeMultiplier = 1.0;
@@ -79,7 +86,7 @@ PauseMenu::PauseMenu() : GameObject() {
     speed2x->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-            obj.value()->getEntityId())[0];
+                obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
         ConfigSingleton::getInstance().deltaTimeMultiplier = 2.0;
@@ -93,7 +100,7 @@ PauseMenu::PauseMenu() : GameObject() {
     replayButton->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-            obj.value()->getEntityId())[0];
+                obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
         ReplayManager::getInstance().toggleReplay();
@@ -117,7 +124,7 @@ PauseMenu::PauseMenu() : GameObject() {
     saveButton->setClickEvent([]() {
         auto obj = SceneManager::getInstance().getGameObjectByName("PauseManager");
         auto pauseHandlerPtr = BehaviourScriptStore::getInstance().getBehaviourScripts<PauseHandler>(
-            obj.value()->getEntityId())[0];
+                obj.value()->getEntityId())[0];
 
         pauseHandlerPtr.get().togglePause();
 

@@ -22,6 +22,7 @@ void PlayerProgressScript::onUpdate(milliseconds deltaTime) {
     if (health.health <= 0) {
         setBeersCollected(0);
         setZombiesKilled(0);
+        setNumberOfLives(health.maxHealth);
         auto scene = new GameOverScene();
         scene->build();
         SceneManager::getInstance().goToNewScene(scene);
@@ -33,7 +34,7 @@ void PlayerProgressScript::onUpdate(milliseconds deltaTime) {
 
     auto &progressBarRectangle = progressBar.value().tryGetComponent<RectangleComponent>();
     auto &progressBarBackground = progressBar.value().getChildGameObjectByName(
-        "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
+            "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
 
     if (progressBarRectangle.size->getX() < newWidth) {
         progressBarRectangle.size->setX(progressBarRectangle.size->getX() + 1);
@@ -58,7 +59,7 @@ void PlayerProgressScript::addBeer() {
     if (!progressBar.has_value())
         return;
     auto &progressBarBackground = progressBar.value().getChildGameObjectByName(
-        "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
+            "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
     newWidth = progressBarBackground.size->getX() / 100 * (100 / beersNeeded * beersCollected);
     auto beerImage = progressBar.value().getChildGameObjectByName("BeerImage");
     if (!beerImage.has_value())
@@ -86,7 +87,7 @@ void PlayerProgressScript::setBeersCollected(int amount) {
     if (!progressBar.has_value())
         return;
     auto &progressBarBackground = progressBar.value().getChildGameObjectByName(
-        "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
+            "ProgressBarBackground").value()->tryGetComponent<RectangleComponent>();
     newWidth = progressBarBackground.size->getX() / 100 * (100 / beersNeeded * beersCollected);
     auto beerImage = progressBar.value().getChildGameObjectByName("BeerImage");
     if (!beerImage.has_value())

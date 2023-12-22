@@ -96,12 +96,21 @@ void HomeScene::build() {
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
     transformQuitButton.position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     addGameObject(std::move(quitButton));
+    
+    auto fullScreenToggle = SceneManager::getGameObjectByName("FullScreenToggle");
+    if (!fullScreenToggle.has_value()) {
+        auto fullScreenToggleObject = std::make_unique<GameObject>();
+        fullScreenToggleObject->setName("FullScreenToggle");
+        fullScreenToggleObject->setTag("FullScreenToggle");
+        fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
+        fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
+        addGameObject(std::move(fullScreenToggleObject));
+    }
 
-    auto fullScreenToggleObject = std::make_unique<GameObject>();
-    fullScreenToggleObject->addComponent(std::make_unique<PersistenceTag>());
-    fullScreenToggleObject->addBehaviourScript(std::make_unique<FullScreenHandler>());
-    addGameObject(std::move(fullScreenToggleObject));
+    auto playerPorgress = SceneManager::getGameObjectByName("PlayerProgress");
+    if (!playerPorgress.has_value()) {
+        auto playerProgressObject = std::make_unique<PlayerProgress>();
+        addGameObject(std::move(playerProgressObject));
+    }
 
-    auto playerProgress = std::make_unique<PlayerProgress>();
-    addGameObject(std::move(playerProgress));
 }
