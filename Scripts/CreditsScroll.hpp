@@ -23,6 +23,7 @@ public:
 private:
     int currentNewestIndex = 0;
     float speed = 0.1;
+    static const int extraSpace = 50;
 
     int getCreditHeight(GameObject& gameObject);
 };

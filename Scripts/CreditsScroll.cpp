@@ -25,7 +25,7 @@ void CreditsScroll::onUpdate(milliseconds deltaTime) {
             if(!credit->isActive())
                 credit->setActive(true);
 
-            auto spawnMin = (ConfigSingleton::getInstance().getWindowSize().getY() / 2) - (50+(body/2));
+            auto spawnMin = (ConfigSingleton::getInstance().getWindowSize().getY() / 2) - (extraSpace+(body/2));
 
             if(transform.position->getY() < spawnMin)
                 if(credits.size() - 1 > currentNewestIndex)
@@ -35,7 +35,7 @@ void CreditsScroll::onUpdate(milliseconds deltaTime) {
         if(credit->isActive()) {
             transform.position->setY(transform.position->getY() - speed);
 
-            int topScreen = -1*(ConfigSingleton::getInstance().getWindowSize().getY()/2)-(body/2);
+            int topScreen = (-1)*(ConfigSingleton::getInstance().getWindowSize().getY()/2)-(body/2);
             if(transform.position->getY() < topScreen) {
                 if(currentNewestIndex == credits.size() - 1 && credit == credits[currentNewestIndex])
                     LevelManager::getInstance().goToSpecificLevel(0);
