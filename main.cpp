@@ -38,10 +38,7 @@ int main()
     collisionManager.defineMask("Crate", {"Bullet", "Player", "Enemy", "Wall"});
     collisionManager.defineMask("Wall", {"Player", "Enemy", "Crate"});
 
-//    LevelManager::getInstance().startLoop();
-    auto le = new CreditsScene();
-    le->build();
-    SceneManager::getInstance().goToNewScene(le);
+    LevelManager::getInstance().startLoop();
 
     brackEngine.Run();
     return 0;

@@ -11,6 +11,7 @@
 #include "InterludeTwoScene.hpp"
 #include "InterludeThreeScene.hpp"
 #include "HomeScene.hpp"
+#include "CreditsScene.hpp"
 
 LevelManager LevelManager::instance;
 
@@ -48,6 +49,9 @@ void LevelManager::goToLevel() {
             break;
         case 6:
             level = new EndScene();
+            break;
+        case 7:
+            level = new CreditsScene();
             break;
         default:
             level = new HomeScene();
