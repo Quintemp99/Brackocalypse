@@ -10,7 +10,7 @@
 #include <Components/SoundEffectComponent.hpp>
 #include <EngineManagers/CollisionLayerManager.hpp>
 #include "Crate.hpp"
-#include "../Scripts/PlayBoxMovingSound.hpp"
+#include "Scripts/PlayBoxMovingSound.hpp"
 
 Crate::Crate(size_t layer, Vector2 localPosition, Vector2 size) : GameObject() {
     addComponent(std::make_unique<VelocityComponent>());

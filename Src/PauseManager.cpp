@@ -3,7 +3,7 @@
 //
 
 #include "PauseManager.hpp"
-#include "../Scripts/PauseHandler.hpp"
+#include "Scripts/PauseHandler.hpp"
 
 PauseManager::PauseManager() {
     auto pauseHandler = std::make_unique<PauseHandler>();

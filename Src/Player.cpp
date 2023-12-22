@@ -10,15 +10,15 @@
 #include <Components/BoxCollisionComponent.hpp>
 #include <EngineManagers/CollisionLayerManager.hpp>
 #include "Player.hpp"
-#include "../Scripts/UserInputMovement.hpp"
+#include "Scripts/UserInputMovement.hpp"
 #include "Gun.hpp"
 #include "Components/HealthComponent.hpp"
-#include "../Scripts/MovementAnimation.hpp"
-#include "../Scripts/UpdateHealth.hpp"
-#include "../Scripts/TakeDamage.hpp"
-#include "../Scripts/EnemyDamage.hpp"
+#include "Scripts/MovementAnimation.hpp"
+#include "Scripts/UpdateHealth.hpp"
+#include "Scripts/TakeDamage.hpp"
+#include "Scripts/EnemyDamage.hpp"
 #include "Components/HitSoundComponent.hpp"
-#include "../Scripts/PlayerProgressScript.hpp"
+#include "Scripts/PlayerProgressScript.hpp"
 
 Player::Player(GameObject *spawnLocationMapTile) {
     auto &transformComponent = spawnLocationMapTile->tryGetComponent<TransformComponent>();

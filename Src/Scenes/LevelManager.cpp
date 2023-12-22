@@ -10,6 +10,8 @@
 #include "InterludeTwoScene.hpp"
 #include "InterludeThreeScene.hpp"
 #include "HomeScene.hpp"
+#include "SceneType.hpp"
+#include "EngineManagers/ReplayManager.hpp"
 #include "Levels/BossLevel.hpp"
 #include "Levels/FirstLevel.hpp"
 #include "Levels/SecondLevel.hpp"
@@ -21,10 +23,10 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    if (currentScene >= 8)
-        currentScene = 0;
-    else
-        ++currentScene;
+    if (currentSceneType < END_SCENE) {
+        currentSceneType = static_cast<SceneType>(currentSceneType + 1);
+    } else
+        currentSceneType = HOME_SCENE;
 
     goToLevel();
 }
@@ -32,29 +34,31 @@ void LevelManager::goToNextLevel() {
 void LevelManager::goToLevel() {
     Scene *level = nullptr;
 
-    switch (currentScene) {
-        case 1:
+    ReplayManager::getInstance().stopRecording();
+
+    switch (currentSceneType) {
+        case INTRODUCTION_SCENE:
             level = new IntroductionScene();
             break;
-        case 2:
+        case FIRST_LEVEL:
             level = new FirstLevel();
             break;
-        case 3:
+        case INTERLUDE_ONE_SCENE:
             level = new InterludeOneScene();
             break;
-        case 4:
+        case SECOND_LEVEL:
             level = new SecondLevel();
             break;
-        case 5:
+        case INTERLUDE_TWO_SCENE:
             level = new InterludeTwoScene();
             break;
-        case 6:
+        case INTERLUDE_THREE_SCENE:
             level = new InterludeThreeScene();
             break;
-        case 7:
+        case BOSS_LEVEL:
             level = new BossLevel();
             break;
-        case 8:
+        case END_SCENE:
             level = new EndScene();
             break;
         default:
@@ -66,21 +70,21 @@ void LevelManager::goToLevel() {
     SceneManager::getInstance().goToNewScene(level);
 }
 
-void LevelManager::goToSpecificLevel(int level) {
-    currentScene = level;
+void LevelManager::goToSpecificLevel(SceneType type) {
+    currentSceneType = type;
     goToLevel();
 }
 
-void LevelManager::loadLevel(int level) {
-    goToSpecificLevel(level);
+void LevelManager::loadLevel(SceneType type) {
+    goToSpecificLevel(type);
     SceneManager::getInstance().setActiveScene();
 }
 
 LevelManager::LevelManager() {
-    currentScene = 0;
+    currentSceneType = HOME_SCENE;
 }
 
-void LevelManager::startLoop() {
-    currentScene = 0;
+void LevelManager::startLoop(SceneType type) {
+    currentSceneType = type;
     goToLevel();
 }

@@ -14,11 +14,11 @@
 #include <EngineManagers/CollisionLayerManager.hpp>
 #include "Enemy.hpp"
 #include "Components/HealthComponent.hpp"
-#include "../Scripts/EnemyFollowPlayer.hpp"
-#include "../Scripts/TakeDamage.hpp"
 #include "Components/HitSoundComponent.hpp"
-#include "../Scripts/MovementAnimation.hpp"
 #include "Components/CircleCollisionComponent.hpp"
+#include "Scripts/EnemyFollowPlayer.hpp"
+#include "Scripts/MovementAnimation.hpp"
+#include "Scripts/TakeDamage.hpp"
 
 Enemy::Enemy(size_t layer, int health, int speed) {
     auto &transform = tryGetComponent<TransformComponent>();

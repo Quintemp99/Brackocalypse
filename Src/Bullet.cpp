@@ -9,7 +9,8 @@
 #include <Components/BoxCollisionComponent.hpp>
 #include <EngineManagers/CollisionLayerManager.hpp>
 #include "Bullet.hpp"
-#include "../Scripts/BulletActions.hpp"
+
+#include "Scripts/BulletActions.hpp"
 
 Bullet::Bullet(size_t layer) {
     addComponent(std::make_unique<VelocityComponent>());

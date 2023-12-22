@@ -5,11 +5,12 @@
 #include "PauseHandler.hpp"
 #include "EngineManagers/InputManager.hpp"
 #include "Helpers/KeyMap.hpp"
-#include "../../Brack-Engine/src/ConfigSingleton.hpp"
+#include <ConfigSingleton.hpp>
 #include "Objects/Button.hpp"
 #include "EngineManagers/SceneManager.hpp"
 
-void PauseHandler::onStart() {}
+void PauseHandler::onStart() {
+}
 
 void PauseHandler::togglePause() {
     auto gameParent = getGameObjectByName("GameParent");
