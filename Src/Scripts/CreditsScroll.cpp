@@ -4,8 +4,8 @@
 
 #include "CreditsScroll.hpp"
 #include "Components/TransformComponent.hpp"
-#include "../../Brack-Engine/src/ConfigSingleton.hpp"
-#include "../Src/Scenes/LevelManager.hpp"
+#include <ConfigSingleton.hpp>
+#include "../Scenes/LevelManager.hpp"
 #include "Components/SpriteComponent.hpp"
 #include "Components/TextComponent.hpp"
 
@@ -38,7 +38,7 @@ void CreditsScroll::onUpdate(milliseconds deltaTime) {
             int topScreen = (-1)*(ConfigSingleton::getInstance().getWindowSize().getY()/2)-(body/2);
             if(transform.position->getY() < topScreen) {
                 if(currentNewestIndex == credits.size() - 1 && credit == credits[currentNewestIndex])
-                    LevelManager::getInstance().goToSpecificLevel(0);
+                    LevelManager::getInstance().goToSpecificLevel(HOME_SCENE);
                 else
                     credit->setActive(false);
             }

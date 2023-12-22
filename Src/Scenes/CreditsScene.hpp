@@ -7,7 +7,7 @@
 
 #include <Objects/Scene.hpp>
 #include "Components/TextComponent.hpp"
-#include "../../Scripts/CreditsScroll.hpp"
+#include "../Scripts/CreditsScroll.hpp"
 
 class CreditsScene : public Scene {
 public:

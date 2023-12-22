@@ -24,7 +24,7 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    if (currentSceneType < END_SCENE) {
+    if (currentSceneType < CREDIT_SCENE) {
         currentSceneType = static_cast<SceneType>(currentSceneType + 1);
     } else
         currentSceneType = HOME_SCENE;
@@ -62,7 +62,7 @@ void LevelManager::goToLevel() {
         case END_SCENE:
             level = new EndScene();
             break;
-        case 7:
+        case CREDIT_SCENE:
             level = new CreditsScene();
             break;
         default:

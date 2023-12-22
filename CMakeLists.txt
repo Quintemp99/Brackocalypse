@@ -110,10 +110,8 @@ add_executable(Brackocalypse main.cpp
         Src/Helpers/RogueLikeSheetIndoorType.hpp
         Src/PlayerProgress.cpp
         Src/EnemyKillHud.cpp
-        Scripts/ToggleFPS.hpp
-        Scripts/ToggleFPS.cpp
-        Scripts/FullScreenHandler.cpp
-        Scripts/CreditsScroll.cpp
+        Src/Scripts/FullScreenHandler.cpp
+        Src/Scripts/CreditsScroll.cpp
         Src/Scenes/CreditsScene.cpp
 )
 

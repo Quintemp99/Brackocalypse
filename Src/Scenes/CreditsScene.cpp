@@ -3,7 +3,7 @@
 //
 
 #include "CreditsScene.hpp"
-#include "../../../Brack-Engine/src/ConfigSingleton.hpp"
+#include <ConfigSingleton.hpp>
 #include "Components/SoundTrackComponent.hpp"
 #include "Components/SpriteComponent.hpp"
 
