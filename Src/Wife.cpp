@@ -79,7 +79,7 @@ Wife::Wife(size_t layer, int health) {
 
     enemyCollisionObject->addComponent(std::move(enemyRigidbody));
     enemyCollisionObject->addComponent(std::move(enemyCollision));
-    enemyCollisionObject->setTag("EnemyCollision");
+    enemyCollisionObject->setTag("WifeCollision");
 
     addChild(std::move(enemyCollisionObject));
 
