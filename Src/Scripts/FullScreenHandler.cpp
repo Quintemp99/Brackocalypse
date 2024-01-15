@@ -11,6 +11,6 @@ void FullScreenHandler::onStart() {
 }
 
 void FullScreenHandler::onUpdate(milliseconds deltaTime) {
-    if (InputManager::GetInstance().IsKeyClicked(F11))
+    if (InputManager::getInstance().IsKeyClicked(F11))
         ConfigSingleton::getInstance().toggleFullScreen();
 }

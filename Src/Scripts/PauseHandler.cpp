@@ -35,6 +35,6 @@ void PauseHandler::togglePause() {
 }
 
 void PauseHandler::onUpdate(milliseconds deltaTime) {
-    if (InputManager::GetInstance().IsKeyClicked(ESCAPE))
+    if (InputManager::getInstance().IsKeyClicked(ESCAPE))
         togglePause();
 }

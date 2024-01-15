@@ -12,7 +12,7 @@
 #include "../Scenes/LevelManager.hpp"
 
 void WriteTextAnimation::onUpdate(milliseconds deltaTime) {
-    if (InputManager::GetInstance().IsKeyClicked(KeyMap::RETURN)) {
+    if (InputManager::getInstance().IsKeyClicked(KeyMap::RETURN)) {
         LevelManager::getInstance().goToNextLevel();
     }
 

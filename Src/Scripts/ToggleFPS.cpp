@@ -12,7 +12,7 @@ void ToggleFPS::onStart() {
 }
 
 void ToggleFPS::onUpdate(float deltaTime) {
-    if (InputManager::GetInstance().IsKeyClicked(KeyMap::f)) {
+    if (InputManager::getInstance().IsKeyClicked(KeyMap::f)) {
         SceneManager::getInstance().toggleFPS();
     }
 }

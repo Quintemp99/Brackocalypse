@@ -18,7 +18,7 @@ void GunShooting::onStart() {
 
 void GunShooting::onUpdate(milliseconds deltaTime) {
     auto &animationComponent = tryGetComponent<AnimationComponent>();
-    if (InputManager::GetInstance().IsMousePressed(LEFT_MOUSE)) {
+    if (InputManager::getInstance().IsMousePressed(LEFT_MOUSE)) {
         auto player = getGameObjectByTag("Player");
         auto playerCollision = getGameObjectByTag("PlayerCollision");
         if (!animationComponent.isPlaying) {

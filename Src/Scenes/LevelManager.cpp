@@ -15,6 +15,7 @@
 #include "Levels/BossLevel.hpp"
 #include "Levels/FirstLevel.hpp"
 #include "Levels/SecondLevel.hpp"
+#include <EngineManagers/InputManager.hpp>
 
 LevelManager LevelManager::instance;
 
@@ -35,6 +36,7 @@ void LevelManager::goToLevel() {
     Scene *level = nullptr;
 
     ReplayManager::getInstance().stopRecording();
+    InputManager::getInstance().clearInputs();
 
     switch (currentSceneType) {
         case INTRODUCTION_SCENE:
@@ -57,7 +59,6 @@ void LevelManager::goToLevel() {
             break;
         case END_SCENE:
             level = new EndScene();
-            break;
             break;
         default:
             level = new HomeScene();

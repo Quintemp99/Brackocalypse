@@ -26,14 +26,14 @@ void UserInputMovement::onUpdate(milliseconds deltaTime) {
 
 //    auto &soundEffect = tryGetComponent<SoundEffectComponent>();
 
-    int left = static_cast<int>(InputManager::GetInstance().IsKeyPressed(KeyMap::a) ||
-                                InputManager::GetInstance().IsKeyPressed(KeyMap::LEFT));
-    int right = static_cast<int>(InputManager::GetInstance().IsKeyPressed(KeyMap::d) ||
-                                 InputManager::GetInstance().IsKeyPressed(KeyMap::RIGHT));
-    int up = static_cast<int>(InputManager::GetInstance().IsKeyPressed(KeyMap::w) ||
-                              InputManager::GetInstance().IsKeyPressed(KeyMap::UP));
-    int down = static_cast<int>(InputManager::GetInstance().IsKeyPressed(KeyMap::s) ||
-                                InputManager::GetInstance().IsKeyPressed(KeyMap::DOWN));
+    int left = static_cast<int>(InputManager::getInstance().IsKeyPressed(KeyMap::a) ||
+                                InputManager::getInstance().IsKeyPressed(KeyMap::LEFT));
+    int right = static_cast<int>(InputManager::getInstance().IsKeyPressed(KeyMap::d) ||
+                                 InputManager::getInstance().IsKeyPressed(KeyMap::RIGHT));
+    int up = static_cast<int>(InputManager::getInstance().IsKeyPressed(KeyMap::w) ||
+                              InputManager::getInstance().IsKeyPressed(KeyMap::UP));
+    int down = static_cast<int>(InputManager::getInstance().IsKeyPressed(KeyMap::s) ||
+                                InputManager::getInstance().IsKeyPressed(KeyMap::DOWN));
 
 
     auto horizontalMovement = right - left;
