@@ -32,7 +32,7 @@ void BossLevel::build() {
     camera->addBehaviourScript(FollowGameObject("Player"));
     camera->tryGetComponent<TransformComponent>().position = std::make_unique<Vector2>(-1200, -100);
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/Fuck_me.mp3");
-    backgroundSound->volume = 0.02;
+    backgroundSound->volume = 0.2;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
 
@@ -281,7 +281,7 @@ void BossLevel::build() {
     parent->setName("GameParent");
 
     auto zombieWanderSound = std::make_unique<WanderSoundComponent>("Sounds/zombie-sound.mp3");
-    zombieWanderSound->volume = 0.01;
+    zombieWanderSound->volume = 0.1;
 
     auto enemySpawner = std::make_unique<GameObject>();
     enemySpawner->addBehaviourScript(EnemySpawn(4000));

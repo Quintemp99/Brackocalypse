@@ -37,7 +37,7 @@ Enemy::Enemy(size_t layer, int health, int speed) {
     auto enemyCollision = std::make_unique<BoxCollisionComponent>(Vector2(64, 96));
     auto enemyRigidbody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
 
-    zombieHitSound->volume = 0.01;
+    zombieHitSound->volume = 0.1;
 
     rigidBody->gravityScale = 0.0f;
     rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Enemy");

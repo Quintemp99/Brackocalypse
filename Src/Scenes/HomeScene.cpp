@@ -28,7 +28,7 @@ void HomeScene::build() {
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(99, 197, 207, 255));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/atje.mp3");
-    backgroundSound->volume = 0.02;
+    backgroundSound->volume = 0.2;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
     auto windowSize = ConfigSingleton::getInstance().getWindowSize();
@@ -96,7 +96,7 @@ void HomeScene::build() {
     auto &transformQuitButton = quitButton->tryGetComponent<TransformComponent>();
     transformQuitButton.position = std::make_unique<Vector2>(150 + centerX - 105, centerY + 50);
     addGameObject(std::move(quitButton));
-    
+
     auto fullScreenToggle = SceneManager::getGameObjectByName("FullScreenToggle");
     if (!fullScreenToggle.has_value()) {
         auto fullScreenToggleObject = std::make_unique<GameObject>();

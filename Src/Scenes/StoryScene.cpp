@@ -19,7 +19,7 @@ void StoryScene::build() {
     camera->SetBackgroundColor(Color(0, 0, 0, 255));
     camera->addBehaviourScript(WriteTextAnimation(lines_));
     auto soundComponent = std::make_unique<SoundEffectComponent>("Sounds/type-sound1.mp3");
-    soundComponent->volume = 0.01;
+    soundComponent->volume = 0.1;
     camera->addComponent(std::move(soundComponent));
 
     Vector2 startText = Vector2(50, 50);

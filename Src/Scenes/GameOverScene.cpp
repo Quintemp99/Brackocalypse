@@ -25,7 +25,7 @@ void GameOverScene::build() {
     camera->addComponent(VelocityComponent());
     camera->SetBackgroundColor(Color(255, 255, 0, 255));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/game_over.mp3");
-    backgroundSound->volume = 0.02;
+    backgroundSound->volume = 0.2;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
 
@@ -41,7 +41,7 @@ void GameOverScene::build() {
     auto &transformBgImage = bgImage->tryGetComponent<TransformComponent>();
     transformBgImage.scale = std::make_unique<Vector2>(1.25, 1.25);
     transformBgImage.position = std::make_unique<Vector2>(
-        center - *bgImageSprite->spriteSize * *transformBgImage.scale / 2);
+            center - *bgImageSprite->spriteSize * *transformBgImage.scale / 2);
     bgImage->addComponent(std::move(bgImageSprite));
     addGameObject(std::move(bgImage));
 
@@ -57,7 +57,7 @@ void GameOverScene::build() {
     auto &transformBg = player->tryGetComponent<TransformComponent>();
     transformBg.scale = std::make_unique<Vector2>(1.25, 1.25);
     transformBg.position = std::make_unique<Vector2>(
-        center + Vector2(0, -150) - *sprite->spriteSize * *transformBg.scale / 2);
+            center + Vector2(0, -150) - *sprite->spriteSize * *transformBg.scale / 2);
     player->addComponent(std::move(sprite));
     addGameObject(std::move(player));
 
