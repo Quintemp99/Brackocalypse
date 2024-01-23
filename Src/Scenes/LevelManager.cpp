@@ -15,7 +15,7 @@
 #include "Levels/BossLevel.hpp"
 #include "Levels/FirstLevel.hpp"
 #include "Levels/SecondLevel.hpp"
-#include "CreditsScene.hpp"
+#include <EngineManagers/InputManager.hpp>
 
 LevelManager LevelManager::instance;
 
@@ -24,7 +24,7 @@ LevelManager &LevelManager::getInstance() {
 }
 
 void LevelManager::goToNextLevel() {
-    if (currentSceneType < CREDIT_SCENE) {
+    if (currentSceneType < END_SCENE) {
         currentSceneType = static_cast<SceneType>(currentSceneType + 1);
     } else
         currentSceneType = HOME_SCENE;
@@ -36,6 +36,7 @@ void LevelManager::goToLevel() {
     Scene *level = nullptr;
 
     ReplayManager::getInstance().stopRecording();
+    InputManager::getInstance().clearInputs();
 
     switch (currentSceneType) {
         case INTRODUCTION_SCENE:
@@ -58,9 +59,6 @@ void LevelManager::goToLevel() {
             break;
         case END_SCENE:
             level = new EndScene();
-            break;
-        case CREDIT_SCENE:
-            level = new CreditsScene();
             break;
         default:
             level = new HomeScene();

@@ -41,7 +41,7 @@ public:
         addComponent(std::move(rigidBody));
 
         auto collectBeerSound = std::make_unique<SoundEffectComponent>("Sounds/drink-sound.mp3");
-        collectBeerSound->volume = 0.01;
+        collectBeerSound->volume = 0.1;
 
         addComponent(std::move(collectBeerSound));
 

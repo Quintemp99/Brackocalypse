@@ -73,7 +73,7 @@ void Player::init(size_t layer, Vector2 position) {
     rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Player");
     rigidBody->collisionMask = CollisionLayerManager::getInstance().getMask("Player");
 
-    hitSound->volume = 0.01;
+    hitSound->volume = 0.1;
 
     addComponent(std::make_unique<VelocityComponent>());
     addComponent(std::move(collisionComponent));

@@ -11,7 +11,7 @@ void GunFollowMouse::onStart() {
 }
 
 void GunFollowMouse::onUpdate(float deltaTime) {
-    auto position = InputManager::GetInstance().getWorldMousePosition();
+    auto position = InputManager::getInstance().getWorldMousePosition();
     auto &transformComponent = tryGetComponent<TransformComponent>();
 
     auto &parentTransformComponent = getParent().value().tryGetComponent<TransformComponent>();

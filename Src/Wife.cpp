@@ -41,9 +41,9 @@ Wife::Wife(size_t layer, int health) {
     auto enemyCollision = std::make_unique<BoxCollisionComponent>(Vector2(60, 100));
     auto enemyRigidbody = std::make_unique<RigidBodyComponent>(CollisionType::DYNAMIC);
 
-    wifeHitSound->volume = 0.06;
+    wifeHitSound->volume = 0.6;
 
-    wifeWanderSound->volume = 0.08;
+    wifeWanderSound->volume = 0.8;
 
     rigidBody->gravityScale = 0.0f;
     rigidBody->collisionCategory = CollisionLayerManager::getInstance().getCategory("Enemy");
@@ -79,7 +79,7 @@ Wife::Wife(size_t layer, int health) {
 
     enemyCollisionObject->addComponent(std::move(enemyRigidbody));
     enemyCollisionObject->addComponent(std::move(enemyCollision));
-    enemyCollisionObject->setTag("EnemyCollision");
+    enemyCollisionObject->setTag("WifeCollision");
 
     addChild(std::move(enemyCollisionObject));
 

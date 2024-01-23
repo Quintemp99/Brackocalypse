@@ -25,6 +25,9 @@ public:
     BulletActions(const BulletActions &other) : BehaviourScript(other) {
         lifeTime = other.lifeTime;
         timer = other.timer;
+        wifeTimer = other.wifeTimer;
+        wifeTime = other.wifeTime;
+        canHitWife = other.canHitWife;
     }
 
     void setInactive();
@@ -32,6 +35,9 @@ public:
 private:
     milliseconds lifeTime;
     milliseconds timer = 0.0f;
+    milliseconds wifeTimer = 0.0f;
+    milliseconds wifeTime = 2000.0f;
+    bool canHitWife = true;
 };
 
 

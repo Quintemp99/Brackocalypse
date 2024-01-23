@@ -3,7 +3,6 @@
 #include <ConfigSingleton.hpp>
 #include "EngineManagers/CollisionLayerManager.hpp"
 #include "Src/Scenes/LevelManager.hpp"
-#include "Src/Scenes/CreditsScene.hpp"
 
 int main() {
     Config config = new Config();

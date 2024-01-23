@@ -29,7 +29,7 @@ void SecondLevel::build() {
     camera->SetBackgroundColor(Color(99, 197, 207, 255));
     camera->addBehaviourScript(FollowGameObject("Player"));
     auto backgroundSound = std::make_unique<SoundTrackComponent>("Sounds/background.mp3");
-    backgroundSound->volume = 0.02;
+    backgroundSound->volume = 0.2;
     backgroundSound->startPlaying = true;
     camera->addComponent(std::move(backgroundSound));
 
@@ -183,7 +183,7 @@ void SecondLevel::build() {
     parent->setName("GameParent");
 
     auto zombieWanderSound = std::make_unique<WanderSoundComponent>("Sounds/zombie-sound.mp3");
-    zombieWanderSound->volume = 0.01;
+    zombieWanderSound->volume = 0.1;
 
     auto enemySpawner = std::make_unique<GameObject>();
     enemySpawner->addBehaviourScript(EnemySpawn(4000));

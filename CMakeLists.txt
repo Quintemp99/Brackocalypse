@@ -112,7 +112,6 @@ add_executable(Brackocalypse main.cpp
         Src/EnemyKillHud.cpp
         Src/Scripts/FullScreenHandler.cpp
         Src/Scripts/CreditsScroll.cpp
-        Src/Scenes/CreditsScene.cpp
 )
 
 target_link_libraries(Brackocalypse PRIVATE Brack_Engine)
